@@ -15,7 +15,8 @@ import dotenv
 
 from novel_agent.memory.memory_manager import MemoryManager
 from novel_agent.memory.builtin_provider import BuiltinProvider
-from novel_agent.memory.recall import find_relevant_memories
+from novel_agent.state.truth_files import TruthFileManager
+from novel_agent.state.hook_ledger import HookLedger
 from novel_agent.utils.constants import (
     DEFAULT_WRITER_MODEL,
     DEFAULT_CHAPTER_WORDS,
@@ -67,6 +68,9 @@ class AIAgent:
         # Initialize memory system
         self._init_memory()
 
+        # Initialize state system
+        self._init_state()
+
         # Conversation history
         self.conversation_history: list[dict[str, Any]] = []
 
@@ -83,6 +87,17 @@ class AIAgent:
         set_provider(builtin)
 
         logger.info("Memory system initialized: %s", self.memory_dir)
+
+    def _init_state(self) -> None:
+        """Initialize the state management subsystem."""
+        self.truth_files = TruthFileManager(self.state_dir)
+        self.hook_ledger = HookLedger(self.state_dir)
+
+        # Wire hook tool to registry
+        from novel_agent.tools.hook_tool import set_hook_ledger
+        set_hook_ledger(self.hook_ledger)
+
+        logger.info("State system initialized: %s", self.state_dir)
 
     @staticmethod
     def _resolve_api_key() -> str:
