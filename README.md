@@ -115,3 +115,7 @@ NOVEL_AGENT_COMPRESS_THRESHOLD=0.70                      # Compression trigger r
 - **hermes-agent** — MemoryProvider ABC, ContextCompressor, ToolRegistry
 - **autonovel** — CRAFT.md education, ANTI-SLOP detection, layer propagation rules
 - **inkos** — Hook-Ledger, JSON truth files, two-phase chapter writing
+
+## License
+
+Apache 2.0 — 允许商用、修改、分发，保留版权声明即可。
