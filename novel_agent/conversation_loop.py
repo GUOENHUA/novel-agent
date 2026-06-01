@@ -29,16 +29,22 @@ import novel_agent.tools.skill_tool  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
-console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
+import re
+
+console = Console(highlight=False)
 
 
-def safe_print(text: str) -> None:
-    """Print text, replacing characters that can't be encoded on Windows GBK terminals."""
+def _strip_rich(text: str) -> str:
+    """Remove Rich markup tags for plain print()."""
+    return re.sub(r"\[/?\w+(\s+[^\]]+)?\]", "", text)
+
+
+def sprint(text: str = "") -> None:
+    """Print text safely, stripping Rich tags on encoding errors."""
     try:
-        console.print(text)
+        print(text)
     except UnicodeEncodeError:
-        safe = text.encode('ascii', errors='replace').decode('ascii')
-        print(safe)
+        print(text.encode("ascii", errors="replace").decode("ascii"))
 
 
 class ConversationLoop:
@@ -54,23 +60,23 @@ class ConversationLoop:
         existing = list(self.agent.chapters_dir.glob("ch_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
-        safe_print("")
-        safe_print(
-            f"  [bold cyan]novel-agent[/bold cyan]  "
+        sprint("")
+        print(
+            f"  novel-agent  "
             f"[dim]{self.agent.project_dir.name}[/dim]  "
             f"[dim]{self.agent.model}[/dim]"
         )
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
-            safe_print(
+            print(
                 f"  [green]{len(existing)}/{self.agent.total_chapters}[/green] chapters  "
                 f"[green]{total_written:,}[/green] words  "
                 f"[dim]latest: {last_ch}[/dim]"
             )
         else:
-            safe_print(f"  [dim]no chapters yet — ready[/dim]")
-        safe_print(f"  [dim]/help /status /cost /quit[/dim]")
-        safe_print("")
+            sprint(f"  [dim]no chapters yet — ready[/dim]")
+        sprint(f"  [dim]/help /status /cost /quit[/dim]")
+        sprint("")
 
     def _make_prompt(self) -> str:
         """Build a dynamic prompt showing current chapter."""
@@ -84,7 +90,7 @@ class ConversationLoop:
                 prompt = self._make_prompt()
                 user_input = input(prompt).strip()
             except (EOFError, KeyboardInterrupt):
-                safe_print("\nGoodbye!")
+                sprint("\nGoodbye!")
                 break
 
             if not user_input:
@@ -115,7 +121,7 @@ class ConversationLoop:
 
         tools = registry.get_definitions()
 
-        safe_print("")  # spacing
+        sprint("")  # spacing
 
         assistant_content = ""
         try:
@@ -148,7 +154,7 @@ class ConversationLoop:
                     if block.type == "tool_use":
                         tool_name = block.name
                         tool_input = block.input if isinstance(block.input, dict) else {}
-                        safe_print(
+                        print(
                             f"  [dim][{tool_name}][/dim] "
                             f"{json.dumps(tool_input, ensure_ascii=False)[:100]}"
                         )
@@ -190,19 +196,19 @@ class ConversationLoop:
                 content_to_save = self._confirm_chapter(assistant_content, chapter_written)
                 if content_to_save is None:
                     # User chose "no" — discard, don't save to history
-                    safe_print("  [yellow]Chapter discarded.[/yellow]\n")
+                    sprint("  [yellow]Chapter discarded.[/yellow]\n")
                     return  # Skip history update, user retries next turn
                 elif content_to_save != assistant_content:
                     # User edited — update and save
                     assistant_content = content_to_save
-                    safe_print("\n  [green]Edited version saved.[/green]\n")
+                    sprint("\n  [green]Edited version saved.[/green]\n")
 
             if assistant_content:
-                safe_print(assistant_content)
-                safe_print("")
+                print(assistant_content)
+                sprint("")
 
             # --- Token summary ---
-            safe_print(
+            print(
                 f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk "
                 f"| total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n"
             )
@@ -220,7 +226,7 @@ class ConversationLoop:
 
         except Exception as e:
             logger.exception("Turn processing failed")
-            safe_print(f"  [red][ERROR][/red] {e}\n")
+            sprint(f"  [red][ERROR][/red] {e}\n")
 
     def _handle_command(self, cmd: str) -> bool:
         """Handle slash commands. Returns True to continue, False to quit."""
@@ -228,10 +234,10 @@ class ConversationLoop:
         command = parts[0].lower()
 
         if command in ("/quit", "/exit"):
-            safe_print("  [dim]bye[/dim]")
+            sprint("  [dim]bye[/dim]")
             return False
         elif command == "/help":
-            safe_print("""
+            sprint("""
   [bold]Commands[/bold]
     [cyan]/help[/cyan]         Show this
     [cyan]/auto N[/cyan]       Auto-generate N chapters
@@ -250,24 +256,24 @@ class ConversationLoop:
                 count = int(parts[1]) if len(parts) > 1 else 1
             except ValueError:
                 count = 1
-            safe_print(f"  Switching to auto mode, generating {count} chapters...")
+            sprint(f"  Switching to auto mode, generating {count} chapters...")
             from novel_agent.auto_pipeline import AutoPipeline
             pipeline = AutoPipeline(self.agent)
             pipeline.run(start_chapter=self._next_chapter(), count=count)
         elif command == "/status":
             chapters = list(self.agent.chapters_dir.glob("ch_*.md"))
             total_w = sum(len(p.read_text(encoding="utf-8")) for p in chapters)
-            safe_print(f"  Project: {self.agent.project_dir.name}")
-            safe_print(f"  Model: {self.agent.model}")
-            safe_print(f"  Chapters: {len(chapters)}/{self.agent.total_chapters} | {total_w:,} words")
+            sprint(f"  Project: {self.agent.project_dir.name}")
+            sprint(f"  Model: {self.agent.model}")
+            sprint(f"  Chapters: {len(chapters)}/{self.agent.total_chapters} | {total_w:,} words")
         elif command == "/cost":
-            safe_print(
+            print(
                 f"  Input: {self.total_input_tokens:,} tokens | "
                 f"Output: {self.total_output_tokens:,} tokens | "
                 f"Total: {self.total_input_tokens + self.total_output_tokens:,} tokens"
             )
         else:
-            safe_print(f"  Unknown command: {command}")
+            sprint(f"  Unknown command: {command}")
 
         return True
 
@@ -303,9 +309,9 @@ class ConversationLoop:
 
     def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
         """Ask user to confirm/edit/retry chapter. Returns content to save, or None to discard."""
-        safe_print(f"\n  [bold]Chapter {chapter_num} draft ready.[/bold]")
-        safe_print(f"  [dim]{len(content)} chars[/dim]")
-        safe_print(f"  [Y]es save  [E]dit  [N]o discard")
+        sprint(f"\n  [bold]Chapter {chapter_num} draft ready.[/bold]")
+        sprint(f"  [dim]{len(content)} chars[/dim]")
+        sprint(f"  [Y]es save  [E]dit  [N]o discard")
 
         choice = input("  > ").strip().lower()
 
@@ -313,11 +319,11 @@ class ConversationLoop:
             # Save to chapters
             chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
             chapter_path.write_text(content, encoding="utf-8")
-            safe_print(f"  [green]Saved to {chapter_path}[/green]")
+            sprint(f"  [green]Saved to {chapter_path}[/green]")
             return content
 
         elif choice in ("e", "edit"):
-            safe_print("  Enter edit instructions (or paste replacement text):")
+            sprint("  Enter edit instructions (or paste replacement text):")
             edit_input = input("  edit> ").strip()
             if edit_input:
                 if len(edit_input) > 200:
@@ -331,14 +337,14 @@ class ConversationLoop:
                         f"CHAPTER:\n{content}\n\n"
                         f"Return the FULL edited chapter. Do not explain — just output the edited text."
                     )
-                    safe_print("  [yellow]Applying edits...[/yellow]")
+                    sprint("  [yellow]Applying edits...[/yellow]")
                     resp = self.agent.call_llm(
                         messages=[{"role": "user", "content": edit_msg}],
                         max_tokens=len(content) * 2,
                         temperature=0.5,
                     )
                     edited = self.agent.extract_text(resp.content)
-                    safe_print(f"  [green]Edit applied ({len(edited)} chars)[/green]")
+                    sprint(f"  [green]Edit applied ({len(edited)} chars)[/green]")
                     # Recurse to confirm the edit
                     return self._confirm_chapter(edited, chapter_num)
             return content  # Keep original if no input
@@ -347,7 +353,7 @@ class ConversationLoop:
             return None
 
         else:
-            safe_print("  [dim]Unknown choice, saving by default[/dim]")
+            sprint("  [dim]Unknown choice, saving by default[/dim]")
             return content
 
     def _next_chapter(self) -> int:
