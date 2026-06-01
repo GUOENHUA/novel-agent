@@ -60,17 +60,19 @@ class ConversationLoop:
             self._process_turn(user_input)
 
     def _process_turn(self, user_message: str) -> None:
-        """Process one turn: user message → memory prefetch → agent → tools → response → memory sync."""
-        # Prefetch relevant memories
-        memories = self.agent.prefetch_memories(user_message)
-        context_prefix = ""
-        if memories:
-            for m in memories:
-                if m.get("content"):
-                    context_prefix += f"\n[Relevant memories: {m['source']}]\n{m['content']}\n"
+        """Process one turn: build novel context → agent → tools → response → memory sync."""
+        # Build dynamic novel context (progress, previous chapter, characters, hooks, etc.)
+        novel_context = self.agent.build_novel_context(user_message)
+
+        # Prepend novel context as a system note before the user message
+        augmented_message = (
+            f"{novel_context}\n\n"
+            f"---\n\n"
+            f"以上是你的小说当前状态快照。请基于这个上下文处理用户的指令。"
+        )
 
         messages = self.agent.conversation_history + [
-            {"role": "user", "content": context_prefix + user_message if context_prefix else user_message}
+            {"role": "user", "content": augmented_message}
         ]
 
         tools = registry.get_definitions()
