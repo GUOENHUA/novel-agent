@@ -55,7 +55,24 @@ class ConversationLoop:
         safe_print(f"\n[bold]novel-agent[/bold] (project: {self.agent.project_dir.name})")
         safe_print(f"   model: {self.agent.model}")
         safe_print(f"   target: {self.agent.total_chapters} chapters, ~{self.agent.total_words:,} words")
+
+        # Show current novel state
+        self._show_novel_state()
+
         safe_print(f"   type /help for help, /quit to exit\n")
+
+    def _show_novel_state(self) -> None:
+        """Print a brief novel state summary on startup."""
+        state = self.agent.truth_files.load_state()
+        existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+        total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
+
+        if existing:
+            chapters_list = sorted(p.stem for p in existing)
+            last_ch = chapters_list[-1] if chapters_list else "?"
+            safe_print(f"   [bold]progress:[/bold] {len(existing)}/{self.agent.total_chapters} chapters | {total_written:,} words | latest: {last_ch}")
+        else:
+            safe_print(f"   [bold]progress:[/bold] no chapters yet — ready to start")
 
         while True:
             try:
