@@ -50,6 +50,7 @@ class ConversationLoop:
         self.agent = agent
         self.total_input_tokens = 0
         self.total_output_tokens = 0
+        self._last_user_message = ""
 
     def run(self) -> None:
         """Enter the interactive REPL loop."""
@@ -78,6 +79,7 @@ class ConversationLoop:
 
     def _process_turn(self, user_message: str) -> None:
         """Process one turn: build novel context → agent → tools → response → memory sync."""
+        self._last_user_message = user_message
         novel_context = self.agent.build_novel_context(user_message)
 
         augmented_message = (
@@ -161,6 +163,20 @@ class ConversationLoop:
 
             # --- Display response ---
             assistant_content = self.agent.extract_text(response.content)
+
+            # Check if this turn involved chapter writing → ask for confirmation
+            chapter_written = self._detect_chapter_write(response, messages)
+            if chapter_written and assistant_content:
+                content_to_save = self._confirm_chapter(assistant_content, chapter_written)
+                if content_to_save is None:
+                    # User chose "no" — discard, don't save to history
+                    safe_print("  [yellow]Chapter discarded.[/yellow]\n")
+                    return  # Skip history update, user retries next turn
+                elif content_to_save != assistant_content:
+                    # User edited — update and save
+                    assistant_content = content_to_save
+                    safe_print("\n  [green]Edited version saved.[/green]\n")
+
             if assistant_content:
                 safe_print(assistant_content)
                 safe_print("")
@@ -235,6 +251,73 @@ class ConversationLoop:
             safe_print(f"  Unknown command: {command}")
 
         return True
+
+    def _detect_chapter_write(self, response, messages: list) -> int | None:
+        """Check if user asked to write a chapter and response is substantial prose."""
+        user_msg = self._last_user_message.lower()
+        write_keywords = ["写第", "写一章", "写下一章", "生成第", "续写", "写第"]
+        is_write_request = any(kw in user_msg for kw in write_keywords)
+
+        if not is_write_request:
+            return None
+
+        text = self.agent.extract_text(response.content)
+        # Chapter prose typically has paragraphs, quotes, and is >300 chars
+        if text and len(text) > 300 and ("\n\n" in text or "。" in text):
+            state = self.agent.truth_files.load_state()
+            existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+            return state.current_chapter or (len(existing) + 1)
+
+        return None
+
+    def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
+        """Ask user to confirm/edit/retry chapter. Returns content to save, or None to discard."""
+        safe_print(f"\n  [bold]Chapter {chapter_num} draft ready.[/bold]")
+        safe_print(f"  [dim]{len(content)} chars[/dim]")
+        safe_print(f"  [Y]es save  [E]dit  [N]o discard")
+
+        choice = input("  > ").strip().lower()
+
+        if choice in ("y", "yes", ""):
+            # Save to chapters
+            chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
+            chapter_path.write_text(content, encoding="utf-8")
+            safe_print(f"  [green]Saved to {chapter_path}[/green]")
+            return content
+
+        elif choice in ("e", "edit"):
+            safe_print("  Enter edit instructions (or paste replacement text):")
+            edit_input = input("  edit> ").strip()
+            if edit_input:
+                if len(edit_input) > 200:
+                    # Assume it's replacement text
+                    return edit_input
+                else:
+                    # Assume it's edit instructions → re-call LLM
+                    edit_msg = (
+                        f"Here is the current chapter {chapter_num} draft. "
+                        f"Apply this edit instruction to it: {edit_input}\n\n"
+                        f"CHAPTER:\n{content}\n\n"
+                        f"Return the FULL edited chapter. Do not explain — just output the edited text."
+                    )
+                    safe_print("  [yellow]Applying edits...[/yellow]")
+                    resp = self.agent.call_llm(
+                        messages=[{"role": "user", "content": edit_msg}],
+                        max_tokens=len(content) * 2,
+                        temperature=0.5,
+                    )
+                    edited = self.agent.extract_text(resp.content)
+                    safe_print(f"  [green]Edit applied ({len(edited)} chars)[/green]")
+                    # Recurse to confirm the edit
+                    return self._confirm_chapter(edited, chapter_num)
+            return content  # Keep original if no input
+
+        elif choice in ("n", "no"):
+            return None
+
+        else:
+            safe_print("  [dim]Unknown choice, saving by default[/dim]")
+            return content
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
