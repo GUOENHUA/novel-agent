@@ -289,45 +289,51 @@ class ConversationLoop:
 
     def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
         """Ask user to confirm/edit/retry chapter. Returns content to save, or None to discard."""
+        # Clean conversational preamble — keep only the chapter body
+        cleaned = self._clean_chapter_content(content)
+
         safe_print(f"\n  [bold]Chapter {chapter_num} draft ready.[/bold]")
-        safe_print(f"  [dim]{len(content)} chars[/dim]")
+        safe_print(f"  [dim]{len(cleaned)} chars (cleaned)[/dim]")
         safe_print(f"  [Y]es save  [E]dit  [N]o discard")
 
         choice = input("  > ").strip().lower()
 
         if choice in ("y", "yes", ""):
-            # Save to chapters
+            title = input("  Chapter title: ").strip()
+            if not title:
+                title = f"第{chapter_num}章"
+
+            # Build final content with title heading
+            final = f"# 第{chapter_num}章: {title}\n\n{cleaned}"
+
             chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
-            chapter_path.write_text(content, encoding="utf-8")
-            safe_print(f"  [green]Saved to {chapter_path}[/green]")
-            return content
+            chapter_path.write_text(final, encoding="utf-8")
+            safe_print(f"  [green]Saved: {title}[/green]")
+            return final
 
         elif choice in ("e", "edit"):
             safe_print("  Enter edit instructions (or paste replacement text):")
             edit_input = input("  edit> ").strip()
             if edit_input:
                 if len(edit_input) > 200:
-                    # Assume it's replacement text
                     return edit_input
                 else:
-                    # Assume it's edit instructions → re-call LLM
                     edit_msg = (
                         f"Here is the current chapter {chapter_num} draft. "
                         f"Apply this edit instruction to it: {edit_input}\n\n"
-                        f"CHAPTER:\n{content}\n\n"
+                        f"CHAPTER:\n{cleaned}\n\n"
                         f"Return the FULL edited chapter. Do not explain — just output the edited text."
                     )
                     safe_print("  [yellow]Applying edits...[/yellow]")
                     resp = self.agent.call_llm(
                         messages=[{"role": "user", "content": edit_msg}],
-                        max_tokens=len(content) * 2,
+                        max_tokens=len(cleaned) * 2,
                         temperature=0.5,
                     )
                     edited = self.agent.extract_text(resp.content)
                     safe_print(f"  [green]Edit applied ({len(edited)} chars)[/green]")
-                    # Recurse to confirm the edit
                     return self._confirm_chapter(edited, chapter_num)
-            return content  # Keep original if no input
+            return content
 
         elif choice in ("n", "no"):
             return None
@@ -335,6 +341,52 @@ class ConversationLoop:
         else:
             safe_print("  [dim]Unknown choice, saving by default[/dim]")
             return content
+
+    def _clean_chapter_content(self, text: str) -> str:
+        """Strip conversational preamble from chapter content.
+
+        Detects chapter heading markers and strips everything before them.
+        Also removes trailing conversational sign-offs.
+        """
+        import re
+
+        # Markers that indicate the start of actual chapter content
+        chapter_starts = [
+            r"^#\s*第.{1,5}章",        # "# 第一章" or "# 第一章: xxx"
+            r"^\*\*第.{1,5}章\*\*",     # "**第一章**"
+            r"^第.{1,5}章\s",          # "第一章 " at line start
+            r"^\\#\s*第.{1,5}章",       # "\# 第一章" (escaped)
+        ]
+
+        lines = text.split("\n")
+        start_idx = 0
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            for pattern in chapter_starts:
+                if re.match(pattern, stripped):
+                    start_idx = i
+                    break
+            if start_idx > 0:
+                break
+
+        # If no chapter heading found, try to skip first line if it's short and conversational
+        if start_idx == 0 and len(lines) > 1:
+            first_line = lines[0].strip()
+            if len(first_line) < 100 and any(
+                kw in first_line for kw in ["开始写", "材料齐全", "好的", "现在", "以下是", "好的，"]
+            ):
+                start_idx = 1
+
+        # Drop trailing conversational lines
+        end_idx = len(lines)
+        for i in range(len(lines) - 1, -1, -1):
+            stripped = lines[i].strip()
+            if re.match(r"^[（(]\s*第.{1,5}章\s*[完终]", stripped):
+                end_idx = i + 1
+                break
+
+        body = "\n".join(lines[start_idx:end_idx]).strip()
+        return body if body else text  # Fallback to original if cleaning produced nothing
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
