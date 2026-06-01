@@ -29,7 +29,11 @@ import novel_agent.tools.skill_tool  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
-PROMPT = "novel-agent> "
+def _make_prompt(agent) -> str:
+    existing = list(agent.chapters_dir.glob("ch_*.md"))
+    state = agent.truth_files.load_state()
+    ch = state.current_chapter or (len(existing) + 1)
+    return f"ch{ch} > "
 console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
 
 
@@ -67,7 +71,7 @@ class ConversationLoop:
 
         while True:
             try:
-                user_input = input(PROMPT).strip()
+                user_input = input(_make_prompt(self.agent)).strip()
             except (EOFError, KeyboardInterrupt):
                 safe_print("\nGoodbye!")
                 break
