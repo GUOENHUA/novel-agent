@@ -6,3 +6,5 @@
 - [char-jiang-ying](char-char-jiang-ying.md) — 配角江萤：与沈砚同时冲击筑基的女弟子，天资更高
 - [world-cultivation-system](world-world-cultivation-system.md) — 修炼体系：境界序列、功法分类、筑基的本质
 - [world-cangwu-sect](world-world-cangwu-sect.md) — 苍梧宗设定：二流宗门，偏居东荒苍梧山，木系功法
+- [plot-chapter-2-summary](plot-plot-chapter-2-summary.md) — 第二章摘要：筑基后第一天——五感增强、选功法、符文开始吞吃灵气
+- [char-zhang-elder](char-char-zhang-elder.md) — 配角：功法殿张长老——干瘦老头，感知到沈砚丹田异常，功法殿保密机制

@@ -3,20 +3,20 @@
     "id": "hook-001",
     "description": "对话伏笔：师傅当年说沈砚\"根骨尚可，但缺一点灵气\"——暗示虚皇回收机制从他身上多抽了灵气",
     "hook_type": "dialogue",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
     "related_characters": [
       "沈砚"
     ],
     "related_hooks": [],
     "created_at": "2026-06-01T16:43:37.618945",
-    "updated_at": "2026-06-01T16:43:37.618945"
+    "updated_at": "2026-06-01T17:31:14.045176"
   },
   {
     "id": "hook-002",
     "description": "直接伏笔：符文被某种力量保护，语言无法触及——沈砚试图描述时\"说不出来\"",
     "hook_type": "direct",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
     "related_characters": [
       "沈砚",
@@ -24,20 +24,20 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-01T16:43:37.628100",
-    "updated_at": "2026-06-01T16:43:37.628100"
+    "updated_at": "2026-06-01T17:31:14.033788"
   },
   {
     "id": "hook-003",
     "description": "行动伏笔：符文\"察觉\"了沈砚的注视——像眼睛一样转向他。他被虚皇系统标记",
     "hook_type": "action",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
     "related_characters": [
       "沈砚"
     ],
     "related_hooks": [],
     "created_at": "2026-06-01T16:43:37.636992",
-    "updated_at": "2026-06-01T16:43:37.636992"
+    "updated_at": "2026-06-01T17:31:14.040800"
   },
   {
     "id": "hook-004",
@@ -51,5 +51,37 @@
     "related_hooks": [],
     "created_at": "2026-06-01T16:43:37.648048",
     "updated_at": "2026-06-01T16:43:37.648048"
+  },
+  {
+    "id": "hook-005",
+    "description": "行动伏笔：符文开始吞吃沈砚修炼的灵气和丹药——它在成长/觉醒。沈砚发现从炼气期起灵气被\"截流\"的真相",
+    "hook_type": "action",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 5,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [
+      "hook-001",
+      "hook-003"
+    ],
+    "created_at": "2026-06-01T17:31:14.050595",
+    "updated_at": "2026-06-01T17:31:14.050595"
+  },
+  {
+    "id": "hook-006",
+    "description": "对话伏笔：功法殿张长老感知到沈砚丹田异常——他说\"弟子在功法殿说的话不会传到第三个人耳朵里\"，暗示宗门内部有某种信息保护机制，但也意味着有人可能知道异常存在",
+    "hook_type": "dialogue",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 10,
+    "related_characters": [
+      "沈砚",
+      "张长老"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-01T17:31:14.056493",
+    "updated_at": "2026-06-01T17:31:14.056493"
   }
 ]

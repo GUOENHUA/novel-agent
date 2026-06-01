@@ -205,8 +205,7 @@ class AIAgent:
             "- 搜索世界观和角色信息\n\n"
             "## 工具使用原则\n"
             "- 上方已注入了本章所需的核心上下文（进度、角色、伏笔、章节摘要）——优先使用这些已有信息\n"
-            "- 只在确实缺少关键信息时才调用工具，一次最多2-3个工具\n"
-            "- 不要做全盘搜索——你会浪费大量token却得不到更好的结果\n\n"
+            "- 只在确实缺少关键信息时才调用工具，按需取用即可，不要做全盘搜索\n\n"
             "## 写作哲学\n"
             "- 角色必须真正地改变（警惕稳定性陷阱）\n"
             "- 让坏事保持坏——不是一切都能修复\n"
@@ -365,7 +364,7 @@ class AIAgent:
         lines.append("- 完整伏笔报告 → `track_hooks(action=report, current_chapter=N)`")
         lines.append("- 风格约束详情 → `memory(action=search, type=style, query=...)`")
         lines.append("- 联网查资料 → `web_search(query=...)` / `web_fetch(urls=[...])`")
-        lines.append("**只在需要时才查——优先使用上方已有的信息，一次最多查2-3个工具。不要做全盘搜索。**")
+        lines.append("**按需取用上方工具，查关键信息即可，不要全盘搜索。**")
 
         return "\n".join(lines)
 
