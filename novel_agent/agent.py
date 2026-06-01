@@ -53,9 +53,14 @@ class AIAgent:
         # Interrupt flag for auto mode → conversational switch
         self.interrupted = False
 
-        # Anthropic client
+        # Anthropic client (supports custom base_url for compatible endpoints)
         api_key = self._resolve_api_key()
-        self.client = anthropic.Anthropic(api_key=api_key)
+        base_url = self._resolve_base_url()
+        if base_url:
+            self.client = anthropic.Anthropic(api_key=api_key, base_url=base_url)
+            logger.info("Using custom API endpoint: %s", base_url)
+        else:
+            self.client = anthropic.Anthropic(api_key=api_key)
 
         # Project paths
         self.memory_dir = ensure_dir(self.project_dir / "memory")
@@ -130,14 +135,20 @@ class AIAgent:
 
     @staticmethod
     def _resolve_api_key() -> str:
-        """Resolve Anthropic API key from env or .env file."""
+        """Resolve API key from env (supports both ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN)."""
         dotenv.load_dotenv()
-        key = os.getenv("ANTHROPIC_API_KEY", "")
+        key = os.getenv("ANTHROPIC_AUTH_TOKEN", "") or os.getenv("ANTHROPIC_API_KEY", "")
         if not key:
             raise RuntimeError(
-                "ANTHROPIC_API_KEY not set. Set it in .env or environment."
+                "ANTHROPIC_AUTH_TOKEN or ANTHROPIC_API_KEY not set. "
+                "Set it in .env or environment."
             )
         return key
+
+    @staticmethod
+    def _resolve_base_url() -> str | None:
+        """Resolve custom API base URL (for Anthropic-compatible endpoints)."""
+        return os.getenv("ANTHROPIC_BASE_URL") or None
 
     # -- System prompt ---------------------------------------------------------
 
@@ -241,3 +252,14 @@ class AIAgent:
                     raise
 
         raise last_error or RuntimeError("LLM call failed after max retries")
+
+    @staticmethod
+    def extract_text(content: list[Any]) -> str:
+        """Extract text from response content blocks, skipping thinking blocks."""
+        texts = []
+        for block in content:
+            if hasattr(block, "type") and block.type == "text":
+                texts.append(block.text)
+            elif isinstance(block, dict) and block.get("type") == "text":
+                texts.append(block["text"])
+        return "\n".join(texts)

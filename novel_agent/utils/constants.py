@@ -1,8 +1,8 @@
 """Shared constants for novel-agent."""
 
 # Default Anthropic models
-DEFAULT_WRITER_MODEL = "claude-sonnet-4-20250514"
-DEFAULT_JUDGE_MODEL = "claude-sonnet-4-20250514"
+DEFAULT_WRITER_MODEL = "deepseek-v4-pro[1m]"
+DEFAULT_JUDGE_MODEL = "deepseek-v4-flash[1m]"
 
 # Writing defaults
 DEFAULT_CHAPTER_WORDS = 3000

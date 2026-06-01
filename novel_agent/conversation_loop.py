@@ -109,12 +109,11 @@ class ConversationLoop:
                     tools=tools if tools else None,
                 )
 
-            # Display text response
-            for block in response.content:
-                if block.type == "text":
-                    assistant_content = block.text
-                    print(block.text)
-                    print()
+            # Display text response (skip thinking blocks)
+            assistant_content = self.agent.extract_text(response.content)
+            if assistant_content:
+                print(assistant_content)
+                print()
 
             # Update history
             self.agent.conversation_history.append(
