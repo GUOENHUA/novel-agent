@@ -145,7 +145,7 @@ class ConversationLoop:
                             f"{json.dumps(tool_input, ensure_ascii=False)[:100]}"
                         )
 
-                        result = registry.dispatch(tool_name, tool_input)
+                        result = registry.dispatch(tool_name, tool_input, chapters_dir=str(self.agent.chapters_dir))
                         tool_results.append({
                             "type": "tool_result",
                             "tool_use_id": block.id,

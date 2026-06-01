@@ -156,12 +156,32 @@ def _handle_settle(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
 
 
 def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
-    """Read a chapter from disk."""
+    """Read a chapter from disk. chapter_number=0 returns TOC."""
     chapter_num = args["chapter_number"]
-    # The agent provides the chapters_dir via kwargs
     chapters_dir = kwargs.get("chapters_dir", ".")
-    path = Path(chapters_dir) / f"ch_{chapter_num:02d}.md"
 
+    # TOC mode: return all chapter summaries
+    if chapter_num == 0:
+        from pathlib import Path as P
+        import re
+        chapters_path = P(chapters_dir)
+        toc = []
+        for path in sorted(chapters_path.glob("ch_*.md")):
+            content = path.read_text(encoding="utf-8")
+            # Extract title and first ~200 chars as summary
+            first_line = content.split("\n")[0] if content else ""
+            title = first_line.replace("# ", "").strip() if first_line.startswith("#") else path.stem
+            body = content[content.find("\n\n")+2:] if "\n\n" in content else content
+            preview = body[:200].replace("\n", " ")
+            toc.append({
+                "chapter": path.stem,
+                "title": title,
+                "words": len(content),
+                "preview": preview + ("..." if len(body) > 200 else ""),
+            })
+        return tool_result(success=True, toc=toc, count=len(toc))
+
+    path = Path(chapters_dir) / f"ch_{chapter_num:02d}.md"
     if path.exists():
         content = path.read_text(encoding="utf-8")
         return tool_result(

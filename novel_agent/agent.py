@@ -326,18 +326,11 @@ class AIAgent:
                 lines.append(f"**⚠️ 过期未回收 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
             lines.append("")
 
-        # 6. Table of contents (all chapters, compact)
+        # 6. Recent chapter summaries (detailed, last 3)
         summaries = self.truth_files.load_summaries()
         if summaries:
-            lines.append("## 📑 目录")
-            for s in summaries:
-                lines.append(f"- Ch{s.chapter_number}: {s.summary[:80]} ({s.word_count}字)")
-            lines.append("")
-
-        # 7. Recent chapter summaries (detailed, last 3)
-        if summaries:
             recent = summaries[-3:]
-            lines.append("## 📚 最近章节详情")
+            lines.append("## 📚 最近章节")
             for s in recent:
                 hook_note = ""
                 if s.hooks_planted and s.hooks_resolved:
@@ -349,7 +342,7 @@ class AIAgent:
                 lines.append(f"- **Ch{s.chapter_number}** ({s.word_count}字, {s.mood}): {s.summary}{hook_note}")
             lines.append("")
 
-        # 8. Style constraints (from memory)
+        # 7. Style constraints (from memory)
         style_memories = self._fetch_style_constraints()
         if style_memories:
             lines.append("## 🖊 风格约束")
@@ -365,6 +358,7 @@ class AIAgent:
 
         # 10. On-demand context hint (what you can look up)
         lines.append("## 🔍 按需查询（需要时使用工具获取）")
+        lines.append("- 全章节目录+摘要 → `write_chapter(action=read, chapter_number=0)`")
         lines.append("- 任意章节全文 → `write_chapter(action=read, chapter_number=N)`")
         lines.append("- 角色详细信息 → `memory(action=search, type=character, query=...)`")
         lines.append("- 世界观设定 → `search_lore(action=search, query=...)` 或 `memory(action=search, type=world, query=...)`")
