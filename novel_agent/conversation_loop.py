@@ -33,7 +33,7 @@ def _make_prompt(agent) -> str:
     existing = list(agent.chapters_dir.glob("ch_*.md"))
     state = agent.truth_files.load_state()
     ch = state.current_chapter or (len(existing) + 1)
-    return f"ch{ch} > "
+    return f"\033[1;36mchapter{ch}\033[0m > "
 console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
 
 
@@ -59,15 +59,12 @@ class ConversationLoop:
         existing = list(self.agent.chapters_dir.glob("ch_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
-        safe_print("")
-        safe_print(f"[bold]novel-agent[/bold]  {self.agent.project_dir.name}  {self.agent.model}")
+        safe_print(f"\n  [bold]novel-agent[/bold]   {self.agent.project_dir.name}   {self.agent.model}")
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
-            safe_print(f"{len(existing)}/{self.agent.total_chapters} chapters  {total_written:,} words  latest: {last_ch}")
+            safe_print(f"  {len(existing)}/{self.agent.total_chapters} chapters   {total_written:,} words   latest: [bold]{last_ch}[/bold]")
         else:
-            safe_print("no chapters yet")
-        safe_print("/help /status /cost /quit")
-        safe_print("")
+            safe_print("  fresh project — no chapters yet")
 
         while True:
             try:
