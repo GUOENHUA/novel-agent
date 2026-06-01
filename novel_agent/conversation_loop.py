@@ -33,7 +33,8 @@ def _make_prompt(agent) -> str:
     existing = list(agent.chapters_dir.glob("ch_*.md"))
     state = agent.truth_files.load_state()
     ch = state.current_chapter or (len(existing) + 1)
-    return f"\033[1;36mchapter{ch}\033[0m > "
+    # ANSI cyan bold for chapter number, dim for separator
+    return f"\033[1;36m{ch}\033[0m\033[2m > \033[0m"
 console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
 
 
