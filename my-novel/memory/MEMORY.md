@@ -1,0 +1,3 @@
+- [char-shen-yan](char-char-shen-yan.md) — 主角沈砚的完整角色设定
+- [world-core-secret](world-world-core-secret.md) — 世界观核心秘密：虚皇篡天与灵气回收机制
+- [plot-chapter-1-plan](plot-plot-chapter-1-plan.md) — 第一章规划：筑基突破中首次瞥见异常印记
