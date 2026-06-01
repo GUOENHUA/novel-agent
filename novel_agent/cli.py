@@ -128,8 +128,8 @@ def write(project_dir: str):
 @main.command()
 @click.option("--project", "project_dir", type=click.Path(exists=True), default=".",
               help="Project directory (default: current)")
-@click.option("--count", type=int, required=True,
-              help="Number of chapters to generate")
+@click.option("--count", type=int, default=None,
+              help="Number of chapters to generate (required unless --to-complete)")
 @click.option("--words", type=int, default=None,
               help="Words per chapter (default: from project config)")
 @click.option("--to-complete", is_flag=True,
@@ -139,20 +139,27 @@ def auto(project_dir: str, count: int, words: int | None, to_complete: bool):
     from novel_agent.agent import AIAgent
     from novel_agent.auto_pipeline import AutoPipeline
 
+    if count is None and not to_complete:
+        click.echo("[ERROR] --count or --to-complete is required")
+        return
+
     agent = AIAgent(project_dir=project_dir)
     pipeline = AutoPipeline(agent)
 
-    ch_count = count
+    ch_count = count or 0
     if to_complete:
-        # Determine remaining chapters from outline
         existing = len(list(agent.chapters_dir.glob("ch_*.md")))
         ch_count = agent.total_chapters - existing
         if ch_count <= 0:
-            click.echo("[OK] 所有章节已完成！")
+            click.echo("[OK] All chapters complete!")
             return
 
+    # Determine next chapter to write
+    existing_chs = sorted(agent.chapters_dir.glob("ch_*.md"))
+    next_ch = len(existing_chs) + 1 if existing_chs else 1
+
     pipeline.run(
-        start_chapter=pipeline._next_chapter_num(),
+        start_chapter=next_ch,
         count=ch_count,
         words_per_chapter=words,
     )
