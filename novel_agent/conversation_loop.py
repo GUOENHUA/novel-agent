@@ -36,11 +36,10 @@ console = Console(force_terminal=True, legacy_windows=False) if __import__('sys'
 def safe_print(text: str) -> None:
     """Print text, replacing characters that can't be encoded on Windows GBK terminals."""
     try:
-        safe_print(text)
+        console.print(text)
     except UnicodeEncodeError:
-        # Fall back to ASCII-safe output
         safe = text.encode('ascii', errors='replace').decode('ascii')
-        safe_print(safe)
+        print(safe)
 
 
 class ConversationLoop:
