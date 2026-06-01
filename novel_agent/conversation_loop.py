@@ -77,7 +77,7 @@ class ConversationLoop:
         existing = list(self.agent.chapters_dir.glob("ch_*.md"))
         state = self.agent.truth_files.load_state()
         ch = state.current_chapter or (len(existing) + 1)
-        return f"[bold cyan]ch{ch}[/bold cyan] > "
+        return f"ch{ch} > "
 
         while True:
             try:
