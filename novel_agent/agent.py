@@ -353,6 +353,16 @@ class AIAgent:
             lines.append(user_message)
             lines.append("")
 
+        # 9. On-demand context hint (what you can look up)
+        lines.append("## 🔍 按需查询（需要时使用工具获取）")
+        lines.append("- 任意章节全文 → `write_chapter(action=read, chapter_number=N)`")
+        lines.append("- 角色详细信息 → `memory(action=search, type=character, query=...)`")
+        lines.append("- 世界观设定 → `search_lore(action=search, query=...)` 或 `memory(action=search, type=world, query=...)`")
+        lines.append("- 完整伏笔报告 → `track_hooks(action=report, current_chapter=N)`")
+        lines.append("- 风格约束详情 → `memory(action=search, type=style, query=...)`")
+        lines.append("- 联网查资料 → `web_search(query=...)` / `web_fetch(urls=[...])`")
+        lines.append("**不要去猜——需要具体信息时直接用工具查。**")
+
         return "\n".join(lines)
 
     def _fetch_style_constraints(self) -> list[str]:
