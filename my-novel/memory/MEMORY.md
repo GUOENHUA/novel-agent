@@ -8,3 +8,4 @@
 - [world-cangwu-sect](world-world-cangwu-sect.md) — 苍梧宗设定：二流宗门，偏居东荒苍梧山，木系功法
 - [plot-chapter-2-summary](plot-plot-chapter-2-summary.md) — 第二章摘要：筑基后第一天——五感增强、选功法、符文开始吞吃灵气
 - [char-zhang-elder](char-char-zhang-elder.md) — 配角：功法殿张长老——干瘦老头，感知到沈砚丹田异常，功法殿保密机制
+- [novel-title](plot-novel-title.md) — 小说题目：《天痕》。"天"指虚皇篡夺后的天道，"痕"是沈砚体内被留下的暗金符文印记。被动意味——不是他自己选的，是天划在他身上的。

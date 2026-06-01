@@ -219,7 +219,15 @@ class ConversationLoop:
         parts = cmd.split()
         command = parts[0].lower()
 
-        if command in ("/quit", "/exit"):
+        if command.startswith("/title"):
+            new_title = cmd[7:].strip() if len(cmd) > 7 else ""
+            if new_title:
+                self._set_title(new_title)
+                safe_print(f"  Title: 《{new_title}》")
+            else:
+                safe_print(f"  Current: 《{self.agent.novel_title}》")
+                safe_print("  Usage: /title 新书名")
+        elif command in ("/quit", "/exit"):
             safe_print("Goodbye!")
             return False
         elif command == "/help":
@@ -394,6 +402,16 @@ class ConversationLoop:
 
         body = "\n".join(lines[start_idx:end_idx]).strip()
         return body if body else text  # Fallback to original if cleaning produced nothing
+
+    def _set_title(self, title: str) -> None:
+        """Update novel title in novel.json and agent."""
+        import json
+        self.agent.novel_title = title
+        config_path = self.agent.project_dir / "novel.json"
+        if config_path.exists():
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            config["title"] = title
+            config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
