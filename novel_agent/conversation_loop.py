@@ -29,7 +29,6 @@ import novel_agent.tools.skill_tool  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
-PROMPT = "novel-agent> "
 console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
 
 
@@ -52,31 +51,38 @@ class ConversationLoop:
 
     def run(self) -> None:
         """Enter the interactive REPL loop."""
-        safe_print(f"\n[bold]novel-agent[/bold] (project: {self.agent.project_dir.name})")
-        safe_print(f"   model: {self.agent.model}")
-        safe_print(f"   target: {self.agent.total_chapters} chapters, ~{self.agent.total_words:,} words")
-
-        # Show current novel state
-        self._show_novel_state()
-
-        safe_print(f"   type /help for help, /quit to exit\n")
-
-    def _show_novel_state(self) -> None:
-        """Print a brief novel state summary on startup."""
-        state = self.agent.truth_files.load_state()
         existing = list(self.agent.chapters_dir.glob("ch_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
+        safe_print("")
+        safe_print(
+            f"  [bold cyan]novel-agent[/bold cyan]  "
+            f"[dim]{self.agent.project_dir.name}[/dim]  "
+            f"[dim]{self.agent.model}[/dim]"
+        )
         if existing:
-            chapters_list = sorted(p.stem for p in existing)
-            last_ch = chapters_list[-1] if chapters_list else "?"
-            safe_print(f"   [bold]progress:[/bold] {len(existing)}/{self.agent.total_chapters} chapters | {total_written:,} words | latest: {last_ch}")
+            last_ch = sorted(p.stem for p in existing)[-1]
+            safe_print(
+                f"  [green]{len(existing)}/{self.agent.total_chapters}[/green] chapters  "
+                f"[green]{total_written:,}[/green] words  "
+                f"[dim]latest: {last_ch}[/dim]"
+            )
         else:
-            safe_print(f"   [bold]progress:[/bold] no chapters yet — ready to start")
+            safe_print(f"  [dim]no chapters yet — ready[/dim]")
+        safe_print(f"  [dim]/help /status /cost /quit[/dim]")
+        safe_print("")
+
+    def _make_prompt(self) -> str:
+        """Build a dynamic prompt showing current chapter."""
+        existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+        state = self.agent.truth_files.load_state()
+        ch = state.current_chapter or (len(existing) + 1)
+        return f"[bold cyan]ch{ch}[/bold cyan] > "
 
         while True:
             try:
-                user_input = input(PROMPT).strip()
+                prompt = self._make_prompt()
+                user_input = input(prompt).strip()
             except (EOFError, KeyboardInterrupt):
                 safe_print("\nGoodbye!")
                 break
@@ -222,23 +228,22 @@ class ConversationLoop:
         command = parts[0].lower()
 
         if command in ("/quit", "/exit"):
-            safe_print("Goodbye!")
+            safe_print("  [dim]bye[/dim]")
             return False
         elif command == "/help":
             safe_print("""
-  Commands:
-    /help         Show help
-    /auto N       Auto-generate next N chapters
-    /status       Show project status
-    /cost         Show token usage
-    /quit         Exit
+  [bold]Commands[/bold]
+    [cyan]/help[/cyan]         Show this
+    [cyan]/auto N[/cyan]       Auto-generate N chapters
+    [cyan]/status[/cyan]       Show progress
+    [cyan]/cost[/cyan]         Show token usage
+    [cyan]/quit[/cyan]         Exit
 
-  Natural language:
-    Just tell me what to do, e.g.:
-    - "Write chapter 3"
-    - "Revise chapter 2's fight scene"
-    - "Check my hooks"
-    - "Auto-generate 5 more chapters"
+  [bold]Just talk to me[/bold]
+    "write chapter 3"
+    "revise chapter 2's fight scene"
+    "check my hooks"
+    "auto-generate 5 chapters"
             """)
         elif command == "/auto":
             try:
