@@ -68,15 +68,19 @@ def main(ctx: click.Context, verbose: bool = False):
 
 @main.command()
 @click.argument("project_dir", type=click.Path())
-@click.option("--total-words", type=int, default=DEFAULT_TOTAL_WORDS,
-              help=f"Target total word count (default: {DEFAULT_TOTAL_WORDS})")
 @click.option("--total-chapters", type=int, default=DEFAULT_TOTAL_CHAPTERS,
               help=f"Target chapter count (default: {DEFAULT_TOTAL_CHAPTERS})")
 @click.option("--chapter-words", type=int, default=DEFAULT_CHAPTER_WORDS,
               help=f"Target words per chapter (default: {DEFAULT_CHAPTER_WORDS})")
-def init(project_dir: str, total_words: int, total_chapters: int, chapter_words: int):
+@click.option("--total-words", type=int, default=None,
+              help="Override total word count (default: chapters * words-per-chapter)")
+def init(project_dir: str, total_chapters: int, chapter_words: int, total_words: int | None):
     """Initialize a new novel writing project."""
     import json
+
+    # Auto-calculate total words from chapters * words-per-chapter
+    if total_words is None:
+        total_words = total_chapters * chapter_words
 
     project_path = Path(project_dir).resolve()
 
@@ -101,7 +105,7 @@ def init(project_dir: str, total_words: int, total_chapters: int, chapter_words:
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
     click.echo(f"[OK] 项目已创建: {project_path}")
-    click.echo(f"   目标: {total_chapters} 章, ~{total_words} 字, 每章 ~{chapter_words} 字")
+    click.echo(f"   目标: {total_chapters} 章 × ~{chapter_words} 字 = {total_words:,} 字")
     click.echo(f"   novel-agent write --project {project_path}")
 
 
@@ -209,6 +213,7 @@ def status(project_dir: str):
     click.echo(f"Status: {project_path.name}")
     click.echo(f"   章节: {len(chapters)} 章已完成")
     click.echo(f"   总字数: {total_written}")
+    click.echo(f"   目标: {DEFAULT_TOTAL_CHAPTERS} 章 / {DEFAULT_TOTAL_WORDS} 字")
 
     if chapters:
         click.echo(f"   平均每章: {total_written // len(chapters)} 字")

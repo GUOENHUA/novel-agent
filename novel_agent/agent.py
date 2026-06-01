@@ -253,12 +253,13 @@ class AIAgent:
         state = self.truth_files.load_state()
         lines = []
 
-        # 1. Progress bar
+        # 1. Progress
         existing = list(self.chapters_dir.glob("ch_*.md"))
+        completed_chapters = len(existing)
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
-        ch = state.current_chapter or (len(existing) + 1)
+        ch = state.current_chapter or (completed_chapters + 1)
         lines.append(f"## 📖 当前进度")
-        lines.append(f"第 {ch} 章 | 已写 {total_written}/{self.total_words} 字 | {state.phase}")
+        lines.append(f"第 {ch}/{self.total_chapters} 章 | {total_written} 字 | 每章目标 {self.chapter_words} 字 | {state.phase}")
         if state.current_scene:
             lines.append(f"当前场景: {state.current_scene}")
         lines.append("")
