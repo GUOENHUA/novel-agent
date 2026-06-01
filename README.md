@@ -111,7 +111,6 @@ NOVEL_AGENT_COMPRESS_THRESHOLD=0.70                      # Compression trigger r
 
 ## Inspired By
 
-- **claude-code** — typed memory taxonomy, MEMORY.md index, skill progressive disclosure
 - **hermes-agent** — MemoryProvider ABC, ContextCompressor, ToolRegistry
 - **autonovel** — CRAFT.md education, ANTI-SLOP detection, layer propagation rules
 - **inkos** — Hook-Ledger, JSON truth files, two-phase chapter writing
