@@ -52,7 +52,15 @@ class AutoPipeline:
         words = words_per_chapter or self.agent.chapter_words
         self.results = []
 
-        print(f"\n  📖 自动模式: 从第{start_chapter}章开始，生成 {count} 章，每章 ~{words} 字")
+        if count > 10:
+            estimated_tokens = count * words * 1.5
+            print(f"\n  ⚠️  即将生成 {count} 章，预计消耗 ~{estimated_tokens:,.0f} tokens")
+            confirm = input("  确认继续? [y/N] ").strip().lower()
+            if confirm not in ("y", "yes"):
+                print("  已取消")
+                return []
+
+        print(f"\n  自动模式: 从第{start_chapter}章开始，生成 {count} 章，每章 ~{words} 字")
         print(f"  (Ctrl+C 可随时中断，返回对话模式)\n")
 
         # Setup signal handler for graceful interrupt

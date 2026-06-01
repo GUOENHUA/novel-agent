@@ -153,6 +153,10 @@ def auto(project_dir: str, count: int, words: int | None, to_complete: bool):
         if ch_count <= 0:
             click.echo("[OK] All chapters complete!")
             return
+        if ch_count > 10:
+            click.echo(f"Will generate {ch_count} chapters — this will take a while and consume significant tokens.")
+            if not click.confirm("Continue?"):
+                return
 
     # Determine next chapter to write
     existing_chs = sorted(agent.chapters_dir.glob("ch_*.md"))
