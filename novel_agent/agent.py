@@ -207,8 +207,11 @@ class AIAgent:
         tools: list[dict] | None = None,
         temperature: float = 0.8,
         max_tokens: int = 8192,
+        max_retries: int = 3,
     ) -> anthropic.types.Message:
-        """Make an API call to Claude."""
+        """Make an API call to Claude with retry logic."""
+        import time
+
         kwargs: dict[str, Any] = {
             "model": self.model,
             "max_tokens": max_tokens,
@@ -219,4 +222,22 @@ class AIAgent:
         if tools:
             kwargs["tools"] = tools
 
-        return self.client.messages.create(**kwargs)
+        last_error = None
+        for attempt in range(max_retries):
+            try:
+                return self.client.messages.create(**kwargs)
+            except anthropic.RateLimitError as e:
+                last_error = e
+                wait = 2 ** attempt * 5
+                logger.warning("Rate limited, retrying in %ds (attempt %d/%d)", wait, attempt + 1, max_retries)
+                time.sleep(wait)
+            except anthropic.APIStatusError as e:
+                if e.status_code >= 500:
+                    last_error = e
+                    wait = 2 ** attempt
+                    logger.warning("Server error %d, retrying in %ds", e.status_code, wait)
+                    time.sleep(wait)
+                else:
+                    raise
+
+        raise last_error or RuntimeError("LLM call failed after max retries")
