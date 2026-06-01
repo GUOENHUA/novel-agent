@@ -29,22 +29,27 @@ import novel_agent.tools.skill_tool  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
-def _make_prompt(agent) -> str:
-    existing = list(agent.chapters_dir.glob("ch_*.md"))
-    state = agent.truth_files.load_state()
-    ch = state.current_chapter or (len(existing) + 1)
-    # ANSI cyan bold for chapter number, dim for separator
-    return f"\033[1;36m{ch}\033[0m\033[2m > \033[0m"
+PROMPT = "\033[1;36mnovel-agent\033[0m > "
 console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
+
+_RICH_TO_ANSI = {
+    "[bold]": "\033[1m", "[/bold]": "\033[0m",
+    "[dim]": "\033[2m", "[/dim]": "\033[0m",
+    "[green]": "\033[32m", "[/green]": "\033[0m",
+    "[yellow]": "\033[33m", "[/yellow]": "\033[0m",
+    "[red]": "\033[31m", "[/red]": "\033[0m",
+    "[cyan]": "\033[36m", "[/cyan]": "\033[0m",
+}
 
 
 def safe_print(text: str) -> None:
-    """Print text, replacing characters that can't be encoded on Windows GBK terminals."""
+    """Print text, converting Rich tags to ANSI. Falls back to ascii on error."""
+    for rich, ansi in _RICH_TO_ANSI.items():
+        text = text.replace(rich, ansi)
     try:
-        console.print(text)
+        print(text)
     except UnicodeEncodeError:
-        safe = text.encode('ascii', errors='replace').decode('ascii')
-        print(safe)
+        print(text.encode('ascii', errors='replace').decode('ascii'))
 
 
 class ConversationLoop:
@@ -69,7 +74,7 @@ class ConversationLoop:
 
         while True:
             try:
-                user_input = input(_make_prompt(self.agent)).strip()
+                user_input = input(PROMPT).strip()
             except (EOFError, KeyboardInterrupt):
                 safe_print("\nGoodbye!")
                 break
