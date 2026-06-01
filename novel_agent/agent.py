@@ -184,6 +184,11 @@ class AIAgent:
             "- 变化情感强度：安静/爆发/恐惧/解脱/无聊/惊奇/恐怖\n"
         )
 
+        # Novel state block (current progress, characters, hooks, recent chapters)
+        novel_state = self._build_novel_context_block()
+        if novel_state:
+            parts.append(novel_state)
+
         # Memory system prompt
         memory_prompt = self._memory_manager.build_system_prompt()
         if memory_prompt:
@@ -214,6 +219,103 @@ class AIAgent:
     def sync_memories(self, user_msg: str, assistant_msg: str) -> None:
         """Sync the completed turn to memory providers."""
         self._memory_manager.sync_all(user_msg, assistant_msg)
+
+    def _build_novel_context_block(self) -> str:
+        """Build the novel-specific context block.
+
+        This is the key state snapshot that gets injected into every turn.
+        Includes: current progress, recent chapter summaries, active characters,
+        active hooks, and the previous chapter ending.
+        """
+        lines = ["## 当前小说状态", ""]
+
+        # 1. Current progress from truth files
+        state = self.truth_files.load_state()
+        total_written = sum(
+            len(p.read_text(encoding="utf-8"))
+            for p in self.chapters_dir.glob("ch_*.md")
+        )
+        lines.append(f"**进度**: 第 {state.current_chapter} 章 | 已写 {total_written} 字 | 阶段: {state.phase}")
+        if state.current_scene:
+            lines.append(f"**当前场景**: {state.current_scene}")
+        lines.append("")
+
+        # 2. Recent chapter summaries
+        summaries = self.truth_files.load_summaries()
+        if summaries:
+            lines.append("### 最近章节摘要")
+            for s in summaries[-5:]:
+                hooks_info = ""
+                if s.hooks_planted:
+                    hooks_info += f" [种伏笔: {', '.join(s.hooks_planted)}]"
+                if s.hooks_resolved:
+                    hooks_info += f" [收伏笔: {', '.join(s.hooks_resolved)}]"
+                lines.append(
+                    f"- **第{s.chapter_number}章** ({s.word_count}字, {s.mood}): "
+                    f"{s.summary}{hooks_info}"
+                )
+            lines.append("")
+
+        # 3. Active character states
+        if state.characters:
+            lines.append("### 活跃角色状态")
+            for name, char in state.characters.items():
+                if char.alive:
+                    loc = f" @{char.current_location}" if char.current_location else ""
+                    goal = f" → {char.goal}" if char.goal else ""
+                    lines.append(f"- **{name}**: {char.emotional_state}{loc}{goal}")
+            lines.append("")
+
+        # 4. Active hooks from hook ledger
+        active_hooks = self.hook_ledger.get_active()
+        if active_hooks:
+            lines.append(f"### 活跃伏笔 ({len(active_hooks)} 个)")
+            for h in active_hooks[:10]:
+                target = f" → 预计第{h.target_chapter}章回收" if h.target_chapter else ""
+                chars = f" [{', '.join(h.related_characters)}]" if h.related_characters else ""
+                lines.append(f"- [{h.id}] {h.description}{target}{chars}")
+            overdue = self.hook_ledger.get_overdue(state.current_chapter)
+            if overdue:
+                lines.append(f"\n⚠️ **过期未回收的伏笔 ({len(overdue)} 个)**:")
+                for h in overdue:
+                    lines.append(f"  - [{h.id}] {h.description} (应在第{h.target_chapter}章回收)")
+            lines.append("")
+
+        # 5. Previous chapter ending (for continuity)
+        if state.current_chapter > 1:
+            prev_ch = state.current_chapter - 1
+            prev_path = self.chapters_dir / f"ch_{prev_ch:02d}.md"
+            if prev_path.exists():
+                prev_text = prev_path.read_text(encoding="utf-8")
+                # Take last ~800 chars as continuity anchor
+                ending = prev_text[-800:] if len(prev_text) > 800 else prev_text
+                lines.append(f"### 前一章结尾 (第{prev_ch}章)")
+                lines.append("```")
+                lines.append(ending.strip())
+                lines.append("```")
+                lines.append("")
+
+        # 6. Next chapter outline (from memory or outline file)
+        outline_path = self.project_dir / "outline.md"
+        if outline_path.exists():
+            outline_text = outline_path.read_text(encoding="utf-8")
+            # Try to find the current chapter's outline entry
+            import re
+            pattern = rf"第\s*{state.current_chapter}\s*章"
+            match = re.search(pattern, outline_text)
+            if match:
+                start = max(0, match.start() - 50)
+                end = min(len(outline_text), match.end() + 500)
+                outline_entry = outline_text[start:end].strip()
+                lines.append(f"### 本章大纲 (第{state.current_chapter}章)")
+                lines.append(outline_entry)
+                lines.append("")
+
+        result = "\n".join(lines)
+        # Budget: cap at ~5000 chars to leave room for methodology prompts
+        if len(result) > 8000:
+            result = result[:8000] + "\n\n...[novel context truncated at 8000 chars]"
+        return result
 
     # -- LLM call --------------------------------------------------------------
 
