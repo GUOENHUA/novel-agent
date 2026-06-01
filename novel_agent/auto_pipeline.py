@@ -17,10 +17,13 @@ import signal
 import time
 from typing import Any
 
+from rich.console import Console
+
 from novel_agent.agent import AIAgent
 from novel_agent.utils.constants import MAX_RETRY_ATTEMPTS, DRAFT_PASS_THRESHOLD
 
 logger = logging.getLogger(__name__)
+console = Console(highlight=False)
 
 
 class AutoPipeline:
@@ -54,14 +57,14 @@ class AutoPipeline:
 
         if count > 10:
             estimated_tokens = count * words * 1.5
-            print(f"\n  ⚠️  即将生成 {count} 章，预计消耗 ~{estimated_tokens:,.0f} tokens")
-            confirm = input("  确认继续? [y/N] ").strip().lower()
+            print(f"\n  WARNING: {count} chapters, ~{estimated_tokens:,.0f} tokens estimated")
+            confirm = input("  Continue? [y/N] ").strip().lower()
             if confirm not in ("y", "yes"):
-                print("  已取消")
+                print("  Cancelled")
                 return []
 
-        print(f"\n  自动模式: 从第{start_chapter}章开始，生成 {count} 章，每章 ~{words} 字")
-        print(f"  (Ctrl+C 可随时中断，返回对话模式)\n")
+        print(f"\n  Auto mode: ch{start_chapter}-{start_chapter + count - 1}, {count} chapters, ~{words} words each")
+        print(f"  (Ctrl+C to interrupt)\n")
 
         # Setup signal handler for graceful interrupt
         original_handler = signal.getsignal(signal.SIGINT)
@@ -70,25 +73,26 @@ class AutoPipeline:
         try:
             for ch in range(start_chapter, start_chapter + count):
                 if self.agent.interrupted:
-                    print(f"\n  ⏸️  自动模式已暂停 (已完成 {ch - start_chapter}/{count} 章)")
+                    print(f"\n  PAUSED  自动模式已暂停 (已完成 {ch - start_chapter}/{count} 章)")
                     break
 
                 result = self._write_chapter_with_retry(ch, words)
                 self.results.append(result)
+                progress = f"{ch - start_chapter + 1}/{count}"
 
                 if result["success"]:
-                    print(f"  第{ch}章 ✅ {result['word_count']}字 | slop {result['slop_score']:.1f}")
+                    print(f"  [{progress}] ch{ch} OK ({result['word_count']} chars, slop {result['slop_score']:.0f})")
                 else:
-                    print(f"  第{ch}章 ⚠️  重试{result['attempts']}次后仍未通过")
+                    print(f"  [{progress}] ch{ch} FAILED after {result['attempts']} retries")
 
             # Summary
             completed = [r for r in self.results if r["success"]]
             total_words = sum(r["word_count"] for r in completed)
-            print(f"\n  ✅ {len(completed)}/{len(self.results)} 章完成，总计 {total_words} 字")
+            print(f"\n  OK {len(completed)}/{len(self.results)} 章完成，总计 {total_words} 字")
 
             warnings = [r for r in completed if r.get("slop_warnings")]
             if warnings:
-                print(f"  ⚠️  {len(warnings)} 章有 slop 警告，建议人工复查")
+                print(f"  WARN️  {len(warnings)} 章有 slop 警告，建议人工复查")
 
         finally:
             signal.signal(signal.SIGINT, original_handler)
@@ -150,12 +154,21 @@ class AutoPipeline:
         if attempt > 1:
             directive += f"\n\n（这是第{attempt}次重试，请确保质量。）"
 
-        resp = self.agent.call_llm(
-            messages=[{"role": "user", "content": directive}],
-            max_tokens=words * 3,
-            temperature=0.8,
-        )
-        return self.agent.extract_text(resp.content)
+        label = f"Writing ch{chapter_num}" + (f" (retry {attempt})" if attempt > 1 else "")
+        with console.status(f"[bold yellow]{label}...", spinner="dots") as status:
+            t0 = time.time()
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": directive}],
+                max_tokens=words * 3,
+                temperature=0.8,
+            )
+            elapsed = time.time() - t0
+            content = self.agent.extract_text(resp.content)
+            status.update(
+                f"[bold yellow]{label}...[/bold yellow] "
+                f"({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)"
+            )
+        return content
 
     def _check_slop(self, content: str) -> tuple[float, list[str]]:
         """Run mechanical slop check."""
@@ -180,5 +193,5 @@ class AutoPipeline:
     @staticmethod
     def _interrupt_handler(signum, frame):
         """Handle Ctrl+C gracefully."""
-        print("\n\n  ⏸️  收到中断信号，完成当前章节后切换回对话模式...")
+        print("\n\n  PAUSED  收到中断信号，完成当前章节后切换回对话模式...")
         # The agent.interrupted flag is checked at the top of each chapter loop
