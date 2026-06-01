@@ -65,7 +65,7 @@ class ConversationLoop:
         existing = list(self.agent.chapters_dir.glob("ch_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
-        safe_print(f"\n  [bold]novel-agent[/bold]   {self.agent.project_dir.name}   {self.agent.model}")
+        safe_print(f"\n  [bold]novel-agent[/bold]   {self.agent.novel_title}   {self.agent.model}")
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
             safe_print(f"  {len(existing)}/{self.agent.total_chapters} chapters   {total_written:,} words   latest: [bold]{last_ch}[/bold]")

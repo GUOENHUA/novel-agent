@@ -174,6 +174,7 @@ class AIAgent:
             config = {}
 
         # CLI args > novel.json > defaults
+        self.novel_title = config.get("title", self.project_dir.name)
         self.chapter_words = chapter_words or config.get("chapter_words", DEFAULT_CHAPTER_WORDS)
         self.total_chapters = total_chapters or config.get("total_chapters", DEFAULT_TOTAL_CHAPTERS)
         self.total_words = total_words or config.get("total_words", DEFAULT_TOTAL_WORDS)

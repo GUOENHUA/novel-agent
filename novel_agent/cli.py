@@ -68,21 +68,23 @@ def main(ctx: click.Context, verbose: bool = False):
 
 @main.command()
 @click.argument("project_dir", type=click.Path())
+@click.option("--title", type=str, default=None,
+              help="Novel title (default: directory name)")
 @click.option("--total-chapters", type=int, default=DEFAULT_TOTAL_CHAPTERS,
               help=f"Target chapter count (default: {DEFAULT_TOTAL_CHAPTERS})")
 @click.option("--chapter-words", type=int, default=DEFAULT_CHAPTER_WORDS,
               help=f"Target words per chapter (default: {DEFAULT_CHAPTER_WORDS})")
 @click.option("--total-words", type=int, default=None,
               help="Override total word count (default: chapters * words-per-chapter)")
-def init(project_dir: str, total_chapters: int, chapter_words: int, total_words: int | None):
+def init(project_dir: str, title: str | None, total_chapters: int, chapter_words: int, total_words: int | None):
     """Initialize a new novel writing project."""
     import json
 
-    # Auto-calculate total words from chapters * words-per-chapter
     if total_words is None:
         total_words = total_chapters * chapter_words
 
     project_path = Path(project_dir).resolve()
+    novel_title = title or project_path.name
 
     if project_path.exists() and list(project_path.glob("*")):
         click.echo(f"[ERROR] {project_path} 已存在且非空")
@@ -96,6 +98,7 @@ def init(project_dir: str, total_chapters: int, chapter_words: int, total_words:
     # Create project config
     config = {
         "version": "0.1.0",
+        "title": novel_title,
         "project_name": project_path.name,
         "total_words": total_words,
         "total_chapters": total_chapters,
@@ -104,7 +107,7 @@ def init(project_dir: str, total_chapters: int, chapter_words: int, total_words:
     config_path = project_path / "novel.json"
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    click.echo(f"[OK] 项目已创建: {project_path}")
+    click.echo(f"[OK] 《{novel_title}》已创建: {project_path}")
     click.echo(f"   目标: {total_chapters} 章 × ~{chapter_words} 字 = {total_words:,} 字")
     click.echo(f"   novel-agent write --project {project_path}")
 
@@ -163,7 +166,7 @@ def resume(project_dir: str):
     from novel_agent.conversation_loop import ConversationLoop
 
     agent = AIAgent(project_dir=project_dir)
-    click.echo(f"Resume: {agent.project_dir.name}")
+    click.echo(f"Resume: 《{agent.novel_title}》")
     loop = ConversationLoop(agent)
     loop.run()
 
