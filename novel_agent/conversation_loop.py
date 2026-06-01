@@ -94,7 +94,7 @@ class ConversationLoop:
 
         tools = registry.get_definitions()
 
-        safe_print()  # spacing
+        safe_print("")  # spacing
 
         assistant_content = ""
         try:
