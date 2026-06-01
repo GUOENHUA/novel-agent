@@ -128,26 +128,46 @@ class AutoPipeline:
             "attempts": MAX_RETRY_ATTEMPTS,
         }
 
-    # -- Phase implementations (stubs for now, real logic in Phase 4) ----------
+    # -- Phase implementations --------------------------------------------------
 
     def _write_chapter(self, chapter_num: int, words: int, attempt: int) -> str:
-        """Placeholder: call write_chapter tool."""
-        # TODO Phase 4: integrate with chapter_tool.py
-        content = (
-            f"[第{chapter_num}章内容占位 — 第{attempt}次尝试]\n"
-            f"目标字数: {words}\n"
+        """Write a chapter by calling the LLM with novel context."""
+        novel_context = self.agent.build_novel_context(f"写第{chapter_num}章")
+        directive = (
+            f"{novel_context}\n\n---\n\n"
+            f"请写第{chapter_num}章的完整正文。目标{words}字左右。\n"
+            f"只输出章节正文，不要解释，不要前言，不要后记。\n"
+            f"开头直接进入场景，结尾留钩子。"
         )
-        return content
+        if attempt > 1:
+            directive += f"\n\n（这是第{attempt}次重试，请确保质量。）"
+
+        resp = self.agent.call_llm(
+            messages=[{"role": "user", "content": directive}],
+            max_tokens=words * 3,
+            temperature=0.8,
+        )
+        return self.agent.extract_text(resp.content)
 
     def _check_slop(self, content: str) -> tuple[float, list[str]]:
-        """Placeholder: run slop checker."""
-        # TODO Phase 4: integrate with slop_checker.py
-        return 10.0, []
+        """Run mechanical slop check."""
+        from novel_agent.tools.slop_checker import mechanical_scan
+        result = mechanical_scan(content)
+        warnings = [h["match"] for h in result.get("tier1_hits", [])]
+        warnings += [h["match"] for h in result.get("fiction_hits", [])]
+        return result["score"], warnings
 
     def _settle_state(self, chapter_num: int, content: str) -> None:
-        """Placeholder: extract facts, update truth files and hook ledger."""
-        # TODO Phase 3: integrate with state/ module
-        pass
+        """Save chapter to disk and update state."""
+        # Save chapter file
+        chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
+        chapter_path.parent.mkdir(parents=True, exist_ok=True)
+        chapter_path.write_text(content, encoding="utf-8")
+
+        # Update novel state
+        state = self.agent.truth_files.load_state()
+        state.current_chapter = chapter_num + 1
+        self.agent.truth_files.save_state(state)
 
     @staticmethod
     def _interrupt_handler(signum, frame):
