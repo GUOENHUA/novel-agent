@@ -126,12 +126,17 @@ class AIAgent:
 
     def _init_context(self) -> None:
         """Initialize the context compression engine."""
+        context_length = int(os.getenv("NOVEL_AGENT_CONTEXT_LENGTH", "200000"))
+        threshold_pct = float(os.getenv("NOVEL_AGENT_COMPRESS_THRESHOLD", "0.70"))
         self.context_engine = NovelCompressor(
             model=self.model,
-            context_length=200000,
-            threshold_percent=0.70,
+            context_length=context_length,
+            threshold_percent=threshold_pct,
         )
-        logger.info("Context engine initialized: %s", self.context_engine.name)
+        logger.info(
+            "Context engine initialized: %s (context=%d, threshold=%.0f%%)",
+            self.context_engine.name, context_length, threshold_pct * 100,
+        )
 
     @staticmethod
     def _resolve_api_key() -> str:
