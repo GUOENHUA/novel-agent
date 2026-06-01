@@ -11,7 +11,7 @@ the LLM how to correctly use the memory system.
 
 # -- Type constants ------------------------------------------------------------
 
-MEMORY_TYPES = ["character", "world", "plot", "style"] as list[str]
+MEMORY_TYPES: list[str] = ["character", "world", "plot", "style"]
 
 # -- Frontmatter format --------------------------------------------------------
 

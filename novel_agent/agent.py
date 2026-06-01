@@ -17,6 +17,8 @@ from novel_agent.memory.memory_manager import MemoryManager
 from novel_agent.memory.builtin_provider import BuiltinProvider
 from novel_agent.state.truth_files import TruthFileManager
 from novel_agent.state.hook_ledger import HookLedger
+from novel_agent.skills.loader import SkillLoader
+from novel_agent.context.compressor import NovelCompressor
 from novel_agent.utils.constants import (
     DEFAULT_WRITER_MODEL,
     DEFAULT_CHAPTER_WORDS,
@@ -71,6 +73,12 @@ class AIAgent:
         # Initialize state system
         self._init_state()
 
+        # Initialize skills system
+        self._init_skills()
+
+        # Initialize context engine
+        self._init_context()
+
         # Conversation history
         self.conversation_history: list[dict[str, Any]] = []
 
@@ -98,6 +106,27 @@ class AIAgent:
         set_hook_ledger(self.hook_ledger)
 
         logger.info("State system initialized: %s", self.state_dir)
+
+    def _init_skills(self) -> None:
+        """Initialize the skills subsystem."""
+        self.skill_loader = SkillLoader()
+        self.skill_loader.discover_all(self.project_dir)
+
+        # Wire skill tool to registry
+        from novel_agent.tools.skill_tool import set_skill_loader
+        set_skill_loader(self.skill_loader)
+
+        skills = self.skill_loader.list_all()
+        logger.info("Skills initialized: %d skills loaded", len(skills))
+
+    def _init_context(self) -> None:
+        """Initialize the context compression engine."""
+        self.context_engine = NovelCompressor(
+            model=self.model,
+            context_length=200000,
+            threshold_percent=0.70,
+        )
+        logger.info("Context engine initialized: %s", self.context_engine.name)
 
     @staticmethod
     def _resolve_api_key() -> str:
@@ -135,7 +164,7 @@ class AIAgent:
             "- 让坏事保持坏——不是一切都能修复\n"
             "- 允许不可逆的决定和不可逆的损失\n"
             "- 扣留信息——读者不需要立即知道一切\n"
-            "- 具体胜过抽象（"一只松鸦"胜过"一只鸟"）\n"
+            "- 具体胜过抽象（'一只松鸦'胜过'一只鸟'）\n"
             "- 变化情感强度：安静/爆发/恐惧/解脱/无聊/惊奇/恐怖\n"
         )
 
@@ -143,6 +172,12 @@ class AIAgent:
         memory_prompt = self._memory_manager.build_system_prompt()
         if memory_prompt:
             parts.append(memory_prompt)
+
+        # Skills listing
+        if self.skill_loader:
+            skills_prompt = self.skill_loader.build_system_prompt_block()
+            if skills_prompt:
+                parts.append(skills_prompt)
 
         # Craft education (always loaded)
         craft_path = Path(__file__).parent / "craft" / "CRAFT.md"

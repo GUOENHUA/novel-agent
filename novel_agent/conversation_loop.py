@@ -19,6 +19,7 @@ from novel_agent.tools.registry import registry
 # Import tool modules to trigger registry registration
 import novel_agent.tools.memory_tool  # noqa: F401
 import novel_agent.tools.hook_tool  # noqa: F401
+import novel_agent.tools.skill_tool  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
