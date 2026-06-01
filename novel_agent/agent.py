@@ -40,15 +40,15 @@ class AIAgent:
         self,
         project_dir: str | Path,
         model: str | None = None,
-        chapter_words: int = DEFAULT_CHAPTER_WORDS,
-        total_chapters: int = DEFAULT_TOTAL_CHAPTERS,
-        total_words: int = DEFAULT_TOTAL_WORDS,
+        chapter_words: int | None = None,
+        total_chapters: int | None = None,
+        total_words: int | None = None,
     ):
         self.project_dir = Path(project_dir).resolve()
         self.model = model or os.getenv("NOVEL_AGENT_MODEL", DEFAULT_WRITER_MODEL)
-        self.chapter_words = chapter_words
-        self.total_chapters = total_chapters
-        self.total_words = total_words
+
+        # Load project config from novel.json (falls back to defaults)
+        self._load_project_config(chapter_words, total_chapters, total_words)
 
         # Interrupt flag for auto mode → conversational switch
         self.interrupted = False
@@ -154,6 +154,29 @@ class AIAgent:
     def _resolve_base_url() -> str | None:
         """Resolve custom API base URL (for Anthropic-compatible endpoints)."""
         return os.getenv("ANTHROPIC_BASE_URL") or None
+
+    def _load_project_config(
+        self,
+        chapter_words: int | None = None,
+        total_chapters: int | None = None,
+        total_words: int | None = None,
+    ) -> None:
+        """Load project configuration from novel.json, with CLI override support."""
+        import json
+
+        config_path = self.project_dir / "novel.json"
+        if config_path.exists():
+            try:
+                config = json.loads(config_path.read_text(encoding="utf-8"))
+            except Exception:
+                config = {}
+        else:
+            config = {}
+
+        # CLI args > novel.json > defaults
+        self.chapter_words = chapter_words or config.get("chapter_words", DEFAULT_CHAPTER_WORDS)
+        self.total_chapters = total_chapters or config.get("total_chapters", DEFAULT_TOTAL_CHAPTERS)
+        self.total_words = total_words or config.get("total_words", DEFAULT_TOTAL_WORDS)
 
     _stable_prompt_cache: str | None = None  # Cache for stable layer
 
