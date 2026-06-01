@@ -49,7 +49,6 @@ class ConversationLoop:
         self.agent = agent
         self.total_input_tokens = 0
         self.total_output_tokens = 0
-        self._last_user_message = ""
 
     def run(self) -> None:
         """Enter the interactive REPL loop."""
@@ -78,7 +77,6 @@ class ConversationLoop:
 
     def _process_turn(self, user_message: str) -> None:
         """Process one turn: build novel context → agent → tools → response → memory sync."""
-        self._last_user_message = user_message
         novel_context = self.agent.build_novel_context(user_message)
 
         augmented_message = (
@@ -252,22 +250,34 @@ class ConversationLoop:
         return True
 
     def _detect_chapter_write(self, response, messages: list) -> int | None:
-        """Check if user asked to write a chapter and response is substantial prose."""
-        user_msg = self._last_user_message.lower()
-        write_keywords = ["写第", "写一章", "写下一章", "生成第", "续写", "写第"]
-        is_write_request = any(kw in user_msg for kw in write_keywords)
+        """Check if this turn produced a chapter draft.
 
-        if not is_write_request:
+        Detection: long prose response (>500 chars) with narrative structure
+        (paragraph breaks + Chinese punctuation), not a conversational reply.
+        """
+        text = self.agent.extract_text(response.content)
+        if not text or len(text) < 500:
             return None
 
-        text = self.agent.extract_text(response.content)
-        # Chapter prose typically has paragraphs, quotes, and is >300 chars
-        if text and len(text) > 300 and ("\n\n" in text or "。" in text):
-            state = self.agent.truth_files.load_state()
-            existing = list(self.agent.chapters_dir.glob("ch_*.md"))
-            return state.current_chapter or (len(existing) + 1)
+        # Count narrative markers: paragraphs, dialogue quotes, chapter endings
+        has_paragraphs = text.count("\n\n") >= 2
+        has_dialogue = "“" in text or '"' in text or "「" in text
+        has_punctuation = text.count("。") >= 10
+        narrative_score = has_paragraphs + has_dialogue + has_punctuation
 
-        return None
+        if narrative_score < 2:
+            return None  # Not enough narrative markers — likely conversational
+
+        # Detect chapter completion markers
+        chapter_markers = ["（第", "（*第", "*第", "章完", "（未完", "（第一卷"]
+        has_chapter_ending = any(m in text[-200:] for m in chapter_markers)
+
+        if not has_chapter_ending and len(text) < 2000:
+            return None  # Long prose but no chapter ending — might be a scene fragment
+
+        state = self.agent.truth_files.load_state()
+        existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+        return state.current_chapter or (len(existing) + 1)
 
     def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
         """Ask user to confirm/edit/retry chapter. Returns content to save, or None to discard."""

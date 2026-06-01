@@ -1,0 +1,55 @@
+[
+  {
+    "id": "hook-001",
+    "description": "对话伏笔：师傅当年说沈砚\"根骨尚可，但缺一点灵气\"——暗示虚皇回收机制从他身上多抽了灵气",
+    "hook_type": "dialogue",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-01T16:43:37.618945",
+    "updated_at": "2026-06-01T16:43:37.618945"
+  },
+  {
+    "id": "hook-002",
+    "description": "直接伏笔：符文被某种力量保护，语言无法触及——沈砚试图描述时\"说不出来\"",
+    "hook_type": "direct",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [
+      "沈砚",
+      "林秋水"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-01T16:43:37.628100",
+    "updated_at": "2026-06-01T16:43:37.628100"
+  },
+  {
+    "id": "hook-003",
+    "description": "行动伏笔：符文\"察觉\"了沈砚的注视——像眼睛一样转向他。他被虚皇系统标记",
+    "hook_type": "action",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-01T16:43:37.636992",
+    "updated_at": "2026-06-01T16:43:37.636992"
+  },
+  {
+    "id": "hook-004",
+    "description": "象征伏笔：筑基丹作为外物辅助——沈砚需要外物才能突破，与回收机制暗中压制形成对应",
+    "hook_type": "symbolic",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-01T16:43:37.648048",
+    "updated_at": "2026-06-01T16:43:37.648048"
+  }
+]
