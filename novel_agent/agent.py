@@ -13,6 +13,9 @@ from typing import Any, Optional
 import anthropic
 import dotenv
 
+from novel_agent.memory.memory_manager import MemoryManager
+from novel_agent.memory.builtin_provider import BuiltinProvider
+from novel_agent.memory.recall import find_relevant_memories
 from novel_agent.utils.constants import (
     DEFAULT_WRITER_MODEL,
     DEFAULT_CHAPTER_WORDS,
@@ -56,15 +59,30 @@ class AIAgent:
         self.chapters_dir = ensure_dir(self.project_dir / "chapters")
         self.state_dir = ensure_dir(self.project_dir / "state")
 
-        # Subsystems (lazy-loaded by phases)
-        self._memory_manager = None
+        # Subsystems
+        self._memory_manager: MemoryManager = MemoryManager()
         self._context_engine = None
         self._skill_loader = None
+
+        # Initialize memory system
+        self._init_memory()
 
         # Conversation history
         self.conversation_history: list[dict[str, Any]] = []
 
         logger.info("Agent initialized: project=%s model=%s", self.project_dir, self.model)
+
+    def _init_memory(self) -> None:
+        """Initialize the memory subsystem."""
+        builtin = BuiltinProvider()
+        self._memory_manager.add_provider(builtin)
+        self._memory_manager.initialize_all(str(self.memory_dir))
+
+        # Wire memory tool to registry
+        from novel_agent.tools.memory_tool import set_provider
+        set_provider(builtin)
+
+        logger.info("Memory system initialized: %s", self.memory_dir)
 
     @staticmethod
     def _resolve_api_key() -> str:
@@ -106,7 +124,12 @@ class AIAgent:
             "- 变化情感强度：安静/爆发/恐惧/解脱/无聊/惊奇/恐怖\n"
         )
 
-        # Craft education (always loaded, ~8K tokens)
+        # Memory system prompt
+        memory_prompt = self._memory_manager.build_system_prompt()
+        if memory_prompt:
+            parts.append(memory_prompt)
+
+        # Craft education (always loaded)
         craft_path = Path(__file__).parent / "craft" / "CRAFT.md"
         if craft_path.exists():
             parts.append(f"\n\n## 写作工艺参考\n\n{craft_path.read_text(encoding='utf-8')}")
@@ -117,6 +140,14 @@ class AIAgent:
             parts.append(f"\n\n## AI 痕迹检测参考\n\n{antislop_path.read_text(encoding='utf-8')}")
 
         return "\n".join(parts)
+
+    def prefetch_memories(self, query: str) -> list[dict[str, Any]]:
+        """Prefetch relevant memories for the current user query."""
+        return self._memory_manager.prefetch_all(query)
+
+    def sync_memories(self, user_msg: str, assistant_msg: str) -> None:
+        """Sync the completed turn to memory providers."""
+        self._memory_manager.sync_all(user_msg, assistant_msg)
 
     # -- LLM call --------------------------------------------------------------
 

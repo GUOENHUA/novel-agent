@@ -16,6 +16,9 @@ from typing import Any
 from novel_agent.agent import AIAgent
 from novel_agent.tools.registry import registry
 
+# Import tool modules to trigger registry registration
+import novel_agent.tools.memory_tool  # noqa: F401
+
 logger = logging.getLogger(__name__)
 
 PROMPT = "📖 novel-agent> "
@@ -55,16 +58,24 @@ class ConversationLoop:
             self._process_turn(user_input)
 
     def _process_turn(self, user_message: str) -> None:
-        """Process one turn: user message → agent → tools → response."""
+        """Process one turn: user message → memory prefetch → agent → tools → response → memory sync."""
+        # Prefetch relevant memories
+        memories = self.agent.prefetch_memories(user_message)
+        context_prefix = ""
+        if memories:
+            for m in memories:
+                if m.get("content"):
+                    context_prefix += f"\n[Relevant memories: {m['source']}]\n{m['content']}\n"
+
         messages = self.agent.conversation_history + [
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": context_prefix + user_message if context_prefix else user_message}
         ]
 
         tools = registry.get_definitions()
-        tool_names = registry.get_all_tool_names()
 
         print()  # spacing
 
+        assistant_content = ""
         try:
             response = self.agent.call_llm(
                 messages=messages,
@@ -79,7 +90,7 @@ class ConversationLoop:
                         tool_name = block.name
                         tool_input = block.input if isinstance(block.input, dict) else {}
 
-                        print(f"  🔧 {tool_name}({json.dumps(tool_input, ensure_ascii=False)[:120]})")
+                        print(f"  [tool] {tool_name}({json.dumps(tool_input, ensure_ascii=False)[:120]})")
 
                         result = registry.dispatch(tool_name, tool_input)
                         tool_results.append({
@@ -88,7 +99,6 @@ class ConversationLoop:
                             "content": result,
                         })
 
-                # Append assistant + tool results to messages
                 messages.append({"role": "assistant", "content": response.content})
                 messages.append({"role": "user", "content": tool_results})
 
@@ -100,6 +110,7 @@ class ConversationLoop:
             # Display text response
             for block in response.content:
                 if block.type == "text":
+                    assistant_content = block.text
                     print(block.text)
                     print()
 
@@ -111,9 +122,12 @@ class ConversationLoop:
                 {"role": "assistant", "content": response.content}
             )
 
+            # Sync memories after turn
+            self.agent.sync_memories(user_message, assistant_content)
+
         except Exception as e:
             logger.exception("Turn processing failed")
-            print(f"  ❌ 处理失败: {e}\n")
+            print(f"  [ERROR] 处理失败: {e}\n")
 
     def _handle_command(self, cmd: str) -> bool:
         """Handle slash commands. Returns True to continue, False to quit."""
