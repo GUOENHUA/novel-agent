@@ -1,34 +1,49 @@
 [
   {
-    "id": "hook-1",
-    "description": "渡劫不是\"考验\"，而是天道的收割程序。赵谦渡劫化灰，尸骨无存——所有渡劫成功的修士都\"消失了\"。",
+    "id": "hook-001",
+    "description": "沈砚的出租屋被人秘密搜查——留下松脂香气，柜子木板被窄刃法器撬开。来人不是普通散修，疑似宗门中人。不知道在找什么。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 1,
-    "target_chapter": 150,
+    "target_chapter": 40,
     "related_characters": [
-      "陆沉",
-      "赵谦"
+      "沈砚"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-02T17:11:48.300121",
-    "updated_at": "2026-06-02T17:11:48.300121"
+    "created_at": "2026-06-02T17:29:38.995463",
+    "updated_at": "2026-06-02T17:29:38.995463"
   },
   {
-    "id": "hook-2",
-    "description": "存在层寄生：高阶修士的面孔和存在逐渐被遗忘。赵谦死后，陆沉发现自己记不起他的脸和声音。卷宗中\"冯道远\"的名字在公开名录中被抹除。",
-    "hook_type": "symbolic",
+    "id": "hook-002",
+    "description": "赤铜矿脉旧矿道探查任务的酬劳高达十二块灵石，远超正常废弃矿探查市价。老杨指出宗门不是傻子——为什么花大价钱外包一个\"空矿道\"？",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 1,
-    "target_chapter": 380,
+    "target_chapter": 5,
     "related_characters": [
-      "陆沉",
-      "赵谦"
+      "沈砚",
+      "老杨"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-02T17:11:48.308553",
-    "updated_at": "2026-06-02T17:11:48.308553"
+    "created_at": "2026-06-02T17:29:39.002448",
+    "updated_at": "2026-06-02T17:29:39.002448"
+  },
+  {
+    "id": "hook-003",
+    "description": "两个接过类似\"高酬劳简单任务\"的散修都离奇死亡：老周（手废后被灭口，伪装冻死）、赵四（三年前探查同一矿脉，两个月后无伤死在床上）。两人的死因都与任务直接或间接相关。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈砚",
+      "老杨"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-02T17:29:39.007187",
+    "updated_at": "2026-06-02T17:29:39.007187"
   }
 ]

@@ -1,4 +1,11 @@
-- [plot-outline-main](plot-plot-outline-main.md) — 《天道寄生虫》完整三幕大纲：800章，主角陆沉从觉醒到弑天的完整弧线。天道三层寄生体系（灵力/存在/命运）。
-- [world-tiandao-system](world-world-tiandao-system.md) — 天道寄生体系完整设定：三层寄生机制、天行者、无间渊、忘川、界外养蛊场。
-- [world-qie-ming-jing](world-world-qie-ming-jing.md) — 《窃命经》——主角陆沉的核心功法，反制天道寄生体系的逆法
-- [char-zhao-qian](char-char-zhao-qian.md) — 赵谦：陆沉的师兄，同乡，第一个对他好的人。第1章渡劫化灰，是催化事件。
+- [world-core-concept](world-world-core-concept.md) — 《天道寄生虫》核心设定：天道并非神圣法则，而是一种寄生在修仙者身上的存在，汲取他们的修为、生命乃至命运。修仙者越是修炼，天道寄生越深。
+- [world-xiuxian-system](world-world-xiuxian-system.md) — 修仙体系与多界域设定：底层散修视角，多个世界/界域，天道寄生机制
+- [plot-framework](plot-plot-framework.md) — 《天道寄生虫》三卷大纲框架，800章，暗黑阴谋文
+- [主角: 沈砚](char-主角-沈砚.md) — 底层散修，炼气九层，因撞破天道真相而被卷入暗黑阴谋
+- [style-pacing-slow-burn](style-style-pacing-slow-burn.md) — 慢节奏暗黑阴谋文风格——信息缓慢释放，氛围先行，让悬疑感自然积累
+- [char-shen-yan](char-char-shen-yan.md) — 主角沈砚：23岁底层散修，炼气九层圆满，卡在筑基瓶颈三年。沉默寡言、谨慎偏执、对弱者有同理心。
+- [char-lao-yang](char-char-lao-yang.md) — 老杨：青木集消息最灵通的散修，四十来岁，左脸有疤。靠帮丹药铺分拣药材活命，在青木集活了十二年。
+- [world-qingmu-collection](world-world-qingmu-collection.md) — 青木集：三不管地带的散修聚集点，无城墙无灵脉无宗门驻地。悬赏牌分树冠（宗门）和树根（散修）两区。
+- [plot-chapter-1-events](plot-plot-chapter-1-events.md) — 第1章情节概要：沈砚接任务、发现房间被搜、与老杨对话、前往矿脉。
+- [plot-outline-main](plot-plot-outline-main.md) — 《天道寄生虫》三卷大纲：观棋者（1-200）建置觉醒 → 噬主者（201-500）对抗深渊 → 噬天者（501-800）突破终结。
+- [style-pacing-dark](style-style-pacing-dark.md) — 慢节奏暗黑阴谋文风格：氛围先行、信息克制、密集伏笔、章末不强行钩子。
