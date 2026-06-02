@@ -19,6 +19,8 @@ from rich.live import Live
 from rich.spinner import Spinner
 from rich.text import Text
 
+import questionary
+
 from novel_agent.agent import AIAgent
 from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
@@ -378,31 +380,51 @@ class ConversationLoop:
             settlement = {}
         hooks_planted = settlement.get("hooks_planted", [])
         if hooks_planted:
-            safe_print(f"  Hooks ({len(hooks_planted)}):")
+            safe_print(f"\n  Hooks found ({len(hooks_planted)}):")
             for i, h in enumerate(hooks_planted):
                 scope = h.get("scope", "chapter")
-                safe_print(f"    {i+1}. [{h['id']}] ({scope}) {h['desc'][:80]}")
-            safe_print("  1. Keep all  2. Select  3. Discard all")
-            h_choice = input("  > ").strip()
-            if h_choice == "3":
+                safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
+            safe_print("")
+            h_action = questionary.select(
+                "What to do with hooks?",
+                choices=[
+                    questionary.Choice("Keep all", "keep"),
+                    questionary.Choice("Select which to keep", "select"),
+                    questionary.Separator(),
+                    questionary.Choice("Discard all hooks", "discard"),
+                ],
+            ).ask()
+            if h_action == "discard":
                 hooks_planted = []
-            elif h_choice == "2":
-                nums = input("  Keep which? (numbers): ").strip().split()
-                indices = [int(n)-1 for n in nums if n.isdigit() and 1 <= int(n) <= len(hooks_planted)]
-                hooks_planted = [hooks_planted[i] for i in indices]
+            elif h_action == "select":
+                selected = questionary.checkbox(
+                    "Select hooks to keep:",
+                    choices=[
+                        questionary.Choice(f"[{h['id']}] {h['desc'][:60]}", value=h)
+                        for h in hooks_planted
+                    ],
+                ).ask()
+                hooks_planted = selected or []
         else:
             safe_print(f"  (no hooks detected)")
 
-        # 2. Title last — generated from complete content + settlement context
+        # 2. Title last — generated from complete content
         title = pipeline._generate_title(cleaned, chapter_num)
-        safe_print(f"  Title: {title.strip()}")
-        safe_print("  1. Keep  2. Change  3. Discard")
-        t_choice = input("  > ").strip()
+        safe_print(f"\n  Title: {title.strip()}")
+        t_action = questionary.select(
+            f"Chapter {chapter_num} — {title.strip()}",
+            choices=[
+                questionary.Choice("Save", "save"),
+                questionary.Choice("Change title", "change"),
+                questionary.Separator(),
+                questionary.Choice("Discard chapter", "discard"),
+            ],
+        ).ask()
 
-        if t_choice == "3":
+        if t_action == "discard":
             return None
-        if t_choice == "2":
-            title = input("  New title: ").strip() or title
+        if t_action == "change":
+            title = questionary.text("New title:", default=title).ask() or title
 
         # 3. Clean + save (LLM does the cleaning, not regex)
         body = pipeline._clean_chapter_via_llm(cleaned)
