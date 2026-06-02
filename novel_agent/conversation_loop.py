@@ -43,7 +43,7 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
     -  Chat about this...
     """
     labels = [label for label, _ in choices]
-    extra_labels = ["  Type something...", "  Chat about this..."]
+    extra_labels = ["  Chat about this..."]
     choice_map = {label: value for label, value in choices}
     total_labels = labels + extra_labels
     current_idx = [0]
@@ -68,9 +68,7 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
         return "\n".join(lines)
 
     def select_and_exit(label: str) -> None:
-        if label == "  Type something...":
-            app.exit(result=("__type__", None))
-        elif label == "  Chat about this...":
+        if label == "  Chat about this...":
             app.exit(result=("__chat__", None))
         else:
             value = choice_map.get(label, label)
@@ -118,11 +116,6 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
         action, msg = result
         if action == "__tab__":
             note_text[0] = msg
-            return _choose(message, choices)
-        if action == "__type__":
-            msg = questionary.text("Instructions:").ask() or ""
-            if msg:
-                note_text[0] = msg
             return _choose(message, choices)
         if action == "__chat__":
             msg = questionary.text("Ask about this:").ask() or ""
