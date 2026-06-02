@@ -231,24 +231,26 @@ class ConversationLoop:
             user_msgs = [m for m in self.agent.conversation_history if m.get("role") == "user"]
             assistant_msgs = [m for m in self.agent.conversation_history if m.get("role") == "assistant"]
             safe_print(f"  resumed: {len(user_msgs)} turns from previous session")
+            safe_print(f"  " + "─" * 50)
 
-            # Show last few exchanges for context
-            recent = self.agent.conversation_history[-6:]
-            for msg in recent:
+            # Show last exchange in full
+            last_exchange = self.agent.conversation_history[-2:]
+            for msg in last_exchange:
                 role = msg.get("role", "?")
                 content = msg.get("content", "")
                 if isinstance(content, list):
                     text = " ".join(
                         b.get("text", "") if isinstance(b, dict) else
-                        (b.text if hasattr(b, "text") else str(b)[:100])
+                        (b.text if hasattr(b, "text") else str(b)[:200])
                         for b in content
                     )
                 else:
                     text = str(content)
                 if role == "user":
-                    safe_print(f"  [bold cyan]>[/bold cyan] {text[:200]}{'...' if len(text) > 200 else ''}")
+                    safe_print(f"  [bold cyan]>[/bold cyan] {text}")
                 else:
-                    safe_print(f"  [dim]{text[:200]}{'...' if len(text) > 200 else ''}[/dim]")
+                    safe_print(f"  [dim]{text}[/dim]")
+            safe_print("  " + "─" * 50)
             safe_print("")
 
         while True:
