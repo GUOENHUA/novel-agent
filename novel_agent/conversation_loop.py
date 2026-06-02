@@ -800,20 +800,25 @@ class ConversationLoop:
             return ""
 
     def _is_chapter_prose(self, text: str) -> bool:
-        """LLM classification: is this chapter prose? Non-streaming, no thinking."""
-        try:
-            resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": (
-                    "Reply exactly 'yes' or 'no'. Is this text a novel chapter (narrative prose)? "
-                    "Answer 'no' if it's an outline, plan, list, conversation, or instructions.\n\n"
-                    f"{text[:800]}"
-                )}],
-                max_tokens=5, temperature=0,
-            )
-            result = self.agent.extract_text(resp.content).strip().lower()
-            return result.startswith("yes") or result.startswith("y")
-        except Exception:
-            return True  # Default to showing save dialog if classification fails
+        """LLM classification via JSON output. Retries once on parse failure."""
+        import json
+        for attempt in range(2):
+            try:
+                resp = self.agent.call_llm(
+                    messages=[{"role": "user", "content": (
+                        'Output JSON: {"is_chapter": true} if this is narrative prose (novel chapter), '
+                        '{"is_chapter": false} if it is an outline, plan, list, conversation, or instructions.\n\n'
+                        f"{text[:800]}"
+                    )}],
+                    max_tokens=50, temperature=0,
+                )
+                raw = self.agent.extract_text(resp.content).strip()
+                data = json.loads(raw)
+                return bool(data.get("is_chapter", True))
+            except Exception:
+                if attempt == 1:
+                    return True  # Default to showing dialog if all retries fail
+        return True
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
