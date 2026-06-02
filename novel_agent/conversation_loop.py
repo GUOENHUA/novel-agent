@@ -514,9 +514,11 @@ class ConversationLoop:
 
         # 1. AI extracts hooks → user reviews first
         pipeline = AutoPipeline(self.agent)
+        safe_print("  [dim]analyzing hooks...[/dim]")
         try:
             settlement = pipeline._run_settlement(chapter_num, cleaned)
         except Exception:
+            safe_print("  [dim](hook analysis skipped)[/dim]")
             settlement = {}
         hooks_planted = settlement.get("hooks_planted", [])
         if hooks_planted:
