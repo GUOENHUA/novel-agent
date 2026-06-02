@@ -339,9 +339,12 @@ class ConversationLoop:
             return None
 
         # Skip outline/list documents — not prose chapters
-        outline_markers = ["大纲", "章纲", "第1章", "第2章", "第3章", "分卷", "结构规划"]
-        outline_score = sum(1 for m in outline_markers if m in text[:500])
-        if outline_score >= 3:
+        outline_markers = ["大纲", "章纲", "第1章", "第2章", "第3章", "分卷", "结构规划",
+                          "节拍表", "Save the Cat", "故事圈", "MICE", "卷战略", "拆章"]
+        outline_score = sum(1 for m in outline_markers if m in text[:800])
+        # Also check: many numbered chapter entries = outline
+        numbered_chapters = len([l for l in text[:1000].split("\n") if l.strip().startswith(("第", "Ch", "ch", "Chapter"))])
+        if outline_score >= 2 or numbered_chapters >= 5:
             return None  # Looks like an outline, not a chapter
 
         # Count narrative markers: paragraphs, dialogue quotes, chapter endings
