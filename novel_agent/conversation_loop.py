@@ -312,10 +312,17 @@ class ConversationLoop:
 
         Detection: long prose response (>500 chars) with narrative structure
         (paragraph breaks + Chinese punctuation), not a conversational reply.
+        Skips outline-looking content (chapter lists, structure documents).
         """
         text = self.agent.extract_text(response.content)
         if not text or len(text) < 500:
             return None
+
+        # Skip outline/list documents — not prose chapters
+        outline_markers = ["大纲", "章纲", "第1章", "第2章", "第3章", "分卷", "结构规划"]
+        outline_score = sum(1 for m in outline_markers if m in text[:500])
+        if outline_score >= 3:
+            return None  # Looks like an outline, not a chapter
 
         # Count narrative markers: paragraphs, dialogue quotes, chapter endings
         has_paragraphs = text.count("\n\n") >= 2
