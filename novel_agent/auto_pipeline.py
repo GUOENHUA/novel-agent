@@ -396,11 +396,15 @@ class AutoPipeline:
                         title = m.group(1).strip().strip("《》「」\"'“”")
                         if 3 <= len(title) <= 10:
                             break
-            if 2 <= len(title) <= 20:
+            # Validate: reject titles that look like prompt leakage
+            garbage_words = ["汉字", "标题", "输出", "不要", "解释", "英文", "字符", "4-8"]
+            if 2 <= len(title) <= 20 and not any(w in title for w in garbage_words):
                 return title
         except Exception:
             pass
-        return f"第{chapter_num}章"
+        # Last resort: take first 8 chars of chapter content as title
+        fallback = content.strip()[:8].replace("\n", "")
+        return fallback if len(fallback) >= 2 else f"第{chapter_num}章"
 
     @staticmethod
     def _interrupt_handler(signum, frame):
