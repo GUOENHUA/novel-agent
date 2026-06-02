@@ -20,18 +20,90 @@ from rich.spinner import Spinner
 from rich.text import Text
 
 import questionary
+from prompt_toolkit import prompt
+from prompt_toolkit.application import Application
+from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.keys import Keys
+from prompt_toolkit.layout import Layout
+from prompt_toolkit.layout.containers import HSplit, Window
+from prompt_toolkit.layout.controls import FormattedTextControl
+from prompt_toolkit.styles import Style
+from prompt_toolkit.formatted_text import HTML
 
 from novel_agent.agent import AIAgent
 from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
 
 
-def _choose(message: str, choices: list[tuple[str, str]]) -> str:
-    """Simple select from choices. Returns the choice value."""
+def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
+    """Select with ↑↓, Enter=confirm, Tab=add note. Returns (value, note_or_empty)."""
     labels = [label for label, _ in choices]
     choice_map = {label: value for label, value in choices}
-    pick = questionary.select(message, choices=labels).ask()
-    return choice_map.get(pick, pick) if pick else ""
+    current_idx = [0]
+    note_text = [""]
+
+    def get_formatted():
+        lines = [message, ""]
+        for i, label in enumerate(labels):
+            if i == current_idx[0]:
+                lines.append(f"  > {label}")
+            else:
+                lines.append(f"    {label}")
+        lines.append("")
+        hint = "Enter=confirm  Tab=add note  Ctrl+C=cancel"
+        if note_text[0]:
+            hint = f"Note: {note_text[0]}  |  {hint}"
+        lines.append(hint)
+        return "\n".join(lines)
+
+    def select_and_exit(label: str) -> None:
+        value = choice_map.get(label, label)
+        app.exit(result=(value, note_text[0]))
+
+    kb = KeyBindings()
+
+    @kb.add("up")
+    def _(event):
+        current_idx[0] = (current_idx[0] - 1) % len(labels)
+
+    @kb.add("down")
+    def _(event):
+        current_idx[0] = (current_idx[0] + 1) % len(labels)
+
+    @kb.add("enter")
+    def _(event):
+        select_and_exit(labels[current_idx[0]])
+
+    @kb.add(Keys.Tab)
+    def _(event):
+        app = event.app
+        app.exit(result=("__tab__", ""))  # Signal to prompt for note
+
+    @kb.add(Keys.ControlC)
+    def _(event):
+        event.app.exit(result=("", ""))
+
+    content = FormattedTextControl(text=get_formatted)
+    window = Window(content=content, always_hide_cursor=True)
+    root = HSplit([window])
+    layout = Layout(root)
+
+    app = Application(
+        layout=layout,
+        key_bindings=kb,
+        full_screen=False,
+        erase_when_done=True,
+    )
+
+    result = app.run()
+
+    if isinstance(result, tuple) and result[0] == "__tab__":
+        note_text[0] = questionary.text("Note:").ask() or ""
+        return _choose(message, choices)  # Re-run select after note
+
+    if isinstance(result, tuple):
+        return result
+    return ("", "")
 
 # Import tool modules to trigger registry registration
 import novel_agent.tools.memory_tool  # noqa: F401
@@ -400,7 +472,7 @@ class ConversationLoop:
                 scope = h.get("scope", "chapter")
                 safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
             safe_print("")
-            h_action = _choose(
+            h_action, h_note = _choose(
                 "What to do with hooks?",
                 [("Keep all hooks", "keep"), ("Select hooks to keep", "select"), ("Discard all hooks", "discard")],
             )
@@ -415,16 +487,15 @@ class ConversationLoop:
                     ],
                 ).ask()
                 hooks_planted = selected or []
-            note = questionary.text("Any notes? (enter to skip):").ask()
-            if note:
-                safe_print(f"  [dim]{note}[/dim]")
+            if h_note:
+                safe_print(f"  [dim]{h_note}[/dim]")
         else:
             safe_print(f"  (no hooks detected)")
 
         # 2. Title last — generated from complete content
         title = pipeline._generate_title(cleaned, chapter_num)
         safe_print(f"\n  Title: {title.strip()}")
-        t_action = _choose(
+        t_action, t_note = _choose(
             f"Chapter {chapter_num} — {title.strip()}",
             [("Save chapter", "save"), ("Change title", "change"), ("Discard chapter", "discard")],
         )
@@ -433,11 +504,8 @@ class ConversationLoop:
             return None
         if t_action == "change":
             title = questionary.text("New title:", default=title).ask() or title
-
-        # Optional note after save/change
-        note = questionary.text("Any notes? (enter to skip):").ask()
-        if note:
-            safe_print(f"  [dim]Note: {note}[/dim]")
+        if t_note:
+            safe_print(f"  [dim]{t_note}[/dim]")
 
         # 3. Clean + save (LLM does the cleaning, not regex)
         body = pipeline._clean_chapter_via_llm(cleaned)
