@@ -137,25 +137,25 @@ class ConversationLoop:
 
         assistant_content = ""
         try:
-            # --- LLM call with spinner ---
+            # --- LLM call with streaming ---
             turn_input_tokens = 0
             turn_output_tokens = 0
 
-            with console.status("[bold yellow]Thinking...", spinner="dots") as status:
-                t0 = time.time()
-                response = self.agent.call_llm(
-                    messages=messages,
-                    tools=tools if tools else None,
-                )
-                elapsed = time.time() - t0
+            safe_print("")  # spacing before stream
+            response = self.agent.stream_with_display(
+                messages=messages,
+                tools=tools if tools else None,
+                extra_body={"thinking": {"type": "enabled"}},
+            )
+            safe_print("")
+
+            if hasattr(response, "usage") and response.usage:
                 in_tok = response.usage.input_tokens
                 out_tok = response.usage.output_tokens
-                status.update(f"[bold yellow]Thinking... ({elapsed:.1f}s, {in_tok}+{out_tok} tk)")
-
-            turn_input_tokens += in_tok
-            turn_output_tokens += out_tok
-            self.total_input_tokens += in_tok
-            self.total_output_tokens += out_tok
+                turn_input_tokens += in_tok
+                turn_output_tokens += out_tok
+                self.total_input_tokens += in_tok
+                self.total_output_tokens += out_tok
 
             # --- ReAct loop: handle tool calls ---
             tool_rounds = 0

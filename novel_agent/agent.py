@@ -641,8 +641,9 @@ class AIAgent:
         max_tokens: int = 8192,
         max_retries: int = 3,
         extra_body: dict | None = None,
-    ) -> anthropic.types.Message:
-        """Make an API call to Claude with retry logic."""
+        stream: bool = False,
+    ) -> anthropic.types.Message | anthropic.types.RawMessageStreamEvent:
+        """Make an API call to Claude, with optional streaming."""
         import time
 
         kwargs: dict[str, Any] = {
@@ -660,22 +661,55 @@ class AIAgent:
         last_error = None
         for attempt in range(max_retries):
             try:
+                if stream:
+                    return self.client.messages.stream(**kwargs)
                 return self.client.messages.create(**kwargs)
             except anthropic.RateLimitError as e:
                 last_error = e
                 wait = 2 ** attempt * 5
-                logger.warning("Rate limited, retrying in %ds (attempt %d/%d)", wait, attempt + 1, max_retries)
                 time.sleep(wait)
             except anthropic.APIStatusError as e:
                 if e.status_code >= 500:
                     last_error = e
                     wait = 2 ** attempt
-                    logger.warning("Server error %d, retrying in %ds", e.status_code, wait)
                     time.sleep(wait)
                 else:
                     raise
 
         raise last_error or RuntimeError("LLM call failed after max retries")
+
+    def stream_with_display(self, messages, tools=None, temperature=0.8, max_tokens=8192, extra_body=None):
+        """Stream LLM response with real-time text display. Returns final message."""
+        full_text = ""
+        tool_uses = []
+        final_usage = None
+
+        with self.client.messages.stream(
+            model=self.model,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            system=self.build_system_prompt(),
+            messages=messages,
+            tools=tools,
+            extra_body=extra_body or {},
+        ) as stream:
+            for event in stream:
+                if event.type == "content_block_delta":
+                    if event.delta.type == "text_delta":
+                        print(event.delta.text, end="", flush=True)
+                        full_text += event.delta.text
+                elif event.type == "content_block_start":
+                    if event.content_block.type == "tool_use":
+                        tool_uses.append({"id": event.content_block.id, "name": event.content_block.name, "input": ""})
+                elif event.type == "content_block_stop":
+                    pass
+                elif event.type == "message_delta":
+                    if hasattr(event, "usage"):
+                        final_usage = event.usage
+
+        final_message = stream.get_final_message()
+        print()  # newline after streaming
+        return final_message
 
     @staticmethod
     def extract_text(content: list[Any], fallback_to_thinking: bool = False) -> str:
