@@ -72,6 +72,11 @@ class ConversationLoop:
         else:
             safe_print("  fresh project — no chapters yet")
 
+        # Show previous session summary if resuming
+        if self.agent.conversation_history:
+            user_msgs = [m for m in self.agent.conversation_history if m.get("role") == "user"]
+            safe_print(f"  [dim]resumed: {len(self.agent.conversation_history)} messages, {len(user_msgs)} turns from previous session[/dim]")
+
         while True:
             try:
                 user_input = input(PROMPT).strip()
@@ -210,6 +215,9 @@ class ConversationLoop:
             # Check if we need to compress conversation history
             self._maybe_compress(turn_input_tokens)
 
+            # Persist session
+            self.agent.save_session()
+
             # Sync memories
             self.agent.sync_memories(user_message, assistant_content)
 
@@ -222,7 +230,11 @@ class ConversationLoop:
         parts = cmd.split()
         command = parts[0].lower()
 
-        if command.startswith("/title"):
+        if command in ("/clear", "/new"):
+            self.agent.conversation_history = []
+            self.agent.save_session()
+            safe_print("  Session cleared.")
+        elif command.startswith("/title"):
             new_title = cmd[7:].strip() if len(cmd) > 7 else ""
             if new_title:
                 self._set_title(new_title)

@@ -103,10 +103,40 @@ class AIAgent:
         # Initialize context engine
         self._init_context()
 
-        # Conversation history
-        self.conversation_history: list[dict[str, Any]] = []
+        # Conversation history + session persistence
+        self.session_path = self.project_dir / "session.json"
+        self.conversation_history: list[dict[str, Any]] = self._load_session()
 
         logger.info("Agent initialized: project=%s model=%s", self.project_dir, self.model)
+
+    def _load_session(self) -> list[dict[str, Any]]:
+        """Load previous conversation history from session.json."""
+        import json
+        if self.session_path.exists():
+            try:
+                data = json.loads(self.session_path.read_text(encoding="utf-8"))
+                history = data.get("history", [])
+                if history:
+                    logger.info("Loaded session: %d messages", len(history))
+                return history
+            except Exception:
+                pass
+        return []
+
+    def save_session(self) -> None:
+        """Persist conversation history to session.json."""
+        import json
+        # Keep only last 100 messages to avoid huge files
+        recent = self.conversation_history[-100:]
+        data = {
+            "model": self.model,
+            "total_words": self.total_words,
+            "history": recent,
+        }
+        self.session_path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
 
     def _init_memory(self) -> None:
         """Initialize the memory subsystem."""
