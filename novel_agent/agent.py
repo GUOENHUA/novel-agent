@@ -70,7 +70,6 @@ class AIAgent:
     def chapter_path(self, num: int, title: str = "") -> Path:
         """Get chapter file path with consistent naming: ch_001_title-slug.md."""
         if not title:
-            # Try to find existing file with matching number
             existing = list(self.chapters_dir.glob(f"ch_{num:03d}_*.md"))
             if existing:
                 return existing[0]
@@ -80,7 +79,7 @@ class AIAgent:
         return self.chapters_dir / f"ch_{num:03d}{slug}.md"
 
     @staticmethod
-    def _extract_chapter_num(path: Path) -> int:
+    def extract_chapter_num(path: Path) -> int:
         """Extract chapter number from filename like ch_001_title.md."""
         import re
         m = re.match(r"ch_(\d+)", path.stem)
