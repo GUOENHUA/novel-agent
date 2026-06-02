@@ -19,6 +19,8 @@ def plot_tool_handler(args: dict[str, Any], **kwargs) -> str:
 
     if action == "plan":
         return _handle_plan(args)
+    elif action == "save":
+        return _handle_save(args, kwargs)
     elif action == "check_beats":
         return _handle_check_beats(args)
     else:
@@ -75,6 +77,17 @@ def _handle_plan(args: dict[str, Any]) -> str:
         directive=directive,
         hint="Use the agent's call_llm() to generate the outline. Save it to the project as outline.md.",
     )
+
+
+def _handle_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
+    """Save outline content to outline.md."""
+    content = args.get("content", "")
+    if not content:
+        return tool_error("content is required for save.")
+    project_dir = kwargs.get("project_dir", ".")
+    out_path = __import__('pathlib').Path(project_dir) / "outline.md"
+    out_path.write_text(content, encoding="utf-8")
+    return tool_result(success=True, path=str(out_path), chars=len(content))
 
 
 def _handle_check_beats(args: dict[str, Any]) -> str:
