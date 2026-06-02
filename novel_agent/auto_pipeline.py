@@ -216,11 +216,13 @@ class AutoPipeline:
         # Phase 2: settlement (low-temp extraction of structured data)
         settlement = self._run_settlement(chapter_num, content)
 
-        # Update hook ledger
+        # Update hook ledger (include scope when provided by settlement)
         for h in settlement.get("hooks_planted", []):
             self.agent.hook_ledger.upsert(
                 hook_id=h["id"], description=h["desc"],
-                planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
+                planted_chapter=chapter_num,
+                hook_type=h.get("type", "direct"),
+                scope=h.get("scope", "chapter"),
             )
         for hid in settlement.get("hooks_mentioned", []):
             self.agent.hook_ledger.mention(hid, chapter_num)

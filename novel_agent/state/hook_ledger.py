@@ -40,7 +40,13 @@ class HookLedger:
         if raw:
             try:
                 data = json.loads(raw)
-                return [Hook.model_validate(h) for h in data]
+                hooks = []
+                for h in data:
+                    # Backwards compat: old hooks may lack scope field
+                    if "scope" not in h:
+                        h["scope"] = "chapter"
+                    hooks.append(Hook.model_validate(h))
+                return hooks
             except Exception as e:
                 logger.warning("Failed to parse hook ledger: %s", e)
         return []
@@ -61,6 +67,7 @@ class HookLedger:
         description: str,
         planted_chapter: int,
         hook_type: str = "direct",
+        scope: str = "chapter",
         target_chapter: Optional[int] = None,
         related_characters: Optional[list[str]] = None,
         related_hooks: Optional[list[str]] = None,
@@ -69,9 +76,10 @@ class HookLedger:
 
         Returns the created/updated Hook.
         """
+        from novel_agent.state.schemas import HookScope
+
         hooks = self.load_all()
 
-        # Find existing
         existing = next((h for h in hooks if h.id == hook_id), None)
 
         if existing:
@@ -85,6 +93,7 @@ class HookLedger:
                 id=hook_id,
                 description=description,
                 hook_type=HookType(hook_type),
+                scope=HookScope(scope),
                 planted_chapter=planted_chapter,
                 target_chapter=target_chapter,
                 related_characters=related_characters or [],
