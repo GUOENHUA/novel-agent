@@ -329,9 +329,11 @@ class ConversationLoop:
         choice = input("  > ").strip().lower()
 
         if choice in ("y", "yes", ""):
-            title = input("  Chapter title: ").strip()
-            if not title:
-                title = f"第{chapter_num}章"
+            # Auto-generate title
+            safe_print("  [dim]generating title...[/dim]")
+            from novel_agent.auto_pipeline import AutoPipeline
+            pipeline = AutoPipeline(self.agent)
+            title = pipeline._generate_title(cleaned, chapter_num)
 
             # Strip any remaining markdown formatting from body
             import re
