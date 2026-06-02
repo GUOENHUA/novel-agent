@@ -25,6 +25,41 @@ from novel_agent.utils.constants import MAX_RETRY_ATTEMPTS, DRAFT_PASS_THRESHOLD
 logger = logging.getLogger(__name__)
 console = Console(highlight=False)
 
+# Tool schema for settlement extraction — model calls this, API guarantees valid JSON
+SETTLE_TOOL = {
+    "name": "settle_chapter",
+    "description": "Record structured facts extracted from a completed chapter.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "chapter_summary": {"type": "string", "description": "2-3 sentence summary"},
+            "key_events": {"type": "array", "items": {"type": "string"}},
+            "characters_appearing": {"type": "array", "items": {"type": "string"}},
+            "mood": {"type": "string", "enum": ["tense", "hopeful", "tragic", "mysterious", "dark", "neutral"]},
+            "character_changes": {
+                "type": "object",
+                "description": "Map of character name to {location, emotional_state, goal, important_fact}",
+            },
+            "hooks_planted": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {"type": "string"},
+                        "desc": {"type": "string"},
+                        "type": {"type": "string", "enum": ["direct", "symbolic", "dialogue", "action", "naming"]},
+                        "scope": {"type": "string", "enum": ["book", "volume", "arc", "chapter"]},
+                    },
+                    "required": ["id", "desc"],
+                },
+            },
+            "hooks_mentioned": {"type": "array", "items": {"type": "string"}},
+            "hooks_resolved": {"type": "array", "items": {"type": "string"}},
+        },
+        "required": ["chapter_summary"],
+    },
+}
+
 
 class AutoPipeline:
     """Automatic chapter generation engine.
