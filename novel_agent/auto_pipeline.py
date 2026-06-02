@@ -108,11 +108,18 @@ class AutoPipeline:
             slop_score, slop_warnings = self._check_slop(chapter_content)
 
             if slop_score >= DRAFT_PASS_THRESHOLD:
-                # Count hooks before/after to show delta
                 hooks_before = len(self.agent.hook_ledger.get_active())
+                summaries_before = len(self.agent.truth_files.load_summaries())
                 self._settle_state(chapter_num, chapter_content)
-                hooks_after = len(self.agent.hook_ledger.get_active())
-                new_hooks = max(0, hooks_after - hooks_before)
+                hooks_delta = len(self.agent.hook_ledger.get_active()) - hooks_before
+                has_summary = len(self.agent.truth_files.load_summaries()) > summaries_before
+
+                parts = []
+                if hooks_delta:
+                    parts.append(f"hooks {hooks_delta:+d}")
+                if has_summary:
+                    parts.append("summary")
+                info = f", {' '.join(parts)}" if parts else ""
 
                 return {
                     "chapter": chapter_num,
@@ -121,7 +128,7 @@ class AutoPipeline:
                     "slop_score": slop_score,
                     "slop_warnings": slop_warnings,
                     "attempts": attempt,
-                    "hooks_info": f", hooks +{new_hooks}" if new_hooks else "",
+                    "hooks_info": info,
                 }
             else:
                 logger.info(
@@ -178,7 +185,7 @@ class AutoPipeline:
         return result["score"], warnings
 
     def _settle_state(self, chapter_num: int, content: str) -> None:
-        """Save chapter to disk, extract hooks, update state."""
+        """Save chapter, extract hooks + summary + character changes, update state."""
         title = self._generate_title(content, chapter_num)
 
         chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
@@ -186,52 +193,119 @@ class AutoPipeline:
         final = f"# 第{chapter_num}章: {title}\n\n{content}"
         chapter_path.write_text(final, encoding="utf-8")
 
-        # Extract hooks via settlement (low-temp LLM call)
-        self._extract_hooks(chapter_num, content)
+        # Phase 2: settlement (low-temp extraction of structured data)
+        settlement = self._run_settlement(chapter_num, content)
 
-        # Update novel state
+        # Update hook ledger
+        for h in settlement.get("hooks_planted", []):
+            self.agent.hook_ledger.upsert(
+                hook_id=h["id"], description=h["desc"],
+                planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
+            )
+        for hid in settlement.get("hooks_mentioned", []):
+            self.agent.hook_ledger.mention(hid, chapter_num)
+        for hid in settlement.get("hooks_resolved", []):
+            self.agent.hook_ledger.resolve(hid, chapter_num)
+
+        # Update chapter summary
+        if settlement.get("chapter_summary"):
+            from novel_agent.state.schemas import ChapterSummary
+            chars = settlement.get("characters_appearing", [])
+            mood = settlement.get("mood", "neutral")
+            self.agent.truth_files.add_summary(ChapterSummary(
+                chapter_number=chapter_num, title=title,
+                word_count=len(content), summary=settlement["chapter_summary"],
+                key_events=settlement.get("key_events", []),
+                characters_appearing=chars,
+                hooks_planted=[h["id"] for h in settlement.get("hooks_planted", [])],
+                hooks_resolved=settlement.get("hooks_resolved", []),
+                mood=mood,
+            ))
+
+        # Update character states
+        for name, changes in settlement.get("character_changes", {}).items():
+            self.agent.truth_files.update_character(name, **changes)
+            # Also save important changes to memory system
+            if changes.get("important_fact"):
+                self._save_to_memory("character", name, changes["important_fact"])
+
+        # Save novel state
         state = self.agent.truth_files.load_state()
         state.current_chapter = chapter_num + 1
         self.agent.truth_files.save_state(state)
 
-    def _extract_hooks(self, chapter_num: int, content: str) -> None:
-        """Extract hook changes from chapter content and update hook ledger."""
+        planted = len(settlement.get("hooks_planted", []))
+        resolved = len(settlement.get("hooks_resolved", []))
+        chars_updated = len(settlement.get("character_changes", {}))
+        logger.info(
+            "Ch%d settled: +%d hooks, -%d hooks, %d chars, summary=%d chars",
+            chapter_num, planted, resolved, chars_updated,
+            len(settlement.get("chapter_summary", "")),
+        )
+
+    def _run_settlement(self, chapter_num: int, content: str) -> dict:
+        """Run the full settlement extraction (hooks + summary + characters)."""
         import json
         try:
+            existing_hooks = [h.id for h in self.agent.hook_ledger.load_all()]
+            existing_chars = list(self.agent.truth_files.load_state().characters.keys())
+
             directive = (
-                f"从以下章节正文中提取伏笔变更。返回纯JSON（不要markdown代码块）：\n"
-                f'{{"planted":[{{"id":"hook-xxx","desc":"...","type":"direct|symbolic|dialogue|action|naming"}}],'
-                f'"mentioned":["hook-id"],"resolved":["hook-id"]}}\n\n'
-                f"已存在的伏笔ID: {[h.id for h in self.agent.hook_ledger.load_all()]}\n"
-                f"新ID格式: hook-{chapter_num:02d}-序号（如hook-{chapter_num:02d}-1）\n\n"
-                f"{content[:5000]}"
+                f"从以下章节正文中提取结构化信息。返回纯JSON（不要markdown代码块）：\n"
+                f'{{\n'
+                f'  "chapter_summary": "2-3句摘要",\n'
+                f'  "key_events": ["事件1", "事件2"],\n'
+                f'  "characters_appearing": ["角色名"],\n'
+                f'  "mood": "tense|hopeful|tragic|mysterious|dark|neutral",\n'
+                f'  "character_changes": {{\n'
+                f'    "角色名": {{"location": "新位置", "emotional_state": "情绪", "goal": "目标", "important_fact": "新发现的重要事实"}}\n'
+                f'  }},\n'
+                f'  "hooks_planted": [{{"id": "hook-{chapter_num:02d}-1", "desc": "...", "type": "direct|symbolic|dialogue|action|naming"}}],\n'
+                f'  "hooks_mentioned": ["hook-id"],\n'
+                f'  "hooks_resolved": ["hook-id"]\n'
+                f'}}\n\n'
+                f"已有伏笔ID: {existing_hooks}\n"
+                f"已有角色: {existing_chars}\n\n"
+                f"{content[:6000]}"
             )
             resp = self.agent.call_llm(
                 messages=[{"role": "user", "content": directive}],
-                max_tokens=500, temperature=0.3,
+                max_tokens=800, temperature=0.3,
             )
             raw = self.agent.extract_text(resp.content).strip()
-            # Strip markdown code fences if present
             for fence in ("```json", "```"):
                 raw = raw.replace(fence, "").strip()
-            data = json.loads(raw)
-
-            for h in data.get("planted", []):
-                self.agent.hook_ledger.upsert(
-                    hook_id=h["id"], description=h["desc"],
-                    planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
-                )
-            for hid in data.get("mentioned", []):
-                self.agent.hook_ledger.mention(hid, chapter_num)
-            for hid in data.get("resolved", []):
-                self.agent.hook_ledger.resolve(hid, chapter_num)
-
-            planted = len(data.get("planted", []))
-            resolved = len(data.get("resolved", []))
-            if planted or resolved:
-                logger.info("Ch%d hooks: +%d planted, %d resolved", chapter_num, planted, resolved)
+            return json.loads(raw)
         except Exception:
-            logger.warning("Hook extraction failed for ch%d", chapter_num, exc_info=True)
+            logger.warning("Settlement failed for ch%d", chapter_num, exc_info=True)
+            return {}
+
+    def _save_to_memory(self, mem_type: str, name: str, fact: str) -> None:
+        """Save a key fact to the memory system (best-effort, non-blocking)."""
+        try:
+            from novel_agent.memory.memory_store import MemoryStore
+            store = MemoryStore(self.agent.memory_dir)
+            safe_name = "".join(c for c in name.lower().replace(" ", "-") if c.isalnum() or c in "-_")
+            filename = f"char-{safe_name}.md" if mem_type == "character" else f"{mem_type}-{safe_name}.md"
+
+            existing = store.read_memory(filename)
+            if existing and fact not in existing:
+                # Append fact to existing memory
+                body = existing.split("---", 2)[-1].strip() if existing.count("---") >= 2 else existing.strip()
+                store.write_memory(
+                    filename,
+                    {"name": name, "description": f"Auto-extracted facts about {name}", "type": mem_type},
+                    body + "\n\n" + fact,
+                )
+            elif not existing:
+                store.write_memory(
+                    filename,
+                    {"name": name, "description": f"Auto-extracted facts about {name}", "type": mem_type},
+                    fact,
+                )
+                store.add_to_index(name, filename, fact[:120])
+        except Exception:
+            pass  # Best-effort, don't block the pipeline
 
     def _generate_title(self, content: str, chapter_num: int) -> str:
         """Generate a chapter title from the content using a fast LLM call."""
