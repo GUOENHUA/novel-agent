@@ -345,25 +345,25 @@ class AutoPipeline:
                 temperature=0.3,
             )
             raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
-            # DeepSeek V4 puts title inside thinking block — extract quoted phrase
+            # DeepSeek V4 puts title suggestions inside thinking block
             import re
-            title = ""
-            # Try to find 「标题」 or "标题" or 《标题》 patterns
-            for pattern in [r'[「"《]([^」"》]{3,12})[」"》]', r'标题[：:]\s*[「"《]?([^」"》\n]{3,12})']:
-                matches = re.findall(pattern, raw)
-                if matches:
-                    title = matches[-1].strip()
-                    break
-            # Fallback: take shortest line that looks like a title (3-12 chars, no punctuation)
+            # Find Chinese-quoted phrases: "标题" or 「标题」or 《标题》
+            quoted = re.findall(r'["“]([^"”]{2,10})["”]', raw)
+            bracketed = re.findall(r'[「《]([^」》]{2,10})[」》]', raw)
+            all_candidates = quoted + bracketed
+            # Filter out obvious non-titles (containing 的/了/是/或/可以)
+            candidates = [c.strip() for c in all_candidates
+                         if 3 <= len(c.strip()) <= 10
+                         and not any(w in c for w in ["或", "可以", "需要", "应该", "这个", "那个"])]
+            title = candidates[-1].strip() if candidates else ""
+            # Fallback: search for title after keywords
             if not title:
-                for line in raw.split("\n"):
-                    clean = line.strip().strip("《》\"'#*。，！？ ")
-                    if 3 <= len(clean) <= 12 and not any(c in clean for c in "：:，。！？"):
-                        title = clean
-                        break
-            # Last resort: last non-reasoning line
-            if not title:
-                title = raw.split("\n")[-1].strip().strip("《》\"'#*。，！？ ")[:15]
+                for kw in ["标题", "题目", "就叫", "用"]:
+                    m = re.search(kw + r'\s*[：:]*\s*["“《「]?([^\n"」》]{3,10})', raw)
+                    if m:
+                        title = m.group(1).strip().strip("《》「」\"'“”")
+                        if 3 <= len(title) <= 10:
+                            break
             if 2 <= len(title) <= 20:
                 return title
         except Exception:
