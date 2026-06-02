@@ -370,26 +370,15 @@ class ConversationLoop:
         safe_print(f"  [bold]CHAPTER {chapter_num} DRAFT[/bold]  {len(cleaned)} chars")
         safe_print("  " + "─" * 50)
 
-        # 1. AI generates title → user confirms
+        # 1. AI extracts hooks → user reviews first
         pipeline = AutoPipeline(self.agent)
-        title = pipeline._generate_title(cleaned, chapter_num)
-        safe_print(f"  Title: {title.strip()}")
-        safe_print("  1. Keep  2. Change  3. Discard")
-        t_choice = input("  > ").strip()
-
-        if t_choice == "3":
-            return None
-        if t_choice == "2":
-            title = input("  New title: ").strip() or title
-
-        # 2. AI extracts hooks → user reviews
         try:
             settlement = pipeline._run_settlement(chapter_num, cleaned)
         except Exception:
             settlement = {}
         hooks_planted = settlement.get("hooks_planted", [])
         if hooks_planted:
-            safe_print(f"\n  Hooks found ({len(hooks_planted)}):")
+            safe_print(f"  Hooks ({len(hooks_planted)}):")
             for i, h in enumerate(hooks_planted):
                 scope = h.get("scope", "chapter")
                 safe_print(f"    {i+1}. [{h['id']}] ({scope}) {h['desc'][:80]}")
@@ -403,6 +392,17 @@ class ConversationLoop:
                 hooks_planted = [hooks_planted[i] for i in indices]
         else:
             safe_print(f"  (no hooks detected)")
+
+        # 2. Title last — generated from complete content + settlement context
+        title = pipeline._generate_title(cleaned, chapter_num)
+        safe_print(f"  Title: {title.strip()}")
+        safe_print("  1. Keep  2. Change  3. Discard")
+        t_choice = input("  > ").strip()
+
+        if t_choice == "3":
+            return None
+        if t_choice == "2":
+            title = input("  New title: ").strip() or title
 
         # 3. Clean + save (LLM does the cleaning, not regex)
         body = pipeline._clean_chapter_via_llm(cleaned)

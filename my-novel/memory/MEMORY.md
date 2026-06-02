@@ -1,0 +1,2 @@
+- [char-shen-yan](char-char-shen-yan.md) — 主角沈砚，穿越者，天道寄生虫能力者，外逗逼内清醒
+- [world-core](world-world-core.md) — 残酷修仙世界的核心设定，天道体系，势力格局
