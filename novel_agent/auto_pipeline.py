@@ -396,38 +396,30 @@ class AutoPipeline:
         except Exception:
             return content  # Fallback: return original
 
+    TITLE_TOOL = {
+        "name": "set_title",
+        "description": "Set the chapter title",
+        "input_schema": {
+            "type": "object",
+            "properties": {"title": {"type": "string", "description": "4-8 Chinese character chapter title"}},
+            "required": ["title"],
+        },
+    }
+
     def _generate_title(self, content: str, chapter_num: int) -> str:
-        """Generate a chapter title from the content using a fast LLM call."""
+        """Generate title via tool call — API guarantees valid JSON."""
         try:
-            preview = content[:1200]
             resp = self.agent.call_llm(
-                messages=[{
-                    "role": "user",
-                    "content": (
-                        f"为这一章起一个中文标题，4-8个汉字，富有诗意。只输出标题，不要引号、不要解释、不要英文。\n\n"
-                        f"{preview}"
-                    ),
-                }],
-                max_tokens=200,  # DeepSeek thinking blocks need headroom
-                temperature=0.3,
+                messages=[{"role": "user", "content": f"为这一章起一个中文标题，4-8个汉字，富有诗意。\n\n{content[:1000]}"}],
+                tools=[self.TITLE_TOOL], max_tokens=50, temperature=0.3,
             )
-            raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
-            # Use LLM to extract just the title from the thinking block
-            extract_resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": (
-                    "Extract ONLY the chapter title from this text. Return just the title, "
-                    "2-10 Chinese characters, no quotes, no explanation. If no title found, output NONE.\n\n"
-                    f"{raw[:500]}"
-                )}],
-                max_tokens=30, temperature=0,
-            )
-            title = self.agent.extract_text(extract_resp.content, fallback_to_thinking=True).strip()
-            title = title.strip("《》「」\"'“”").strip()
-            if title and title != "NONE" and 2 <= len(title) <= 20:
-                return title
+            for block in resp.content:
+                if hasattr(block, "type") and block.type == "tool_use" and isinstance(block.input, dict):
+                    t = block.input.get("title", "").strip()
+                    if 2 <= len(t) <= 20:
+                        return t
         except Exception:
             pass
-        # Last resort: first 8 chars of chapter content
         fallback = content.strip()[:8].replace("\n", "")
         return fallback if len(fallback) >= 2 else f"第{chapter_num}章"
 
