@@ -106,7 +106,7 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
 
     @kb.add(Keys.ControlC)
     def _(event):
-        event.app.exit(result=("", ""))
+        event.app.exit(result=("__cancel__", ""))
 
     content = FormattedTextControl(text=get_formatted)
     window = Window(content=content, always_hide_cursor=True)
@@ -531,6 +531,9 @@ class ConversationLoop:
                     )
                 if action == "continue":
                     break
+                elif action == "__cancel__":
+                    safe_print("  [dim](cancelled)[/dim]")
+                    return None
                 elif action in ("view", "collapse"):
                     collapsed = not collapsed
         else:
