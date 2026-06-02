@@ -415,6 +415,9 @@ class ConversationLoop:
                     ],
                 ).ask()
                 hooks_planted = selected or []
+            note = questionary.text("Any notes? (enter to skip):").ask()
+            if note:
+                safe_print(f"  [dim]{note}[/dim]")
         else:
             safe_print(f"  (no hooks detected)")
 
