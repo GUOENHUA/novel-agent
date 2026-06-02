@@ -18,7 +18,7 @@ def plot_tool_handler(args: dict[str, Any], **kwargs) -> str:
     action = args.get("action", "plan")
 
     if action == "plan":
-        return _handle_plan(args)
+        return _handle_plan(args, kwargs)
     elif action == "save":
         return _handle_save(args, kwargs)
     elif action == "check_beats":
@@ -27,9 +27,22 @@ def plot_tool_handler(args: dict[str, Any], **kwargs) -> str:
         return tool_error(f"Unknown action: {action}")
 
 
-def _handle_plan(args: dict[str, Any]) -> str:
+def _handle_plan(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     """Generate a plot structure planning prompt."""
-    total_chapters = args.get("total_chapters", 24)
+    total_chapters = args.get("total_chapters", 0)
+    # Read from project config if not provided
+    if not total_chapters:
+        try:
+            import json, os
+            project_dir = kwargs.get("project_dir", "") or args.get("project_dir", "") or os.getenv("NOVEL_PROJECT_DIR", "")
+            if project_dir:
+                config_path = __import__('pathlib').Path(project_dir) / "novel.json"
+                if config_path.exists():
+                    config = json.loads(config_path.read_text(encoding="utf-8"))
+                    total_chapters = config.get("total_chapters", 24)
+        except Exception:
+            pass
+    total_chapters = total_chapters or 24
     genre = args.get("genre", "")
     premise = args.get("premise", "")
 
