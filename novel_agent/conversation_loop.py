@@ -337,7 +337,10 @@ class ConversationLoop:
             title = input("  New title: ").strip() or title
 
         # 2. AI extracts hooks → user reviews
-        settlement = pipeline._run_settlement(chapter_num, cleaned)
+        try:
+            settlement = pipeline._run_settlement(chapter_num, cleaned)
+        except Exception:
+            settlement = {}
         hooks_planted = settlement.get("hooks_planted", [])
         if hooks_planted:
             safe_print(f"\n  [bold]Hooks found ({len(hooks_planted)}):[/bold]")
@@ -350,6 +353,8 @@ class ConversationLoop:
             elif h_choice in ("s", "select"):
                 keep_ids = input("  Keep which? (space-separated IDs): ").strip().split()
                 hooks_planted = [h for h in hooks_planted if h["id"] in keep_ids]
+        else:
+            safe_print(f"  [dim](no hooks detected)[/dim]")
 
         # 3. Save
         import re

@@ -337,8 +337,7 @@ class AutoPipeline:
                 messages=[{
                     "role": "user",
                     "content": (
-                        f"Based on this chapter opening, generate a short Chinese chapter title "
-                        f"(4-8 characters, poetic, no quotes). Return ONLY the title, nothing else.\n\n"
+                        f"为这一章起一个中文标题，4-8个汉字，富有诗意。只输出标题，不要引号、不要解释、不要英文。\n\n"
                         f"{preview}"
                     ),
                 }],
