@@ -514,9 +514,11 @@ class ConversationLoop:
         # Show preview; if content is long, offer to expand
         if len(cleaned) > 600:
             safe_print(f"  [dim]{cleaned[:250]}...[/dim]")
-            safe_print(f"  [dim]type 'view' to see full text, or enter to continue[/dim]")
-            cmd = input("  > ").strip().lower()
-            if cmd in ("view", "v", "show", "open"):
+            action, _ = _choose(
+                "Review chapter?",
+                [("Continue to hooks", "continue"), ("View full chapter", "view")],
+            )
+            if action == "view":
                 safe_print("  " + "─" * 50)
                 safe_print(cleaned)
                 safe_print("  " + "─" * 50)
