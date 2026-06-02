@@ -34,6 +34,8 @@ def chapter_tool_handler(args: dict[str, Any], **kwargs) -> str:
 
     if action == "write":
         return _handle_write(args, kwargs)
+    elif action == "save":
+        return _handle_save(args, kwargs)
     elif action == "settle":
         return _handle_settle(args, kwargs)
     elif action == "read":
@@ -155,6 +157,27 @@ def _handle_settle(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     )
 
 
+def _handle_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
+    """Save chapter content to disk."""
+    chapter_num = args.get("chapter_number", 0)
+    content = args.get("content", "")
+    title = args.get("title", "")
+    if not chapter_num or not content:
+        return tool_error("chapter_number and content are required.")
+    chapters_dir = kwargs.get("chapters_dir", ".")
+    from pathlib import Path as P
+    dir_path = P(chapters_dir)
+    dir_path.mkdir(parents=True, exist_ok=True)
+    # Generate slug from title
+    slug = ""
+    if title:
+        slug = "_" + "".join(c for c in title.lower().replace(" ", "-") if c.isalnum() or c in "-_")[:40]
+    path = dir_path / f"ch_{chapter_num:03d}{slug}.md"
+    final = f"# 第{chapter_num}章: {title}\n\n{content}" if title else content
+    path.write_text(final, encoding="utf-8")
+    return tool_result(success=True, path=str(path), chars=len(content))
+
+
 def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     """Read a chapter from disk. chapter_number=0 returns TOC."""
     chapter_num = args["chapter_number"]
@@ -203,10 +226,11 @@ def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
 CHAPTER_TOOL_SCHEMA = {
     "name": "write_chapter",
     "description": (
-        "撰写或修改小说章节。支持三个操作：\n"
-        "- write: 生成章节写作指令（两阶段中的创意阶段，高温）\n"
-        "- settle: 从已完成章节中提取结构化状态信息（沉淀阶段，低温）\n"
-        "- read: 读取已有章节内容\n\n"
+        "撰写、保存或修改小说章节。支持四个操作：\n"
+        "- write: 生成章节写作指令\n"
+        "- save: 保存章节到磁盘（chapter_number, content, title）\n"
+        "- settle: 提取结构化状态信息\n"
+        "- read: 读取已有章节（chapter_number=0返回目录）\n\n"
         "每次写新章节时，先调用 write 获取写作指令，用 LLM 生成正文后，"
         "再调用 settle 提取状态更新。"
     ),
@@ -215,8 +239,8 @@ CHAPTER_TOOL_SCHEMA = {
         "properties": {
             "action": {
                 "type": "string",
-                "enum": ["write", "settle", "read"],
-                "description": "操作类型。write=生成写作指令，settle=提取状态，read=读取章节。"
+                "enum": ["write", "save", "settle", "read"],
+                "description": "操作类型。write=生成写作指令，save=保存到磁盘，settle=提取状态，read=读取章节（0=目录）。"
             },
             "chapter_number": {
                 "type": "integer",
@@ -246,6 +270,14 @@ CHAPTER_TOOL_SCHEMA = {
             "character_states": {
                 "type": "object",
                 "description": "角色当前状态映射（write 时使用）。"
+            },
+            "title": {
+                "type": "string",
+                "description": "章节标题（save 时使用）。"
+            },
+            "content": {
+                "type": "string",
+                "description": "章节完整正文（save 时需要）。"
             },
             "chapter_content": {
                 "type": "string",
