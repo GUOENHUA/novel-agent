@@ -304,7 +304,7 @@ class AIAgent:
             "- 用户说'继续'/'yes'时，执行推荐的那一步，完成后再次推荐下一步\n"
             "- 指令模糊时追问，不确定的情节/角色/风格提供2-3个选项\n\n"
             "## 输出路由（重要）\n"
-            "- 生成章节正文 → 直接输出，系统会自动检测并弹出保存确认\n"
+            "- 生成章节正文 → 使用 write_chapter(action=save, chapter_number=N, content=\"...\", title=\"...\") 保存到 chapters/ 目录\n"
             "- 生成大纲 → 先用 outline_plot(action=plan) 获取模板，生成内容后用 outline_plot(action=save, content=...) 保存到 outline.md\n"
             "- 生成角色/世界观设定 → 使用 memory 工具保存\n"
             "- 生成伏笔 → 使用 track_hooks 工具\n"
