@@ -141,12 +141,38 @@ class AIAgent:
     def save_session(self) -> None:
         """Persist conversation history to session.json."""
         import json
-        # Keep only last 100 messages to avoid huge files
-        recent = self.conversation_history[-100:]
+        # Convert Anthropic content blocks to serializable dicts
+        serializable = []
+        for msg in self.conversation_history[-100:]:
+            entry = {"role": msg["role"]}
+            content = msg.get("content", "")
+            if isinstance(content, list):
+                # Convert ContentBlock objects to dicts
+                blocks = []
+                for block in content:
+                    if hasattr(block, "type"):
+                        b = {"type": block.type}
+                        if hasattr(block, "text"):
+                            b["text"] = block.text
+                        if hasattr(block, "name"):
+                            b["name"] = block.name
+                            b["input"] = dict(block.input) if hasattr(block, "input") and block.input else {}
+                        if hasattr(block, "thinking"):
+                            b["thinking"] = block.thinking
+                        if hasattr(block, "id"):
+                            b["id"] = block.id
+                        blocks.append(b)
+                    else:
+                        blocks.append(block)
+                entry["content"] = blocks
+            else:
+                entry["content"] = str(content)
+            serializable.append(entry)
+
         data = {
             "model": self.model,
             "total_words": self.total_words,
-            "history": recent,
+            "history": serializable,
         }
         self.session_path.write_text(
             json.dumps(data, ensure_ascii=False, indent=2),

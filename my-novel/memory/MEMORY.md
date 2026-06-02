@@ -1,4 +1,0 @@
-- [char-shen-yan](char-char-shen-yan.md) — 主角沈砚：筑基初期，丹田有暗金符文，修炼《息壤诀》
-- [world-core-secret](world-world-core-secret.md) — 世界观核心秘密：虚皇篡天，灵气回收机制，符文系统
-- [world-cultivation-system](world-world-cultivation-system.md) — 修炼体系：境界序列、功法分类、筑基的本质
-- [world-cangwu-sect](world-world-cangwu-sect.md) — 苍梧宗设定：二流宗门，偏居东荒苍梧山，木系功法

@@ -20,7 +20,7 @@ echo 'ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic' > .env
 echo 'ANTHROPIC_AUTH_TOKEN=sk-...' >> .env
 
 # Create a project
-novel-agent init ./my-novel --title "剑道独尊" --total-chapters 800 --chapter-words 3000
+novel-agent init ./my-novel --title "天道寄生虫" --total-chapters 800 --chapter-words 3000
 
 # Conversational mode
 novel-agent write --project ./my-novel
