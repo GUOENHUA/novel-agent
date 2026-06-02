@@ -207,6 +207,9 @@ class ConversationLoop:
                 {"role": "assistant", "content": response.content}
             )
 
+            # Check if we need to compress conversation history
+            self._maybe_compress(turn_input_tokens)
+
             # Sync memories
             self.agent.sync_memories(user_message, assistant_content)
 
@@ -420,6 +423,102 @@ class ConversationLoop:
             config = json.loads(config_path.read_text(encoding="utf-8"))
             config["title"] = title
             config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    def _maybe_compress(self, last_turn_tokens: int) -> None:
+        """Compress old conversation turns when history grows too large.
+
+        Strategy: keep the last ~30K tokens of conversation, summarize older
+        turns into a structured writing progress summary.
+        """
+        from novel_agent.context.token_counter import estimate_messages_tokens
+
+        history = self.agent.conversation_history
+        if len(history) < 12:
+            return  # Not enough to compress
+
+        est = estimate_messages_tokens(history)
+        threshold = self.agent.context_engine.threshold_tokens or 700000
+        if est < threshold:
+            return
+
+        # Determine split: keep last N messages, summarize the rest
+        # Walk backward to find ~6 user-assistant pairs (~30K tokens) to keep
+        keep_count = 0
+        tail_tokens = 0
+        for i in range(len(history) - 1, -1, -1):
+            msg = history[i]
+            content = msg.get("content", "")
+            if isinstance(content, list):
+                text = " ".join(
+                    getattr(b, "text", "") if hasattr(b, "text") else str(b)
+                    for b in content
+                )
+            else:
+                text = str(content)
+            tail_tokens += len(text) // 2 + 20
+            keep_count += 1
+            if tail_tokens > 50000 or keep_count >= 12:
+                break
+
+        if keep_count >= len(history):
+            return  # Nothing to compress
+
+        old_turns = history[:-keep_count]
+        if len(old_turns) < 6:
+            return
+
+        # Build summary
+        summary = self._summarize_turns(old_turns)
+        if not summary:
+            return
+
+        # Replace old turns with summary
+        compressed = [
+            {"role": "user", "content": (
+                "[CONTEXT SUMMARY] Earlier conversation turns have been compacted. "
+                "This is historical context — treat as background reference.\n\n"
+                f"{summary}"
+            )},
+        ]
+        new_history = compressed + history[-keep_count:]
+        old_len = len(self.agent.conversation_history)
+        self.agent.conversation_history = new_history
+
+        # Reset stable prompt cache (compression means next turn needs fresh context)
+        self.agent.clear_prompt_cache()
+
+        saved = est - estimate_messages_tokens(new_history)
+        print(f"  [dim]Compressed: {old_len} → {len(new_history)} messages (~{saved} tokens saved)[/dim]")
+
+    def _summarize_turns(self, turns: list[dict]) -> str:
+        """Summarize old conversation turns with an LLM call."""
+        try:
+            serialized = []
+            for msg in turns:
+                role = msg.get("role", "?")
+                content = msg.get("content", "")
+                if isinstance(content, list):
+                    text = " ".join(
+                        getattr(b, "text", "") if hasattr(b, "text") else str(b)[:200]
+                        for b in content
+                    )
+                else:
+                    text = str(content)
+                serialized.append(f"[{role}]: {text[:500]}")
+            body = "\n\n".join(serialized[-20:])  # Last 20 turns at most
+
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": (
+                    "Summarize these novel-writing conversation turns in Chinese. "
+                    "Focus on: key decisions made, chapters planned/written, "
+                    "character developments, plot directions, and user feedback. "
+                    "Keep it under 500 chars.\n\n" + body
+                )}],
+                max_tokens=400, temperature=0.3,
+            )
+            return self.agent.extract_text(resp.content).strip()
+        except Exception:
+            return ""
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
