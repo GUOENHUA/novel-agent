@@ -70,15 +70,28 @@ class ConversationLoop:
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
             safe_print(f"  {len(existing)}/{self.agent.total_chapters} chapters   {total_written:,} words   latest: [bold]{last_ch}[/bold]")
+        outline_path = self.agent.project_dir / "outline.md"
+        has_outline = outline_path.exists()
+        has_memory = list(self.agent.memory_dir.glob("*.md"))
+
+        safe_print("")
+        safe_print(f"  [bold]你好，我是你的小说写作助手。[/bold]")
+
+        if not existing and not has_outline and len(has_memory) <= 1:
+            safe_print(f"  让我们从零开始创作《{self.agent.novel_title}》。")
+            safe_print(f"  建议按这个顺序来：")
+            safe_print(f"    1. [bold]先写大纲[/bold] —— 输入 '帮我写一份800章的大纲'")
+            safe_print(f"    2. [bold]再发展角色[/bold] —— 输入 '帮我设计主角'")
+            safe_print(f"    3. [bold]然后开始写第一章[/bold] —— 输入 '写第一章'")
+        elif existing and not has_outline:
+            safe_print(f"  你已经写了 {len(existing)} 章了，建议先补一份大纲，这样后续写作更有方向。")
+            safe_print(f"  输入 '帮我写大纲' 开始。")
+        elif existing:
             next_ch = len(existing) + 1
-            safe_print(f"  [dim]try: 'write chapter {next_ch}' or 'auto-generate 5 chapters'[/dim]")
+            safe_print(f"  继续加油！输入 '写第{next_ch}章' 或者 '自动生成5章'。")
         else:
-            safe_print("  fresh project — no chapters yet")
-            outline_path = self.agent.project_dir / "outline.md"
-            if not outline_path.exists():
-                safe_print("  [dim]start with: 'create an outline' then 'write chapter 1'[/dim]")
-            else:
-                safe_print("  [dim]try: 'write chapter 1'[/dim]")
+            safe_print(f"  大纲已经准备好了，输入 '写第一章' 开始吧。")
+        safe_print("")
 
         # Show previous session summary if resuming
         if self.agent.conversation_history:
