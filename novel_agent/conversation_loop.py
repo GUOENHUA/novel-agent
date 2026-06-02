@@ -511,6 +511,10 @@ class ConversationLoop:
         safe_print("  " + "─" * 50)
         safe_print(f"  [bold]CHAPTER {chapter_num} DRAFT[/bold]  {len(cleaned)} chars")
         safe_print("  " + "─" * 50)
+        # Show first and last lines so user can judge
+        preview = cleaned[:300] + ("..." if len(cleaned) > 600 else "") + cleaned[-300:] if len(cleaned) > 600 else cleaned
+        safe_print(f"  [dim]{preview}[/dim]")
+        safe_print("  " + "─" * 50)
 
         # 1. AI extracts hooks → user reviews first
         pipeline = AutoPipeline(self.agent)
