@@ -1,0 +1,79 @@
+[
+  {
+    "id": "hook-001",
+    "description": "倒长树符号——天道真实形态的象征，根系扎入众生的意象。首次出现在禁书残卷或梦境中。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 700,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-02T13:48:33.958738",
+    "updated_at": "2026-06-02T13:48:33.958738"
+  },
+  {
+    "id": "hook-002",
+    "description": "修炼时的\"被抽走感\"——天道寄生的日常体感。所有修士都有，但习以为常。沈砚开始注意到它。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 55,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-02T13:48:33.965619",
+    "updated_at": "2026-06-02T13:48:33.965619"
+  },
+  {
+    "id": "hook-003",
+    "description": "沈砚对母亲的零星记忆碎片——后续揭示他献祭了这段记忆，以及母亲是上一代反天道者。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 360,
+    "related_characters": [
+      "沈砚",
+      "沈砚之母"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-02T13:48:33.972621",
+    "updated_at": "2026-06-02T13:48:33.972621"
+  },
+  {
+    "id": "hook-004",
+    "description": "禁书残卷上的倒长树图案——沈砚调查飞升真相时发现的线索，暗示上古有人研究过天道寄生。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 30,
+    "target_chapter": 450,
+    "related_characters": [
+      "沈砚"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-02T13:48:33.979752",
+    "updated_at": "2026-06-02T13:48:33.979752"
+  },
+  {
+    "id": "hook-005",
+    "description": "卷末匿名信息——「我知道你看见了。跟我来。」落款倒长树符号。引沈砚进入虫窟。种植于第1卷末，回收于第2卷开头。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 95,
+    "target_chapter": 101,
+    "related_characters": [
+      "沈砚",
+      "楚半阴"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-02T13:48:33.985081",
+    "updated_at": "2026-06-02T13:48:33.985081"
+  }
+]
