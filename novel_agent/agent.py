@@ -432,7 +432,7 @@ class AIAgent:
         else:
             # No outline file — suggest creating one
             lines.append("## 📋 大纲")
-            lines.append(f"⚠️ 尚无 outline.md。使用 outline_plot(action=plan) 生成全局大纲。没有大纲的长篇写作容易失控。")
+            lines.append(f"(尚无 outline.md — 使用 outline_plot 生成)")
             lines.append("")
 
         # 4. Scene characters
@@ -528,6 +528,24 @@ class AIAgent:
         lines.append("- 完整伏笔报告 → `track_hooks(action=report, current_chapter=N)`")
         lines.append("- 风格约束详情 → `memory(action=search, type=style, query=...)`")
         lines.append("- 联网查资料 → `web_search(query=...)` / `web_fetch(urls=[...])`")
+        # 10. Project health check — what's missing?
+        missing = []
+        if not outline_path.exists():
+            missing.append("大纲 (outline_plot)")
+        if not self.memory_dir.joinpath("MEMORY.md").exists() or len(list(self.memory_dir.glob("*.md"))) <= 1:
+            missing.append("角色/世界观记忆 (memory add)")
+        if not self.chapters_dir.joinpath("ch_001_*.md").exists() and not list(self.chapters_dir.glob("ch_*_*.md")):
+            missing.append("还没有章节 (write chapter 1)")
+        style_headers = [h for h in self._fetch_style_headers() if h.get("type") == "style"]
+        if not style_headers:
+            missing.append("风格偏好 (memory add type=style)")
+
+        if missing:
+            lines.append("## ⚠️ 待完善")
+            for m in missing:
+                lines.append(f"- 缺少 {m}")
+            lines.append("")
+
         lines.append("**按需取用上方工具，查关键信息即可，不要全盘搜索。**")
 
         return "\n".join(lines)
@@ -575,6 +593,15 @@ class AIAgent:
 
         # Fallback: last N chapters
         return summaries[-max_count:]
+
+    def _fetch_style_headers(self) -> list[dict]:
+        """Fetch all memory file headers."""
+        try:
+            from novel_agent.memory.memory_store import MemoryStore
+            store = MemoryStore(self.memory_dir)
+            return store.scan_memory_headers()
+        except Exception:
+            return []
 
     def _fetch_style_constraints(self) -> list[str]:
         """Fetch style constraints from memory system."""
