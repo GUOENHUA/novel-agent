@@ -191,7 +191,11 @@ class ConversationLoop:
                             f"{json.dumps(tool_input, ensure_ascii=False)[:100]}"
                         )
 
-                        result = registry.dispatch(tool_name, tool_input, chapters_dir=str(self.agent.chapters_dir))
+                        result = registry.dispatch(
+                            tool_name, tool_input,
+                            chapters_dir=str(self.agent.chapters_dir),
+                            project_dir=str(self.agent.project_dir),
+                        )
                         tool_results.append({
                             "type": "tool_result",
                             "tool_use_id": block.id,
@@ -337,15 +341,6 @@ class ConversationLoop:
         text = self.agent.extract_text(response.content)
         if not text or len(text) < 500:
             return None
-
-        # Skip outline/list documents — not prose chapters
-        outline_markers = ["大纲", "章纲", "第1章", "第2章", "第3章", "分卷", "结构规划",
-                          "节拍表", "Save the Cat", "故事圈", "MICE", "卷战略", "拆章"]
-        outline_score = sum(1 for m in outline_markers if m in text[:800])
-        # Also check: many numbered chapter entries = outline
-        numbered_chapters = len([l for l in text[:1000].split("\n") if l.strip().startswith(("第", "Ch", "ch", "Chapter"))])
-        if outline_score >= 2 or numbered_chapters >= 5:
-            return None  # Looks like an outline, not a chapter
 
         # Count narrative markers: paragraphs, dialogue quotes, chapter endings
         has_paragraphs = text.count("\n\n") >= 2
