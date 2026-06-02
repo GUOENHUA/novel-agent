@@ -11,8 +11,18 @@ from __future__ import annotations
 import json
 import logging
 import signal
+import sys
 import time
 from typing import Any
+
+# Global abort flag for Ctrl+C
+_abort_flag = False
+
+
+def _on_sigint(signum, frame):
+    global _abort_flag
+    _abort_flag = True
+    print("\n  [yellow]Interrupted — returning to prompt...[/yellow]")
 
 from rich.console import Console
 from rich.live import Live
@@ -166,6 +176,19 @@ class ConversationLoop:
 
     def run(self) -> None:
         """Enter the interactive REPL loop."""
+        global _abort_flag
+        _abort_flag = False
+        original_handler = signal.getsignal(signal.SIGINT)
+        signal.signal(signal.SIGINT, _on_sigint)
+
+        try:
+            self._run_loop()
+        finally:
+            signal.signal(signal.SIGINT, original_handler)
+
+    def _run_loop(self) -> None:
+        """Internal REPL loop with abort flag checks."""
+        global _abort_flag
         existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
@@ -229,6 +252,11 @@ class ConversationLoop:
             safe_print("")
 
         while True:
+            global _abort_flag
+            if _abort_flag:
+                _abort_flag = False
+                safe_print("  [dim](interrupted)[/dim]")
+
             try:
                 user_input = input(PROMPT).strip()
             except (EOFError, KeyboardInterrupt):
@@ -248,6 +276,8 @@ class ConversationLoop:
 
     def _process_turn(self, user_message: str) -> None:
         """Process one turn: build novel context → agent → tools → response → memory sync."""
+        global _abort_flag
+        _abort_flag = False  # Reset for new turn
         novel_context = self.agent.build_novel_context(user_message)
 
         augmented_message = (
