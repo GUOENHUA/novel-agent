@@ -391,11 +391,16 @@ class ConversationLoop:
                     questionary.Choice("Keep all", "keep"),
                     questionary.Choice("Select which to keep", "select"),
                     questionary.Separator(),
+                    questionary.Choice("Add instructions for this chapter", "instruct"),
                     questionary.Choice("Discard all hooks", "discard"),
                 ],
             ).ask()
             if h_action == "discard":
                 hooks_planted = []
+            elif h_action == "instruct":
+                instruction = questionary.text("Instructions (e.g. 'make hooks darker'):").ask()
+                if instruction:
+                    safe_print(f"  [dim]Noted: {instruction}[/dim]")
             elif h_action == "select":
                 selected = questionary.checkbox(
                     "Select hooks to keep:",
@@ -416,6 +421,7 @@ class ConversationLoop:
             choices=[
                 questionary.Choice("Save", "save"),
                 questionary.Choice("Change title", "change"),
+                questionary.Choice("Add instructions & save", "instruct"),
                 questionary.Separator(),
                 questionary.Choice("Discard chapter", "discard"),
             ],
@@ -425,6 +431,10 @@ class ConversationLoop:
             return None
         if t_action == "change":
             title = questionary.text("New title:", default=title).ask() or title
+        if t_action == "instruct":
+            instruction = questionary.text("Instructions:").ask()
+            if instruction:
+                safe_print(f"  [dim]Noted: {instruction}[/dim]")
 
         # 3. Clean + save (LLM does the cleaning, not regex)
         body = pipeline._clean_chapter_via_llm(cleaned)
