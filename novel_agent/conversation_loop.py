@@ -141,13 +141,13 @@ class ConversationLoop:
             turn_input_tokens = 0
             turn_output_tokens = 0
 
-            safe_print("")  # spacing before stream
+            safe_print("  [dim]Thinking...[/dim]")
             response = self.agent.stream_with_display(
                 messages=messages,
                 tools=tools if tools else None,
                 extra_body={"thinking": {"type": "enabled"}},
             )
-            safe_print("")
+            safe_print(f"\n  [dim]({response.usage.input_tokens}+{response.usage.output_tokens} tk)[/dim]" if hasattr(response, "usage") and response.usage else "")
 
             if hasattr(response, "usage") and response.usage:
                 in_tok = response.usage.input_tokens
