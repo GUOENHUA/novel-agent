@@ -404,13 +404,8 @@ class ConversationLoop:
         else:
             safe_print(f"  (no hooks detected)")
 
-        # 3. Save
-        import re
-        body = cleaned
-        body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)
-        body = re.sub(r'\*([^*]+)\*', r'\1', body)
-        body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)
-        body = body.strip()
+        # 3. Clean + save (LLM does the cleaning, not regex)
+        body = pipeline._clean_chapter_via_llm(cleaned)
         final = f"# 第{chapter_num}章: {title}\n\n{body}"
 
         chapter_path = self.agent.chapter_path(chapter_num, title)
@@ -494,17 +489,8 @@ class ConversationLoop:
                 end_idx = i
                 break
         body = "\n".join(lines[start_idx:end_idx]).strip()
-
-        # 3. Strip markdown formatting and secondary chapter headings from body
-        body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)
-        body = re.sub(r'\*([^*]+)\*', r'\1', body)
-        body = re.sub(r'__([^_]+)__', r'\1', body)
-        # Remove any chapter headings in body (e.g. "第一章：感应")
-        body = re.sub(r'^#{1,6}\s*第.{1,5}章[^\n]*\n*', '', body, flags=re.MULTILINE)
-        body = re.sub(r'^第.{1,5}章[：:][^\n]*\n*', '', body, flags=re.MULTILINE)
-        body = body.strip()
-
-        return body.strip() if body else text
+        # Markdown/annotation cleanup is handled by _clean_chapter_via_llm during save
+        return body if body else text
 
     def _set_title(self, title: str) -> None:
         """Update novel title in novel.json and agent."""

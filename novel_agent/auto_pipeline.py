@@ -193,19 +193,8 @@ class AutoPipeline:
         """Save chapter, extract hooks + summary + character changes, update state."""
         title = self._generate_title(content, chapter_num)
 
-        # Clean formatting: strip markdown, meta annotations, secondary titles
-        import re
-        clean = content
-        clean = re.sub(r'^#\s*第.{1,5}章[^\n]*\n*', '', clean.strip())
-        clean = re.sub(r'^第.{1,5}章[：:][^\n]*\n*', '', clean.strip())
-        # Strip end-of-chapter meta: (第X章完), (字数:xxx), (伏笔:xxx), etc.
-        clean = re.sub(r'\n*[（(]\s*(第.{1,5}章\s*[完终]|字数[：:]\s*\d|伏笔[：:]|章末|钩子|hook).*$', '', clean, flags=re.MULTILINE)
-        # Strip markdown
-        clean = re.sub(r'\*\*([^*]+)\*\*', r'\1', clean)
-        clean = re.sub(r'\*([^*]+)\*', r'\1', clean)
-        clean = re.sub(r'__([^_]+)__', r'\1', clean)
-        clean = re.sub(r'^#{1,6}\s+', '', clean, flags=re.MULTILINE)
-        clean = clean.strip()
+        # Clean formatting via LLM — more reliable than regex
+        clean = self._clean_chapter_via_llm(content)
 
         chapter_path = self.agent.chapter_path(chapter_num, title)
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
@@ -353,6 +342,26 @@ class AutoPipeline:
                 store.add_to_index(name, filename, fact[:120])
         except Exception:
             pass  # Best-effort, don't block the pipeline
+
+    def _clean_chapter_via_llm(self, content: str) -> str:
+        """Use LLM to clean chapter formatting instead of brittle regex."""
+        try:
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": (
+                    "Clean this chapter text. Rules:\n"
+                    "- Remove any chapter headings in the body (like '第一章：感应' or '# 第X章')\n"
+                    "- Remove end-of-chapter meta annotations (like '(第一章完)', '(字数：3004字)', '(伏笔：...)')\n"
+                    "- Remove **bold** and *italic* markdown — convert to plain text\n"
+                    "- Remove --- separators\n"
+                    "- Keep ALL narrative prose unchanged — don't edit the story\n"
+                    "- Return ONLY the cleaned text, no explanation\n\n"
+                    f"{content[:8000]}"
+                )}],
+                max_tokens=len(content) * 2, temperature=0.2,
+            )
+            return self.agent.extract_text(resp.content).strip()
+        except Exception:
+            return content  # Fallback: return original
 
     def _generate_title(self, content: str, chapter_num: int) -> str:
         """Generate a chapter title from the content using a fast LLM call."""
