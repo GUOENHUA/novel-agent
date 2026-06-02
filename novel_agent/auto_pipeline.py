@@ -377,32 +377,22 @@ class AutoPipeline:
                 temperature=0.3,
             )
             raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
-            # DeepSeek V4 puts title suggestions inside thinking block
-            import re
-            # Find Chinese-quoted phrases: "标题" or 「标题」or 《标题》
-            quoted = re.findall(r'["“]([^"”]{2,10})["”]', raw)
-            bracketed = re.findall(r'[「《]([^」》]{2,10})[」》]', raw)
-            all_candidates = quoted + bracketed
-            # Filter out obvious non-titles (containing 的/了/是/或/可以)
-            candidates = [c.strip() for c in all_candidates
-                         if 3 <= len(c.strip()) <= 10
-                         and not any(w in c for w in ["或", "可以", "需要", "应该", "这个", "那个"])]
-            title = candidates[-1].strip() if candidates else ""
-            # Fallback: search for title after keywords
-            if not title:
-                for kw in ["标题", "题目", "就叫", "用"]:
-                    m = re.search(kw + r'\s*[：:]*\s*["“《「]?([^\n"」》]{3,10})', raw)
-                    if m:
-                        title = m.group(1).strip().strip("《》「」\"'“”")
-                        if 3 <= len(title) <= 10:
-                            break
-            # Validate: reject titles that look like prompt leakage
-            garbage_words = ["汉字", "标题", "输出", "不要", "解释", "英文", "字符", "4-8"]
-            if 2 <= len(title) <= 20 and not any(w in title for w in garbage_words):
+            # Use LLM to extract just the title from the thinking block
+            extract_resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": (
+                    "Extract ONLY the chapter title from this text. Return just the title, "
+                    "2-10 Chinese characters, no quotes, no explanation. If no title found, output NONE.\n\n"
+                    f"{raw[:500]}"
+                )}],
+                max_tokens=30, temperature=0,
+            )
+            title = self.agent.extract_text(extract_resp.content, fallback_to_thinking=True).strip()
+            title = title.strip("《》「」\"'“”").strip()
+            if title and title != "NONE" and 2 <= len(title) <= 20:
                 return title
         except Exception:
             pass
-        # Last resort: take first 8 chars of chapter content as title
+        # Last resort: first 8 chars of chapter content
         fallback = content.strip()[:8].replace("\n", "")
         return fallback if len(fallback) >= 2 else f"第{chapter_num}章"
 
