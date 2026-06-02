@@ -36,9 +36,16 @@ from novel_agent.tools.registry import registry
 
 
 def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
-    """Select with ↑↓, Enter=confirm, Tab=add note. Returns (value, note_or_empty)."""
+    """Select with ↑↓, Enter=confirm, Tab=add note. Returns (value, note_or_empty).
+
+    Extra options always shown at bottom:
+    -  Type something...
+    -  Chat about this...
+    """
     labels = [label for label, _ in choices]
+    extra_labels = ["  Type something...", "  Chat about this..."]
     choice_map = {label: value for label, value in choices}
+    total_labels = labels + extra_labels
     current_idx = [0]
     note_text = [""]
 
@@ -50,6 +57,10 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
             else:
                 lines.append(f"    {label}")
         lines.append("")
+        for j, extra in enumerate(extra_labels):
+            idx = len(labels) + j
+            lines.append(f"  {'> ' if idx == current_idx[0] else '  '}{extra}")
+        lines.append("")
         hint = "Enter=confirm  Tab=add note  Ctrl+C=cancel"
         if note_text[0]:
             hint = f"Note: {note_text[0]}  |  {hint}"
@@ -57,27 +68,34 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
         return "\n".join(lines)
 
     def select_and_exit(label: str) -> None:
-        value = choice_map.get(label, label)
-        app.exit(result=(value, note_text[0]))
+        if label in extra_labels:
+            note_text[0] = questionary.text(
+                "Type instructions:" if "Type" in label else "Chat:"
+            ).ask() or ""
+            app.exit(result=("__note__", note_text[0]))
+        else:
+            value = choice_map.get(label, label)
+            app.exit(result=(value, note_text[0]))
 
     kb = KeyBindings()
 
     @kb.add("up")
     def _(event):
-        current_idx[0] = (current_idx[0] - 1) % len(labels)
+        current_idx[0] = (current_idx[0] - 1) % len(total_labels)
 
     @kb.add("down")
     def _(event):
-        current_idx[0] = (current_idx[0] + 1) % len(labels)
+        current_idx[0] = (current_idx[0] + 1) % len(total_labels)
 
     @kb.add("enter")
     def _(event):
-        select_and_exit(labels[current_idx[0]])
+        select_and_exit(total_labels[current_idx[0]])
 
     @kb.add(Keys.Tab)
     def _(event):
-        app = event.app
-        app.exit(result=("__tab__", ""))  # Signal to prompt for note
+        note_text[0] = questionary.text("Note:").ask() or ""
+        # Refresh display — run again with note shown
+        app.exit(result=("__tab__", note_text[0]))
 
     @kb.add(Keys.ControlC)
     def _(event):
@@ -97,12 +115,12 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
 
     result = app.run()
 
-    if isinstance(result, tuple) and result[0] == "__tab__":
-        note_text[0] = questionary.text("Note:").ask() or ""
-        return _choose(message, choices)  # Re-run select after note
-
     if isinstance(result, tuple):
-        return result
+        action, msg = result
+        if action in ("__tab__", "__note__"):
+            note_text[0] = msg
+            return _choose(message, choices)  # Re-run with note
+        return (action, msg)
     return ("", "")
 
 # Import tool modules to trigger registry registration
