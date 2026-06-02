@@ -348,27 +348,35 @@ class AIAgent:
                     lines.append(f"- **{name}**: {char.emotional_state}{loc}{goal}")
                 lines.append("")
 
-        # 5. Upcoming hooks (urgency-sorted)
+        # 5. Hooks by scope (book → volume → arc → chapter)
         active_hooks = self.hook_ledger.get_active()
         if active_hooks:
-            # Sort: hooks with near target chapters first
-            sorted_hooks = sorted(active_hooks, key=lambda h: h.target_chapter or 999)
-            upcoming = [h for h in sorted_hooks if h.target_chapter and h.target_chapter <= ch + 2]
-            other = [h for h in sorted_hooks if h not in upcoming]
-
             lines.append("## 🔮 伏笔")
-            if upcoming:
-                lines.append("**即将到期（本周必须处理）:**")
-                for h in upcoming:
-                    lines.append(f"- [{h.id}] {h.description} → 第{h.target_chapter}章回收 ⚠️")
-            if other[:5]:
-                lines.append("**活跃:**")
-                for h in other[:5]:
+            book_hooks = [h for h in active_hooks if getattr(h, 'scope', None) == "book"]
+            volume_hooks = [h for h in active_hooks if getattr(h, 'scope', None) == "volume"]
+            chapter_hooks = [h for h in active_hooks if getattr(h, 'scope', None) not in ("book", "volume")]
+            overdue = self.hook_ledger.get_overdue(ch)
+
+            if overdue:
+                lines.append(f"**⚠️ 过期 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
+
+            if book_hooks:
+                lines.append("**全书:**")
+                for h in book_hooks:
                     target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
                     lines.append(f"- [{h.id}] {h.description}{target}")
-            overdue = self.hook_ledger.get_overdue(ch)
-            if overdue:
-                lines.append(f"**⚠️ 过期未回收 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
+            if volume_hooks:
+                lines.append("**本卷:**")
+                for h in volume_hooks:
+                    urgent = " ⚠️" if h.target_chapter and h.target_chapter <= ch + 3 else ""
+                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
+                    lines.append(f"- [{h.id}] {h.description}{target}{urgent}")
+            if chapter_hooks[:8]:
+                lines.append("**章节:**")
+                for h in sorted(chapter_hooks, key=lambda h: h.target_chapter or 999)[:8]:
+                    urgent = " ⚠️" if h.target_chapter and h.target_chapter <= ch + 1 else ""
+                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
+                    lines.append(f"- [{h.id}] {h.description}{target}{urgent}")
             lines.append("")
 
         # 6. Recent + relevant chapter summaries (last 3 always, +5 LLM-selected)

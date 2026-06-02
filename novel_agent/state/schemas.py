@@ -31,11 +31,19 @@ class HookType(str, Enum):
     NAMING = "naming"       # 命名伏笔：标题/姓名中的隐藏意义
 
 
+class HookScope(str, Enum):
+    BOOK = "book"       # 全书级：贯穿整部小说的核心谜题
+    VOLUME = "volume"   # 卷级：当前卷要解决的主要线索
+    ARC = "arc"         # 弧线级：跨多章的次要线索
+    CHAPTER = "chapter" # 章节级：几章内回收的小伏笔
+
+
 class Hook(BaseModel):
     """A single foreshadowing hook in the ledger."""
     id: str = Field(description="Unique hook ID, e.g. 'hook-003'")
     description: str = Field(description="What is being foreshadowed")
     hook_type: HookType = Field(default=HookType.DIRECT)
+    scope: HookScope = Field(default=HookScope.CHAPTER)
     status: HookStatus = Field(default=HookStatus.PLANTED)
 
     planted_chapter: int = Field(description="Chapter where the hook was first planted")
