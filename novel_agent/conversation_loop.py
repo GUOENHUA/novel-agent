@@ -511,10 +511,19 @@ class ConversationLoop:
         safe_print("  " + "─" * 50)
         safe_print(f"  [bold]CHAPTER {chapter_num} DRAFT[/bold]  {len(cleaned)} chars")
         safe_print("  " + "─" * 50)
-        # Show first and last lines so user can judge
-        preview = cleaned[:300] + ("..." if len(cleaned) > 600 else "") + cleaned[-300:] if len(cleaned) > 600 else cleaned
-        safe_print(f"  [dim]{preview}[/dim]")
-        safe_print("  " + "─" * 50)
+        # Show preview; if content is long, offer to expand
+        if len(cleaned) > 600:
+            safe_print(f"  [dim]{cleaned[:250]}...[/dim]")
+            safe_print(f"  [dim]type 'view' to see full text, or enter to continue[/dim]")
+            cmd = input("  > ").strip().lower()
+            if cmd in ("view", "v", "show", "open"):
+                safe_print("  " + "─" * 50)
+                safe_print(cleaned)
+                safe_print("  " + "─" * 50)
+                input("  Press enter to continue...")
+        else:
+            safe_print(f"  [dim]{cleaned}[/dim]")
+        safe_print("")
 
         # 1. AI extracts hooks → user reviews first
         pipeline = AutoPipeline(self.agent)
