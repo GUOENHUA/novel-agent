@@ -50,6 +50,10 @@ class AIAgent:
         # Load project config from novel.json (falls back to defaults)
         self._load_project_config(chapter_words, total_chapters, total_words)
 
+        # Conversation history + session persistence
+        self.session_path = self.project_dir / "session.json"
+        self.conversation_history: list[dict[str, Any]] = []
+
         # Interrupt flag for auto mode → conversational switch
         self.interrupted = False
 
@@ -102,25 +106,24 @@ class AIAgent:
         # Initialize context engine
         self._init_context()
 
-        # Conversation history + session persistence
-        self.session_path = self.project_dir / "session.json"
-        self.conversation_history: list[dict[str, Any]] = self._load_session()
+        # Load previous session if exists
+        self._restore_session()
 
         logger.info("Agent initialized: project=%s model=%s", self.project_dir, self.model)
 
-    def _load_session(self) -> list[dict[str, Any]]:
+    def _restore_session(self) -> None:
         """Load previous conversation history from session.json."""
         import json
-        if self.session_path.exists():
-            try:
-                data = json.loads(self.session_path.read_text(encoding="utf-8"))
-                history = data.get("history", [])
-                if history:
-                    logger.info("Loaded session: %d messages", len(history))
-                return history
-            except Exception:
-                pass
-        return []
+        if not self.session_path.exists():
+            return
+        try:
+            data = json.loads(self.session_path.read_text(encoding="utf-8"))
+            history = data.get("history", [])
+            if history:
+                self.conversation_history = history
+                logger.info("Loaded session: %d messages", len(history))
+        except Exception:
+            pass
 
     def save_session(self) -> None:
         """Persist conversation history to session.json."""
