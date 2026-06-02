@@ -328,12 +328,15 @@ class AIAgent:
                 lines.append(f"**⚠️ 过期未回收 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
             lines.append("")
 
-        # 6. Recent chapter summaries (last 8, more with 1M context)
+        # 6. Relevant chapter summaries (LLM-selected for current context)
         summaries = self.truth_files.load_summaries()
         if summaries:
-            recent = summaries[-8:]
-            lines.append("## 📚 最近章节")
-            for s in recent:
+            # Pick relevant summaries via lightweight LLM call
+            relevant = self._select_relevant_summaries(
+                summaries, ch, user_message, max_count=8
+            )
+            lines.append("## 📚 相关章节摘要")
+            for s in relevant:
                 hook_note = ""
                 if s.hooks_planted and s.hooks_resolved:
                     hook_note = f" [种:{len(s.hooks_planted)} 收:{len(s.hooks_resolved)}]"
@@ -370,6 +373,50 @@ class AIAgent:
         lines.append("**按需取用上方工具，查关键信息即可，不要全盘搜索。**")
 
         return "\n".join(lines)
+
+    def _select_relevant_summaries(
+        self, summaries: list, current_ch: int, query: str, max_count: int = 8,
+    ) -> list:
+        """Use a lightweight LLM call to pick chapter summaries relevant to the current context.
+
+        Like claude-code's findRelevantMemories — a side query to select what matters,
+        rather than blindly loading the most recent N chapters.
+        """
+        if len(summaries) <= max_count:
+            return summaries
+
+        # Build a compact manifest for the selector
+        manifest_lines = []
+        for s in summaries:
+            manifest_lines.append(f"Ch{s.chapter_number} ({s.word_count}字): {s.summary[:100]}")
+        manifest = "\n".join(manifest_lines)
+
+        try:
+            resp = self.call_llm(
+                messages=[{"role": "user", "content": (
+                    f"当前正在写第{current_ch}章。用户指令: {query}\n\n"
+                    f"从以下章节摘要中选择与当前写作最相关的{max_count}章"
+                    f"（按相关性排序，返回章节号列表，如 [3,7,12,5,...]）:\n\n{manifest}"
+                )}],
+                max_tokens=100, temperature=0,
+            )
+            import re, json
+            raw = self.extract_text(resp.content).strip()
+            # Parse chapter numbers from response
+            nums = [int(n) for n in re.findall(r'\b(\d+)\b', raw) if 1 <= int(n) <= 999]
+            selected = []
+            for n in nums[:max_count]:
+                for s in summaries:
+                    if s.chapter_number == n and s not in selected:
+                        selected.append(s)
+                        break
+            if selected:
+                return selected
+        except Exception:
+            pass
+
+        # Fallback: last N chapters
+        return summaries[-max_count:]
 
     def _fetch_style_constraints(self) -> list[str]:
         """Fetch style constraints from memory system."""
