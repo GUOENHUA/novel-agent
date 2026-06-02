@@ -1,0 +1,67 @@
+[
+  {
+    "id": "hook-001",
+    "description": "金色丝线——第1章沈砚目睹师兄被天道榨取时看到金色丝线从体内被扯出，这是天道寄生网络的可视化线索，贯穿全书",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 400,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-02T15:40:48.920197",
+    "updated_at": "2026-06-02T15:40:48.920197"
+  },
+  {
+    "id": "hook-002",
+    "description": "天道印记——第3章沈砚第一次寄生天道后在体内留下的黑色纹路印记，每次使用能力都会扩大，积累到一定程度将不可逆转，是主角代价的核心象征",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 700,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-02T15:40:48.929756",
+    "updated_at": "2026-06-02T15:40:48.929756"
+  },
+  {
+    "id": "hook-003",
+    "description": "天罚使——第6-7章登场的追杀者，天道在人间的执法者，专门清除\"觉醒者\"。首次出场是追杀沈砚，后期揭示其真实身份和与天道的关系",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 250,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-02T15:40:48.936832",
+    "updated_at": "2026-06-02T15:40:48.936832"
+  },
+  {
+    "id": "hook-004",
+    "description": "记忆模糊——第2章沈砚发现修炼后某些记忆片段变得模糊，暗示天道在榨取记忆。后期揭示被榨取的记忆去了哪里，以及为什么某些记忆被保留",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 300,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-02T15:40:48.942889",
+    "updated_at": "2026-06-02T15:40:48.942889"
+  },
+  {
+    "id": "hook-005",
+    "description": "飞升即收割——第1-10章中埋下的恐怖真相暗示：飞升不是超脱，而是被天道彻底收割。第150章左右第一次明确揭示，第550章揭示飞升者的最终去向",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 150,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-02T15:40:48.948181",
+    "updated_at": "2026-06-02T15:40:48.948181"
+  }
+]
