@@ -26,30 +26,12 @@ from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
 
 
-def _choose_with_note(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
-    """Select with optional note. Returns (value, note_or_empty_string).
-
-    Press Enter on a choice to select. Use 'Add note (Tab)' option
-    from within questionary.
-    """
-    choice_map = {label: value for label, value in choices}
+def _choose(message: str, choices: list[tuple[str, str]]) -> str:
+    """Simple select from choices. Returns the choice value."""
     labels = [label for label, _ in choices]
-
-    # Add note-taking option
-    all_labels = labels + ["---", "Add a note..."]
-    pick = questionary.select(message, choices=all_labels).ask()
-
-    if pick == "Add a note...":
-        note = questionary.text("Note:").ask() or ""
-        # After note, re-ask the original question
-        pick = questionary.select(message, choices=all_labels).ask()
-        if pick and pick != "Add a note..." and pick != "---":
-            return choice_map.get(pick, (pick, "")), note
-        return (pick or ""), note
-
-    if pick and pick != "---":
-        return choice_map.get(pick, (pick, "")), ""
-    return "", ""
+    choice_map = {label: value for label, value in choices}
+    pick = questionary.select(message, choices=labels).ask()
+    return choice_map.get(pick, pick) if pick else ""
 
 # Import tool modules to trigger registry registration
 import novel_agent.tools.memory_tool  # noqa: F401
@@ -418,7 +400,7 @@ class ConversationLoop:
                 scope = h.get("scope", "chapter")
                 safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
             safe_print("")
-            h_action, h_note = _choose_with_note(
+            h_action = _choose(
                 "What to do with hooks?",
                 [("Keep all hooks", "keep"), ("Select hooks to keep", "select"), ("Discard all hooks", "discard")],
             )
@@ -433,15 +415,13 @@ class ConversationLoop:
                     ],
                 ).ask()
                 hooks_planted = selected or []
-            if h_note:
-                safe_print(f"  [dim]Note: {h_note}[/dim]")
         else:
             safe_print(f"  (no hooks detected)")
 
         # 2. Title last — generated from complete content
         title = pipeline._generate_title(cleaned, chapter_num)
         safe_print(f"\n  Title: {title.strip()}")
-        t_action, t_note = _choose_with_note(
+        t_action = _choose(
             f"Chapter {chapter_num} — {title.strip()}",
             [("Save chapter", "save"), ("Change title", "change"), ("Discard chapter", "discard")],
         )
@@ -450,8 +430,11 @@ class ConversationLoop:
             return None
         if t_action == "change":
             title = questionary.text("New title:", default=title).ask() or title
-        if t_note:
-            safe_print(f"  [dim]Note: {t_note}[/dim]")
+
+        # Optional note after save/change
+        note = questionary.text("Any notes? (enter to skip):").ask()
+        if note:
+            safe_print(f"  [dim]Note: {note}[/dim]")
 
         # 3. Clean + save (LLM does the cleaning, not regex)
         body = pipeline._clean_chapter_via_llm(cleaned)
