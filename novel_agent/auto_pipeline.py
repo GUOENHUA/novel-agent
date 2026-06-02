@@ -153,9 +153,14 @@ class AutoPipeline:
         novel_context = self.agent.build_novel_context(f"写第{chapter_num}章")
         directive = (
             f"{novel_context}\n\n---\n\n"
-            f"请写第{chapter_num}章的完整正文。目标{words}字左右。\n"
-            f"只输出章节正文，不要解释，不要前言，不要后记。\n"
-            f"开头直接进入场景，结尾留钩子。"
+            f"请写第{chapter_num}章的完整正文。目标{words}字左右。\n\n"
+            f"格式要求（严格遵守）：\n"
+            f"- 不要输出章标题（标题会自动添加），直接开始正文\n"
+            f"- 正文中禁止使用任何Markdown格式：禁止 # ## ### 标题、禁止 **加粗**、禁止 *斜体*\n"
+            f"- 段落之间用空行分隔，除此之外不使用任何特殊格式\n"
+            f"- 不要包含\"钩子\"、\"伏笔\"等任何元注释或标记\n"
+            f"- 开头直接进入场景，不要前言；结尾自然结束，不要后记\n"
+            f"- 这是一段纯粹的叙事文本，像一本真正的书一样"
         )
         if attempt > 1:
             directive += f"\n\n（这是第{attempt}次重试，请确保质量。）"
@@ -188,9 +193,24 @@ class AutoPipeline:
         """Save chapter, extract hooks + summary + character changes, update state."""
         title = self._generate_title(content, chapter_num)
 
+        # Clean formatting: strip markdown, meta annotations
+        import re
+        clean = content
+        # Strip any existing chapter headings
+        clean = re.sub(r'^#\s*第.{1,5}章[^\n]*\n*', '', clean.strip())
+        # Strip hook/伏笔 annotations
+        clean = re.sub(r'[（(]\s*第.{1,5}章\s*[完终].*$', '', clean, flags=re.MULTILINE)
+        clean = re.sub(r'\n\s*（[^）]*[钩伏][^）]*）\s*$', '', clean, flags=re.MULTILINE)
+        # Strip bold/italic markdown (keep the text)
+        clean = re.sub(r'\*\*([^*]+)\*\*', r'\1', clean)
+        clean = re.sub(r'\*([^*]+)\*', r'\1', clean)
+        clean = re.sub(r'__([^_]+)__', r'\1', clean)
+        clean = re.sub(r'^#{1,6}\s+', '', clean, flags=re.MULTILINE)
+        clean = clean.strip()
+
         chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
-        final = f"# 第{chapter_num}章: {title}\n\n{content}"
+        final = f"# 第{chapter_num}章: {title}\n\n{clean}"
         chapter_path.write_text(final, encoding="utf-8")
 
         # Phase 2: settlement (low-temp extraction of structured data)

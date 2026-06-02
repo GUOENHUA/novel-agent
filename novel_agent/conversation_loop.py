@@ -318,8 +318,15 @@ class ConversationLoop:
             if not title:
                 title = f"第{chapter_num}章"
 
-            # Build final content with title heading
-            final = f"# 第{chapter_num}章: {title}\n\n{cleaned}"
+            # Strip any remaining markdown formatting from body
+            import re
+            body = cleaned
+            body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)
+            body = re.sub(r'\*([^*]+)\*', r'\1', body)
+            body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)
+            body = body.strip()
+
+            final = f"# 第{chapter_num}章: {title}\n\n{body}"
 
             chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
             chapter_path.write_text(final, encoding="utf-8")
@@ -358,50 +365,51 @@ class ConversationLoop:
             return content
 
     def _clean_chapter_content(self, text: str) -> str:
-        """Strip conversational preamble from chapter content.
-
-        Detects chapter heading markers and strips everything before them.
-        Also removes trailing conversational sign-offs.
-        """
+        """Strip preamble, markdown formatting, and meta annotations from chapter content."""
         import re
 
-        # Markers that indicate the start of actual chapter content
+        # 1. Strip conversational preamble (before actual chapter start)
         chapter_starts = [
-            r"^#\s*第.{1,5}章",        # "# 第一章" or "# 第一章: xxx"
-            r"^\*\*第.{1,5}章\*\*",     # "**第一章**"
-            r"^第.{1,5}章\s",          # "第一章 " at line start
-            r"^\\#\s*第.{1,5}章",       # "\# 第一章" (escaped)
+            r"^#\s*第.{1,5}章", r"^\*\*第.{1,5}章\*\*",
+            r"^第.{1,5}章\s", r"^\\#\s*第.{1,5}章",
         ]
-
         lines = text.split("\n")
         start_idx = 0
         for i, line in enumerate(lines):
-            stripped = line.strip()
             for pattern in chapter_starts:
-                if re.match(pattern, stripped):
+                if re.match(pattern, line.strip()):
                     start_idx = i
                     break
             if start_idx > 0:
                 break
-
-        # If no chapter heading found, try to skip first line if it's short and conversational
         if start_idx == 0 and len(lines) > 1:
             first_line = lines[0].strip()
             if len(first_line) < 100 and any(
-                kw in first_line for kw in ["开始写", "材料齐全", "好的", "现在", "以下是", "好的，"]
+                kw in first_line for kw in ["开始写", "材料齐全", "好的", "现在", "以下是"]
             ):
                 start_idx = 1
 
-        # Drop trailing conversational lines
+        # 2. Drop trailing annotations
         end_idx = len(lines)
         for i in range(len(lines) - 1, -1, -1):
             stripped = lines[i].strip()
             if re.match(r"^[（(]\s*第.{1,5}章\s*[完终]", stripped):
-                end_idx = i + 1
+                end_idx = i
+                break
+            if re.search(r"[钩伏][一-鿿]*[）)]?\s*$", stripped):
+                end_idx = i
                 break
 
         body = "\n".join(lines[start_idx:end_idx]).strip()
-        return body if body else text  # Fallback to original if cleaning produced nothing
+
+        # 3. Strip markdown formatting (keep the text)
+        body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)  # **bold**
+        body = re.sub(r'\*([^*]+)\*', r'\1', body)        # *italic*
+        body = re.sub(r'__([^_]+)__', r'\1', body)         # __underline__
+        body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)  # # headings
+        body = re.sub(r'^#\s*第.{1,5}章[^\n]*\n*', '', body.strip())  # chapter heading
+
+        return body.strip() if body else text
 
     def _set_title(self, title: str) -> None:
         """Update novel title in novel.json and agent."""
