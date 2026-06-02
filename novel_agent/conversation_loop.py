@@ -484,6 +484,11 @@ class ConversationLoop:
         if not text or len(text) < 500:
             return None
 
+        # Skip outline/planning documents
+        outline_signals = ["大纲", "卷级规划", "第1章", "第一卷", "三幕结构", "分卷", "节拍表"]
+        if sum(1 for s in outline_signals if s in text[:1000]) >= 3:
+            return None
+
         # Count narrative markers: paragraphs, dialogue quotes, chapter endings
         has_paragraphs = text.count("\n\n") >= 2
         has_dialogue = "“" in text or '"' in text or "「" in text
