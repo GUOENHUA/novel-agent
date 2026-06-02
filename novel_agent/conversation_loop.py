@@ -20,6 +20,7 @@ from rich.spinner import Spinner
 from rich.text import Text
 
 from novel_agent.agent import AIAgent
+from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
 
 # Import tool modules to trigger registry registration
@@ -267,7 +268,6 @@ class ConversationLoop:
             except ValueError:
                 count = 1
             safe_print(f"  Switching to auto mode, generating {count} chapters...")
-            from novel_agent.auto_pipeline import AutoPipeline
             pipeline = AutoPipeline(self.agent)
             pipeline.run(start_chapter=self._next_chapter(), count=count)
         elif command == "/status":
@@ -320,13 +320,15 @@ class ConversationLoop:
     def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
         """AI proposes → user confirms/edits each creative decision."""
         cleaned = self._clean_chapter_content(content)
-        safe_print(f"\n  [bold]Chapter {chapter_num}[/bold]  {len(cleaned)} chars")
+        safe_print("")
+        safe_print("  " + "─" * 50)
+        safe_print(f"  [bold]CHAPTER {chapter_num} DRAFT[/bold]  {len(cleaned)} chars")
+        safe_print("  " + "─" * 50)
 
         # 1. AI generates title → user confirms
-        from novel_agent.auto_pipeline import AutoPipeline
         pipeline = AutoPipeline(self.agent)
         title = pipeline._generate_title(cleaned, chapter_num)
-        safe_print(f"  Title: {title}")
+        safe_print(f"  Title: {title.strip()}")
         t_choice = input("  [Y] keep  [C] change  [N] discard all  > ").strip().lower()
 
         if t_choice in ("n", "no"):
