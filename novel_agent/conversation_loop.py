@@ -150,12 +150,8 @@ class ConversationLoop:
         novel_context = self.agent.build_novel_context(user_message)
         augmented_message = (
             f"{novel_context}\n\n---\n\n"
-            f"基于以上状态处理用户指令。\n"
-            f"【必须】如果你生成了章节正文/大纲/角色/世界观内容，必须调用对应工具保存：\n"
-            f"  章节 → write_chapter(action=save, chapter_number=N, content='...', title='...')\n"
-            f"  大纲 → outline_plot(action=save, content='...')\n"
-            f"  角色/世界观 → memory(action=add, type=..., name=..., description=..., content=...)\n"
-            f"不调用工具 = 用户看不到你的成果 = 进度丢失。"
+            f"基于以上状态处理用户指令。章节正文会由系统自动保存，无需手动调工具。\n"
+            f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。"
         )
 
         messages = self.agent.conversation_history + [
@@ -163,17 +159,31 @@ class ConversationLoop:
         ]
 
         tools = registry.get_definitions()
+        # Add display_message tool so model can show text to user
+        display_tool = {
+            "name": "display_message",
+            "description": "Display a message to the user. Use this for ALL text output — conversation, explanations, questions, chapter content. Never output raw text — always use this tool.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "message": {"type": "string", "description": "The text to display to the user"},
+                    "message_type": {"type": "string", "enum": ["conversation", "chapter", "outline", "code", "planning"], "description": "Type of content", "default": "conversation"},
+                },
+                "required": ["message"],
+            },
+        }
+        all_tools = (tools or []) + [display_tool]
+
         turn_input_tokens = 0
         turn_output_tokens = 0
 
         safe_print("")
 
         try:
-            # First call — streaming for real-time display
             safe_print("  [dim]Thinking...[/dim]")
             response = self.agent.stream_with_display(
                 messages=messages,
-                tools=tools if tools else None,
+                tools=all_tools,
                 extra_body={"thinking": {"type": "enabled"}},
             )
             safe_print("")
@@ -186,7 +196,7 @@ class ConversationLoop:
                 turn_input_tokens += response.usage.input_tokens
                 turn_output_tokens += response.usage.output_tokens
 
-            # Tool call loop (non-streaming for reliability)
+            # Tool call loop — all output goes through tools
             tool_rounds = 0
             while response.stop_reason == "tool_use":
                 tool_results = []
@@ -194,17 +204,34 @@ class ConversationLoop:
                     if block.type == "tool_use":
                         tool_name = block.name
                         tool_input = block.input if isinstance(block.input, dict) else {}
-                        safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
-                        result = registry.dispatch(
-                            tool_name, tool_input,
-                            chapters_dir=str(self.agent.chapters_dir),
-                            project_dir=str(self.agent.project_dir),
-                        )
-                        tool_results.append({
-                            "type": "tool_result",
-                            "tool_use_id": block.id,
-                            "content": result,
-                        })
+
+                        if tool_name == "display_message":
+                            msg = tool_input.get("message", "")
+                            msg_type = tool_input.get("message_type", "conversation")
+                            safe_print(msg)
+                            # Auto-save if it's a chapter
+                            if msg_type == "chapter" and len(msg) > 500:
+                                existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
+                                ch_num = len(existing) + 1
+                                try:
+                                    from novel_agent.auto_pipeline import AutoPipeline
+                                    pipeline = AutoPipeline(self.agent)
+                                    title = pipeline._generate_title(msg, ch_num)
+                                    path = self.agent.chapter_path(ch_num, title)
+                                    path.parent.mkdir(parents=True, exist_ok=True)
+                                    path.write_text(f"# 第{ch_num}章: {title}\n\n{msg}", encoding="utf-8")
+                                    safe_print(f"  [dim]saved: {title}[/dim]")
+                                except Exception:
+                                    pass
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": "displayed"})
+                        else:
+                            safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
+                            result = registry.dispatch(
+                                tool_name, tool_input,
+                                chapters_dir=str(self.agent.chapters_dir),
+                                project_dir=str(self.agent.project_dir),
+                            )
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
 
                 messages.append({"role": "assistant", "content": response.content})
                 messages.append({"role": "user", "content": tool_results})
@@ -212,10 +239,7 @@ class ConversationLoop:
                 tool_rounds += 1
                 with console.status(f"Thinking... (tool round {tool_rounds})", spinner="dots") as status:
                     t0 = time.time()
-                    response = self.agent.call_llm(
-                        messages=messages,
-                        tools=tools if tools else None,
-                    )
+                    response = self.agent.call_llm(messages=messages, tools=all_tools)
                     elapsed = time.time() - t0
                     if hasattr(response, "usage") and response.usage:
                         status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens}+{response.usage.output_tokens} tk)")
@@ -223,12 +247,6 @@ class ConversationLoop:
                 if hasattr(response, "usage") and response.usage:
                     turn_input_tokens += response.usage.input_tokens
                     turn_output_tokens += response.usage.output_tokens
-
-            # Display any remaining text
-            text = self.agent.extract_text(response.content)
-            if text:
-                safe_print(text)
-                safe_print("")
 
             # Token summary
             self.total_input_tokens += turn_input_tokens
@@ -245,7 +263,8 @@ class ConversationLoop:
 
             # Persist
             self.agent.save_session()
-            self.agent.sync_memories(user_message, text)
+            assistant_text = self.agent.extract_text(response.content)
+            self.agent.sync_memories(user_message, assistant_text or "")
 
         except KeyboardInterrupt:
             safe_print("\n  [dim](interrupted)[/dim]\n")
