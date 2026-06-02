@@ -443,11 +443,21 @@ class AIAgent:
 
     @staticmethod
     def extract_text(content: list[Any]) -> str:
-        """Extract text from response content blocks, skipping thinking blocks."""
+        """Extract text from response content blocks.
+
+        Prefers text blocks, falls back to thinking/signature blocks
+        when the model (e.g. DeepSeek V4) returns reasoning-only responses.
+        """
         texts = []
         for block in content:
-            if hasattr(block, "type") and block.type == "text":
-                texts.append(block.text)
-            elif isinstance(block, dict) and block.get("type") == "text":
-                texts.append(block["text"])
-        return "\n".join(texts)
+            if hasattr(block, "type"):
+                if block.type == "text":
+                    texts.append(block.text)
+                elif block.type in ("thinking", "redacted_thinking"):
+                    texts.append(getattr(block, "thinking", "") or getattr(block, "text", ""))
+            elif isinstance(block, dict):
+                if block.get("type") == "text":
+                    texts.append(block.get("text", ""))
+                elif block.get("type") in ("thinking", "redacted_thinking"):
+                    texts.append(block.get("thinking", "") or block.get("text", ""))
+        return "\n".join(t for t in texts if t)

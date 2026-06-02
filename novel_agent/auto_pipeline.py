@@ -180,15 +180,43 @@ class AutoPipeline:
 
     def _settle_state(self, chapter_num: int, content: str) -> None:
         """Save chapter to disk and update state."""
-        # Save chapter file
+        # Generate a title from the first ~1000 chars of content
+        title = self._generate_title(content, chapter_num)
+
         chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
-        chapter_path.write_text(content, encoding="utf-8")
+        final = f"# 第{chapter_num}章: {title}\n\n{content}"
+        chapter_path.write_text(final, encoding="utf-8")
 
         # Update novel state
         state = self.agent.truth_files.load_state()
         state.current_chapter = chapter_num + 1
         self.agent.truth_files.save_state(state)
+
+    def _generate_title(self, content: str, chapter_num: int) -> str:
+        """Generate a chapter title from the content using a fast LLM call."""
+        try:
+            preview = content[:1200]
+            resp = self.agent.call_llm(
+                messages=[{
+                    "role": "user",
+                    "content": (
+                        f"Based on this chapter opening, generate a short Chinese chapter title "
+                        f"(4-8 characters, poetic, no quotes). Return ONLY the title, nothing else.\n\n"
+                        f"{preview}"
+                    ),
+                }],
+                max_tokens=200,  # DeepSeek thinking blocks need headroom
+                temperature=0.3,
+            )
+            raw = self.agent.extract_text(resp.content).strip()
+            # DeepSeek V4 may put title at end of thinking block — take last line
+            title = raw.split("\n")[-1].strip().strip("《》\"'#*。，！？ ")
+            if 2 <= len(title) <= 20:
+                return title
+        except Exception:
+            pass
+        return f"第{chapter_num}章"
 
     @staticmethod
     def _interrupt_handler(signum, frame):
