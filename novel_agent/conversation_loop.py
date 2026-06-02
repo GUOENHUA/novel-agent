@@ -326,7 +326,7 @@ class ConversationLoop:
         from novel_agent.auto_pipeline import AutoPipeline
         pipeline = AutoPipeline(self.agent)
         title = pipeline._generate_title(cleaned, chapter_num)
-        safe_print(f"  Title: [bold cyan]{title}[/bold cyan]")
+        safe_print(f"  Title: {title}")
         t_choice = input("  [Y] keep  [C] change  [N] discard all  > ").strip().lower()
 
         if t_choice in ("n", "no"):

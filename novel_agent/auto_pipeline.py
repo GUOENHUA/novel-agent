@@ -346,8 +346,25 @@ class AutoPipeline:
                 temperature=0.3,
             )
             raw = self.agent.extract_text(resp.content).strip()
-            # DeepSeek V4 may put title at end of thinking block — take last line
-            title = raw.split("\n")[-1].strip().strip("《》\"'#*。，！？ ")
+            # DeepSeek V4 puts title inside thinking block — extract quoted phrase
+            import re
+            title = ""
+            # Try to find 「标题」 or "标题" or 《标题》 patterns
+            for pattern in [r'[「"《]([^」"》]{3,12})[」"》]', r'标题[：:]\s*[「"《]?([^」"》\n]{3,12})']:
+                matches = re.findall(pattern, raw)
+                if matches:
+                    title = matches[-1].strip()
+                    break
+            # Fallback: take shortest line that looks like a title (3-12 chars, no punctuation)
+            if not title:
+                for line in raw.split("\n"):
+                    clean = line.strip().strip("《》\"'#*。，！？ ")
+                    if 3 <= len(clean) <= 12 and not any(c in clean for c in "：:，。！？"):
+                        title = clean
+                        break
+            # Last resort: last non-reasoning line
+            if not title:
+                title = raw.split("\n")[-1].strip().strip("《》\"'#*。，！？ ")[:15]
             if 2 <= len(title) <= 20:
                 return title
         except Exception:
