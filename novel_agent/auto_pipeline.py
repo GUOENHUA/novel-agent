@@ -158,7 +158,7 @@ class AutoPipeline:
             f"- 不要输出章标题（标题会自动添加），直接开始正文\n"
             f"- 正文中禁止使用任何Markdown格式：禁止 # ## ### 标题、禁止 **加粗**、禁止 *斜体*\n"
             f"- 段落之间用空行分隔，除此之外不使用任何特殊格式\n"
-            f"- 不要包含\"钩子\"、\"伏笔\"等任何元注释或标记\n"
+            f"- 禁止在章末添加任何元注释：禁止（第一章完）、（字数：xxx）、（伏笔：xxx）等。你的正文应该是纯粹的叙事，像一本真正的书\n"
             f"- 开头直接进入场景，不要前言；结尾自然结束，不要后记\n"
             f"- 这是一段纯粹的叙事文本，像一本真正的书一样"
         )
@@ -193,15 +193,14 @@ class AutoPipeline:
         """Save chapter, extract hooks + summary + character changes, update state."""
         title = self._generate_title(content, chapter_num)
 
-        # Clean formatting: strip markdown, meta annotations
+        # Clean formatting: strip markdown, meta annotations, secondary titles
         import re
         clean = content
-        # Strip any existing chapter headings
         clean = re.sub(r'^#\s*第.{1,5}章[^\n]*\n*', '', clean.strip())
-        # Strip hook/伏笔 annotations
-        clean = re.sub(r'[（(]\s*第.{1,5}章\s*[完终].*$', '', clean, flags=re.MULTILINE)
-        clean = re.sub(r'\n\s*（[^）]*[钩伏][^）]*）\s*$', '', clean, flags=re.MULTILINE)
-        # Strip bold/italic markdown (keep the text)
+        clean = re.sub(r'^第.{1,5}章[：:][^\n]*\n*', '', clean.strip())
+        # Strip end-of-chapter meta: (第X章完), (字数:xxx), (伏笔:xxx), etc.
+        clean = re.sub(r'\n*[（(]\s*(第.{1,5}章\s*[完终]|字数[：:]\s*\d|伏笔[：:]|章末|钩子|hook).*$', '', clean, flags=re.MULTILINE)
+        # Strip markdown
         clean = re.sub(r'\*\*([^*]+)\*\*', r'\1', clean)
         clean = re.sub(r'\*([^*]+)\*', r'\1', clean)
         clean = re.sub(r'__([^_]+)__', r'\1', clean)

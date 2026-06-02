@@ -463,25 +463,24 @@ class ConversationLoop:
             ):
                 start_idx = 1
 
-        # 2. Drop trailing annotations
+        # 2. Drop trailing annotations (chapter-end markers, meta notes)
         end_idx = len(lines)
         for i in range(len(lines) - 1, -1, -1):
             stripped = lines[i].strip()
-            if re.match(r"^[（(]\s*第.{1,5}章\s*[完终]", stripped):
+            # Match: （第一章完）、（第X章完）、（字数：...）、（伏笔...）
+            if re.match(r"^[（(]\s*(第.{1,5}章\s*[完终]|字数|伏笔|章末|钩子|hook)", stripped):
                 end_idx = i
                 break
-            if re.search(r"[钩伏][一-鿿]*[）)]?\s*$", stripped):
-                end_idx = i
-                break
-
         body = "\n".join(lines[start_idx:end_idx]).strip()
 
-        # 3. Strip markdown formatting (keep the text)
-        body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)  # **bold**
-        body = re.sub(r'\*([^*]+)\*', r'\1', body)        # *italic*
-        body = re.sub(r'__([^_]+)__', r'\1', body)         # __underline__
-        body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)  # # headings
-        body = re.sub(r'^#\s*第.{1,5}章[^\n]*\n*', '', body.strip())  # chapter heading
+        # 3. Strip markdown formatting and secondary chapter headings from body
+        body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)
+        body = re.sub(r'\*([^*]+)\*', r'\1', body)
+        body = re.sub(r'__([^_]+)__', r'\1', body)
+        # Remove any chapter headings in body (e.g. "第一章：感应")
+        body = re.sub(r'^#{1,6}\s*第.{1,5}章[^\n]*\n*', '', body, flags=re.MULTILINE)
+        body = re.sub(r'^第.{1,5}章[：:][^\n]*\n*', '', body, flags=re.MULTILINE)
+        body = body.strip()
 
         return body.strip() if body else text
 
