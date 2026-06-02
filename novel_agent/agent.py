@@ -328,14 +328,23 @@ class AIAgent:
                 lines.append(f"**⚠️ 过期未回收 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
             lines.append("")
 
-        # 6. Relevant chapter summaries (LLM-selected for current context)
+        # 6. Recent + relevant chapter summaries (last 3 always, +5 LLM-selected)
         summaries = self.truth_files.load_summaries()
         if summaries:
-            # Pick relevant summaries via lightweight LLM call
-            relevant = self._select_relevant_summaries(
-                summaries, ch, user_message, max_count=8
+            # Always include last 3 chapters for continuity
+            recent = summaries[-3:] if len(summaries) >= 3 else summaries
+            recent_nums = {s.chapter_number for s in recent}
+
+            # LLM-select up to 5 more relevant earlier chapters
+            candidates = [s for s in summaries if s.chapter_number not in recent_nums]
+            selected = self._select_relevant_summaries(
+                candidates, ch, user_message, max_count=5,
             )
+            relevant = recent + [s for s in selected if s not in recent]
+
             lines.append("## 📚 相关章节摘要")
+            if len(relevant) > 3:
+                lines.append(f"(最近3章 + {len(relevant)-3}章相关)")
             for s in relevant:
                 hook_note = ""
                 if s.hooks_planted and s.hooks_resolved:
