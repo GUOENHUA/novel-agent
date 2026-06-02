@@ -304,13 +304,23 @@ class AutoPipeline:
             if start < 0 or end <= start:
                 return {}  # No JSON in response, likely pure thinking block
             raw = raw[start:end + 1]
-            # Basic JSON repair: fix common LLM mistakes
-            import re as _re
-            raw = _re.sub(r'"\s*\n\s*"', '",\n"', raw)  # missing comma between string values
-            raw = _re.sub(r'}\s*\n\s*{', '},\n{', raw)   # missing comma between objects
-            raw = _re.sub(r']\s*\n\s*"', '],\n"', raw)    # missing comma after array
-            raw = _re.sub(r'"\s*\n\s*[\[{]', '",\n', raw)  # missing comma before array/object
-            return json.loads(raw)
+            # Try parsing; if broken, ask LLM to fix its own JSON
+            try:
+                return json.loads(raw)
+            except json.JSONDecodeError as e:
+                fix_resp = self.agent.call_llm(
+                    messages=[{"role": "user", "content": (
+                        f"Fix this invalid JSON. Return ONLY valid JSON, no explanation.\n"
+                        f"Error: {e}\n\n{raw}"
+                    )}],
+                    max_tokens=800, temperature=0,
+                )
+                fixed = self.agent.extract_text(fix_resp.content, fallback_to_thinking=True).strip()
+                fs = fixed.find("{")
+                fe = fixed.rfind("}")
+                if fs >= 0 and fe > fs:
+                    return json.loads(fixed[fs:fe + 1])
+                return {}
         except Exception:
             logger.warning("Settlement failed for ch%d", chapter_num, exc_info=True)
             return {}
