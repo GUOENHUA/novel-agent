@@ -94,14 +94,25 @@ class ConversationLoop:
 
         # Show previous session if resuming
         if self.agent.conversation_history:
-            user_msgs = [m for m in self.agent.conversation_history if m.get("role") == "user"]
-            if user_msgs:
-                safe_print(f"  [dim]resumed {len(user_msgs)} turns from previous session[/dim]")
-                last_user = user_msgs[-1]
-                content = last_user.get("content", "")
-                if isinstance(content, list):
-                    content = " ".join(b.get("text", "") if isinstance(b, dict) else str(b) for b in content)
-                safe_print(f"  [dim]last: {str(content)[:120]}[/dim]")
+            last_pair = self.agent.conversation_history[-2:]
+            if last_pair:
+                safe_print(f"  " + "─" * 50)
+                for msg in last_pair:
+                    role = msg.get("role", "?")
+                    content = msg.get("content", "")
+                    if isinstance(content, list):
+                        text = " ".join(
+                            b.get("text", "") if isinstance(b, dict) else
+                            (b.text if hasattr(b, "text") else str(b)[:200])
+                            for b in content
+                        )
+                    else:
+                        text = str(content)
+                    if role == "user":
+                        safe_print(f"  [bold cyan]>[/bold cyan] {text}")
+                    else:
+                        safe_print(f"  [dim]{text}[/dim]")
+                safe_print(f"  " + "─" * 50)
                 safe_print("")
 
         # REPL
