@@ -295,9 +295,16 @@ class AutoPipeline:
                 max_tokens=800, temperature=0.3,
             )
             raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
+            if not raw:
+                return {}
             for fence in ("```json", "```"):
                 raw = raw.replace(fence, "").strip()
-            return json.loads(raw)
+            # Try to find JSON object in the response
+            start = raw.find("{")
+            end = raw.rfind("}")
+            if start >= 0 and end > start:
+                raw = raw[start:end + 1]
+            return json.loads(raw) if raw else {}
         except Exception:
             logger.warning("Settlement failed for ch%d", chapter_num, exc_info=True)
             return {}

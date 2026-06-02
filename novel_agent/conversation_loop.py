@@ -329,11 +329,12 @@ class ConversationLoop:
         pipeline = AutoPipeline(self.agent)
         title = pipeline._generate_title(cleaned, chapter_num)
         safe_print(f"  Title: {title.strip()}")
-        t_choice = input("  [Y] keep  [C] change  [N] discard all  > ").strip().lower()
+        safe_print("  1. Keep  2. Change  3. Discard")
+        t_choice = input("  > ").strip()
 
-        if t_choice in ("n", "no"):
+        if t_choice == "3":
             return None
-        if t_choice in ("c", "change"):
+        if t_choice == "2":
             title = input("  New title: ").strip() or title
 
         # 2. AI extracts hooks → user reviews
@@ -343,18 +344,20 @@ class ConversationLoop:
             settlement = {}
         hooks_planted = settlement.get("hooks_planted", [])
         if hooks_planted:
-            safe_print(f"\n  [bold]Hooks found ({len(hooks_planted)}):[/bold]")
-            for h in hooks_planted:
+            safe_print(f"\n  Hooks found ({len(hooks_planted)}):")
+            for i, h in enumerate(hooks_planted):
                 scope = h.get("scope", "chapter")
-                safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
-            h_choice = input("  [Y] keep all  [S] select  [N] discard all  > ").strip().lower()
-            if h_choice in ("n", "no"):
+                safe_print(f"    {i+1}. [{h['id']}] ({scope}) {h['desc'][:80]}")
+            safe_print("  1. Keep all  2. Select  3. Discard all")
+            h_choice = input("  > ").strip()
+            if h_choice == "3":
                 hooks_planted = []
-            elif h_choice in ("s", "select"):
-                keep_ids = input("  Keep which? (space-separated IDs): ").strip().split()
-                hooks_planted = [h for h in hooks_planted if h["id"] in keep_ids]
+            elif h_choice == "2":
+                nums = input("  Keep which? (numbers): ").strip().split()
+                indices = [int(n)-1 for n in nums if n.isdigit() and 1 <= int(n) <= len(hooks_planted)]
+                hooks_planted = [hooks_planted[i] for i in indices]
         else:
-            safe_print(f"  [dim](no hooks detected)[/dim]")
+            safe_print(f"  (no hooks detected)")
 
         # 3. Save
         import re
