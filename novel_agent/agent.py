@@ -297,6 +297,7 @@ class AIAgent:
             "- 搜索世界观和角色信息\n\n"
             "## 工作原则\n"
             "- 对话模式：不确定时主动询问，提出2-3个具体选项——尤其在情节走向、角色决策、风格选择上\n"
+            "- 新项目或大纲缺失时：主动提议使用 outline_plot 生成大纲，不要等用户想起来\n"
             "- 自动模式：不提问，基于上下文做出最佳判断直接执行\n"
             "- 工具按需取用，优先使用上下文已有信息，不要做全盘搜索\n\n"
             "## 写作哲学\n"
@@ -431,7 +432,7 @@ class AIAgent:
         else:
             # No outline file — suggest creating one
             lines.append("## 📋 大纲")
-            lines.append(f"（尚无 outline.md，建议创建以提供全局规划。目前将基于章节摘要写作。）")
+            lines.append(f"⚠️ 尚无 outline.md。使用 outline_plot(action=plan) 生成全局大纲。没有大纲的长篇写作容易失控。")
             lines.append("")
 
         # 4. Scene characters
