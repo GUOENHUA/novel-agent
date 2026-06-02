@@ -809,10 +809,10 @@ class ConversationLoop:
                     "'not' = outline, plan, list, conversation, explanation, anything else.\n\n"
                     f"{text[:800]}"
                 )}],
-                max_tokens=5, temperature=0,
+                max_tokens=20, temperature=0,
             )
             result = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip().lower()
-            return "chapter" in result and "not" not in result
+            return "chapter" in result[:15]
         except Exception:
             return True  # If classification fails, default to showing save dialog
 

@@ -1,0 +1,4 @@
+- [plot-outline-main](plot-plot-outline-main.md) — 《天道寄生虫》完整三幕大纲：800章，主角陆沉从觉醒到弑天的完整弧线。天道三层寄生体系（灵力/存在/命运）。
+- [world-tiandao-system](world-world-tiandao-system.md) — 天道寄生体系完整设定：三层寄生机制、天行者、无间渊、忘川、界外养蛊场。
+- [world-qie-ming-jing](world-world-qie-ming-jing.md) — 《窃命经》——主角陆沉的核心功法，反制天道寄生体系的逆法
+- [char-zhao-qian](char-char-zhao-qian.md) — 赵谦：陆沉的师兄，同乡，第一个对他好的人。第1章渡劫化灰，是催化事件。
