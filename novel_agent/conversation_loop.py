@@ -513,16 +513,26 @@ class ConversationLoop:
         safe_print("  " + "─" * 50)
         # Show preview; if content is long, offer to expand
         if len(cleaned) > 600:
-            safe_print(f"  [dim]{cleaned[:250]}...[/dim]")
-            action, _ = _choose(
-                "Review chapter?",
-                [("Continue to hooks", "continue"), ("View full chapter", "view")],
-            )
-            if action == "view":
-                safe_print("  " + "─" * 50)
-                safe_print(cleaned)
-                safe_print("  " + "─" * 50)
-                input("  Press enter to continue...")
+            collapsed = True
+            while True:
+                if collapsed:
+                    safe_print(f"  [dim]{cleaned[:250]}...[/dim]")
+                    action, _ = _choose(
+                        "Review chapter?",
+                        [("Continue to hooks", "continue"), ("View full chapter", "view")],
+                    )
+                else:
+                    safe_print("  " + "─" * 50)
+                    safe_print(cleaned)
+                    safe_print("  " + "─" * 50)
+                    action, _ = _choose(
+                        "Review chapter?",
+                        [("Continue to hooks", "continue"), ("Collapse preview", "collapse")],
+                    )
+                if action == "continue":
+                    break
+                elif action in ("view", "collapse"):
+                    collapsed = not collapsed
         else:
             safe_print(f"  [dim]{cleaned}[/dim]")
         safe_print("")
