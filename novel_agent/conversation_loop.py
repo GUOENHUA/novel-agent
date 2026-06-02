@@ -123,9 +123,12 @@ class ConversationLoop:
 
             try:
                 user_input = input(PROMPT).strip()
-            except (EOFError, KeyboardInterrupt):
+            except EOFError:
                 safe_print("\nGoodbye!")
                 break
+            except KeyboardInterrupt:
+                safe_print("\n  [dim](interrupted)[/dim]")
+                continue
 
             if not user_input:
                 continue
@@ -240,6 +243,8 @@ class ConversationLoop:
             self.agent.save_session()
             self.agent.sync_memories(user_message, text)
 
+        except KeyboardInterrupt:
+            safe_print("\n  [dim](interrupted)[/dim]\n")
         except Exception as e:
             logger.exception("Turn processing failed")
             safe_print(f"  [red][ERROR][/red] {e}\n")
