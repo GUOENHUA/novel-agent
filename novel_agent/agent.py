@@ -71,6 +71,9 @@ class AIAgent:
         self.chapters_dir = ensure_dir(self.project_dir / "chapters")
         self.state_dir = ensure_dir(self.project_dir / "state")
 
+        # Initialize subsystems
+        self._init_subsystems()
+
     def chapter_path(self, num: int, title: str = "") -> Path:
         """Get chapter file path with consistent naming: ch_001_title-slug.md."""
         if not title:
@@ -89,22 +92,32 @@ class AIAgent:
         m = re.match(r"ch_(\d+)", path.stem)
         return int(m.group(1)) if m else 0
 
-        # Subsystems
-        self._memory_manager: MemoryManager = MemoryManager()
+    def _init_subsystems(self) -> None:
+        """Initialize all subsystems."""
+        self._memory_manager = MemoryManager()
         self._context_engine = None
         self._skill_loader = None
 
-        # Initialize memory system
-        self._init_memory()
+        # Initialize subsystems (each is self-contained, failures don't cascade)
+        try:
+            self._init_memory()
+        except Exception:
+            logger.exception("Memory init failed")
 
-        # Initialize state system
-        self._init_state()
+        try:
+            self._init_state()
+        except Exception:
+            logger.exception("State init failed")
 
-        # Initialize skills system
-        self._init_skills()
+        try:
+            self._init_skills()
+        except Exception:
+            logger.exception("Skills init failed")
 
-        # Initialize context engine
-        self._init_context()
+        try:
+            self._init_context()
+        except Exception:
+            logger.exception("Context init failed")
 
         # Load previous session if exists
         self._restore_session()
@@ -292,6 +305,12 @@ class AIAgent:
         self._stable_prompt_cache = "\n".join(parts)
         return self._stable_prompt_cache
 
+    @staticmethod
+    def _empty_state() -> Any:
+        """Return a default empty novel state."""
+        from novel_agent.state.schemas import NovelState
+        return NovelState()
+
     def clear_prompt_cache(self) -> None:
         """Clear the stable prompt cache (e.g. after skills or memory change)."""
         self._stable_prompt_cache = None
@@ -306,7 +325,7 @@ class AIAgent:
         """
         import re
 
-        state = self.truth_files.load_state()
+        state = self.truth_files.load_state() if hasattr(self, "truth_files") and self.truth_files else self._empty_state()
         lines = []
 
         # 1. Progress
@@ -431,7 +450,7 @@ class AIAgent:
             lines.append("")
 
         # 6. Recent + relevant chapter summaries (last 3 always, +5 LLM-selected)
-        summaries = self.truth_files.load_summaries()
+        summaries = self.truth_files.load_summaries() if hasattr(self, "truth_files") and self.truth_files else []
         if summaries:
             # Always include last 3 chapters for continuity
             recent = summaries[-3:] if len(summaries) >= 3 else summaries
