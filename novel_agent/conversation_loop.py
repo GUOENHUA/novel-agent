@@ -70,8 +70,15 @@ class ConversationLoop:
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
             safe_print(f"  {len(existing)}/{self.agent.total_chapters} chapters   {total_written:,} words   latest: [bold]{last_ch}[/bold]")
+            next_ch = len(existing) + 1
+            safe_print(f"  [dim]try: 'write chapter {next_ch}' or 'auto-generate 5 chapters'[/dim]")
         else:
             safe_print("  fresh project — no chapters yet")
+            outline_path = self.agent.project_dir / "outline.md"
+            if not outline_path.exists():
+                safe_print("  [dim]start with: 'create an outline' then 'write chapter 1'[/dim]")
+            else:
+                safe_print("  [dim]try: 'write chapter 1'[/dim]")
 
         # Show previous session summary if resuming
         if self.agent.conversation_history:
