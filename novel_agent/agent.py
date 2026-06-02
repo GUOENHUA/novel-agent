@@ -640,6 +640,7 @@ class AIAgent:
         temperature: float = 0.8,
         max_tokens: int = 8192,
         max_retries: int = 3,
+        extra_body: dict | None = None,
     ) -> anthropic.types.Message:
         """Make an API call to Claude with retry logic."""
         import time
@@ -653,6 +654,8 @@ class AIAgent:
         }
         if tools:
             kwargs["tools"] = tools
+        if extra_body:
+            kwargs["extra_body"] = extra_body
 
         last_error = None
         for attempt in range(max_retries):

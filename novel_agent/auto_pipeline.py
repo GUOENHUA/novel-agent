@@ -292,6 +292,7 @@ class AutoPipeline:
             resp = self.agent.call_llm(
                 messages=[{"role": "user", "content": directive}],
                 max_tokens=800, temperature=0.3,
+                extra_body={"response_format": {"type": "json_object"}},
             )
             raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
             if not raw:
@@ -314,6 +315,7 @@ class AutoPipeline:
                         f"Error: {e}\n\n{raw}"
                     )}],
                     max_tokens=800, temperature=0,
+                    extra_body={"response_format": {"type": "json_object"}},
                 )
                 fixed = self.agent.extract_text(fix_resp.content, fallback_to_thinking=True).strip()
                 fs = fixed.find("{")
