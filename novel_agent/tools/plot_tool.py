@@ -46,42 +46,53 @@ def _handle_plan(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     genre = args.get("genre", "")
     premise = args.get("premise", "")
 
-    directive = f"""## 情节结构规划
+    # For epics (>100 chapters), use volume-based planning
+    if total_chapters > 100:
+        vols = max(5, (total_chapters + 79) // 80)  # ~80 chapters per volume, ceil division
+        ch_per_vol = total_chapters // vols
+        directive = f"""## 超长篇情节结构规划
+
+全书 {total_chapters} 章，分为 {vols} 卷，每卷约 {ch_per_vol} 章。
+{f"类型: {genre}" if genre else ""}
+{f"前提: {premise}" if premise else ""}
+
+### 卷级规划（先规划每卷的核心内容）
+为每卷写 3-5 句描述：
+- 本卷的故事目标和主要冲突
+- 主角在本卷的成长节点（Wound/Want/Need 推进到哪一步）
+- 本卷引入和回收的伏笔
+- 本卷的高潮事件
+
+### 三幕结构分配
+第一幕 (0-25%): 第1-{max(1, total_chapters // 4)}章, 对应第1-{max(1, vols // 4)}卷
+第二幕 (25-75%): 第{max(1, total_chapters // 4)}-{max(1, total_chapters * 3 // 4)}章, 对应第{max(1, vols // 4)}-{max(1, vols * 3 // 4)}卷
+第三幕 (75-100%): 第{max(1, total_chapters * 3 // 4)}-{total_chapters}章, 对应第{max(1, vols * 3 // 4)}-{vols}卷
+
+### 生成格式
+先输出卷级规划，再对第一卷输出每章的 1-2 句大纲。
+后续卷的详细大纲可以在写到时再展开。
+
+请生成全书 {vols} 卷的卷级规划 + 第一卷 {ch_per_vol} 章的章节大纲。"""
+    else:
+        directive = f"""## 情节结构规划
 
 目标章节数: {total_chapters}
 {f"类型: {genre}" if genre else ""}
 {f"前提: {premise}" if premise else ""}
 
-### 使用三幕结构标记章节
+### 三幕结构
+第一幕 (0-25%): 第1-{max(1, total_chapters // 4)}章
+第二幕 (25-75%): 第{max(1, total_chapters // 4)}-{max(1, total_chapters * 3 // 4)}章
+第三幕 (75-100%): 第{max(1, total_chapters * 3 // 4)}-{total_chapters}章
 
-第一幕 (建置, 0-25%): 第1-{max(1, total_chapters // 4)}章
-  引发事件 (Catalyst): 第{max(1, total_chapters * 11 // 100)}章前后
-  主角做出选择进入新世界: 第{max(1, total_chapters // 4)}章前后
+### 要点
+1. 每个场景用"yes-but"或"no-and"结束
+2. 至少 3 条伏笔线，每条在 ~3 个章节中被提及
+3. 副线在第{total_chapters // 4}章左右引入
+4. 高潮前加速——每章至少 2 个转折
+5. 结局展示转变后的世界——呼应开头
 
-第二幕 (对抗, 25-75%): 第{max(1, total_chapters // 4)}-{max(1, total_chapters * 3 // 4)}章
-  中点 (虚假胜利/失败): 第{total_chapters // 2}章前后
-  一切尽失: 第{total_chapters * 68 // 100}章前后
-  灵魂黑夜: 第{total_chapters * 68 // 100}-{total_chapters * 77 // 100}章
-
-第三幕 (解决, 75-100%): 第{max(1, total_chapters * 3 // 4)}-{total_chapters}章
-  突破: 第{total_chapters * 77 // 100}章前后
-  高潮 (最终对决): 第{total_chapters * 88 // 100}-{total_chapters}章
-  结局: 最后 1-2 章
-
-### 情节规划要点
-1. 每个场景用"yes-but"或"no-and"结束——推动而非停滞
-2. 至少规划 3 条伏笔线，每条在 ~3 个章节中被提及
-3. 副线（B Story）在第{total_chapters // 4}章左右引入
-4. 高潮前 5 章节奏加速——每章至少 2 个转折
-5. 结局展示转变后的世界——呼应开头的镜像
-
-### 生成大纲格式
-为每章写 2-3 句大纲，标注：
-- 该章的节拍位置（如 "中点——虚假胜利"）
-- 该章要种植/回收的伏笔
-- 该章角色的弧线位置
-
-请生成第1-{total_chapters}章的大纲。"""
+请生成第1-{total_chapters}章的大纲，每章 2-3 句。"""
 
     return tool_result(
         success=True,
