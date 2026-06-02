@@ -552,7 +552,7 @@ class ConversationLoop:
                 )}],
                 max_tokens=400, temperature=0.3,
             )
-            return self.agent.extract_text(resp.content).strip()
+            return self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
         except Exception:
             return ""
 

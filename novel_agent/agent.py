@@ -621,22 +621,23 @@ class AIAgent:
         raise last_error or RuntimeError("LLM call failed after max retries")
 
     @staticmethod
-    def extract_text(content: list[Any]) -> str:
+    def extract_text(content: list[Any], fallback_to_thinking: bool = False) -> str:
         """Extract text from response content blocks.
 
-        Prefers text blocks, falls back to thinking/signature blocks
-        when the model (e.g. DeepSeek V4) returns reasoning-only responses.
+        By default, only returns text blocks. Set fallback_to_thinking=True
+        for short queries (like title generation) where the model may only
+        produce thinking blocks.
         """
         texts = []
         for block in content:
             if hasattr(block, "type"):
                 if block.type == "text":
                     texts.append(block.text)
-                elif block.type in ("thinking", "redacted_thinking"):
+                elif fallback_to_thinking and block.type in ("thinking", "redacted_thinking"):
                     texts.append(getattr(block, "thinking", "") or getattr(block, "text", ""))
             elif isinstance(block, dict):
                 if block.get("type") == "text":
                     texts.append(block.get("text", ""))
-                elif block.get("type") in ("thinking", "redacted_thinking"):
+                elif fallback_to_thinking and block.get("type") in ("thinking", "redacted_thinking"):
                     texts.append(block.get("thinking", "") or block.get("text", ""))
         return "\n".join(t for t in texts if t)

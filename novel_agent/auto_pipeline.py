@@ -174,7 +174,7 @@ class AutoPipeline:
                 temperature=0.8,
             )
             elapsed = time.time() - t0
-            content = self.agent.extract_text(resp.content)
+            content = self.agent.extract_text(resp.content, fallback_to_thinking=False)
             status.update(
                 f"[bold yellow]{label}...[/bold yellow] "
                 f"({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)"
@@ -294,7 +294,7 @@ class AutoPipeline:
                 messages=[{"role": "user", "content": directive}],
                 max_tokens=800, temperature=0.3,
             )
-            raw = self.agent.extract_text(resp.content).strip()
+            raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
             for fence in ("```json", "```"):
                 raw = raw.replace(fence, "").strip()
             return json.loads(raw)
@@ -345,7 +345,7 @@ class AutoPipeline:
                 max_tokens=200,  # DeepSeek thinking blocks need headroom
                 temperature=0.3,
             )
-            raw = self.agent.extract_text(resp.content).strip()
+            raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
             # DeepSeek V4 puts title inside thinking block — extract quoted phrase
             import re
             title = ""
