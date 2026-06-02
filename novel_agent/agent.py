@@ -67,6 +67,25 @@ class AIAgent:
         self.chapters_dir = ensure_dir(self.project_dir / "chapters")
         self.state_dir = ensure_dir(self.project_dir / "state")
 
+    def chapter_path(self, num: int, title: str = "") -> Path:
+        """Get chapter file path with consistent naming: ch_001_title-slug.md."""
+        if not title:
+            # Try to find existing file with matching number
+            existing = list(self.chapters_dir.glob(f"ch_{num:03d}_*.md"))
+            if existing:
+                return existing[0]
+        slug = ""
+        if title:
+            slug = "_" + "".join(c for c in title.lower().replace(" ", "-") if c.isalnum() or c in "-_")[:40]
+        return self.chapters_dir / f"ch_{num:03d}{slug}.md"
+
+    @staticmethod
+    def _extract_chapter_num(path: Path) -> int:
+        """Extract chapter number from filename like ch_001_title.md."""
+        import re
+        m = re.match(r"ch_(\d+)", path.stem)
+        return int(m.group(1)) if m else 0
+
         # Subsystems
         self._memory_manager: MemoryManager = MemoryManager()
         self._context_engine = None
@@ -259,7 +278,7 @@ class AIAgent:
         lines = []
 
         # 1. Progress
-        existing = list(self.chapters_dir.glob("ch_*.md"))
+        existing = list(self.chapters_dir.glob("ch_*_*.md"))
         completed_chapters = len(existing)
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
         ch = state.current_chapter or (completed_chapters + 1)
@@ -271,7 +290,7 @@ class AIAgent:
 
         # 2. Previous chapter ending (most important anchor)
         if ch > 1:
-            prev_path = self.chapters_dir / f"ch_{ch - 1:02d}.md"
+            prev_path = self.chapter_path(ch - 1)
             if prev_path.exists():
                 prev_text = prev_path.read_text(encoding="utf-8")
                 ending = prev_text[-1500:] if len(prev_text) > 1500 else prev_text

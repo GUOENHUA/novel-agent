@@ -166,7 +166,7 @@ def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
         import re
         chapters_path = P(chapters_dir)
         toc = []
-        for path in sorted(chapters_path.glob("ch_*.md")):
+        for path in sorted(chapters_path.glob("ch_*_*.md")):
             content = path.read_text(encoding="utf-8")
             # Extract title and first ~200 chars as summary
             first_line = content.split("\n")[0] if content else ""

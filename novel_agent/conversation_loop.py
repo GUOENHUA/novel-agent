@@ -62,7 +62,7 @@ class ConversationLoop:
 
     def run(self) -> None:
         """Enter the interactive REPL loop."""
-        existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+        existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
         safe_print(f"\n  [bold]novel-agent[/bold]   {self.agent.novel_title}   {self.agent.model}")
@@ -259,7 +259,7 @@ class ConversationLoop:
             pipeline = AutoPipeline(self.agent)
             pipeline.run(start_chapter=self._next_chapter(), count=count)
         elif command == "/status":
-            chapters = list(self.agent.chapters_dir.glob("ch_*.md"))
+            chapters = list(self.agent.chapters_dir.glob("ch_*_*.md"))
             total_w = sum(len(p.read_text(encoding="utf-8")) for p in chapters)
             safe_print(f"  Project: {self.agent.project_dir.name}")
             safe_print(f"  Model: {self.agent.model}")
@@ -302,7 +302,7 @@ class ConversationLoop:
             return None  # Long prose but no chapter ending — might be a scene fragment
 
         state = self.agent.truth_files.load_state()
-        existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+        existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
         return state.current_chapter or (len(existing) + 1)
 
     def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
@@ -331,7 +331,7 @@ class ConversationLoop:
 
             final = f"# 第{chapter_num}章: {title}\n\n{body}"
 
-            chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
+            chapter_path = self.agent.chapter_path(chapter_num, title)
             chapter_path.write_text(final, encoding="utf-8")
             safe_print(f"  [green]Saved: {title}[/green]")
             return final
@@ -522,7 +522,7 @@ class ConversationLoop:
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
-        existing = list(self.agent.chapters_dir.glob("ch_*.md"))
+        existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
         if not existing:
             return 1
         nums = []

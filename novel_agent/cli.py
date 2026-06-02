@@ -148,7 +148,7 @@ def auto(project_dir: str, count: int, words: int | None, to_complete: bool):
 
     ch_count = count or 0
     if to_complete:
-        existing = len(list(agent.chapters_dir.glob("ch_*.md")))
+        existing = len(list(agent.chapters_dir.glob("ch_*_*.md")))
         ch_count = agent.total_chapters - existing
         if ch_count <= 0:
             click.echo("[OK] All chapters complete!")
@@ -159,7 +159,7 @@ def auto(project_dir: str, count: int, words: int | None, to_complete: bool):
                 return
 
     # Determine next chapter to write
-    existing_chs = sorted(agent.chapters_dir.glob("ch_*.md"))
+    existing_chs = sorted(agent.chapters_dir.glob("ch_*_*.md"))
     next_ch = len(existing_chs) + 1 if existing_chs else 1
 
     pipeline.run(
@@ -195,7 +195,7 @@ def revise(project_dir: str, chapter: int):
     agent = AIAgent(project_dir=project_dir)
 
     # Check chapter exists
-    chapter_file = agent.chapters_dir / f"ch_{chapter:02d}.md"
+    chapter_file = agent.chapter_path(chapter)
     if chapter_file.exists():
         click.echo(f"Focus: 第{chapter}章 ({chapter_file})")
         click.echo(f"   字数: {len(chapter_file.read_text(encoding='utf-8'))}")
@@ -219,7 +219,7 @@ def status(project_dir: str):
     project_path = Path(project_dir).resolve()
     chapters_path = project_path / "chapters"
 
-    chapters = sorted(chapters_path.glob("ch_*.md")) if chapters_path.exists() else []
+    chapters = sorted(chapters_path.glob("ch_*_*.md")) if chapters_path.exists() else []
     total_written = sum(
         len(p.read_text(encoding="utf-8")) for p in chapters
     )

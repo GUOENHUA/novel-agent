@@ -208,7 +208,7 @@ class AutoPipeline:
         clean = re.sub(r'^#{1,6}\s+', '', clean, flags=re.MULTILINE)
         clean = clean.strip()
 
-        chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
+        chapter_path = self.agent.chapter_path(chapter_num, title)
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
         final = f"# 第{chapter_num}章: {title}\n\n{clean}"
         chapter_path.write_text(final, encoding="utf-8")
