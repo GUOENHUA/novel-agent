@@ -318,68 +318,88 @@ class ConversationLoop:
         return state.current_chapter or (len(existing) + 1)
 
     def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
-        """Ask user to confirm/edit/retry chapter. Returns content to save, or None to discard."""
-        # Clean conversational preamble — keep only the chapter body
+        """AI proposes → user confirms/edits each creative decision."""
         cleaned = self._clean_chapter_content(content)
+        safe_print(f"\n  [bold]Chapter {chapter_num}[/bold]  {len(cleaned)} chars")
 
-        safe_print(f"\n  [bold]Chapter {chapter_num} draft ready.[/bold]")
-        safe_print(f"  [dim]{len(cleaned)} chars (cleaned)[/dim]")
-        safe_print(f"  [Y]es save  [E]dit  [N]o discard")
+        # 1. AI generates title → user confirms
+        from novel_agent.auto_pipeline import AutoPipeline
+        pipeline = AutoPipeline(self.agent)
+        title = pipeline._generate_title(cleaned, chapter_num)
+        safe_print(f"  Title: [bold cyan]{title}[/bold cyan]")
+        t_choice = input("  [Y] keep  [C] change  [N] discard all  > ").strip().lower()
 
-        choice = input("  > ").strip().lower()
-
-        if choice in ("y", "yes", ""):
-            # Auto-generate title
-            safe_print("  [dim]generating title...[/dim]")
-            from novel_agent.auto_pipeline import AutoPipeline
-            pipeline = AutoPipeline(self.agent)
-            title = pipeline._generate_title(cleaned, chapter_num)
-
-            # Strip any remaining markdown formatting from body
-            import re
-            body = cleaned
-            body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)
-            body = re.sub(r'\*([^*]+)\*', r'\1', body)
-            body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)
-            body = body.strip()
-
-            final = f"# 第{chapter_num}章: {title}\n\n{body}"
-
-            chapter_path = self.agent.chapter_path(chapter_num, title)
-            chapter_path.write_text(final, encoding="utf-8")
-            safe_print(f"  [green]Saved: {title}[/green]")
-            return final
-
-        elif choice in ("e", "edit"):
-            safe_print("  Enter edit instructions (or paste replacement text):")
-            edit_input = input("  edit> ").strip()
-            if edit_input:
-                if len(edit_input) > 200:
-                    return edit_input
-                else:
-                    edit_msg = (
-                        f"Here is the current chapter {chapter_num} draft. "
-                        f"Apply this edit instruction to it: {edit_input}\n\n"
-                        f"CHAPTER:\n{cleaned}\n\n"
-                        f"Return the FULL edited chapter. Do not explain — just output the edited text."
-                    )
-                    safe_print("  [yellow]Applying edits...[/yellow]")
-                    resp = self.agent.call_llm(
-                        messages=[{"role": "user", "content": edit_msg}],
-                        max_tokens=len(cleaned) * 2,
-                        temperature=0.5,
-                    )
-                    edited = self.agent.extract_text(resp.content)
-                    safe_print(f"  [green]Edit applied ({len(edited)} chars)[/green]")
-                    return self._confirm_chapter(edited, chapter_num)
-            return content
-
-        elif choice in ("n", "no"):
+        if t_choice in ("n", "no"):
             return None
+        if t_choice in ("c", "change"):
+            title = input("  New title: ").strip() or title
 
-        else:
-            safe_print("  [dim]Unknown choice, saving by default[/dim]")
-            return content
+        # 2. AI extracts hooks → user reviews
+        settlement = pipeline._run_settlement(chapter_num, cleaned)
+        hooks_planted = settlement.get("hooks_planted", [])
+        if hooks_planted:
+            safe_print(f"\n  [bold]Hooks found ({len(hooks_planted)}):[/bold]")
+            for h in hooks_planted:
+                scope = h.get("scope", "chapter")
+                safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
+            h_choice = input("  [Y] keep all  [S] select  [N] discard all  > ").strip().lower()
+            if h_choice in ("n", "no"):
+                hooks_planted = []
+            elif h_choice in ("s", "select"):
+                keep_ids = input("  Keep which? (space-separated IDs): ").strip().split()
+                hooks_planted = [h for h in hooks_planted if h["id"] in keep_ids]
+
+        # 3. Save
+        import re
+        body = cleaned
+        body = re.sub(r'\*\*([^*]+)\*\*', r'\1', body)
+        body = re.sub(r'\*([^*]+)\*', r'\1', body)
+        body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)
+        body = body.strip()
+        final = f"# 第{chapter_num}章: {title}\n\n{body}"
+
+        chapter_path = self.agent.chapter_path(chapter_num, title)
+        chapter_path.write_text(final, encoding="utf-8")
+
+        # Save hooks to ledger
+        for h in hooks_planted:
+            self.agent.hook_ledger.upsert(
+                hook_id=h["id"], description=h["desc"],
+                planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
+                scope=h.get("scope", "chapter"),
+            )
+        for hid in settlement.get("hooks_mentioned", []):
+            self.agent.hook_ledger.mention(hid, chapter_num)
+        for hid in settlement.get("hooks_resolved", []):
+            self.agent.hook_ledger.resolve(hid, chapter_num)
+
+        # Save summary
+        if settlement.get("chapter_summary"):
+            from novel_agent.state.schemas import ChapterSummary
+            self.agent.truth_files.add_summary(ChapterSummary(
+                chapter_number=chapter_num, title=title,
+                word_count=len(cleaned), summary=settlement["chapter_summary"],
+                key_events=settlement.get("key_events", []),
+                characters_appearing=settlement.get("characters_appearing", []),
+                hooks_planted=[h["id"] for h in hooks_planted],
+                hooks_resolved=settlement.get("hooks_resolved", []),
+                mood=settlement.get("mood", "neutral"),
+            ))
+
+        # Update character states
+        for name, changes in settlement.get("character_changes", {}).items():
+            self.agent.truth_files.update_character(name, **changes)
+
+        self.agent.truth_files.load_state().current_chapter and None  # no-op, state saved above
+        state = self.agent.truth_files.load_state()
+        state.current_chapter = chapter_num + 1
+        self.agent.truth_files.save_state(state)
+
+        parts = []
+        if hooks_planted:
+            parts.append(f"{len(hooks_planted)} hooks")
+        safe_print(f"  [green]Saved: {title}[/green]" + (f"  ({', '.join(parts)})" if parts else ""))
+        return final
 
     def _clean_chapter_content(self, text: str) -> str:
         """Strip preamble, markdown formatting, and meta annotations from chapter content."""
