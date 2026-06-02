@@ -281,18 +281,61 @@ class AIAgent:
                 lines.append("```")
                 lines.append("")
 
-        # 3. Current chapter outline
+        # 3. Multi-level outline
         outline_path = self.project_dir / "outline.md"
         if outline_path.exists():
             outline_text = outline_path.read_text(encoding="utf-8")
-            pattern = rf"第\s*{ch}\s*章"
-            match = re.search(pattern, outline_text)
-            if match:
-                start = max(0, match.start() - 30)
-                end = min(len(outline_text), match.end() + 400)
-                lines.append("## 📋 本章大纲")
-                lines.append(outline_text[start:end].strip())
+
+            # 3a. Book-level framing (first ~500 chars — overall arc, theme, ending vision)
+            book_framing = outline_text[:500].strip()
+            if book_framing:
+                lines.append("## 📖 全书框架")
+                lines.append(book_framing)
                 lines.append("")
+
+            # 3b. Volume/arc context (find current volume based on chapter)
+            vol_pattern = rf"(第[一二三四五六七八九十\d]+卷[^\n]*|Volume\s*\d+[^\n]*)"
+            vol_matches = list(re.finditer(vol_pattern, outline_text))
+            current_vol = None
+            for vm in vol_matches:
+                # Check if this volume declaration is before current chapter
+                vol_start = vm.start()
+                ch_pattern = rf"第\s*{ch}\s*章"
+                ch_match = re.search(ch_pattern, outline_text)
+                if ch_match and vol_start < ch_match.start():
+                    current_vol = vm
+            if current_vol:
+                vol_end = outline_text.find("\n#", current_vol.end())
+                if vol_end == -1:
+                    vol_end = min(len(outline_text), current_vol.end() + 800)
+                lines.append("## 📋 当前卷")
+                lines.append(outline_text[current_vol.start():vol_end].strip())
+                lines.append("")
+
+            # 3c. Adjacent chapters (previous 1 + current + next 1)
+            ch_positions = []
+            for m in re.finditer(rf"第\s*(\d+)\s*章", outline_text):
+                cn = int(m.group(1))
+                ch_positions.append((cn, m.start(), m.end()))
+
+            for cn, start, end in ch_positions:
+                if cn in (ch - 1, ch, ch + 1):
+                    # Find next chapter boundary (or end of section)
+                    next_pos = len(outline_text)
+                    for cn2, s2, _ in ch_positions:
+                        if cn2 > cn and s2 > end:
+                            next_pos = s2
+                            break
+                    entry = outline_text[max(0, start - 20):min(len(outline_text), end + 400)]
+                    label = "本章大纲" if cn == ch else ("前一章大纲" if cn < ch else "下一章大纲")
+                    lines.append(f"## 📋 {label} (第{cn}章)")
+                    lines.append(entry.strip())
+                    lines.append("")
+        else:
+            # No outline file — suggest creating one
+            lines.append("## 📋 大纲")
+            lines.append(f"（尚无 outline.md，建议创建以提供全局规划。目前将基于章节摘要写作。）")
+            lines.append("")
 
         # 4. Scene characters
         if state.characters:
