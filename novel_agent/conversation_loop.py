@@ -484,9 +484,8 @@ class ConversationLoop:
         if not text or len(text) < 500:
             return None
 
-        # Skip outline/planning documents
-        outline_signals = ["大纲", "卷级规划", "第1章", "第一卷", "三幕结构", "分卷", "节拍表"]
-        if sum(1 for s in outline_signals if s in text[:1000]) >= 3:
+        # Let LLM decide if this is prose or something else
+        if not self._is_chapter_prose(text):
             return None
 
         # Count narrative markers: paragraphs, dialogue quotes, chapter endings
@@ -799,6 +798,23 @@ class ConversationLoop:
             return self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
         except Exception:
             return ""
+
+    def _is_chapter_prose(self, text: str) -> bool:
+        """Ask LLM to classify: is this chapter prose or something else?"""
+        try:
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": (
+                    "Classify this text. Reply ONLY 'chapter' or 'not'.\n"
+                    "'chapter' = narrative prose that reads like a novel chapter.\n"
+                    "'not' = outline, plan, list, conversation, explanation, anything else.\n\n"
+                    f"{text[:800]}"
+                )}],
+                max_tokens=5, temperature=0,
+            )
+            result = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip().lower()
+            return "chapter" in result and "not" not in result
+        except Exception:
+            return True  # If classification fails, default to showing save dialog
 
     def _next_chapter(self) -> int:
         """Determine the next chapter number to write."""
