@@ -25,6 +25,32 @@ from novel_agent.agent import AIAgent
 from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
 
+
+def _choose_with_note(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
+    """Select with optional note. Returns (value, note_or_empty_string).
+
+    Press Enter on a choice to select. Use 'Add note (Tab)' option
+    from within questionary.
+    """
+    choice_map = {label: value for label, value in choices}
+    labels = [label for label, _ in choices]
+
+    # Add note-taking option
+    all_labels = labels + ["---", "Add a note..."]
+    pick = questionary.select(message, choices=all_labels).ask()
+
+    if pick == "Add a note...":
+        note = questionary.text("Note:").ask() or ""
+        # After note, re-ask the original question
+        pick = questionary.select(message, choices=all_labels).ask()
+        if pick and pick != "Add a note..." and pick != "---":
+            return choice_map.get(pick, (pick, "")), note
+        return (pick or ""), note
+
+    if pick and pick != "---":
+        return choice_map.get(pick, (pick, "")), ""
+    return "", ""
+
 # Import tool modules to trigger registry registration
 import novel_agent.tools.memory_tool  # noqa: F401
 import novel_agent.tools.hook_tool  # noqa: F401
@@ -385,22 +411,12 @@ class ConversationLoop:
                 scope = h.get("scope", "chapter")
                 safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
             safe_print("")
-            h_action = questionary.select(
+            h_action, h_note = _choose_with_note(
                 "What to do with hooks?",
-                choices=[
-                    questionary.Choice("Keep all", "keep"),
-                    questionary.Choice("Select which to keep", "select"),
-                    questionary.Separator(),
-                    questionary.Choice("Add instructions for this chapter", "instruct"),
-                    questionary.Choice("Discard all hooks", "discard"),
-                ],
-            ).ask()
+                [("Keep all hooks", "keep"), ("Select hooks to keep", "select"), ("Discard all hooks", "discard")],
+            )
             if h_action == "discard":
                 hooks_planted = []
-            elif h_action == "instruct":
-                instruction = questionary.text("Instructions (e.g. 'make hooks darker'):").ask()
-                if instruction:
-                    safe_print(f"  [dim]Noted: {instruction}[/dim]")
             elif h_action == "select":
                 selected = questionary.checkbox(
                     "Select hooks to keep:",
@@ -410,31 +426,25 @@ class ConversationLoop:
                     ],
                 ).ask()
                 hooks_planted = selected or []
+            if h_note:
+                safe_print(f"  [dim]Note: {h_note}[/dim]")
         else:
             safe_print(f"  (no hooks detected)")
 
         # 2. Title last — generated from complete content
         title = pipeline._generate_title(cleaned, chapter_num)
         safe_print(f"\n  Title: {title.strip()}")
-        t_action = questionary.select(
+        t_action, t_note = _choose_with_note(
             f"Chapter {chapter_num} — {title.strip()}",
-            choices=[
-                questionary.Choice("Save", "save"),
-                questionary.Choice("Change title", "change"),
-                questionary.Choice("Add instructions & save", "instruct"),
-                questionary.Separator(),
-                questionary.Choice("Discard chapter", "discard"),
-            ],
-        ).ask()
+            [("Save chapter", "save"), ("Change title", "change"), ("Discard chapter", "discard")],
+        )
 
         if t_action == "discard":
             return None
         if t_action == "change":
             title = questionary.text("New title:", default=title).ask() or title
-        if t_action == "instruct":
-            instruction = questionary.text("Instructions:").ask()
-            if instruction:
-                safe_print(f"  [dim]Noted: {instruction}[/dim]")
+        if t_note:
+            safe_print(f"  [dim]Note: {t_note}[/dim]")
 
         # 3. Clean + save (LLM does the cleaning, not regex)
         body = pipeline._clean_chapter_via_llm(cleaned)
