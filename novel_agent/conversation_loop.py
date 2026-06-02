@@ -2,8 +2,6 @@
 
 The conversational mode uses ReAct: user input → agent thinks → tool calls →
 observe results → think more → respond to user.
-
-Borrows patterns from hermes-agent `conversation_loop.py`.
 """
 
 from __future__ import annotations
@@ -11,130 +9,14 @@ from __future__ import annotations
 import json
 import logging
 import signal
-import sys
 import time
 from typing import Any
 
-# Global abort flag for Ctrl+C
-_abort_flag = False
-
-
-def _on_sigint(signum, frame):
-    global _abort_flag
-    _abort_flag = True
-    print("\n  [yellow]Interrupted — returning to prompt...[/yellow]")
-
 from rich.console import Console
-from rich.live import Live
-from rich.spinner import Spinner
-from rich.text import Text
-
-import questionary
-from prompt_toolkit import prompt
-from prompt_toolkit.application import Application
-from prompt_toolkit.key_binding import KeyBindings
-from prompt_toolkit.keys import Keys
-from prompt_toolkit.layout import Layout
-from prompt_toolkit.layout.containers import HSplit, Window
-from prompt_toolkit.layout.controls import FormattedTextControl
-from prompt_toolkit.styles import Style
-from prompt_toolkit.formatted_text import HTML
 
 from novel_agent.agent import AIAgent
 from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
-
-
-def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
-    """Select with ↑↓, Enter=confirm, Tab=add note. Returns (value, note_or_empty).
-
-    Extra options always shown at bottom:
-    -  Type something...
-    -  Chat about this...
-    """
-    labels = [label for label, _ in choices]
-    extra_labels = ["  Chat about this..."]
-    choice_map = {label: value for label, value in choices}
-    total_labels = labels + extra_labels
-    current_idx = [0]
-    note_text = [""]
-
-    def get_formatted():
-        lines = [message, ""]
-        for i, label in enumerate(labels):
-            if i == current_idx[0]:
-                lines.append(f"  > {label}")
-            else:
-                lines.append(f"    {label}")
-        lines.append("")
-        for j, extra in enumerate(extra_labels):
-            idx = len(labels) + j
-            lines.append(f"  {'> ' if idx == current_idx[0] else '  '}{extra}")
-        lines.append("")
-        hint = "Enter=confirm  Tab=add note  Ctrl+C=cancel"
-        if note_text[0]:
-            hint = f"Note: {note_text[0]}  |  {hint}"
-        lines.append(hint)
-        return "\n".join(lines)
-
-    def select_and_exit(label: str) -> None:
-        if label == "  Chat about this...":
-            app.exit(result=("__chat__", None))
-        else:
-            value = choice_map.get(label, label)
-            app.exit(result=(value, note_text[0]))
-
-    kb = KeyBindings()
-
-    @kb.add("up")
-    def _(event):
-        current_idx[0] = (current_idx[0] - 1) % len(total_labels)
-
-    @kb.add("down")
-    def _(event):
-        current_idx[0] = (current_idx[0] + 1) % len(total_labels)
-
-    @kb.add("enter")
-    def _(event):
-        select_and_exit(total_labels[current_idx[0]])
-
-    @kb.add(Keys.Tab)
-    def _(event):
-        note_text[0] = questionary.text("Note:").ask() or ""
-        # Refresh display — run again with note shown
-        app.exit(result=("__tab__", note_text[0]))
-
-    @kb.add(Keys.ControlC)
-    def _(event):
-        event.app.exit(result=("__cancel__", ""))
-
-    content = FormattedTextControl(text=get_formatted)
-    window = Window(content=content, always_hide_cursor=True)
-    root = HSplit([window])
-    layout = Layout(root)
-
-    app = Application(
-        layout=layout,
-        key_bindings=kb,
-        full_screen=False,
-        erase_when_done=True,
-    )
-
-    result = app.run()
-
-    if isinstance(result, tuple):
-        action, msg = result
-        if action == "__tab__":
-            note_text[0] = msg
-            return _choose(message, choices)
-        if action == "__chat__":
-            msg = questionary.text("Ask about this:").ask() or ""
-            if msg:
-                safe_print(f"  [dim]Sending to agent: {msg}[/dim]")
-                # Let the caller handle the chat — return sentinel
-                return ("__chat__", msg)
-        return (action, msg)
-    return ("", "")
 
 # Import tool modules to trigger registry registration
 import novel_agent.tools.memory_tool  # noqa: F401
@@ -143,27 +25,26 @@ import novel_agent.tools.skill_tool  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
-PROMPT = "\033[1;36mnovel-agent\033[0m > "
+PROMPT = "novel-agent > "
 console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
 
-_RICH_TO_ANSI = {
-    "[bold]": "\033[1m", "[/bold]": "\033[0m",
-    "[dim]": "\033[2m", "[/dim]": "\033[0m",
-    "[green]": "\033[32m", "[/green]": "\033[0m",
-    "[yellow]": "\033[33m", "[/yellow]": "\033[0m",
-    "[red]": "\033[31m", "[/red]": "\033[0m",
-    "[cyan]": "\033[36m", "[/cyan]": "\033[0m",
-}
+# Global abort flag for Ctrl+C
+_abort_flag = False
+
+
+def _on_sigint(signum, frame):
+    global _abort_flag
+    _abort_flag = True
+    print("\n  Interrupted — returning to prompt...")
 
 
 def safe_print(text: str) -> None:
-    """Print text, converting Rich tags to ANSI. Falls back to ascii on error."""
-    for rich, ansi in _RICH_TO_ANSI.items():
-        text = text.replace(rich, ansi)
+    """Print text, falling back to ascii on encoding errors."""
     try:
-        print(text)
+        console.print(text)
     except UnicodeEncodeError:
-        print(text.encode('ascii', errors='replace').decode('ascii'))
+        safe = text.encode('ascii', errors='replace').decode('ascii')
+        print(safe)
 
 
 class ConversationLoop:
@@ -187,74 +68,44 @@ class ConversationLoop:
             signal.signal(signal.SIGINT, original_handler)
 
     def _run_loop(self) -> None:
-        """Internal REPL loop with abort flag checks."""
+        """Internal REPL loop."""
         global _abort_flag
         existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
         total_written = sum(len(p.read_text(encoding="utf-8")) for p in existing)
 
+        # Header
         safe_print(f"\n  [bold]novel-agent[/bold]   {self.agent.novel_title}   {self.agent.model}")
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
             safe_print(f"  {len(existing)}/{self.agent.total_chapters} chapters   {total_written:,} words   latest: [bold]{last_ch}[/bold]")
-        outline_path = self.agent.project_dir / "outline.md"
-        has_outline = outline_path.exists()
-        has_memory = list(self.agent.memory_dir.glob("*.md"))
-
-        safe_print("")
-        safe_print(f"  [bold]你好，我是你的小说写作助手。[/bold]")
-
-        if not existing and not has_outline and len(has_memory) <= 1:
-            safe_print(f"  让我们从零开始创作《{self.agent.novel_title}》。")
-            safe_print(f"")
-            safe_print(f"  [bold]待办清单：[/bold]")
-            safe_print(f"    ☐ 大纲 — 规划故事框架和章节节奏")
-            safe_print(f"    ☐ 主角 — 设计人物弧线和核心动机")
-            safe_print(f"    ☐ 世界观 — 建立世界规则和势力格局")
-            safe_print(f"    ☐ 第一章 — 开始写作")
-            safe_print(f"")
-            safe_print(f"  [bold]建议先写大纲。[/bold]输入 继续 或 yes 开始。")
-        elif existing and not has_outline:
-            safe_print(f"  待办清单：")
-            safe_print(f"    ✓ 角色/世界观已就绪")
-            safe_print(f"    ☐ 大纲 — 建议先补大纲，输入 继续 开始")
-        elif existing:
             next_ch = len(existing) + 1
-            safe_print(f"  大纲 ✓  角色 ✓  世界观 ✓")
-            safe_print(f"  建议继续写第{next_ch}章，输入 继续 或 yes。")
+            safe_print(f"  [dim]write chapter {next_ch} or ask me anything[/dim]")
         else:
-            safe_print(f"  大纲 ✓")
-            safe_print(f"  建议创建主角，输入 继续 或 yes。")
+            safe_print("  no chapters yet")
+            outline_path = self.agent.project_dir / "outline.md"
+            has_memory = list(self.agent.memory_dir.glob("*.md"))
+            if not outline_path.exists() and len(has_memory) <= 1:
+                safe_print(f"\n  [bold]你好！让我们从零创作《{self.agent.novel_title}》。[/bold]")
+                safe_print(f"  建议顺序：大纲 → 角色 → 世界观 → 开始写作")
+                safe_print(f"  输入 '帮我写大纲' 开始第一步。")
+            elif not existing:
+                safe_print(f"  [dim]大纲已就绪，输入 '写第一章' 开始。[/dim]")
         safe_print("")
 
-        # Show previous session summary if resuming
+        # Show previous session if resuming
         if self.agent.conversation_history:
             user_msgs = [m for m in self.agent.conversation_history if m.get("role") == "user"]
-            assistant_msgs = [m for m in self.agent.conversation_history if m.get("role") == "assistant"]
-            safe_print(f"  resumed: {len(user_msgs)} turns from previous session")
-            safe_print(f"  " + "─" * 50)
-
-            # Show last exchange in full
-            last_exchange = self.agent.conversation_history[-2:]
-            for msg in last_exchange:
-                role = msg.get("role", "?")
-                content = msg.get("content", "")
+            if user_msgs:
+                safe_print(f"  [dim]resumed {len(user_msgs)} turns from previous session[/dim]")
+                last_user = user_msgs[-1]
+                content = last_user.get("content", "")
                 if isinstance(content, list):
-                    text = " ".join(
-                        b.get("text", "") if isinstance(b, dict) else
-                        (b.text if hasattr(b, "text") else str(b)[:200])
-                        for b in content
-                    )
-                else:
-                    text = str(content)
-                if role == "user":
-                    safe_print(f"  [bold cyan]>[/bold cyan] {text}")
-                else:
-                    safe_print(f"  [dim]{text}[/dim]")
-            safe_print("  " + "─" * 50)
-            safe_print("")
+                    content = " ".join(b.get("text", "") if isinstance(b, dict) else str(b) for b in content)
+                safe_print(f"  [dim]last: {str(content)[:120]}[/dim]")
+                safe_print("")
 
+        # REPL
         while True:
-            global _abort_flag
             if _abort_flag:
                 _abort_flag = False
                 safe_print("  [dim](interrupted)[/dim]")
@@ -277,16 +128,16 @@ class ConversationLoop:
             self._process_turn(user_input)
 
     def _process_turn(self, user_message: str) -> None:
-        """Process one turn: build novel context → agent → tools → response → memory sync."""
+        """Process one turn: build context → agent → tools → response → persist."""
         global _abort_flag
-        _abort_flag = False  # Reset for new turn
-        novel_context = self.agent.build_novel_context(user_message)
+        _abort_flag = False
 
+        # Build novel context
+        novel_context = self.agent.build_novel_context(user_message)
         augmented_message = (
-            f"{novel_context}\n\n"
-            f"---\n\n"
-            f"Above is a snapshot of your novel's current state. "
-            f"Process the user's instruction based on this context."
+            f"{novel_context}\n\n---\n\n"
+            f"以上是当前小说状态。基于此上下文处理用户指令。\n"
+            f"生成章节正文时，必须使用 write_chapter(action=save) 保存到磁盘。"
         )
 
         messages = self.agent.conversation_history + [
@@ -294,45 +145,38 @@ class ConversationLoop:
         ]
 
         tools = registry.get_definitions()
+        turn_input_tokens = 0
+        turn_output_tokens = 0
 
-        safe_print("")  # spacing
+        safe_print("")
 
-        assistant_content = ""
         try:
-            # --- LLM call with streaming ---
-            turn_input_tokens = 0
-            turn_output_tokens = 0
-
+            # First call — streaming for real-time display
             safe_print("  [dim]Thinking...[/dim]")
             response = self.agent.stream_with_display(
                 messages=messages,
                 tools=tools if tools else None,
                 extra_body={"thinking": {"type": "enabled"}},
             )
-            safe_print(f"\n  [dim]({response.usage.input_tokens}+{response.usage.output_tokens} tk)[/dim]" if hasattr(response, "usage") and response.usage else "")
+            safe_print("")
+
+            if _abort_flag:
+                safe_print("  [dim](interrupted)[/dim]")
+                return
 
             if hasattr(response, "usage") and response.usage:
-                in_tok = response.usage.input_tokens
-                out_tok = response.usage.output_tokens
-                turn_input_tokens += in_tok
-                turn_output_tokens += out_tok
-                self.total_input_tokens += in_tok
-                self.total_output_tokens += out_tok
+                turn_input_tokens += response.usage.input_tokens
+                turn_output_tokens += response.usage.output_tokens
 
-            # --- ReAct loop: handle tool calls ---
+            # Tool call loop (non-streaming for reliability)
             tool_rounds = 0
             while response.stop_reason == "tool_use":
-                tool_rounds += 1
                 tool_results = []
                 for block in response.content:
                     if block.type == "tool_use":
                         tool_name = block.name
                         tool_input = block.input if isinstance(block.input, dict) else {}
-                        safe_print(
-                            f"  [dim][{tool_name}][/dim] "
-                            f"{json.dumps(tool_input, ensure_ascii=False)[:100]}"
-                        )
-
+                        safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
                         result = registry.dispatch(
                             tool_name, tool_input,
                             chapters_dir=str(self.agent.chapters_dir),
@@ -347,80 +191,136 @@ class ConversationLoop:
                 messages.append({"role": "assistant", "content": response.content})
                 messages.append({"role": "user", "content": tool_results})
 
-                with console.status(f"[bold yellow]Thinking... (tool round {tool_rounds})", spinner="dots") as status:
+                tool_rounds += 1
+                with console.status(f"Thinking... (tool round {tool_rounds})", spinner="dots") as status:
                     t0 = time.time()
                     response = self.agent.call_llm(
                         messages=messages,
                         tools=tools if tools else None,
                     )
                     elapsed = time.time() - t0
-                    in_tok = response.usage.input_tokens
-                    out_tok = response.usage.output_tokens
-                    status.update(
-                        f"[bold yellow]Thinking... ({elapsed:.1f}s, {in_tok}+{out_tok} tk)"
-                    )
+                    if hasattr(response, "usage") and response.usage:
+                        status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens}+{response.usage.output_tokens} tk)")
 
-                turn_input_tokens += in_tok
-                turn_output_tokens += out_tok
-                self.total_input_tokens += in_tok
-                self.total_output_tokens += out_tok
+                if hasattr(response, "usage") and response.usage:
+                    turn_input_tokens += response.usage.input_tokens
+                    turn_output_tokens += response.usage.output_tokens
 
-            # --- Display response ---
-            assistant_content = self.agent.extract_text(response.content)
-
-            # Check if this turn involved chapter writing → ask for confirmation
-            chapter_written = self._detect_chapter_write(response, messages)
-            if chapter_written and assistant_content:
-                content_to_save = self._confirm_chapter(assistant_content, chapter_written)
-                if content_to_save is None:
-                    # User chose "no" — discard, don't save to history
-                    safe_print("  [yellow]Chapter discarded.[/yellow]\n")
-                    return  # Skip history update, user retries next turn
-                elif content_to_save != assistant_content:
-                    # User edited — update and save
-                    assistant_content = content_to_save
-                    safe_print("\n  [green]Edited version saved.[/green]\n")
-
-            if assistant_content:
-                safe_print(assistant_content)
+            # Display any remaining text
+            text = self.agent.extract_text(response.content)
+            if text:
+                safe_print(text)
                 safe_print("")
 
-            # --- Token summary ---
-            safe_print(
-                f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk "
-                f"| total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n"
-            )
+            # Token summary
+            self.total_input_tokens += turn_input_tokens
+            self.total_output_tokens += turn_output_tokens
+            if turn_input_tokens:
+                safe_print(f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk | total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n")
 
             # Update history
-            self.agent.conversation_history.append(
-                {"role": "user", "content": user_message}
-            )
-            self.agent.conversation_history.append(
-                {"role": "assistant", "content": response.content}
-            )
+            self.agent.conversation_history.append({"role": "user", "content": user_message})
+            self.agent.conversation_history.append({"role": "assistant", "content": response.content})
 
-            # Check if we need to compress conversation history
+            # Compression check
             self._maybe_compress(turn_input_tokens)
 
-            # Persist session
+            # Persist
             self.agent.save_session()
-
-            # Sync memories
-            self.agent.sync_memories(user_message, assistant_content)
+            self.agent.sync_memories(user_message, text)
 
         except Exception as e:
             logger.exception("Turn processing failed")
             safe_print(f"  [red][ERROR][/red] {e}\n")
 
+    def _maybe_compress(self, last_turn_tokens: int) -> None:
+        """Compress old conversation turns when history grows too large."""
+        from novel_agent.context.token_counter import estimate_messages_tokens
+
+        history = self.agent.conversation_history
+        if len(history) < 12:
+            return
+
+        est = estimate_messages_tokens(history)
+        threshold = self.agent.context_engine.threshold_tokens or 700000
+        if est < threshold:
+            return
+
+        keep_count = 0
+        tail_tokens = 0
+        for i in range(len(history) - 1, -1, -1):
+            content = history[i].get("content", "")
+            text = str(content) if isinstance(content, str) else " ".join(
+                getattr(b, "text", "") if hasattr(b, "text") else str(b) for b in content
+            ) if isinstance(content, list) else ""
+            tail_tokens += len(text) // 2 + 20
+            keep_count += 1
+            if tail_tokens > 100000 or keep_count >= 20:
+                break
+
+        if keep_count >= len(history):
+            return
+
+        old_turns = history[:-keep_count]
+        if len(old_turns) < 6:
+            return
+
+        summary = self._summarize_turns(old_turns)
+        if not summary:
+            return
+
+        compressed = [
+            {"role": "user", "content": f"[CONTEXT SUMMARY] Earlier turns compacted:\n\n{summary}"},
+        ]
+        self.agent.conversation_history = compressed + history[-keep_count:]
+        self.agent.clear_prompt_cache()
+        saved = est - estimate_messages_tokens(compressed) if compressed else 0
+        safe_print(f"  [dim]Compressed: {len(history)} → {len(self.agent.conversation_history)} messages (~{saved} tokens saved)[/dim]")
+
+    def _summarize_turns(self, turns: list[dict]) -> str:
+        """Summarize old conversation turns."""
+        try:
+            serialized = []
+            for msg in turns:
+                role = msg.get("role", "?")
+                content = msg.get("content", "")
+                text = str(content) if isinstance(content, str) else " ".join(
+                    getattr(b, "text", "") if hasattr(b, "text") else str(b)[:200]
+                    for b in content
+                ) if isinstance(content, list) else ""
+                serialized.append(f"[{role}]: {text[:500]}")
+            body = "\n\n".join(serialized[-20:])
+
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": (
+                    "Summarize these novel-writing conversation turns in Chinese. "
+                    "Focus on: key decisions, chapters written, character developments, "
+                    "plot directions. Keep under 500 chars.\n\n" + body
+                )}],
+                max_tokens=400, temperature=0.3,
+            )
+            return self.agent.extract_text(resp.content).strip()
+        except Exception:
+            return ""
+
     def _handle_command(self, cmd: str) -> bool:
-        """Handle slash commands. Returns True to continue, False to quit."""
+        """Handle slash commands."""
         parts = cmd.split()
         command = parts[0].lower()
 
-        if command in ("/clear", "/new"):
-            self.agent.conversation_history = []
-            self.agent.save_session()
-            safe_print("  Session cleared.")
+        if command in ("/quit", "/exit"):
+            safe_print("Goodbye!")
+            return False
+        elif command == "/help":
+            safe_print("""
+  /help         Show help
+  /auto N       Auto-generate N chapters
+  /status       Show progress
+  /cost         Show token usage
+  /title         Show/change title
+  /clear        Reset session
+  /quit         Exit
+            """)
         elif command.startswith("/title"):
             new_title = cmd[7:].strip() if len(cmd) > 7 else ""
             if new_title:
@@ -428,400 +328,30 @@ class ConversationLoop:
                 safe_print(f"  Title: 《{new_title}》")
             else:
                 safe_print(f"  Current: 《{self.agent.novel_title}》")
-                safe_print("  Usage: /title 新书名")
-        elif command in ("/quit", "/exit"):
-            safe_print("Goodbye!")
-            return False
-        elif command == "/help":
-            safe_print("""
-  Commands:
-    /help         Show help
-    /auto N       Auto-generate next N chapters
-    /status       Show project status
-    /cost         Show token usage
-    /quit         Exit
-
-  Natural language:
-    Just tell me what to do, e.g.:
-    - "Write chapter 3"
-    - "Revise chapter 2's fight scene"
-    - "Check my hooks"
-    - "Auto-generate 5 more chapters"
-            """)
         elif command == "/auto":
             try:
                 count = int(parts[1]) if len(parts) > 1 else 1
             except ValueError:
                 count = 1
-            safe_print(f"  Switching to auto mode, generating {count} chapters...")
+            safe_print(f"  Auto mode: generating {count} chapters...")
             pipeline = AutoPipeline(self.agent)
             pipeline.run(start_chapter=self._next_chapter(), count=count)
         elif command == "/status":
             chapters = list(self.agent.chapters_dir.glob("ch_*_*.md"))
             total_w = sum(len(p.read_text(encoding="utf-8")) for p in chapters)
-            safe_print(f"  Project: {self.agent.project_dir.name}")
-            safe_print(f"  Model: {self.agent.model}")
+            safe_print(f"  {self.agent.novel_title}")
             safe_print(f"  Chapters: {len(chapters)}/{self.agent.total_chapters} | {total_w:,} words")
         elif command == "/cost":
-            safe_print(
-                f"  Input: {self.total_input_tokens:,} tokens | "
-                f"Output: {self.total_output_tokens:,} tokens | "
-                f"Total: {self.total_input_tokens + self.total_output_tokens:,} tokens"
-            )
+            safe_print(f"  Input: {self.total_input_tokens:,} | Output: {self.total_output_tokens:,} | Total: {self.total_input_tokens + self.total_output_tokens:,}")
+        elif command in ("/clear", "/new"):
+            self.agent.conversation_history = []
+            self.agent.save_session()
+            safe_print("  Session cleared.")
         else:
-            safe_print(f"  Unknown command: {command}")
-
-        return True
-
-    def _detect_chapter_write(self, response, messages: list) -> int | None:
-        """Check if this turn produced a chapter draft.
-
-        Detection: long prose response (>500 chars) with narrative structure
-        (paragraph breaks + Chinese punctuation), not a conversational reply.
-        Skips outline-looking content (chapter lists, structure documents).
-        """
-        text = self.agent.extract_text(response.content)
-        if not text or len(text) < 500:
-            return None
-
-        # LLM-based chapter prose classification (no streaming, no thinking)
-        if not self._is_chapter_prose(text):
-            return None
-
-        # Count narrative markers: paragraphs, dialogue quotes, chapter endings
-        has_paragraphs = text.count("\n\n") >= 2
-        has_dialogue = "“" in text or '"' in text or "「" in text
-        has_punctuation = text.count("。") >= 10
-        narrative_score = has_paragraphs + has_dialogue + has_punctuation
-
-        if narrative_score < 2:
-            return None  # Not enough narrative markers — likely conversational
-
-        # Detect chapter completion markers
-        chapter_markers = ["（第", "（*第", "*第", "章完", "（未完", "（第一卷"]
-        has_chapter_ending = any(m in text[-200:] for m in chapter_markers)
-
-        if not has_chapter_ending and len(text) < 2000:
-            return None  # Long prose but no chapter ending — might be a scene fragment
-
-        state = self.agent.truth_files.load_state()
-        existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
-        return state.current_chapter or (len(existing) + 1)
-
-    def _confirm_chapter(self, content: str, chapter_num: int) -> str | None:
-        """AI proposes → user confirms/edits each creative decision."""
-        cleaned = self._clean_chapter_content(content)
-        safe_print("")
-        safe_print("  " + "─" * 50)
-        safe_print(f"  [bold]CHAPTER {chapter_num} DRAFT[/bold]  {len(cleaned)} chars")
-        safe_print("  " + "─" * 50)
-        # Show preview; if content is long, offer to expand
-        if len(cleaned) > 600:
-            collapsed = True
-            while True:
-                if collapsed:
-                    safe_print(f"  [dim]{cleaned[:250]}...[/dim]")
-                    action, _ = _choose(
-                        "Review chapter?",
-                        [("Continue to hooks", "continue"), ("View full chapter", "view")],
-                    )
-                else:
-                    safe_print("  " + "─" * 50)
-                    safe_print(cleaned)
-                    safe_print("  " + "─" * 50)
-                    action, _ = _choose(
-                        "Review chapter?",
-                        [("Continue to hooks", "continue"), ("Collapse preview", "collapse")],
-                    )
-                if action == "continue":
-                    break
-                elif action == "__cancel__":
-                    safe_print("  [dim](cancelled)[/dim]")
-                    return None
-                elif action in ("view", "collapse"):
-                    collapsed = not collapsed
-        else:
-            safe_print(f"  [dim]{cleaned}[/dim]")
-        safe_print("")
-
-        # 1. AI extracts hooks → user reviews first
-        pipeline = AutoPipeline(self.agent)
-        safe_print("  [dim]analyzing hooks...[/dim]")
-        try:
-            settlement = pipeline._run_settlement(chapter_num, cleaned)
-        except Exception:
-            safe_print("  [dim](hook analysis skipped)[/dim]")
-            settlement = {}
-        hooks_planted = settlement.get("hooks_planted", [])
-        if hooks_planted:
-            safe_print(f"\n  Hooks found ({len(hooks_planted)}):")
-            for i, h in enumerate(hooks_planted):
-                scope = h.get("scope", "chapter")
-                safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
-            safe_print("")
-            while True:
-                h_action, h_note = _choose(
-                    "What to do with hooks?",
-                    [("Keep all hooks", "keep"), ("Select hooks to keep", "select"), ("Discard all hooks", "discard")],
-                )
-                if h_action != "__chat__":
-                    break
-                # Chat: send question to agent, show response, then re-ask
-                safe_print(f"  [dim]Agent: Let me think about '{h_note}'...[/dim]\n")
-                return self._confirm_chapter(content, chapter_num)  # Restart confirmation
-
-            if h_action == "discard":
-                hooks_planted = []
-            elif h_action == "select":
-                selected = questionary.checkbox(
-                    "Select hooks to keep:",
-                    choices=[
-                        questionary.Choice(f"[{h['id']}] {h['desc'][:60]}", value=h)
-                        for h in hooks_planted
-                    ],
-                ).ask()
-                hooks_planted = selected or []
-            if h_note:
-                safe_print(f"  [dim]{h_note}[/dim]")
-        else:
-            safe_print(f"  (no hooks detected)")
-
-        # 2. Title last — generated from complete content
-        title = pipeline._generate_title(cleaned, chapter_num)
-        safe_print(f"\n  Title: {title.strip()}")
-        t_action, t_note = _choose(
-            f"Chapter {chapter_num} — {title.strip()}",
-            [("Save chapter", "save"), ("Change title", "change"), ("Discard chapter", "discard")],
-        )
-
-        if t_action == "__chat__":
-            safe_print(f"  [dim]Chat: {t_note}[/dim]\n")
-            return self._confirm_chapter(content, chapter_num)
-
-        if t_action == "discard":
-            return None
-        if t_action == "change":
-            title = questionary.text("New title:", default=title).ask() or title
-        if t_note:
-            safe_print(f"  [dim]{t_note}[/dim]")
-
-        # 3. Clean + save (LLM does the cleaning, not regex)
-        body = pipeline._clean_chapter_via_llm(cleaned)
-        final = f"# 第{chapter_num}章: {title}\n\n{body}"
-
-        chapter_path = self.agent.chapter_path(chapter_num, title)
-        chapter_path.write_text(final, encoding="utf-8")
-
-        # Save hooks to ledger + memory
-        for h in hooks_planted:
-            self.agent.hook_ledger.upsert(
-                hook_id=h["id"], description=h["desc"],
-                planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
-                scope=h.get("scope", "chapter"),
-            )
-            # Also save to memory for cross-session recall
-            pipeline._save_to_memory("plot", f"hook-{h['id']}", f"[{h['id']}] ({h.get('scope', 'chapter')}) {h['desc']}")
-        for hid in settlement.get("hooks_mentioned", []):
-            self.agent.hook_ledger.mention(hid, chapter_num)
-        for hid in settlement.get("hooks_resolved", []):
-            self.agent.hook_ledger.resolve(hid, chapter_num)
-
-        # Save summary
-        if settlement.get("chapter_summary"):
-            from novel_agent.state.schemas import ChapterSummary
-            self.agent.truth_files.add_summary(ChapterSummary(
-                chapter_number=chapter_num, title=title,
-                word_count=len(cleaned), summary=settlement["chapter_summary"],
-                key_events=settlement.get("key_events", []),
-                characters_appearing=settlement.get("characters_appearing", []),
-                hooks_planted=[h["id"] for h in hooks_planted],
-                hooks_resolved=settlement.get("hooks_resolved", []),
-                mood=settlement.get("mood", "neutral"),
-            ))
-
-        # Update character states + save key facts to memory
-        for name, changes in settlement.get("character_changes", {}).items():
-            self.agent.truth_files.update_character(name, **changes)
-            if changes.get("important_fact"):
-                pipeline._save_to_memory("character", name, changes["important_fact"])
-
-        self.agent.truth_files.load_state().current_chapter and None  # no-op, state saved above
-        state = self.agent.truth_files.load_state()
-        state.current_chapter = chapter_num + 1
-        self.agent.truth_files.save_state(state)
-
-        parts = []
-        if hooks_planted:
-            parts.append(f"{len(hooks_planted)} hooks")
-        safe_print(f"  [green]Saved: {title}[/green]" + (f"  ({', '.join(parts)})" if parts else ""))
-        return final
-
-    def _clean_chapter_content(self, text: str) -> str:
-        """Strip preamble, markdown formatting, and meta annotations from chapter content."""
-        import re
-
-        # 1. Strip conversational preamble (before actual chapter start)
-        chapter_starts = [
-            r"^#\s*第.{1,5}章", r"^\*\*第.{1,5}章\*\*",
-            r"^第.{1,5}章\s", r"^\\#\s*第.{1,5}章",
-        ]
-        lines = text.split("\n")
-        start_idx = 0
-        for i, line in enumerate(lines):
-            for pattern in chapter_starts:
-                if re.match(pattern, line.strip()):
-                    start_idx = i
-                    break
-            if start_idx > 0:
-                break
-        if start_idx == 0 and len(lines) > 1:
-            first_line = lines[0].strip()
-            if len(first_line) < 100 and any(
-                kw in first_line for kw in ["开始写", "材料齐全", "好的", "现在", "以下是"]
-            ):
-                start_idx = 1
-
-        # 2. Drop trailing annotations (chapter-end markers, meta notes)
-        end_idx = len(lines)
-        for i in range(len(lines) - 1, -1, -1):
-            stripped = lines[i].strip()
-            # Match: （第一章完）、（第X章完）、（字数：...）、（伏笔...）
-            if re.match(r"^[（(]\s*(第.{1,5}章\s*[完终]|字数|伏笔|章末|钩子|hook)", stripped):
-                end_idx = i
-                break
-        body = "\n".join(lines[start_idx:end_idx]).strip()
-        # Markdown/annotation cleanup is handled by _clean_chapter_via_llm during save
-        return body if body else text
-
-    def _set_title(self, title: str) -> None:
-        """Update novel title in novel.json and agent."""
-        import json
-        self.agent.novel_title = title
-        config_path = self.agent.project_dir / "novel.json"
-        if config_path.exists():
-            config = json.loads(config_path.read_text(encoding="utf-8"))
-            config["title"] = title
-            config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    def _maybe_compress(self, last_turn_tokens: int) -> None:
-        """Compress old conversation turns when history grows too large.
-
-        Strategy: keep the last ~30K tokens of conversation, summarize older
-        turns into a structured writing progress summary.
-        """
-        from novel_agent.context.token_counter import estimate_messages_tokens
-
-        history = self.agent.conversation_history
-        if len(history) < 12:
-            return  # Not enough to compress
-
-        est = estimate_messages_tokens(history)
-        threshold = self.agent.context_engine.threshold_tokens or 700000
-        if est < threshold:
-            return
-
-        # Determine split: keep last N messages, summarize the rest
-        # Walk backward to find ~6 user-assistant pairs (~30K tokens) to keep
-        keep_count = 0
-        tail_tokens = 0
-        for i in range(len(history) - 1, -1, -1):
-            msg = history[i]
-            content = msg.get("content", "")
-            if isinstance(content, list):
-                text = " ".join(
-                    getattr(b, "text", "") if hasattr(b, "text") else str(b)
-                    for b in content
-                )
-            else:
-                text = str(content)
-            tail_tokens += len(text) // 2 + 20
-            keep_count += 1
-            if tail_tokens > 100000 or keep_count >= 20:
-                break
-
-        if keep_count >= len(history):
-            return  # Nothing to compress
-
-        old_turns = history[:-keep_count]
-        if len(old_turns) < 6:
-            return
-
-        # Build summary
-        summary = self._summarize_turns(old_turns)
-        if not summary:
-            return
-
-        # Replace old turns with summary
-        compressed = [
-            {"role": "user", "content": (
-                "[CONTEXT SUMMARY] Earlier conversation turns have been compacted. "
-                "This is historical context — treat as background reference.\n\n"
-                f"{summary}"
-            )},
-        ]
-        new_history = compressed + history[-keep_count:]
-        old_len = len(self.agent.conversation_history)
-        self.agent.conversation_history = new_history
-
-        # Reset stable prompt cache (compression means next turn needs fresh context)
-        self.agent.clear_prompt_cache()
-
-        saved = est - estimate_messages_tokens(new_history)
-        print(f"  [dim]Compressed: {old_len} → {len(new_history)} messages (~{saved} tokens saved)[/dim]")
-
-    def _summarize_turns(self, turns: list[dict]) -> str:
-        """Summarize old conversation turns with an LLM call."""
-        try:
-            serialized = []
-            for msg in turns:
-                role = msg.get("role", "?")
-                content = msg.get("content", "")
-                if isinstance(content, list):
-                    text = " ".join(
-                        getattr(b, "text", "") if hasattr(b, "text") else str(b)[:200]
-                        for b in content
-                    )
-                else:
-                    text = str(content)
-                serialized.append(f"[{role}]: {text[:500]}")
-            body = "\n\n".join(serialized[-20:])  # Last 20 turns at most
-
-            resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": (
-                    "Summarize these novel-writing conversation turns in Chinese. "
-                    "Focus on: key decisions made, chapters planned/written, "
-                    "character developments, plot directions, and user feedback. "
-                    "Keep it under 500 chars.\n\n" + body
-                )}],
-                max_tokens=400, temperature=0.3,
-            )
-            return self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
-        except Exception:
-            return ""
-
-    def _is_chapter_prose(self, text: str) -> bool:
-        """LLM classification via JSON output. Retries once on parse failure."""
-        import json
-        for attempt in range(2):
-            try:
-                resp = self.agent.call_llm(
-                    messages=[{"role": "user", "content": (
-                        'Output JSON: {"is_chapter": true} if this is narrative prose (novel chapter), '
-                        '{"is_chapter": false} if it is an outline, plan, list, conversation, or instructions.\n\n'
-                        f"{text[:800]}"
-                    )}],
-                    max_tokens=50, temperature=0,
-                )
-                raw = self.agent.extract_text(resp.content).strip()
-                data = json.loads(raw)
-                return bool(data.get("is_chapter", True))
-            except Exception:
-                if attempt == 1:
-                    return True  # Default to showing dialog if all retries fail
+            safe_print(f"  Unknown: {command}")
         return True
 
     def _next_chapter(self) -> int:
-        """Determine the next chapter number to write."""
         existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
         if not existing:
             return 1
@@ -832,3 +362,12 @@ class ConversationLoop:
             except (IndexError, ValueError):
                 pass
         return max(nums) + 1 if nums else 1
+
+    def _set_title(self, title: str) -> None:
+        import json
+        self.agent.novel_title = title
+        config_path = self.agent.project_dir / "novel.json"
+        if config_path.exists():
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            config["title"] = title
+            config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
