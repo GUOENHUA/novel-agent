@@ -298,18 +298,19 @@ class AutoPipeline:
                 return {}
             for fence in ("```json", "```"):
                 raw = raw.replace(fence, "").strip()
-            # Find JSON object boundaries
+            # Find JSON object boundaries — if no braces, settlement failed
             start = raw.find("{")
             end = raw.rfind("}")
-            if start >= 0 and end > start:
-                raw = raw[start:end + 1]
+            if start < 0 or end <= start:
+                return {}  # No JSON in response, likely pure thinking block
+            raw = raw[start:end + 1]
             # Basic JSON repair: fix common LLM mistakes
             import re as _re
             raw = _re.sub(r'"\s*\n\s*"', '",\n"', raw)  # missing comma between string values
             raw = _re.sub(r'}\s*\n\s*{', '},\n{', raw)   # missing comma between objects
             raw = _re.sub(r']\s*\n\s*"', '],\n"', raw)    # missing comma after array
             raw = _re.sub(r'"\s*\n\s*[\[{]', '",\n', raw)  # missing comma before array/object
-            return json.loads(raw) if raw else {}
+            return json.loads(raw)
         except Exception:
             logger.warning("Settlement failed for ch%d", chapter_num, exc_info=True)
             return {}
