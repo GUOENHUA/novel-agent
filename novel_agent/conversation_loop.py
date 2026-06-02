@@ -107,18 +107,25 @@ class ConversationLoop:
 
         if not existing and not has_outline and len(has_memory) <= 1:
             safe_print(f"  让我们从零开始创作《{self.agent.novel_title}》。")
-            safe_print(f"  建议按这个顺序来：")
-            safe_print(f"    1. [bold]先写大纲[/bold] —— 输入 '帮我写一份800章的大纲'")
-            safe_print(f"    2. [bold]再发展角色[/bold] —— 输入 '帮我设计主角'")
-            safe_print(f"    3. [bold]然后开始写第一章[/bold] —— 输入 '写第一章'")
+            safe_print(f"")
+            safe_print(f"  [bold]待办清单：[/bold]")
+            safe_print(f"    ☐ 大纲 — 规划故事框架和章节节奏")
+            safe_print(f"    ☐ 主角 — 设计人物弧线和核心动机")
+            safe_print(f"    ☐ 世界观 — 建立世界规则和势力格局")
+            safe_print(f"    ☐ 第一章 — 开始写作")
+            safe_print(f"")
+            safe_print(f"  [bold]建议先写大纲。[/bold]输入 继续 或 yes 开始。")
         elif existing and not has_outline:
-            safe_print(f"  你已经写了 {len(existing)} 章了，建议先补一份大纲，这样后续写作更有方向。")
-            safe_print(f"  输入 '帮我写大纲' 开始。")
+            safe_print(f"  待办清单：")
+            safe_print(f"    ✓ 角色/世界观已就绪")
+            safe_print(f"    ☐ 大纲 — 建议先补大纲，输入 继续 开始")
         elif existing:
             next_ch = len(existing) + 1
-            safe_print(f"  继续加油！输入 '写第{next_ch}章' 或者 '自动生成5章'。")
+            safe_print(f"  大纲 ✓  角色 ✓  世界观 ✓")
+            safe_print(f"  建议继续写第{next_ch}章，输入 继续 或 yes。")
         else:
-            safe_print(f"  大纲已经准备好了，输入 '写第一章' 开始吧。")
+            safe_print(f"  大纲 ✓")
+            safe_print(f"  建议创建主角，输入 继续 或 yes。")
         safe_print("")
 
         # Show previous session summary if resuming
