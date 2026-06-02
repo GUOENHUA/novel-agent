@@ -68,11 +68,10 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
         return "\n".join(lines)
 
     def select_and_exit(label: str) -> None:
-        if label in extra_labels:
-            note_text[0] = questionary.text(
-                "Type instructions:" if "Type" in label else "Chat:"
-            ).ask() or ""
-            app.exit(result=("__note__", note_text[0]))
+        if label == "  Type something...":
+            app.exit(result=("__type__", None))
+        elif label == "  Chat about this...":
+            app.exit(result=("__chat__", None))
         else:
             value = choice_map.get(label, label)
             app.exit(result=(value, note_text[0]))
@@ -117,9 +116,20 @@ def _choose(message: str, choices: list[tuple[str, str]]) -> tuple[str, str]:
 
     if isinstance(result, tuple):
         action, msg = result
-        if action in ("__tab__", "__note__"):
+        if action == "__tab__":
             note_text[0] = msg
-            return _choose(message, choices)  # Re-run with note
+            return _choose(message, choices)
+        if action == "__type__":
+            msg = questionary.text("Instructions:").ask() or ""
+            if msg:
+                note_text[0] = msg
+            return _choose(message, choices)
+        if action == "__chat__":
+            msg = questionary.text("Ask about this:").ask() or ""
+            if msg:
+                safe_print(f"  [dim]Sending to agent: {msg}[/dim]")
+                # Let the caller handle the chat — return sentinel
+                return ("__chat__", msg)
         return (action, msg)
     return ("", "")
 
@@ -490,10 +500,17 @@ class ConversationLoop:
                 scope = h.get("scope", "chapter")
                 safe_print(f"    [{h['id']}] ({scope}) {h['desc'][:80]}")
             safe_print("")
-            h_action, h_note = _choose(
-                "What to do with hooks?",
-                [("Keep all hooks", "keep"), ("Select hooks to keep", "select"), ("Discard all hooks", "discard")],
-            )
+            while True:
+                h_action, h_note = _choose(
+                    "What to do with hooks?",
+                    [("Keep all hooks", "keep"), ("Select hooks to keep", "select"), ("Discard all hooks", "discard")],
+                )
+                if h_action != "__chat__":
+                    break
+                # Chat: send question to agent, show response, then re-ask
+                safe_print(f"  [dim]Agent: Let me think about '{h_note}'...[/dim]\n")
+                return self._confirm_chapter(content, chapter_num)  # Restart confirmation
+
             if h_action == "discard":
                 hooks_planted = []
             elif h_action == "select":
@@ -517,6 +534,10 @@ class ConversationLoop:
             f"Chapter {chapter_num} — {title.strip()}",
             [("Save chapter", "save"), ("Change title", "change"), ("Discard chapter", "discard")],
         )
+
+        if t_action == "__chat__":
+            safe_print(f"  [dim]Chat: {t_note}[/dim]\n")
+            return self._confirm_chapter(content, chapter_num)
 
         if t_action == "discard":
             return None
