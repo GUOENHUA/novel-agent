@@ -76,7 +76,7 @@ class NovelCompressor(ContextEngine):
         context_length: int = 200000,
         threshold_percent: float = 0.70,
         protect_first_n: int = 3,
-        tail_token_budget: int = 30000,
+        tail_token_budget: int = 150000,
     ):
         self.model = model
         self.context_length = context_length

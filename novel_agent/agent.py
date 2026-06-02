@@ -127,11 +127,12 @@ class AIAgent:
     def _init_context(self) -> None:
         """Initialize the context compression engine."""
         context_length = int(os.getenv("NOVEL_AGENT_CONTEXT_LENGTH", "200000"))
-        threshold_pct = float(os.getenv("NOVEL_AGENT_COMPRESS_THRESHOLD", "0.70"))
+        threshold_pct = float(os.getenv("NOVEL_AGENT_COMPRESS_THRESHOLD", "0.85"))
         self.context_engine = NovelCompressor(
             model=self.model,
             context_length=context_length,
             threshold_percent=threshold_pct,
+            tail_token_budget=int(context_length * 0.15),  # 150K for 1M context
         )
         logger.info(
             "Context engine initialized: %s (context=%d, threshold=%.0f%%)",
@@ -273,7 +274,7 @@ class AIAgent:
             prev_path = self.chapters_dir / f"ch_{ch - 1:02d}.md"
             if prev_path.exists():
                 prev_text = prev_path.read_text(encoding="utf-8")
-                ending = prev_text[-600:] if len(prev_text) > 600 else prev_text
+                ending = prev_text[-1500:] if len(prev_text) > 1500 else prev_text
                 lines.append("## 📝 前一章结尾")
                 lines.append("```")
                 lines.append(ending.strip())
@@ -327,10 +328,10 @@ class AIAgent:
                 lines.append(f"**⚠️ 过期未回收 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
             lines.append("")
 
-        # 6. Recent chapter summaries (detailed, last 3)
+        # 6. Recent chapter summaries (last 8, more with 1M context)
         summaries = self.truth_files.load_summaries()
         if summaries:
-            recent = summaries[-3:]
+            recent = summaries[-8:]
             lines.append("## 📚 最近章节")
             for s in recent:
                 hook_note = ""

@@ -457,7 +457,7 @@ class ConversationLoop:
                 text = str(content)
             tail_tokens += len(text) // 2 + 20
             keep_count += 1
-            if tail_tokens > 50000 or keep_count >= 12:
+            if tail_tokens > 100000 or keep_count >= 20:
                 break
 
         if keep_count >= len(history):
