@@ -150,8 +150,12 @@ class ConversationLoop:
         novel_context = self.agent.build_novel_context(user_message)
         augmented_message = (
             f"{novel_context}\n\n---\n\n"
-            f"以上是当前小说状态。基于此上下文处理用户指令。\n"
-            f"生成章节正文时，必须使用 write_chapter(action=save) 保存到磁盘。"
+            f"基于以上状态处理用户指令。\n"
+            f"【必须】如果你生成了章节正文/大纲/角色/世界观内容，必须调用对应工具保存：\n"
+            f"  章节 → write_chapter(action=save, chapter_number=N, content='...', title='...')\n"
+            f"  大纲 → outline_plot(action=save, content='...')\n"
+            f"  角色/世界观 → memory(action=add, type=..., name=..., description=..., content=...)\n"
+            f"不调用工具 = 用户看不到你的成果 = 进度丢失。"
         )
 
         messages = self.agent.conversation_history + [

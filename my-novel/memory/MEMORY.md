@@ -1,0 +1,6 @@
+- [plot-outline-main](plot-plot-outline-main.md) — 《天道寄生虫》800章完整大纲，8卷结构，从寄生之始到天道释放
+- [char-shen-ye](char-char-shen-ye.md) — 主角沈夜——灵根被废的前天才，被设计成为天道寄生者，从仇恨驱动的独狼进化为愿意承担天道的人
+- [char-yan-wu-jiu](char-char-yan-wu-jiu.md) — 晏无咎——沈夜的师父，天衡宗前宗主，最强寄生者，封印沈夜灵根的人
+- [char-li-gui-chen](char-char-li-gui-chen.md) — 厉归尘——归墟首领，三千年寄生者，第一代寄生者直系传人，沈夜的"镜与影"
+- [char-ji-han-yi](char-char-ji-han-yi.md) — 纪寒衣——第二寄生者，寄生方式为寄生在其他修士身上，沈夜的第一面镜子，亦敌亦友
+- [world-core-rules](world-world-core-rules.md) — 天道寄生虫世界观核心规则：天道体系、寄生原理、修炼境界、天衡宗与归墟
