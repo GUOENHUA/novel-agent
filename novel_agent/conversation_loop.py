@@ -398,13 +398,15 @@ class ConversationLoop:
         chapter_path = self.agent.chapter_path(chapter_num, title)
         chapter_path.write_text(final, encoding="utf-8")
 
-        # Save hooks to ledger
+        # Save hooks to ledger + memory
         for h in hooks_planted:
             self.agent.hook_ledger.upsert(
                 hook_id=h["id"], description=h["desc"],
                 planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
                 scope=h.get("scope", "chapter"),
             )
+            # Also save to memory for cross-session recall
+            pipeline._save_to_memory("plot", f"hook-{h['id']}", f"[{h['id']}] ({h.get('scope', 'chapter')}) {h['desc']}")
         for hid in settlement.get("hooks_mentioned", []):
             self.agent.hook_ledger.mention(hid, chapter_num)
         for hid in settlement.get("hooks_resolved", []):
@@ -423,9 +425,11 @@ class ConversationLoop:
                 mood=settlement.get("mood", "neutral"),
             ))
 
-        # Update character states
+        # Update character states + save key facts to memory
         for name, changes in settlement.get("character_changes", {}).items():
             self.agent.truth_files.update_character(name, **changes)
+            if changes.get("important_fact"):
+                pipeline._save_to_memory("character", name, changes["important_fact"])
 
         self.agent.truth_files.load_state().current_chapter and None  # no-op, state saved above
         state = self.agent.truth_files.load_state()
