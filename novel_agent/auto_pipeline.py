@@ -81,7 +81,8 @@ class AutoPipeline:
                 progress = f"{ch - start_chapter + 1}/{count}"
 
                 if result["success"]:
-                    print(f"  [{progress}] ch{ch} OK ({result['word_count']} chars, slop {result['slop_score']:.0f})")
+                    hooks_info = result.get("hooks_info", "")
+                    print(f"  [{progress}] ch{ch} OK ({result['word_count']} chars, slop {result['slop_score']:.0f}{hooks_info})")
                 else:
                     print(f"  [{progress}] ch{ch} FAILED after {result['attempts']} retries")
 
@@ -101,20 +102,17 @@ class AutoPipeline:
         return self.results
 
     def _write_chapter_with_retry(self, chapter_num: int, words: int) -> dict[str, Any]:
-        """Write one chapter with slop-check retry loop.
-
-        This is the inner Plan+Execute+Evaluate cycle per chapter.
-        """
+        """Write one chapter with slop-check retry loop."""
         for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
-            # Phase 1: Write (or rewrite on retry)
             chapter_content = self._write_chapter(chapter_num, words, attempt)
-
-            # Phase 2: Evaluate — slop check
             slop_score, slop_warnings = self._check_slop(chapter_content)
 
             if slop_score >= DRAFT_PASS_THRESHOLD:
-                # Phase 3: Settle state
+                # Count hooks before/after to show delta
+                hooks_before = len(self.agent.hook_ledger.get_active())
                 self._settle_state(chapter_num, chapter_content)
+                hooks_after = len(self.agent.hook_ledger.get_active())
+                new_hooks = max(0, hooks_after - hooks_before)
 
                 return {
                     "chapter": chapter_num,
@@ -123,6 +121,7 @@ class AutoPipeline:
                     "slop_score": slop_score,
                     "slop_warnings": slop_warnings,
                     "attempts": attempt,
+                    "hooks_info": f", hooks +{new_hooks}" if new_hooks else "",
                 }
             else:
                 logger.info(
@@ -179,8 +178,7 @@ class AutoPipeline:
         return result["score"], warnings
 
     def _settle_state(self, chapter_num: int, content: str) -> None:
-        """Save chapter to disk and update state."""
-        # Generate a title from the first ~1000 chars of content
+        """Save chapter to disk, extract hooks, update state."""
         title = self._generate_title(content, chapter_num)
 
         chapter_path = self.agent.chapters_dir / f"ch_{chapter_num:02d}.md"
@@ -188,10 +186,52 @@ class AutoPipeline:
         final = f"# 第{chapter_num}章: {title}\n\n{content}"
         chapter_path.write_text(final, encoding="utf-8")
 
+        # Extract hooks via settlement (low-temp LLM call)
+        self._extract_hooks(chapter_num, content)
+
         # Update novel state
         state = self.agent.truth_files.load_state()
         state.current_chapter = chapter_num + 1
         self.agent.truth_files.save_state(state)
+
+    def _extract_hooks(self, chapter_num: int, content: str) -> None:
+        """Extract hook changes from chapter content and update hook ledger."""
+        import json
+        try:
+            directive = (
+                f"从以下章节正文中提取伏笔变更。返回纯JSON（不要markdown代码块）：\n"
+                f'{{"planted":[{{"id":"hook-xxx","desc":"...","type":"direct|symbolic|dialogue|action|naming"}}],'
+                f'"mentioned":["hook-id"],"resolved":["hook-id"]}}\n\n'
+                f"已存在的伏笔ID: {[h.id for h in self.agent.hook_ledger.load_all()]}\n"
+                f"新ID格式: hook-{chapter_num:02d}-序号（如hook-{chapter_num:02d}-1）\n\n"
+                f"{content[:5000]}"
+            )
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": directive}],
+                max_tokens=500, temperature=0.3,
+            )
+            raw = self.agent.extract_text(resp.content).strip()
+            # Strip markdown code fences if present
+            for fence in ("```json", "```"):
+                raw = raw.replace(fence, "").strip()
+            data = json.loads(raw)
+
+            for h in data.get("planted", []):
+                self.agent.hook_ledger.upsert(
+                    hook_id=h["id"], description=h["desc"],
+                    planted_chapter=chapter_num, hook_type=h.get("type", "direct"),
+                )
+            for hid in data.get("mentioned", []):
+                self.agent.hook_ledger.mention(hid, chapter_num)
+            for hid in data.get("resolved", []):
+                self.agent.hook_ledger.resolve(hid, chapter_num)
+
+            planted = len(data.get("planted", []))
+            resolved = len(data.get("resolved", []))
+            if planted or resolved:
+                logger.info("Ch%d hooks: +%d planted, %d resolved", chapter_num, planted, resolved)
+        except Exception:
+            logger.warning("Hook extraction failed for ch%d", chapter_num, exc_info=True)
 
     def _generate_title(self, content: str, chapter_num: int) -> str:
         """Generate a chapter title from the content using a fast LLM call."""
