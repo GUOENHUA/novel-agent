@@ -285,9 +285,9 @@ class ConversationLoop:
                     turn_input_tokens += response.usage.input_tokens
                     turn_output_tokens += response.usage.output_tokens
                 # Accumulate text across all responses in this turn
-                new_text = self.agent.extract_text(response.content) or ""
-                if new_text:
-                    self._last_text_output = (self._last_text_output + "\n" + new_text).strip()
+                new_text = self.agent.extract_text(response.content, fallback_to_thinking=True) or ""
+                self._last_text_output = (self._last_text_output + "\n" + new_text).strip()
+                if new_text.strip():
                     safe_print(new_text)
                     safe_print("")
 
