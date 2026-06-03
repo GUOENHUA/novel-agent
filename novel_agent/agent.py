@@ -654,6 +654,7 @@ class AIAgent:
         max_retries: int = 3,
         extra_body: dict | None = None,
         stream: bool = False,
+        tool_choice: dict | None = None,
     ) -> anthropic.types.Message | anthropic.types.RawMessageStreamEvent:
         """Make an API call to Claude, with optional streaming."""
         import time
@@ -667,6 +668,8 @@ class AIAgent:
         }
         if tools:
             kwargs["tools"] = tools
+        if tool_choice:
+            kwargs["tool_choice"] = tool_choice
         if extra_body:
             kwargs["extra_body"] = extra_body
 

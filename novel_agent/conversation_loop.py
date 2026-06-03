@@ -181,11 +181,18 @@ class ConversationLoop:
 
         try:
             safe_print("  [dim]Thinking...[/dim]")
-            response = self.agent.stream_with_display(
+            # Force tool use: model must always call a tool, never output raw text
+            response = self.agent.call_llm(
                 messages=messages,
                 tools=all_tools,
-                extra_body={"thinking": {"type": "enabled"}},
+                tool_choice={"type": "any"},
             )
+            # Display display_message content
+            for block in response.content:
+                if hasattr(block, "type") and block.type == "tool_use" and block.name == "display_message":
+                    if isinstance(block.input, dict):
+                        safe_print(block.input.get("message", ""))
+                        safe_print("")
             safe_print("")
 
             if _abort_flag:
@@ -239,7 +246,7 @@ class ConversationLoop:
                 tool_rounds += 1
                 with console.status(f"Thinking... (tool round {tool_rounds})", spinner="dots") as status:
                     t0 = time.time()
-                    response = self.agent.call_llm(messages=messages, tools=all_tools)
+                    response = self.agent.call_llm(messages=messages, tools=all_tools, tool_choice={"type": "any"})
                     elapsed = time.time() - t0
                     if hasattr(response, "usage") and response.usage:
                         status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens}+{response.usage.output_tokens} tk)")
