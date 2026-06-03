@@ -288,6 +288,8 @@ class ConversationLoop:
                 new_text = self.agent.extract_text(response.content) or ""
                 if new_text:
                     self._last_text_output = (self._last_text_output + "\n" + new_text).strip()
+                    safe_print(new_text)
+                    safe_print("")
 
             # Token summary
             self.total_input_tokens += turn_input_tokens
