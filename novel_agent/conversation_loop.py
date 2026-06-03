@@ -452,7 +452,8 @@ class ConversationLoop:
             action = input(f"  [1] Save  [3] Discard  > ").strip()
 
         if action == "3":
-            return json.dumps({"status": "discarded"})
+            reason = input("  Why discard? ").strip()
+            return json.dumps({"status": "discarded", "reason": reason or "no reason given"})
 
         # Save
         if tool_name == "preview_chapter":
