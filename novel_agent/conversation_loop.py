@@ -330,9 +330,10 @@ class ConversationLoop:
         from prompt_toolkit.application import Application
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.keys import Keys
+        from prompt_toolkit.filters import Condition
         from prompt_toolkit.layout import Layout
         from prompt_toolkit.layout.containers import HSplit, Window
-        from prompt_toolkit.layout.controls import FormattedTextControl, BufferControl
+        from prompt_toolkit.layout.controls import FormattedTextControl
         from prompt_toolkit.buffer import Buffer
 
         idx = [0]
@@ -389,11 +390,11 @@ class ConversationLoop:
             else:
                 event.app.exit(result=options[-1] if options else "")
 
-        @kb.add("<any>", filter=lambda: editing_note[0])
+        @kb.add("<any>", filter=Condition(lambda: editing_note[0]))
         def _(event):
             note_buffer.insert_text(event.data)
 
-        @kb.add("backspace", filter=lambda: editing_note[0])
+        @kb.add("backspace", filter=Condition(lambda: editing_note[0]))
         def _(event):
             note_buffer.delete_before_cursor(1)
 
