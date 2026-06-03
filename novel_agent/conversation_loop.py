@@ -92,7 +92,7 @@ class ConversationLoop:
                 safe_print(f"  [dim]大纲已就绪，输入 '写第一章' 开始。[/dim]")
         safe_print("")
 
-        # Show previous session if resuming
+        # Show previous session with interactive browser
         if self.agent.conversation_history:
             last_pair = self.agent.conversation_history[-2:]
             if last_pair:
@@ -108,11 +108,17 @@ class ConversationLoop:
                         )
                     else:
                         text = str(content)
+                    # Truncate long text
+                    display = text if len(text) <= 300 else text[:300] + "..."
                     if role == "user":
-                        safe_print(f"  [bold cyan]>[/bold cyan] {text}")
+                        safe_print(f"  [bold cyan]>[/bold cyan] {display}")
                     else:
-                        safe_print(f"  [dim]{text}[/dim]")
+                        safe_print(f"  [dim]{display}[/dim]")
+                    if len(text) > 300:
+                        safe_print(f"  [dim]({len(text)} chars total — use 'view last' to expand)[/dim]")
                 safe_print(f"  " + "─" * 50)
+                safe_print("")
+                safe_print(f"  [dim]Previous session: {len(self.agent.conversation_history)} messages. Type 'view last' to expand, or just continue.[/dim]")
                 safe_print("")
 
         # REPL
@@ -131,6 +137,10 @@ class ConversationLoop:
                 continue
 
             if not user_input:
+                continue
+
+            if user_input.lower() in ("view last", "view", "show last"):
+                self._show_full_history()
                 continue
 
             if user_input.startswith("/"):
@@ -294,9 +304,9 @@ class ConversationLoop:
             if turn_input_tokens:
                 safe_print(f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk | total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n")
 
-            # Update history
-            self.agent.conversation_history.append({"role": "user", "content": user_message})
-            self.agent.conversation_history.append({"role": "assistant", "content": response.content})
+            # Update history with FULL conversation (including tool interactions)
+            # The messages list already has everything: augmented_message + all turns
+            self.agent.conversation_history = messages[1:]  # Skip the first augmented_message
 
             # Compression check
             self._maybe_compress(turn_input_tokens)
@@ -583,6 +593,31 @@ class ConversationLoop:
             except (IndexError, ValueError):
                 pass
         return max(nums) + 1 if nums else 1
+
+    def _show_full_history(self) -> None:
+        """Show the full last exchange from previous session."""
+        last_pair = self.agent.conversation_history[-2:]
+        if not last_pair:
+            safe_print("  No history to show.")
+            return
+        safe_print(f"  " + "─" * 50)
+        for msg in last_pair:
+            role = msg.get("role", "?")
+            content = msg.get("content", "")
+            if isinstance(content, list):
+                text = " ".join(
+                    b.get("text", "") if isinstance(b, dict) else
+                    (b.text if hasattr(b, "text") else str(b)[:500])
+                    for b in content
+                )
+            else:
+                text = str(content)
+            if role == "user":
+                safe_print(f"  [bold cyan]>[/bold cyan] {text}")
+            else:
+                safe_print(f"  [dim]{text}[/dim]")
+        safe_print(f"  " + "─" * 50)
+        safe_print("")
 
     def _set_title(self, title: str) -> None:
         import json
