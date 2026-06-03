@@ -176,13 +176,11 @@ class ConversationLoop:
             },
             {
                 "name": "preview_outline",
-                "description": "Preview an outline draft. Call this AFTER you finish writing outline content.",
+                "description": "Preview outline content for user confirmation. Call this AFTER writing outline text.",
                 "input_schema": {
                     "type": "object",
-                    "properties": {
-                        "content": {"type": "string", "description": "Full outline content"},
-                    },
-                    "required": ["content"],
+                    "properties": {},
+                    "required": [],
                 },
             },
             {
@@ -323,11 +321,11 @@ class ConversationLoop:
             ch_num = args.get("chapter_number", 0)
             label = f"Chapter {ch_num}"
         elif tool_name == "preview_outline":
-            content = args.get("content", "")
+            content = self._last_text_output or args.get("content", "")
             title = "大纲"
             label = "Outline"
         elif tool_name == "preview_setting":
-            content = args.get("content", "")
+            content = self._last_text_output or args.get("content", "")
             title = args.get("name", "")
             s_type = args.get("setting_type", "character")
             label = f"{s_type}: {title}"
