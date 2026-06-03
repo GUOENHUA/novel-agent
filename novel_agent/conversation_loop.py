@@ -367,10 +367,8 @@ class ConversationLoop:
 
         result = app.run()
         if result == "__note__":
-            note[0] = input("  Note: ").strip()
+            note[0] = input("  > ").strip()
             return self._interactive_select(question, options)
-        if result and ("Other" in str(result) or "其他" in str(result)):
-            return input("  Tell me more: ").strip()
         return result or (options[0] if options else "")
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
