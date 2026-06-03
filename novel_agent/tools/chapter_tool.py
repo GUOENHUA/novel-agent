@@ -38,6 +38,8 @@ def chapter_tool_handler(args: dict[str, Any], **kwargs) -> str:
         return _handle_write_and_save(args, kwargs)
     elif action == "save":
         return _handle_save(args, kwargs)
+    elif action == "edit":
+        return _handle_edit(args, kwargs)
     elif action == "settle":
         return _handle_settle(args, kwargs)
     elif action == "read":
@@ -200,6 +202,24 @@ def _handle_write_and_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     path.write_text(final, encoding="utf-8")
     return tool_result(success=True, path=str(path), chapter=chapter_num, title=title, chars=len(content),
                        display_content=content, hint="Content saved and displayed above.")
+
+
+def _handle_edit(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
+    """Edit an existing chapter. Loads it and returns it with edit instructions."""
+    chapter_num = args.get("chapter_number", 0)
+    instruction = args.get("instruction", "")
+    chapters_dir = kwargs.get("chapters_dir", ".")
+    from pathlib import Path as P
+    dir_path = P(chapters_dir)
+    existing = list(dir_path.glob(f"ch_{chapter_num:03d}_*.md"))
+    if not existing:
+        return tool_error(f"Chapter {chapter_num} not found.")
+    current = existing[0].read_text(encoding="utf-8")
+    return tool_result(
+        success=True, chapter=chapter_num, action="edit",
+        current_content=current, instruction=instruction,
+        hint="The agent should rewrite this chapter based on the instruction and call write_chapter(action=save, ...) with the edited version.",
+    )
 
 
 def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:

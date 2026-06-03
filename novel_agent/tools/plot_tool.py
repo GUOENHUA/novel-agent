@@ -21,6 +21,8 @@ def plot_tool_handler(args: dict[str, Any], **kwargs) -> str:
         return _handle_plan(args, kwargs)
     elif action == "save":
         return _handle_save(args, kwargs)
+    elif action == "edit":
+        return _handle_edit(args, kwargs)
     elif action == "check_beats":
         return _handle_check_beats(args)
     else:
@@ -101,6 +103,19 @@ def _handle_plan(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
         directive=directive,
         hint="Use the agent's call_llm() to generate the outline. Save it to the project as outline.md.",
     )
+
+
+def _handle_edit(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
+    """Load existing outline for editing."""
+    vol = args.get("volume", 0)
+    project_dir = kwargs.get("project_dir", ".")
+    out_dir = __import__('pathlib').Path(project_dir) / "outline"
+    path = out_dir / f"vol_{vol:02d}.md" if vol else out_dir / "full.md"
+    if not path.exists():
+        return tool_error(f"Outline not found: {path}")
+    current = path.read_text(encoding="utf-8")
+    return tool_result(success=True, volume=vol or "full", current_content=current,
+                       hint="Rewrite this outline based on instructions, then use outline_plot save.")
 
 
 def _handle_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
