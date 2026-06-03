@@ -82,7 +82,7 @@ class ConversationLoop:
             safe_print(f"  [dim]write chapter {next_ch} or ask me anything[/dim]")
         else:
             safe_print("  no chapters yet")
-            outline_path = self.agent.project_dir / "outline.md"
+            outline_path = self.agent.project_dir / "outline" / "full.md"
             has_memory = list(self.agent.memory_dir.glob("*.md"))
             if not outline_path.exists() and len(has_memory) <= 1:
                 safe_print(f"\n  [bold]你好！让我们从零创作《{self.agent.novel_title}》。[/bold]")
@@ -475,9 +475,11 @@ class ConversationLoop:
             return json.dumps({"status": "saved", "path": str(path), "title": title})
 
         elif tool_name == "preview_outline":
-            path = self.agent.project_dir / "outline.md"
+            out_dir = self.agent.project_dir / "outline"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            path = out_dir / "full.md"
             path.write_text(content, encoding="utf-8")
-            safe_print(f"  [green]Saved: outline.md[/green]")
+            safe_print(f"  [green]Saved: outline/full.md[/green]")
             return json.dumps({"status": "saved", "path": str(path)})
 
         elif tool_name == "preview_setting":

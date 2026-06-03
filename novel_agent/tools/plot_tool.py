@@ -104,14 +104,20 @@ def _handle_plan(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
 
 
 def _handle_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
-    """Save outline content to outline.md."""
+    """Save outline content to outline/ directory."""
     content = args.get("content", "")
+    vol = args.get("volume", 0)  # 0 = full outline, 1-N = volume
     if not content:
         return tool_error("content is required for save.")
     project_dir = kwargs.get("project_dir", ".")
-    out_path = __import__('pathlib').Path(project_dir) / "outline.md"
+    out_dir = __import__('pathlib').Path(project_dir) / "outline"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if vol:
+        out_path = out_dir / f"vol_{vol:02d}.md"
+    else:
+        out_path = out_dir / "full.md"
     out_path.write_text(content, encoding="utf-8")
-    return tool_result(success=True, path=str(out_path), chars=len(content))
+    return tool_result(success=True, path=str(out_path), chars=len(content), volume=vol or "full")
 
 
 def _handle_check_beats(args: dict[str, Any]) -> str:

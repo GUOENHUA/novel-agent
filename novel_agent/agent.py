@@ -435,7 +435,8 @@ class AIAgent:
                 lines.append("")
 
         # 3. Multi-level outline
-        outline_path = self.project_dir / "outline.md"
+        outline_path = self.project_dir / "outline" / "full.md"
+        vol_outline_dir = self.project_dir / "outline"
         if outline_path.exists():
             outline_text = outline_path.read_text(encoding="utf-8")
 
