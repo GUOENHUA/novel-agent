@@ -158,21 +158,35 @@ class ConversationLoop:
             {"role": "user", "content": augmented_message}
         ]
 
-        tools = registry.get_definitions()
-        # Add display_message tool so model can show text to user
-        display_tool = {
-            "name": "display_message",
-            "description": "Display a message to the user. Use this for ALL text output — conversation, explanations, questions, chapter content. Never output raw text — always use this tool.",
-            "input_schema": {
-                "type": "object",
-                "properties": {
-                    "message": {"type": "string", "description": "The text to display to the user"},
-                    "message_type": {"type": "string", "enum": ["conversation", "chapter", "outline", "code", "planning"], "description": "Type of content", "default": "conversation"},
+        # Additional tools beyond registry
+        extra_tools = [
+            {
+                "name": "write_and_save",
+                "description": "Write and save a novel chapter. Content will be displayed to the user AND saved to disk. Use this for ALL chapter writing — never output chapter text directly.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "chapter_number": {"type": "integer", "description": "Chapter number"},
+                        "title": {"type": "string", "description": "Chapter title, 4-8 Chinese characters"},
+                        "content": {"type": "string", "description": "Full chapter prose content"},
+                    },
+                    "required": ["chapter_number", "title", "content"],
                 },
-                "required": ["message"],
             },
-        }
-        all_tools = (tools or []) + [display_tool]
+            {
+                "name": "clarify",
+                "description": "Ask the user a clarifying question with options.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "question": {"type": "string"},
+                        "options": {"type": "array", "items": {"type": "string"}, "description": "2-4 options"},
+                    },
+                    "required": ["question"],
+                },
+            },
+        ]
+        all_tools = (tools or []) + extra_tools
 
         turn_input_tokens = 0
         turn_output_tokens = 0
@@ -180,19 +194,14 @@ class ConversationLoop:
         safe_print("")
 
         try:
+            # First call — streaming for real-time display
             safe_print("  [dim]Thinking...[/dim]")
-            # Force tool use: model must always call a tool, never output raw text
-            response = self.agent.call_llm(
+            response = self.agent.stream_with_display(
                 messages=messages,
                 tools=all_tools,
-                tool_choice={"type": "any"},
+                extra_body={"thinking": {"type": "enabled"}},
             )
-            # Display display_message content
-            for block in response.content:
-                if hasattr(block, "type") and block.type == "tool_use" and block.name == "display_message":
-                    if isinstance(block.input, dict):
-                        safe_print(block.input.get("message", ""))
-                        safe_print("")
+            safe_print("")
             safe_print("")
 
             if _abort_flag:
@@ -212,25 +221,28 @@ class ConversationLoop:
                         tool_name = block.name
                         tool_input = block.input if isinstance(block.input, dict) else {}
 
-                        if tool_name == "display_message":
-                            msg = tool_input.get("message", "")
-                            msg_type = tool_input.get("message_type", "conversation")
-                            safe_print(msg)
-                            # Auto-save if it's a chapter
-                            if msg_type == "chapter" and len(msg) > 500:
-                                existing = list(self.agent.chapters_dir.glob("ch_*_*.md"))
-                                ch_num = len(existing) + 1
-                                try:
-                                    from novel_agent.auto_pipeline import AutoPipeline
-                                    pipeline = AutoPipeline(self.agent)
-                                    title = pipeline._generate_title(msg, ch_num)
-                                    path = self.agent.chapter_path(ch_num, title)
-                                    path.parent.mkdir(parents=True, exist_ok=True)
-                                    path.write_text(f"# 第{ch_num}章: {title}\n\n{msg}", encoding="utf-8")
-                                    safe_print(f"  [dim]saved: {title}[/dim]")
-                                except Exception:
-                                    pass
-                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": "displayed"})
+                        if tool_name == "write_and_save":
+                            safe_print(tool_input.get("content", ""))
+                            safe_print("")
+                            result = registry.dispatch(
+                                "write_chapter", {**tool_input, "action": "write_and_save"},
+                                chapters_dir=str(self.agent.chapters_dir),
+                                project_dir=str(self.agent.project_dir),
+                            )
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
+                            safe_print(f"  [dim]saved: {tool_input.get('title', 'ch'+str(tool_input.get('chapter_number', '?')))}[/dim]")
+                        elif tool_name == "clarify":
+                            question = tool_input.get("question", "")
+                            options = tool_input.get("options", [])
+                            safe_print(f"\n  [bold yellow]?[/bold yellow] {question}")
+                            if options:
+                                for i, opt in enumerate(options):
+                                    safe_print(f"    {i+1}. {opt}")
+                                choice = input("  > ").strip()
+                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
+                            else:
+                                answer = input("  > ").strip()
+                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": answer})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
                             result = registry.dispatch(
@@ -246,7 +258,7 @@ class ConversationLoop:
                 tool_rounds += 1
                 with console.status(f"Thinking... (tool round {tool_rounds})", spinner="dots") as status:
                     t0 = time.time()
-                    response = self.agent.call_llm(messages=messages, tools=all_tools, tool_choice={"type": "any"})
+                    response = self.agent.call_llm(messages=messages, tools=all_tools)
                     elapsed = time.time() - t0
                     if hasattr(response, "usage") and response.usage:
                         status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens}+{response.usage.output_tokens} tk)")

@@ -34,6 +34,8 @@ def chapter_tool_handler(args: dict[str, Any], **kwargs) -> str:
 
     if action == "write":
         return _handle_write(args, kwargs)
+    elif action == "write_and_save":
+        return _handle_write_and_save(args, kwargs)
     elif action == "save":
         return _handle_save(args, kwargs)
     elif action == "settle":
@@ -178,6 +180,28 @@ def _handle_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     return tool_result(success=True, path=str(path), chars=len(content))
 
 
+def _handle_write_and_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
+    """Save chapter content to disk and return it for display."""
+    chapter_num = args.get("chapter_number", 0)
+    content = args.get("content", "")
+    title = args.get("title", "")
+    if not chapter_num or not content:
+        return tool_error("chapter_number and content are required.")
+
+    from pathlib import Path as P
+    chapters_dir = kwargs.get("chapters_dir", ".")
+    dir_path = P(chapters_dir)
+    dir_path.mkdir(parents=True, exist_ok=True)
+    slug = ""
+    if title:
+        slug = "_" + "".join(c for c in title.lower().replace(" ", "-") if c.isalnum() or c in "-_")[:40]
+    path = dir_path / f"ch_{chapter_num:03d}{slug}.md"
+    final = f"# 第{chapter_num}章: {title}\n\n{content}" if title else content
+    path.write_text(final, encoding="utf-8")
+    return tool_result(success=True, path=str(path), chapter=chapter_num, title=title, chars=len(content),
+                       display_content=content, hint="Content saved and displayed above.")
+
+
 def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     """Read a chapter from disk. chapter_number=0 returns TOC."""
     chapter_num = args["chapter_number"]
@@ -239,7 +263,7 @@ CHAPTER_TOOL_SCHEMA = {
         "properties": {
             "action": {
                 "type": "string",
-                "enum": ["write", "save", "settle", "read"],
+                "enum": ["write", "write_and_save", "save", "settle", "read"],
                 "description": "操作类型。write=生成写作指令，save=保存到磁盘，settle=提取状态，read=读取章节（0=目录）。"
             },
             "chapter_number": {
