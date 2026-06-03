@@ -292,7 +292,7 @@ class ConversationLoop:
                     turn_input_tokens += response.usage.input_tokens
                     turn_output_tokens += response.usage.output_tokens
                 # Accumulate text across all responses in this turn
-                new_text = self.agent.extract_text(response.content, fallback_to_thinking=True) or ""
+                new_text = self.agent.extract_text(response.content) or ""
                 self._last_text_output = (self._last_text_output + "\n" + new_text).strip()
                 if new_text.strip():
                     safe_print(new_text)
@@ -304,9 +304,12 @@ class ConversationLoop:
             if turn_input_tokens:
                 safe_print(f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk | total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n")
 
-            # Update history with FULL conversation (including tool interactions)
-            # The messages list already has everything: augmented_message + all turns
-            self.agent.conversation_history = messages[1:]  # Skip the first augmented_message
+            # Update history — only save user + assistant final text (not tool interactions)
+            # Tool_use/tool_result pairs break on resume since tool_use_ids don't persist
+            self.agent.conversation_history.append({"role": "user", "content": user_message})
+            # Build a clean text-only assistant message
+            final_text = self.agent.extract_text(response.content) or ""
+            self.agent.conversation_history.append({"role": "assistant", "content": final_text})
 
             # Compression check
             self._maybe_compress(turn_input_tokens)

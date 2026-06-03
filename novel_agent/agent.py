@@ -133,8 +133,31 @@ class AIAgent:
             data = json.loads(self.session_path.read_text(encoding="utf-8"))
             history = data.get("history", [])
             if history:
-                self.conversation_history = history
-                logger.info("Loaded session: %d messages", len(history))
+                # Sanitize: remove orphaned tool_result messages
+                # (every tool_result must follow a tool_use from assistant)
+                clean = []
+                for msg in history:
+                    role = msg.get("role", "")
+                    content = msg.get("content", "")
+                    is_tool_result = isinstance(content, list) and any(
+                        b.get("type") == "tool_result" if isinstance(b, dict) else False
+                        for b in content
+                    )
+                    if is_tool_result:
+                        # Only keep if previous msg was an assistant with tool_use
+                        if clean and clean[-1].get("role") == "assistant":
+                            prev_content = clean[-1].get("content", [])
+                            has_tool_use = isinstance(prev_content, list) and any(
+                                b.get("type") == "tool_use" if isinstance(b, dict) else False
+                                for b in prev_content
+                            )
+                            if has_tool_use:
+                                clean.append(msg)
+                                continue
+                        continue  # Skip orphaned tool_result
+                    clean.append(msg)
+                self.conversation_history = clean
+                logger.info("Loaded session: %d messages (%d cleaned)", len(history), len(clean))
         except Exception:
             pass
 
