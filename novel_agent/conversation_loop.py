@@ -238,7 +238,7 @@ class ConversationLoop:
                 turn_input_tokens += response.usage.input_tokens
                 turn_output_tokens += response.usage.output_tokens
 
-            # Tool call loop — all output goes through tools
+            # Tool call loop
             tool_rounds = 0
             while response.stop_reason == "tool_use":
                 tool_results = []
