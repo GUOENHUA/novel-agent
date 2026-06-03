@@ -326,48 +326,76 @@ class ConversationLoop:
     _last_text_output = ""
 
     def _interactive_select(self, question: str, options: list[str]) -> str:
-        """Interactive select with ↑↓ arrows, Enter=confirm, Tab=add note."""
+        """Interactive select: ↑↓ arrows, Enter=confirm, Tab=inline note input."""
         from prompt_toolkit.application import Application
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.keys import Keys
         from prompt_toolkit.layout import Layout
         from prompt_toolkit.layout.containers import HSplit, Window
-        from prompt_toolkit.layout.controls import FormattedTextControl
+        from prompt_toolkit.layout.controls import FormattedTextControl, BufferControl
+        from prompt_toolkit.buffer import Buffer
 
         idx = [0]
         note = [""]
+        editing_note = [False]
+        note_buffer = Buffer(multiline=False)
 
         def get_text():
             lines = [question, ""]
             for i, opt in enumerate(options):
                 lines.append(f"  {'> ' if i == idx[0] else '  '}{opt}")
             lines.append("")
-            hint = "Enter=confirm  Tab=add note  Esc=cancel"
             if note[0]:
-                hint = f"Note: {note[0]}  |  {hint}"
-            lines.append(hint)
+                lines.append(f"  Note: {note[0]}")
+            if editing_note[0]:
+                lines.append(f"  > {note_buffer.text}_")
+            hint = "Enter=confirm  Tab=add note  Esc=cancel"
+            if not editing_note[0]:
+                lines.append(hint)
             return "\n".join(lines)
 
         kb = KeyBindings()
 
         @kb.add("up")
-        def _(event): idx[0] = (idx[0] - 1) % len(options)
+        def _(event):
+            if not editing_note[0]:
+                idx[0] = (idx[0] - 1) % len(options)
 
         @kb.add("down")
-        def _(event): idx[0] = (idx[0] + 1) % len(options)
+        def _(event):
+            if not editing_note[0]:
+                idx[0] = (idx[0] + 1) % len(options)
 
         @kb.add("enter")
         def _(event):
-            chosen = options[idx[0]]
-            event.app.exit(result=f"{chosen} | {note[0]}" if note[0] else chosen)
+            if editing_note[0]:
+                note[0] = note_buffer.text
+                editing_note[0] = False
+            else:
+                chosen = options[idx[0]]
+                event.app.exit(result=f"{chosen} | {note[0]}" if note[0] else chosen)
 
         @kb.add(Keys.Tab)
         def _(event):
-            event.app.exit(result="__note__")
+            if not editing_note[0]:
+                editing_note[0] = True
+                note_buffer.text = note[0]
 
         @kb.add("escape")
         def _(event):
-            event.app.exit(result=options[-1] if options else "")
+            if editing_note[0]:
+                editing_note[0] = False
+                note_buffer.text = ""
+            else:
+                event.app.exit(result=options[-1] if options else "")
+
+        @kb.add("<any>", filter=lambda: editing_note[0])
+        def _(event):
+            note_buffer.insert_text(event.data)
+
+        @kb.add("backspace", filter=lambda: editing_note[0])
+        def _(event):
+            note_buffer.delete_before_cursor(1)
 
         content = FormattedTextControl(text=get_text)
         app = Application(
@@ -376,10 +404,9 @@ class ConversationLoop:
         )
 
         result = app.run()
-        if result == "__note__":
-            note[0] = input("  > ").strip()
-            return self._interactive_select(question, options)
-        return result or (options[0] if options else "")
+        if isinstance(result, str):
+            return result or (options[0] if options else "")
+        return options[0] if options else ""
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""
