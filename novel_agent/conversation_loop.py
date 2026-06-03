@@ -199,12 +199,12 @@ class ConversationLoop:
             },
             {
                 "name": "clarify",
-                "description": "Ask the user a clarifying question with options.",
+                "description": "Ask the user a clarifying question with options. Always include 'Other...' as a choice for text input.",
                 "input_schema": {
                     "type": "object",
                     "properties": {
                         "question": {"type": "string"},
-                        "options": {"type": "array", "items": {"type": "string"}, "description": "2-4 options"},
+                        "options": {"type": "array", "items": {"type": "string"}, "description": "3-5 options including 'Other (let me explain)'"},
                     },
                     "required": ["question"],
                 },
@@ -252,15 +252,12 @@ class ConversationLoop:
                         elif tool_name == "clarify":
                             question = tool_input.get("question", "")
                             options = tool_input.get("options", [])
-                            safe_print(f"\n  [bold yellow]?[/bold yellow] {question}")
+                            # Use interactive select if options provided, fallback to text input
                             if options:
-                                for i, opt in enumerate(options):
-                                    safe_print(f"    {i+1}. {opt}")
-                                choice = input("  > ").strip()
-                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
+                                choice = self._interactive_select(question, options)
                             else:
-                                answer = input("  > ").strip()
-                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": answer})
+                                choice = input(f"\n  {question}\n  > ").strip()
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
                             result = registry.dispatch(
@@ -317,6 +314,64 @@ class ConversationLoop:
 
     # Track last text output for preview_chapter (content is in streaming text)
     _last_text_output = ""
+
+    def _interactive_select(self, question: str, options: list[str]) -> str:
+        """Interactive select with ↑↓ arrows, Enter=confirm, Tab=add note."""
+        from prompt_toolkit.application import Application
+        from prompt_toolkit.key_binding import KeyBindings
+        from prompt_toolkit.keys import Keys
+        from prompt_toolkit.layout import Layout
+        from prompt_toolkit.layout.containers import HSplit, Window
+        from prompt_toolkit.layout.controls import FormattedTextControl
+
+        idx = [0]
+        note = [""]
+
+        def get_text():
+            lines = [question, ""]
+            for i, opt in enumerate(options):
+                lines.append(f"  {'> ' if i == idx[0] else '  '}{opt}")
+            lines.append("")
+            hint = "Enter=confirm  Tab=add note  Esc=cancel"
+            if note[0]:
+                hint = f"Note: {note[0]}  |  {hint}"
+            lines.append(hint)
+            return "\n".join(lines)
+
+        kb = KeyBindings()
+
+        @kb.add("up")
+        def _(event): idx[0] = (idx[0] - 1) % len(options)
+
+        @kb.add("down")
+        def _(event): idx[0] = (idx[0] + 1) % len(options)
+
+        @kb.add("enter")
+        def _(event):
+            chosen = options[idx[0]]
+            event.app.exit(result=f"{chosen} | {note[0]}" if note[0] else chosen)
+
+        @kb.add(Keys.Tab)
+        def _(event):
+            event.app.exit(result="__note__")
+
+        @kb.add("escape")
+        def _(event):
+            event.app.exit(result=options[-1] if options else "")
+
+        content = FormattedTextControl(text=get_text)
+        app = Application(
+            layout=Layout(HSplit([Window(content=content, always_hide_cursor=True)])),
+            key_bindings=kb, full_screen=False, erase_when_done=True,
+        )
+
+        result = app.run()
+        if result == "__note__":
+            note[0] = input("  Note: ").strip()
+            return self._interactive_select(question, options)
+        if result and ("Other" in str(result) or "其他" in str(result)):
+            return input("  Tell me more: ").strip()
+        return result or (options[0] if options else "")
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""
