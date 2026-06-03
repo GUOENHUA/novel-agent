@@ -160,19 +160,43 @@ class ConversationLoop:
 
         tools = registry.get_definitions()
 
-        # Additional tools beyond registry
-        extra_tools = [
+        # Preview/confirmation tools — agent must use these before persisting any content
+        preview_tools = [
             {
-                "name": "write_and_save",
-                "description": "Write and save a novel chapter. Content will be displayed to the user AND saved to disk. Use this for ALL chapter writing — never output chapter text directly.",
+                "name": "preview_chapter",
+                "description": "Preview a chapter draft. Call this AFTER you finish writing chapter content. The system will show it to the user for confirmation before saving. Chapter content is passed as a separate text block.",
                 "input_schema": {
                     "type": "object",
                     "properties": {
                         "chapter_number": {"type": "integer", "description": "Chapter number"},
-                        "title": {"type": "string", "description": "Chapter title, 4-8 Chinese characters"},
-                        "content": {"type": "string", "description": "Full chapter prose content"},
+                        "title": {"type": "string", "description": "Suggested title, 4-8 Chinese characters"},
                     },
-                    "required": ["chapter_number", "title", "content"],
+                    "required": ["chapter_number"],
+                },
+            },
+            {
+                "name": "preview_outline",
+                "description": "Preview an outline draft. Call this AFTER you finish writing outline content.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "content": {"type": "string", "description": "Full outline content"},
+                    },
+                    "required": ["content"],
+                },
+            },
+            {
+                "name": "preview_setting",
+                "description": "Preview a character/world setting before saving to memory.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "setting_type": {"type": "string", "enum": ["character", "world", "plot", "style"]},
+                        "name": {"type": "string", "description": "Setting name"},
+                        "description": {"type": "string", "description": "One-line description"},
+                        "content": {"type": "string", "description": "Full setting content"},
+                    },
+                    "required": ["setting_type", "name", "description", "content"],
                 },
             },
             {
@@ -188,7 +212,7 @@ class ConversationLoop:
                 },
             },
         ]
-        all_tools = (tools or []) + extra_tools
+        all_tools = (tools or []) + preview_tools
 
         turn_input_tokens = 0
         turn_output_tokens = 0
@@ -204,7 +228,7 @@ class ConversationLoop:
                 extra_body={"thinking": {"type": "enabled"}},
             )
             safe_print("")
-            safe_print("")
+            self._last_text_output = self.agent.extract_text(response.content)
 
             if _abort_flag:
                 safe_print("  [dim](interrupted)[/dim]")
@@ -223,23 +247,9 @@ class ConversationLoop:
                         tool_name = block.name
                         tool_input = block.input if isinstance(block.input, dict) else {}
 
-                        if tool_name == "write_and_save":
-                            content = tool_input.get("content", "")
-                            title = tool_input.get("title", "")
-                            chapter_num = tool_input.get("chapter_number", 0)
-                            if content:
-                                safe_print(content)
-                                safe_print("")
-                            if content and chapter_num:
-                                result = registry.dispatch(
-                                    "write_chapter", {**tool_input, "action": "write_and_save"},
-                                    chapters_dir=str(self.agent.chapters_dir),
-                                    project_dir=str(self.agent.project_dir),
-                                )
-                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
-                                safe_print(f"  [dim]saved: {title or 'ch'+str(chapter_num)}[/dim]")
-                            else:
-                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": "missing content or chapter_number"})
+                        if tool_name in ("preview_chapter", "preview_outline", "preview_setting"):
+                            result = self._handle_preview(tool_name, tool_input)
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
                         elif tool_name == "clarify":
                             question = tool_input.get("question", "")
                             options = tool_input.get("options", [])
@@ -299,6 +309,92 @@ class ConversationLoop:
         except Exception as e:
             logger.exception("Turn processing failed")
             safe_print(f"  [red][ERROR][/red] {e}\n")
+
+    # Track last text output for preview_chapter (content is in streaming text)
+    _last_text_output = ""
+
+    def _handle_preview(self, tool_name: str, args: dict) -> str:
+        """Show preview/confirm dialog for chapter, outline, or setting content."""
+        import json
+
+        if tool_name == "preview_chapter":
+            content = self._last_text_output
+            title = args.get("title", "")
+            ch_num = args.get("chapter_number", 0)
+            label = f"Chapter {ch_num}"
+        elif tool_name == "preview_outline":
+            content = args.get("content", "")
+            title = "大纲"
+            label = "Outline"
+        elif tool_name == "preview_setting":
+            content = args.get("content", "")
+            title = args.get("name", "")
+            s_type = args.get("setting_type", "character")
+            label = f"{s_type}: {title}"
+        else:
+            return json.dumps({"status": "unknown_tool"})
+
+        if not content:
+            return json.dumps({"status": "no_content", "error": "No content to preview"})
+
+        safe_print(f"\n  {'─' * 50}")
+        safe_print(f"  [bold]{label}[/bold]  {len(content)} chars")
+        if title:
+            safe_print(f"  Title: {title}")
+        safe_print(f"  {'─' * 50}")
+        # Show preview
+        if len(content) > 600:
+            safe_print(f"  [dim]{content[:250]}...[/dim]")
+            action = input(f"  [1] Save  [2] View full  [3] Discard  > ").strip()
+            if action == "2":
+                safe_print(f"  {'─' * 50}")
+                safe_print(content)
+                safe_print(f"  {'─' * 50}")
+                action = input(f"  [1] Save  [3] Discard  > ").strip()
+        else:
+            safe_print(f"  [dim]{content}[/dim]")
+            action = input(f"  [1] Save  [3] Discard  > ").strip()
+
+        if action == "3":
+            return json.dumps({"status": "discarded"})
+
+        # Save
+        if tool_name == "preview_chapter":
+            if not title:
+                from novel_agent.auto_pipeline import AutoPipeline
+                p = AutoPipeline(self.agent)
+                title = p._generate_title(content, ch_num)
+            path = self.agent.chapter_path(ch_num, title or "untitled")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"# 第{ch_num}章: {title}\n\n{content}", encoding="utf-8")
+            # Update state
+            state = self.agent.truth_files.load_state()
+            state.current_chapter = ch_num + 1
+            self.agent.truth_files.save_state(state)
+            safe_print(f"  [green]Saved: {title}[/green]")
+            return json.dumps({"status": "saved", "path": str(path), "title": title})
+
+        elif tool_name == "preview_outline":
+            path = self.agent.project_dir / "outline.md"
+            path.write_text(content, encoding="utf-8")
+            safe_print(f"  [green]Saved: outline.md[/green]")
+            return json.dumps({"status": "saved", "path": str(path)})
+
+        elif tool_name == "preview_setting":
+            s_type = args.get("setting_type", "character")
+            name = args.get("name", "")
+            desc = args.get("description", "")
+            # Use memory tool
+            result = registry.dispatch(
+                "memory",
+                {"action": "add", "type": s_type, "name": name, "description": desc, "content": content},
+                chapters_dir=str(self.agent.chapters_dir),
+                project_dir=str(self.agent.project_dir),
+            )
+            safe_print(f"  [green]Saved: {name}[/green]")
+            return result
+
+        return json.dumps({"status": "saved"})
 
     def _maybe_compress(self, last_turn_tokens: int) -> None:
         """Compress old conversation turns when history grows too large."""
