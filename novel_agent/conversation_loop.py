@@ -158,6 +158,8 @@ class ConversationLoop:
             {"role": "user", "content": augmented_message}
         ]
 
+        tools = registry.get_definitions()
+
         # Additional tools beyond registry
         extra_tools = [
             {
