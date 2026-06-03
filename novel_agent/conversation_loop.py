@@ -224,15 +224,22 @@ class ConversationLoop:
                         tool_input = block.input if isinstance(block.input, dict) else {}
 
                         if tool_name == "write_and_save":
-                            safe_print(tool_input.get("content", ""))
-                            safe_print("")
-                            result = registry.dispatch(
-                                "write_chapter", {**tool_input, "action": "write_and_save"},
-                                chapters_dir=str(self.agent.chapters_dir),
-                                project_dir=str(self.agent.project_dir),
-                            )
-                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
-                            safe_print(f"  [dim]saved: {tool_input.get('title', 'ch'+str(tool_input.get('chapter_number', '?')))}[/dim]")
+                            content = tool_input.get("content", "")
+                            title = tool_input.get("title", "")
+                            chapter_num = tool_input.get("chapter_number", 0)
+                            if content:
+                                safe_print(content)
+                                safe_print("")
+                            if content and chapter_num:
+                                result = registry.dispatch(
+                                    "write_chapter", {**tool_input, "action": "write_and_save"},
+                                    chapters_dir=str(self.agent.chapters_dir),
+                                    project_dir=str(self.agent.project_dir),
+                                )
+                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
+                                safe_print(f"  [dim]saved: {title or 'ch'+str(chapter_num)}[/dim]")
+                            else:
+                                tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": "missing content or chapter_number"})
                         elif tool_name == "clarify":
                             question = tool_input.get("question", "")
                             options = tool_input.get("options", [])
