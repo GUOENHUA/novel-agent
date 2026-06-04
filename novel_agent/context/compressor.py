@@ -18,6 +18,7 @@ import logging
 import re
 from typing import Any, Callable, Optional
 
+from novel_agent.context.config import budget
 from novel_agent.context.context_engine import ContextEngine
 from novel_agent.context.token_counter import estimate_tokens, estimate_messages_tokens
 
@@ -32,15 +33,6 @@ SUMMARY_PREFIX = (
     "Respond ONLY to the latest user message that appears AFTER this "
     "summary."
 )
-
-# Proportion of compressed content to allocate for summary
-_SUMMARY_RATIO = 0.20
-# Absolute ceiling for summary tokens
-_SUMMARY_TOKENS_CEILING = 8_000
-# Minimum summary tokens
-_MIN_SUMMARY_TOKENS = 800
-# Chars-per-token rough estimate
-_CHARS_PER_TOKEN = 4
 
 # Circuit breaker: stop retrying after N consecutive failures
 _MAX_CONSECUTIVE_COMPRESS_FAILURES = 3
@@ -128,11 +120,13 @@ class NovelCompressor(ContextEngine):
     def __init__(
         self,
         model: str = "deepseek-v4-pro[1m]",
-        context_length: int = 200000,
+        context_length: int | None = None,
         threshold_percent: float = 0.70,
         protect_first_n: int = 3,
-        tail_token_budget: int = 150000,
+        tail_token_budget: int | None = None,
     ):
+        context_length = context_length or budget.total
+        tail_token_budget = tail_token_budget or budget.tail_token_budget
         self.model = model
         self.context_length = context_length
         self.threshold_percent = threshold_percent
@@ -289,8 +283,12 @@ class NovelCompressor(ContextEngine):
                     if isinstance(block, dict) and block.get("type") == "tool_result":
                         inner = block.get("content", "")
                         inner_str = str(inner) if not isinstance(inner, str) else inner
-                        if len(inner_str) > 5000:
-                            block = {**block, "content": inner_str[:500] + f"\n... [{len(inner_str) - 500} chars truncated for compression]\n" + inner_str[-500:]}
+                        if len(inner_str) > budget.max_tool_result_chars:
+                            block = {**block, "content": (
+                                inner_str[:budget.tool_result_head_chars]
+                                + f"\n... [{len(inner_str) - budget.tool_result_head_chars} chars truncated for compression]\n"
+                                + inner_str[-budget.tool_result_tail_chars:]
+                            )}
                     new_blocks.append(block)
                 pruned.append({**msg, "content": new_blocks})
             else:
@@ -312,8 +310,8 @@ class NovelCompressor(ContextEngine):
 
         serialized = self._serialize_turns(turns)
         summary_budget = max(
-            _MIN_SUMMARY_TOKENS,
-            min(_SUMMARY_TOKENS_CEILING, int(estimate_tokens(serialized) * _SUMMARY_RATIO)),
+            budget.min_summary_tokens,
+            min(budget.summary_ceiling, int(estimate_tokens(serialized) * budget.summary_ratio)),
         )
 
         template = NOVEL_SUMMARY_TEMPLATE.replace("{summary_budget}", str(summary_budget))
@@ -369,29 +367,31 @@ class NovelCompressor(ContextEngine):
 
     def _serialize_turns(self, turns: list[dict]) -> str:
         """Serialize conversation turns into labeled text for the summarizer."""
+        max_chars = budget.serialized_turn_chars
+        block_chars = budget.serialized_block_chars
         parts = []
         for msg in turns:
             role = msg.get("role", "unknown")
             content = msg.get("content", "")
             if isinstance(content, str):
-                text = content[:2000]
+                text = content[:max_chars]
             elif isinstance(content, list):
                 texts = []
                 for block in content:
                     if isinstance(block, dict):
                         if block.get("type") == "text":
-                            texts.append(block.get("text", "")[:500])
+                            texts.append(block.get("text", "")[:block_chars])
                         elif block.get("type") == "tool_use":
                             texts.append(f"[tool_use: {block.get('name', '?')}]")
                         elif block.get("type") == "tool_result":
                             inner = block.get("content", "")
                             t = str(inner) if not isinstance(inner, str) else inner
-                            texts.append(f"[tool_result: {t[:300]}]")
+                            texts.append(f"[tool_result: {t[:block_chars]}]")
                     elif hasattr(block, "text"):
-                        texts.append(block.text[:500])
-                text = "\n".join(t for t in texts if t)[:2000]
+                        texts.append(block.text[:block_chars])
+                text = "\n".join(t for t in texts if t)[:max_chars]
             else:
-                text = str(content)[:2000]
+                text = str(content)[:max_chars]
             parts.append(f"[{role.upper()}]: {text}")
         return "\n\n".join(parts)
 

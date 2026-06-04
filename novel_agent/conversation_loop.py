@@ -16,6 +16,7 @@ from rich.console import Console
 
 from novel_agent.agent import AIAgent
 from novel_agent.auto_pipeline import AutoPipeline
+from novel_agent.context.config import budget
 from novel_agent.tools.registry import registry
 
 # Import tool modules to trigger registry registration
@@ -614,7 +615,7 @@ class ConversationLoop:
             return
 
         est = estimate_messages_tokens(history)
-        threshold = self.agent.context_engine.threshold_tokens or 700000
+        threshold = self.agent.context_engine.threshold_tokens or budget.compress_threshold
         if est < threshold:
             return
 
@@ -627,7 +628,7 @@ class ConversationLoop:
             ) if isinstance(content, list) else ""
             tail_tokens += len(text) // 2 + 20
             keep_count += 1
-            if tail_tokens > 100000 or keep_count >= 20:
+            if tail_tokens > budget.history_tail_tokens or keep_count >= 30:
                 break
 
         if keep_count >= len(history):
@@ -660,17 +661,15 @@ class ConversationLoop:
         Supports iterative updates: if a previous summary exists, merges new
         information into it instead of summarizing from scratch.
         """
-        from novel_agent.context.compressor import (
-            NOVEL_SUMMARY_TEMPLATE, _SUMMARY_RATIO, _SUMMARY_TOKENS_CEILING, _MIN_SUMMARY_TOKENS,
-        )
+        from novel_agent.context.compressor import NOVEL_SUMMARY_TEMPLATE
 
         try:
             serialized = self._serialize_turns_for_compression(turns)
 
             # Scale summary budget to compressed content size
             summary_budget = max(
-                _MIN_SUMMARY_TOKENS,
-                min(_SUMMARY_TOKENS_CEILING, int(len(serialized) * _SUMMARY_RATIO)),
+                budget.min_summary_tokens,
+                min(budget.summary_ceiling, int(len(serialized) * budget.summary_ratio)),
             )
             template = NOVEL_SUMMARY_TEMPLATE.replace("{summary_budget}", str(summary_budget))
 

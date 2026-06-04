@@ -19,6 +19,7 @@ from novel_agent.state.truth_files import TruthFileManager
 from novel_agent.state.hook_ledger import HookLedger
 from novel_agent.skills.loader import SkillLoader
 from novel_agent.context.compressor import NovelCompressor
+from novel_agent.context.config import budget
 from novel_agent.utils.constants import (
     DEFAULT_WRITER_MODEL,
     DEFAULT_CHAPTER_WORDS,
@@ -245,18 +246,22 @@ class AIAgent:
         logger.info("Skills initialized: %d skills loaded", len(skills))
 
     def _init_context(self) -> None:
-        """Initialize the context compression engine."""
-        context_length = int(os.getenv("NOVEL_AGENT_CONTEXT_LENGTH", "200000"))
-        threshold_pct = float(os.getenv("NOVEL_AGENT_COMPRESS_THRESHOLD", "0.85"))
+        """Initialize the context compression engine.
+
+        All budgets derive from NOVEL_AGENT_CONTEXT_LENGTH (default 200k).
+        Change that env var and everything scales proportionally.
+        """
+        threshold_pct = float(os.getenv("NOVEL_AGENT_COMPRESS_THRESHOLD", "0.70"))
         self.context_engine = NovelCompressor(
             model=self.model,
-            context_length=context_length,
+            context_length=budget.total,
             threshold_percent=threshold_pct,
-            tail_token_budget=int(context_length * 0.15),  # 150K for 1M context
+            tail_token_budget=budget.tail_token_budget,
         )
         logger.info(
-            "Context engine initialized: %s (context=%d, threshold=%.0f%%)",
-            self.context_engine.name, context_length, threshold_pct * 100,
+            "Context engine initialized: %s (context=%d, threshold=%.0f%%), %s",
+            self.context_engine.name, budget.total, threshold_pct * 100,
+            budget.describe().replace('\n', ', ') if logger.isEnabledFor(logging.DEBUG) else "",
         )
 
     @staticmethod
@@ -439,7 +444,7 @@ class AIAgent:
             prev_path = self.chapter_path(ch - 1)
             if prev_path.exists():
                 prev_text = prev_path.read_text(encoding="utf-8")
-                ending = prev_text[-1500:] if len(prev_text) > 1500 else prev_text
+                ending = prev_text[-budget.chapter_ending_chars:] if len(prev_text) > budget.chapter_ending_chars else prev_text
                 lines.append("## 📝 前一章结尾")
                 lines.append("```")
                 lines.append(ending.strip())
@@ -453,7 +458,7 @@ class AIAgent:
             outline_text = outline_path.read_text(encoding="utf-8")
 
             # 3a. Book-level framing (first ~500 chars — overall arc, theme, ending vision)
-            book_framing = outline_text[:500].strip()
+            book_framing = outline_text[:budget.book_framing_chars].strip()
             if book_framing:
                 lines.append("## 📖 全书框架")
                 lines.append(book_framing)
@@ -473,7 +478,7 @@ class AIAgent:
             if current_vol:
                 vol_end = outline_text.find("\n#", current_vol.end())
                 if vol_end == -1:
-                    vol_end = min(len(outline_text), current_vol.end() + 800)
+                    vol_end = min(len(outline_text), current_vol.end() + budget.volume_context_chars)
                 lines.append("## 📋 当前卷")
                 lines.append(outline_text[current_vol.start():vol_end].strip())
                 lines.append("")
@@ -492,7 +497,7 @@ class AIAgent:
                         if cn2 > cn and s2 > end:
                             next_pos = s2
                             break
-                    entry = outline_text[max(0, start - 20):min(len(outline_text), end + 400)]
+                    entry = outline_text[max(0, start - 20):min(len(outline_text), end + budget.chapter_entry_chars)]
                     label = "本章大纲" if cn == ch else ("前一章大纲" if cn < ch else "下一章大纲")
                     lines.append(f"## 📋 {label} (第{cn}章)")
                     lines.append(entry.strip())
@@ -533,7 +538,7 @@ class AIAgent:
                     if line.strip() and not line.startswith("#") and not line.startswith("---"):
                         body_start = prev_text.find(line)
                         break
-                opening = prev_text[body_start:body_start + 200].strip() if body_start > 0 else prev_text[:200]
+                opening = prev_text[body_start:body_start + budget.style_anchor_chars].strip() if body_start > 0 else prev_text[:budget.style_anchor_chars]
                 if opening:
                     lines.append("## 🖋 前一章文风锚点")
                     lines.append(f"```\n{opening}\n```")
