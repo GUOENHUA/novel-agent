@@ -263,7 +263,7 @@ class ConversationLoop:
 
                         if tool_name in ("preview_chapter", "preview_outline", "preview_setting"):
                             result = self._handle_preview(tool_name, tool_input)
-                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": [{"type": "text", "text": result}]})
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
                         elif tool_name == "clarify":
                             question = tool_input.get("question", "")
                             options = tool_input.get("options", [])
@@ -272,7 +272,7 @@ class ConversationLoop:
                                 choice = self._interactive_select(question, options)
                             else:
                                 choice = input(f"\n  {question}\n  > ").strip()
-                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": [{"type": "text", "text": choice}]})
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
                             result = registry.dispatch(
@@ -280,7 +280,7 @@ class ConversationLoop:
                                 chapters_dir=str(self.agent.chapters_dir),
                                 project_dir=str(self.agent.project_dir),
                             )
-                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": [{"type": "text", "text": result}]})
+                            tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
 
                 messages.append({"role": "assistant", "content": response.content})
                 messages.append({"role": "user", "content": tool_results})
