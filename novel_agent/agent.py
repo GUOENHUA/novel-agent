@@ -192,6 +192,9 @@ class AIAgent:
                     else:
                         blocks.append(block)
                 entry["content"] = blocks
+            elif msg.get("role") == "assistant":
+                # Assistant messages must be ContentBlock arrays for API
+                entry["content"] = [{"type": "text", "text": str(content)}]
             else:
                 entry["content"] = str(content)
             serializable.append(entry)

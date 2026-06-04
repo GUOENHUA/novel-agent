@@ -168,6 +168,10 @@ class ConversationLoop:
         messages = self.agent.conversation_history + [
             {"role": "user", "content": augmented_message}
         ]
+        # Sanitize: ensure all assistant messages use ContentBlock array format
+        for msg in messages:
+            if msg.get("role") == "assistant" and isinstance(msg.get("content"), str):
+                msg["content"] = [{"type": "text", "text": msg["content"]}]
 
         tools = registry.get_definitions()
 
