@@ -739,6 +739,24 @@ class AIAgent:
 
     def stream_with_display(self, messages, tools=None, temperature=0.8, max_tokens=8192, extra_body=None):
         """Stream LLM response with real-time text display. Returns final message."""
+        import time
+        last_error = None
+        for attempt in range(3):
+            try:
+                return self._do_stream(messages, tools, temperature, max_tokens, extra_body)
+            except anthropic.RateLimitError as e:
+                last_error = e
+                time.sleep(2 ** attempt * 5)
+            except anthropic.APIStatusError as e:
+                if e.status_code >= 500:
+                    last_error = e
+                    time.sleep(2 ** attempt)
+                else:
+                    raise
+        raise last_error or RuntimeError("Stream failed after 3 retries")
+
+    def _do_stream(self, messages, tools, temperature, max_tokens, extra_body):
+        """Internal streaming implementation."""
         full_text = ""
         tool_uses = []
         final_usage = None
