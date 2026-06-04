@@ -707,31 +707,33 @@ class ConversationLoop:
         Preserves tool_use/tool_result context and handles both dict and
         object-based content blocks.
         """
+        max_chars = budget.serialized_turn_chars
+        block_chars = budget.serialized_block_chars
         parts = []
         for msg in turns[-30:]:  # At most 30 turns as summarizer input
             role = msg.get("role", "?")
             content = msg.get("content", "")
             if isinstance(content, str):
-                text = content[:800]
+                text = content[:max_chars]
             elif isinstance(content, list):
                 texts = []
                 for block in content:
                     if isinstance(block, dict):
                         if block.get("type") == "text":
-                            texts.append(block.get("text", "")[:400])
+                            texts.append(block.get("text", "")[:block_chars])
                         elif block.get("type") == "tool_use":
                             texts.append(f"[tool: {block.get('name', '?')}]")
                         elif block.get("type") == "tool_result":
                             inner = block.get("content", "")
                             t = str(inner) if not isinstance(inner, str) else inner
-                            texts.append(f"[result: {t[:200]}]")
+                            texts.append(f"[result: {t[:block_chars]}]")
                     elif hasattr(block, "text"):
-                        texts.append(block.text[:400])
+                        texts.append(block.text[:block_chars])
                     elif hasattr(block, "type"):
                         texts.append(f"[{block.type}]")
-                text = "\n  ".join(t for t in texts if t)[:800]
+                text = "\n  ".join(t for t in texts if t)[:max_chars]
             else:
-                text = str(content)[:800]
+                text = str(content)[:max_chars]
             parts.append(f"[{role}]: {text}")
         return "\n\n".join(parts)
 
