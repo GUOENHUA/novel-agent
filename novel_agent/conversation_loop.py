@@ -383,13 +383,16 @@ class ConversationLoop:
                 editing_note[0] = False
             else:
                 chosen = options[idx[0]]
-                event.app.exit(result=f"{chosen} | {note[0]}" if note[0] else chosen)
+                event.app.exit(result=(chosen, note[0]))
 
         @kb.add(Keys.Tab)
         def _(event):
             if not editing_note[0]:
                 editing_note[0] = True
                 note_buffer.text = note[0]
+            else:
+                note[0] = note_buffer.text
+                editing_note[0] = False
 
         @kb.add("escape")
         def _(event):
@@ -397,7 +400,7 @@ class ConversationLoop:
                 editing_note[0] = False
                 note_buffer.text = ""
             else:
-                event.app.exit(result=options[-1] if options else "")
+                event.app.exit(result=("", ""))
 
         @kb.add("<any>", filter=Condition(lambda: editing_note[0]))
         def _(event):
@@ -414,9 +417,9 @@ class ConversationLoop:
         )
 
         result = app.run()
-        if isinstance(result, str):
-            return result or (options[0] if options else "")
-        return options[0] if options else ""
+        if isinstance(result, tuple):
+            return result
+        return (result, "") if result else ("", "")
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""
