@@ -19,9 +19,17 @@ from novel_agent.auto_pipeline import AutoPipeline
 from novel_agent.tools.registry import registry
 
 # Import tool modules to trigger registry registration
-import novel_agent.tools.memory_tool  # noqa: F401
-import novel_agent.tools.hook_tool  # noqa: F401
-import novel_agent.tools.skill_tool  # noqa: F401
+# (Each module calls registry.register() at import time.)
+import novel_agent.tools.memory_tool       # noqa: F401  # memory CRUD
+import novel_agent.tools.hook_tool         # noqa: F401  # foreshadowing tracking
+import novel_agent.tools.skill_tool        # noqa: F401  # skill viewing
+import novel_agent.tools.plot_tool         # noqa: F401  # outline & plot planning
+import novel_agent.tools.character_tool     # noqa: F401  # character development
+import novel_agent.tools.chapter_tool      # noqa: F401  # chapter writing
+import novel_agent.tools.lore_tool         # noqa: F401  # lore search
+import novel_agent.tools.consistency_tool  # noqa: F401  # consistency checking
+import novel_agent.tools.slop_checker      # noqa: F401  # AI-slop detection
+import novel_agent.tools.export_tool       # noqa: F401  # chapter export
 
 logger = logging.getLogger(__name__)
 
