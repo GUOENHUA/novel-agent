@@ -451,7 +451,7 @@ class ConversationLoop:
         if len(content) > 600:
             safe_print(f"  [dim]{content[:250]}...[/dim]")
             action = input(f"  [1] Save  [2] View full  [3] Discard  > ").strip()
-            if action == "2":
+            if action == "2" or action.startswith("2 "):
                 safe_print(f"  {'─' * 50}")
                 safe_print(content)
                 safe_print(f"  {'─' * 50}")
@@ -460,9 +460,15 @@ class ConversationLoop:
             safe_print(f"  [dim]{content}[/dim]")
             action = input(f"  [1] Save  [3] Discard  > ").strip()
 
-        if action == "3":
-            reason = input("  Why discard? ").strip()
+        # Parse action: "1" = save, "3" = discard, "1 xxx" = save + feedback, "3 xxx" = discard + reason
+        if action == "3" or action.startswith("3 "):
+            reason = action[2:].strip() if action.startswith("3 ") else input("  Why discard? ").strip()
             return json.dumps({"status": "discarded", "reason": reason or "no reason given"})
+
+        # Save (with optional inline feedback)
+        feedback = action[2:].strip() if action.startswith("1 ") else ""
+        if feedback:
+            safe_print(f"  [dim]Feedback: {feedback[:100]}[/dim]")
 
         # Save
         if tool_name == "preview_chapter":
