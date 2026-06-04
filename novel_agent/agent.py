@@ -156,6 +156,11 @@ class AIAgent:
                                 continue
                         continue  # Skip orphaned tool_result
                     clean.append(msg)
+                # Convert plain string assistant messages to ContentBlock format for API
+                for msg in clean:
+                    if msg.get("role") == "assistant" and isinstance(msg.get("content"), str):
+                        text = msg["content"]
+                        msg["content"] = [{"type": "text", "text": text}]
                 self.conversation_history = clean
                 logger.info("Loaded session: %d messages (%d cleaned)", len(history), len(clean))
         except Exception:

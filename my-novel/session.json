@@ -1,14 +1,5 @@
 {
   "model": "deepseek-v4-pro[1m]",
   "total_words": 2400000,
-  "history": [
-    {
-      "role": "user",
-      "content": "hello"
-    },
-    {
-      "role": "assistant",
-      "content": "hi there"
-    }
-  ]
+  "history": []
 }
