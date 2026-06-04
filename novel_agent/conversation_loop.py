@@ -469,6 +469,8 @@ class ConversationLoop:
                 f"{label} — {len(content)} chars",
                 ["Save", "Discard"],
             )
+        if not action:
+            return json.dumps({"status": "skipped"})  # User pressed Esc
 
         if "Discard" in action:
             reason = note or input("  Why discard? ").strip()
