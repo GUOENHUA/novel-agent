@@ -130,6 +130,7 @@ class ConversationLoop:
             try:
                 user_input = input(PROMPT).strip()
             except EOFError:
+                self.agent.save_session()
                 safe_print("\nGoodbye!")
                 break
             except KeyboardInterrupt:
@@ -579,6 +580,7 @@ class ConversationLoop:
         command = parts[0].lower()
 
         if command in ("/quit", "/exit"):
+            self.agent.save_session()
             safe_print("Goodbye!")
             return False
         elif command == "/help":
