@@ -710,12 +710,29 @@ class AIAgent:
         """Make an API call to Claude, with optional streaming."""
         import time
 
+        # Sanitize all messages to ensure API-compatible format
+        clean_messages = []
+        for msg in messages:
+            role = msg.get("role", "user")
+            content = msg.get("content", "")
+            if isinstance(content, str):
+                if role == "user":
+                    # User messages: strings are fine
+                    clean_messages.append(msg)
+                else:
+                    # Assistant messages: must be ContentBlock array
+                    clean_messages.append({"role": role, "content": [{"type": "text", "text": content}]})
+            elif isinstance(content, list):
+                clean_messages.append(msg)
+            else:
+                clean_messages.append({"role": role, "content": [{"type": "text", "text": str(content)}]})
+
         kwargs: dict[str, Any] = {
             "model": self.model,
             "max_tokens": max_tokens,
             "temperature": temperature,
             "system": self.build_system_prompt(),
-            "messages": messages,
+            "messages": clean_messages,
         }
         if tools:
             kwargs["tools"] = tools
