@@ -84,6 +84,7 @@ class ConversationLoop:
 
         # Header
         safe_print(f"\n  [bold]novel-agent[/bold]   {self.agent.novel_title}   {self.agent.model}")
+        safe_print(f"  [dim]context: {budget.total:,} tokens | compress at {budget.compress_threshold:,} | tail protect {budget.tail_token_budget:,}[/dim]")
         if existing:
             last_ch = sorted(p.stem for p in existing)[-1]
             safe_print(f"  {len(existing)}/{self.agent.total_chapters} chapters   {total_written:,} words   latest: [bold]{last_ch}[/bold]")
@@ -263,7 +264,11 @@ class ConversationLoop:
 
             # Tool call loop
             tool_rounds = 0
+            max_tool_rounds = 15  # Prevent runaway loops from exhausting context
             while response.stop_reason == "tool_use":
+                if tool_rounds >= max_tool_rounds:
+                    safe_print(f"  [yellow]Reached max tool rounds ({max_tool_rounds}) — stopping tool loop[/yellow]")
+                    break
                 tool_results = []
                 for block in response.content:
                     if block.type == "tool_use":
@@ -305,7 +310,9 @@ class ConversationLoop:
                     response = self.agent.call_llm(messages=messages, tools=all_tools)
                     elapsed = time.time() - t0
                     if hasattr(response, "usage") and response.usage:
-                        status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens}+{response.usage.output_tokens} tk)")
+                        pct = response.usage.input_tokens / budget.total * 100
+                        warn = " ⚠️" if response.usage.input_tokens > budget.compress_threshold else ""
+                        status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens:,}+{response.usage.output_tokens:,} tk = {pct:.0f}%{warn})")
 
                 if hasattr(response, "usage") and response.usage:
                     turn_input_tokens += response.usage.input_tokens
