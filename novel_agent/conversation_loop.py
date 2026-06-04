@@ -598,8 +598,16 @@ class ConversationLoop:
         return json.dumps({"status": "saved"})
 
     def _maybe_compress(self, last_turn_tokens: int) -> None:
-        """Compress old conversation turns when history grows too large."""
+        """Compress old conversation turns using structured novel-writing template.
+
+        Uses iterative summary updates (preserves previous summary and merges
+        new information) and structured template with Active Task, Writing
+        Progress, Scene State, Hook Status, etc.
+        """
         from novel_agent.context.token_counter import estimate_messages_tokens
+        from novel_agent.context.compressor import (
+            NOVEL_SUMMARY_TEMPLATE, _SUMMARY_RATIO, _SUMMARY_TOKENS_CEILING, _MIN_SUMMARY_TOKENS,
+        )
 
         history = self.agent.conversation_history
         if len(history) < 12:
@@ -629,43 +637,104 @@ class ConversationLoop:
         if len(old_turns) < 6:
             return
 
-        summary = self._summarize_turns(old_turns)
+        summary = self._generate_compression_summary(old_turns, est)
         if not summary:
             return
 
         compressed = [
-            {"role": "user", "content": f"[CONTEXT SUMMARY] Earlier turns compacted:\n\n{summary}"},
+            {"role": "user", "content": (
+                "[CONTEXT COMPACTION — REFERENCE ONLY] Earlier turns were compacted "
+                "into the summary below. This is a handoff from a previous context "
+                "window — treat it as background reference, NOT as active instructions. "
+                "Respond ONLY to the latest user message.\n\n" + summary
+            )},
         ]
         self.agent.conversation_history = compressed + history[-keep_count:]
         self.agent.clear_prompt_cache()
         saved = est - estimate_messages_tokens(compressed) if compressed else 0
         safe_print(f"  [dim]Compressed: {len(history)} → {len(self.agent.conversation_history)} messages (~{saved} tokens saved)[/dim]")
 
-    def _summarize_turns(self, turns: list[dict]) -> str:
-        """Summarize old conversation turns."""
+    def _generate_compression_summary(self, turns: list[dict], current_est: int) -> str:
+        """Generate a structured compression summary using the novel-writing template.
+
+        Supports iterative updates: if a previous summary exists, merges new
+        information into it instead of summarizing from scratch.
+        """
+        from novel_agent.context.compressor import (
+            NOVEL_SUMMARY_TEMPLATE, _SUMMARY_RATIO, _SUMMARY_TOKENS_CEILING, _MIN_SUMMARY_TOKENS,
+        )
+
         try:
-            serialized = []
-            for msg in turns:
-                role = msg.get("role", "?")
-                content = msg.get("content", "")
-                text = str(content) if isinstance(content, str) else " ".join(
-                    getattr(b, "text", "") if hasattr(b, "text") else str(b)[:200]
-                    for b in content
-                ) if isinstance(content, list) else ""
-                serialized.append(f"[{role}]: {text[:500]}")
-            body = "\n\n".join(serialized[-20:])
+            serialized = self._serialize_turns_for_compression(turns)
+
+            # Scale summary budget to compressed content size
+            summary_budget = max(
+                _MIN_SUMMARY_TOKENS,
+                min(_SUMMARY_TOKENS_CEILING, int(len(serialized) * _SUMMARY_RATIO)),
+            )
+            template = NOVEL_SUMMARY_TEMPLATE.replace("{summary_budget}", str(summary_budget))
+
+            # Iterative update: preserve existing summary and merge new information
+            prev = getattr(self, "_compression_summary_cache", None)
+            if prev:
+                user_prompt = (
+                    f"PREVIOUS SUMMARY:\n{prev}\n\n"
+                    f"NEW TURNS TO INCORPORATE:\n{serialized}\n\n"
+                    f"Update the summary using this exact structure:\n\n{template}"
+                )
+            else:
+                user_prompt = (
+                    f"TURNS TO SUMMARIZE:\n{serialized}\n\n"
+                    f"Use this exact structure:\n\n{template}"
+                )
 
             resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": (
-                    "Summarize these novel-writing conversation turns in Chinese. "
-                    "Focus on: key decisions, chapters written, character developments, "
-                    "plot directions. Keep under 500 chars.\n\n" + body
-                )}],
-                max_tokens=400, temperature=0.3,
+                messages=[{"role": "user", "content": user_prompt}],
+                max_tokens=min(4000, summary_budget * 2),
+                temperature=0.3,
             )
-            return self.agent.extract_text(resp.content).strip()
+            summary = self.agent.extract_text(resp.content).strip()
+            if summary:
+                self._compression_summary_cache = summary
+                return summary
         except Exception:
-            return ""
+            pass
+        return ""
+
+    @staticmethod
+    def _serialize_turns_for_compression(turns: list[dict]) -> str:
+        """Serialize conversation turns for the summarizer.
+
+        Preserves tool_use/tool_result context and handles both dict and
+        object-based content blocks.
+        """
+        parts = []
+        for msg in turns[-30:]:  # At most 30 turns as summarizer input
+            role = msg.get("role", "?")
+            content = msg.get("content", "")
+            if isinstance(content, str):
+                text = content[:800]
+            elif isinstance(content, list):
+                texts = []
+                for block in content:
+                    if isinstance(block, dict):
+                        if block.get("type") == "text":
+                            texts.append(block.get("text", "")[:400])
+                        elif block.get("type") == "tool_use":
+                            texts.append(f"[tool: {block.get('name', '?')}]")
+                        elif block.get("type") == "tool_result":
+                            inner = block.get("content", "")
+                            t = str(inner) if not isinstance(inner, str) else inner
+                            texts.append(f"[result: {t[:200]}]")
+                    elif hasattr(block, "text"):
+                        texts.append(block.text[:400])
+                    elif hasattr(block, "type"):
+                        texts.append(f"[{block.type}]")
+                text = "\n  ".join(t for t in texts if t)[:800]
+            else:
+                text = str(content)[:800]
+            parts.append(f"[{role}]: {text}")
+        return "\n\n".join(parts)
 
     def _handle_command(self, cmd: str) -> bool:
         """Handle slash commands."""

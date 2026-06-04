@@ -1,0 +1,78 @@
+[
+  {
+    "id": "hook-001",
+    "description": "灵气在人体内形成精确的无标度网络拓扑——不是自然进化的产物，是被设计出来的。沈渊在第一章通过自我感知发现27个节点构成的路由网络。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-04T11:18:49.021504",
+    "updated_at": "2026-06-04T11:18:49.021504"
+  },
+  {
+    "id": "hook-002",
+    "description": "原身被逐出青云宗——「天道不纳，留你无益」。师父没有解释何谓灵根、何谓天道。原因不明。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "赵长老"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-04T11:18:49.029587",
+    "updated_at": "2026-06-04T11:18:49.029587"
+  },
+  {
+    "id": "hook-003",
+    "description": "墙上的断剑——断口平整，不像战斗中崩断，是被某个人用精确手法斩断的。暗示原身有未被揭示的过去。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-04T11:18:49.037456",
+    "updated_at": "2026-06-04T11:18:49.037456"
+  },
+  {
+    "id": "hook-004",
+    "description": "沈渊的博士论文题目——「寄生生物与宿主代谢通路的协同进化」——这是全书核心隐喻。寄生生物重构宿主代谢网络，宿主不会问为什么，只会感激。",
+    "hook_type": "naming",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 200,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-04T11:18:49.040612",
+    "updated_at": "2026-06-04T11:18:49.040612"
+  },
+  {
+    "id": "hook-005",
+    "description": "离心机事故——转子频率偏高两赫兹。沈渊死因。是否真的是事故？（可能是后期揭示的伏笔）",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 500,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-04T11:18:49.050067",
+    "updated_at": "2026-06-04T11:18:49.050067"
+  }
+]

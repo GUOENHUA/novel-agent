@@ -503,7 +503,7 @@ class AIAgent:
             lines.append(f"(尚无 outline.md — 使用 outline_plot 生成)")
             lines.append("")
 
-        # 4. Scene characters
+        # 4. Scene characters (from state file)
         if state.characters:
             active = {n: c for n, c in state.characters.items() if c.alive}
             if active:
@@ -514,7 +514,32 @@ class AIAgent:
                     lines.append(f"- **{name}**: {char.emotional_state}{loc}{goal}")
                 lines.append("")
 
-        # 5. Hooks by scope (book → volume → arc → chapter)
+        # 4b. Character voice samples (1-2 representative lines per active character)
+        voice_samples = self._fetch_character_voices(active.keys() if active else [])
+        if voice_samples:
+            lines.append("## 🗣 角色声音样本")
+            for vs in voice_samples:
+                lines.append(f"- {vs}")
+            lines.append("")
+
+        # 4c. Style anchor from recent chapter opening
+        if ch > 1:
+            prev_path = self.chapter_path(ch - 1)
+            if prev_path.exists():
+                prev_text = prev_path.read_text(encoding="utf-8")
+                # Extract first 200 chars of actual prose (after title/header)
+                body_start = 0
+                for i, line in enumerate(prev_text.split("\n")):
+                    if line.strip() and not line.startswith("#") and not line.startswith("---"):
+                        body_start = prev_text.find(line)
+                        break
+                opening = prev_text[body_start:body_start + 200].strip() if body_start > 0 else prev_text[:200]
+                if opening:
+                    lines.append("## 🖋 前一章文风锚点")
+                    lines.append(f"```\n{opening}\n```")
+                    lines.append("")
+
+        # 5. Hooks — only show overdue, book-level, and nearly-due chapter hooks
         active_hooks = self.hook_ledger.get_active()
         if active_hooks:
             lines.append("## 🔮 伏笔")
@@ -688,6 +713,43 @@ class AIAgent:
                     if first_line and len(first_line) < 200:
                         constraints.append(first_line)
             return constraints
+        except Exception:
+            return []
+
+    def _fetch_character_voices(self, active_names: set) -> list[str]:
+        """Fetch 1-2 representative dialogue lines per active character from memory.
+
+        Extracts the first quoted dialogue from each character's memory file
+        to anchor the model's writing style to established voices.
+        """
+        import re
+        samples = []
+        try:
+            from novel_agent.memory.memory_store import MemoryStore
+            store = MemoryStore(self.memory_dir)
+            headers = store.scan_memory_headers()
+            char_headers = [h for h in headers if h.get("type") == "character"
+                           and h.get("name") in active_names]
+            for h in char_headers[:5]:  # At most 5 characters
+                content = store.read_memory(h["filename"])
+                if not content:
+                    continue
+                body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
+                # Find quoted dialogue lines
+                quotes = re.findall(r'["""]([^"""]{10,80})["”"]', body)
+                if not quotes:
+                    quotes = re.findall(r'「([^」]{10,80})」', body)
+                if quotes:
+                    sample = quotes[0][:80]
+                    samples.append(f"**{h['name']}**: \"{sample}\"")
+                else:
+                    # Fallback: first meaningful line
+                    for line in body.split("\n"):
+                        line = line.strip()
+                        if line and not line.startswith("#") and len(line) > 10:
+                            samples.append(f"**{h['name']}**: {line[:80]}")
+                            break
+            return samples[:8]  # Keep it compact
         except Exception:
             return []
 
