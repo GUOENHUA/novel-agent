@@ -1,5 +1,0 @@
-- [world-tiandao-parasite](world-world-tiandao-parasite.md) — 天道寄生虫核心设定——天道本质、修行体系、命种机制
-- [world-factions](world-world-factions.md) — 势力格局——仙道联盟、魔道诸宗、天罚殿、弑天会
-- [plot-eight-arcs](plot-plot-eight-arcs.md) — 八卷大纲结构：停滞→命种→天罚→墟→代价→逆鳞→弑天→新生
-- [沈渊](char-沈渊.md) — 主角。24岁，苍梧宗前真传弟子，十九岁结丹后修为莫名跌落，现为筑基后期边缘人物。从受害者逐步滑向加害者，最终成为新天道。
-- [黑暗残酷风](style-黑暗残酷风.md) — 整部小说的核心风格：黑暗残酷、道德滑坡、不可逆的损失、主角从受害者变为加害者。反爽文，天道寄生设定下修炼即被吃。

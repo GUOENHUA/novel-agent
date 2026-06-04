@@ -314,8 +314,7 @@ class ConversationLoop:
             # Compression check
             self._maybe_compress(turn_input_tokens)
 
-            # Persist
-            self.agent.save_session()
+            # Persist (always, even after partial failures)
             assistant_text = self.agent.extract_text(response.content)
             self.agent.sync_memories(user_message, assistant_text or "")
 
@@ -324,6 +323,12 @@ class ConversationLoop:
         except Exception as e:
             logger.exception("Turn processing failed")
             safe_print(f"  [red][ERROR][/red] {e}\n")
+        finally:
+            # Always save session, even on error
+            try:
+                self.agent.save_session()
+            except Exception:
+                pass
 
     # Track last text output for preview_chapter (content is in streaming text)
     _last_text_output = ""
