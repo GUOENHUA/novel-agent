@@ -179,7 +179,7 @@ class ConversationLoop:
         preview_tools = [
             {
                 "name": "preview_chapter",
-                "description": "Preview a chapter draft. Call this AFTER you finish writing chapter content. The system will show it to the user for confirmation before saving. Chapter content is passed as a separate text block.",
+                "description": "【必须调用】将刚写完的章节内容保存到文件。每写完一章后必须立即调用此工具，否则内容不会写入磁盘！系统不会自动保存，对话中输出的文字只是临时显示。调用时机：章节正文全部输出完毕后，立即调用。",
                 "input_schema": {
                     "type": "object",
                     "properties": {
@@ -221,7 +221,7 @@ class ConversationLoop:
                         "question": {"type": "string"},
                         "options": {"type": "array", "items": {"type": "string"}, "description": "3-5 options including 'Other (let me explain)'"},
                     },
-                    "required": ["question"],
+                    "required": ["question", "options"],
                 },
             },
         ]
@@ -267,11 +267,14 @@ class ConversationLoop:
                         elif tool_name == "clarify":
                             question = tool_input.get("question", "")
                             options = tool_input.get("options", [])
-                            # Use interactive select if options provided, fallback to text input
-                            if options:
-                                choice = self._interactive_select(question, options)
-                            else:
-                                choice = input(f"\n  {question}\n  > ").strip()
+                            # Always use interactive select. If the model forgot to
+                            # provide options (or provided an empty list), offer a
+                            # sensible default so the user always gets a good UX.
+                            if not options:
+                                options = ["继续", "跳过", "Other（让我详细说明）"]
+                            choice, note = self._interactive_select(question, options)
+                            if note:
+                                choice = f"{choice}\n[备注] {note}"
                             tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
@@ -282,7 +285,9 @@ class ConversationLoop:
                             )
                             tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
 
-                messages.append({"role": "assistant", "content": response.content})
+                # Convert SDK ContentBlock objects to plain dicts for safe serialization
+                assistant_content = self._serialize_content_blocks(response.content)
+                messages.append({"role": "assistant", "content": assistant_content})
                 messages.append({"role": "user", "content": tool_results})
 
                 tool_rounds += 1
@@ -296,9 +301,11 @@ class ConversationLoop:
                 if hasattr(response, "usage") and response.usage:
                     turn_input_tokens += response.usage.input_tokens
                     turn_output_tokens += response.usage.output_tokens
-                # Accumulate text across all responses in this turn
+                # Track the current response's text for preview tools.
+                # Replace (don't accumulate) so each preview gets the correct
+                # text for THIS response, not stale text from previous rounds.
                 new_text = self.agent.extract_text(response.content) or ""
-                self._last_text_output = (self._last_text_output + "\n" + new_text).strip()
+                self._last_text_output = new_text
                 if new_text.strip():
                     safe_print(new_text)
                     safe_print("")
@@ -312,12 +319,19 @@ class ConversationLoop:
             # Update history — only save user + assistant final text (not tool interactions)
             # Tool_use/tool_result pairs break on resume since tool_use_ids don't persist
             self.agent.conversation_history.append({"role": "user", "content": user_message})
-            # Build a clean text-only assistant message
+            # Build a clean text-only assistant message (serialize SDK blocks to plain dicts)
             final_text = self.agent.extract_text(response.content) or ""
-            self.agent.conversation_history.append({
-                "role": "assistant",
-                "content": [{"type": "text", "text": final_text}] if final_text else response.content,
-            })
+            if final_text:
+                self.agent.conversation_history.append({
+                    "role": "assistant",
+                    "content": [{"type": "text", "text": final_text}],
+                })
+            else:
+                serialized = self._serialize_content_blocks(response.content)
+                self.agent.conversation_history.append({
+                    "role": "assistant",
+                    "content": serialized,
+                })
 
             # Compression check
             self._maybe_compress(turn_input_tokens)
@@ -340,6 +354,42 @@ class ConversationLoop:
 
     # Track last text output for preview_chapter (content is in streaming text)
     _last_text_output = ""
+
+    @staticmethod
+    def _serialize_content_blocks(content_blocks: list) -> list[dict]:
+        """Convert Anthropic SDK ContentBlock objects to plain dicts.
+
+        SDK response objects (TextBlock, ToolUseBlock, ThinkingBlock) are NOT
+        safe to pass back in subsequent requests — the SDK's request serializer
+        may crash (e.g., ThinkingBlock has no .text attribute). Convert them to
+        plain dicts that can be safely JSON-serialized.
+
+        Thinking blocks are preserved as dicts (DeepSeek requires them back in
+        thinking mode), but the SDK cannot serialize them as objects.
+        """
+        result = []
+        for block in content_blocks:
+            if hasattr(block, "type"):
+                d = {"type": block.type}
+                if block.type == "text":
+                    d["text"] = block.text
+                elif block.type == "tool_use":
+                    d["id"] = block.id
+                    d["name"] = block.name
+                    d["input"] = dict(block.input) if block.input else {}
+                elif block.type == "thinking":
+                    d["thinking"] = block.thinking
+                    if hasattr(block, "signature") and block.signature:
+                        d["signature"] = block.signature
+                elif block.type == "redacted_thinking":
+                    if hasattr(block, "data"):
+                        d["data"] = block.data
+                result.append(d)
+            elif isinstance(block, dict):
+                result.append(block)
+            else:
+                result.append(block)
+        return result
 
     def _interactive_select(self, question: str, options: list[str]) -> str:
         """Interactive select: ↑↓ arrows, Enter=confirm, Tab=inline note input."""
@@ -525,7 +575,16 @@ class ConversationLoop:
                 chapters_dir=str(self.agent.chapters_dir),
                 project_dir=str(self.agent.project_dir),
             )
-            safe_print(f"  [green]Saved: {name}[/green]")
+            # Check if save actually succeeded
+            try:
+                parsed = json.loads(result)
+                if parsed.get("success"):
+                    safe_print(f"  [green]Saved: {name}[/green]")
+                else:
+                    err = parsed.get("error", "unknown error")
+                    safe_print(f"  [red]Save failed: {err}[/red]")
+            except Exception:
+                safe_print(f"  [green]Saved: {name}[/green]")
             return result
 
         return json.dumps({"status": "saved"})
