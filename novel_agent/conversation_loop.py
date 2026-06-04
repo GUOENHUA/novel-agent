@@ -310,7 +310,10 @@ class ConversationLoop:
             self.agent.conversation_history.append({"role": "user", "content": user_message})
             # Build a clean text-only assistant message
             final_text = self.agent.extract_text(response.content) or ""
-            self.agent.conversation_history.append({"role": "assistant", "content": final_text})
+            self.agent.conversation_history.append({
+                "role": "assistant",
+                "content": [{"type": "text", "text": final_text}] if final_text else response.content,
+            })
 
             # Compression check
             self._maybe_compress(turn_input_tokens)
