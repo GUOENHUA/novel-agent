@@ -22,6 +22,8 @@ def character_tool_handler(args: dict[str, Any], **kwargs) -> str:
         return _handle_develop(args)
     elif action == "analyze":
         return _handle_analyze(args)
+    elif action == "register":
+        return _handle_register(args)
     elif action == "list":
         return _handle_list(args, kwargs)
     else:
@@ -88,6 +90,48 @@ def _handle_develop(args: dict[str, Any]) -> str:
     )
 
 
+def _handle_register(args: dict[str, Any]) -> str:
+    """Quick-register a minor/henchman character with minimal info.
+
+    For characters that appear in 1-3 scenes, don't need full development.
+    Saves name, one-line role, chapter appearance, and optional notes.
+    Results should be saved with memory tool (type=character).
+    """
+    name = args.get("name", "")
+    if not name:
+        return tool_error("name is required.")
+
+    role = args.get("role", "")  # e.g., "青云宗外门执事", "茶馆跑堂"
+    chapter = args.get("chapter", "")
+    tier = args.get("tier", "minor")
+    notes = args.get("notes", "")
+
+    directive = f"""## 快速注册配角: {name}
+
+**重要性**: {tier}（minor=龙套/cameo=单场/supporting=次要配角/major=重要配角）
+**出场章节**: {chapter or '未指定'}
+**身份/定位**: {role or '未指定'}
+
+请基于以上信息，用 2-4 句话概括这个角色的核心特征，保存为 memory（type=character）。
+格式示例：
+  - 外貌/辨识特征（1 句）
+  - 与主角/主线的关联（1 句）
+  - 若有特殊能力或秘密，简单说明
+
+{f'补充说明: {notes}' if notes else ''}
+
+保存后，在 MEMORY.md 中添加一行索引。"""
+
+    return tool_result(
+        success=True,
+        action="register",
+        name=name,
+        tier=tier,
+        directive=directive,
+        hint="Use the memory tool (action=add, type=character) to save this character. Keep description brief (2-4 sentences).",
+    )
+
+
 def _handle_analyze(args: dict[str, Any]) -> str:
     """Analyze a character for consistency and depth."""
     name = args.get("name", "")
@@ -139,19 +183,39 @@ CHARACTER_TOOL_SCHEMA = {
     "description": (
         "发展或分析小说角色。基于三滑块模型（主动性/讨喜度/能力）、"
         "Wound/Want/Need/Lie 因果链、8维度对话区别度等框架。\n\n"
-        "操作：develop（生成角色发展指令）、analyze（分析角色一致性和深度）。"
+        "操作：develop（深度发展主角/重要配角，完整框架）、"
+        "register（快速登记喽啰/龙套型配角，2-4句即可）、"
+        "analyze（分析角色一致性和深度）。\n\n"
+        "注意：重要角色用 develop，出场1-3次的次要角色/龙套用 register。"
     ),
     "input_schema": {
         "type": "object",
         "properties": {
             "action": {
                 "type": "string",
-                "enum": ["develop", "analyze"],
-                "description": "操作类型。develop=发展角色，analyze=分析角色。"
+                "enum": ["develop", "register", "analyze"],
+                "description": "develop=深度发展，register=快速登记配角，analyze=分析已有角色。"
             },
             "name": {
                 "type": "string",
-                "description": "角色名称。develop 时需要。"
+                "description": "角色名称。develop 和 register 时需要。"
+            },
+            "role": {
+                "type": "string",
+                "description": "角色的身份/定位简述（register 时使用），如'青云宗外门执事'。"
+            },
+            "chapter": {
+                "type": "string",
+                "description": "角色出场的章节号（register 时使用）。"
+            },
+            "tier": {
+                "type": "string",
+                "enum": ["major", "supporting", "minor", "cameo"],
+                "description": "角色重要度。major=重要配角，supporting=次要配角，minor=龙套，cameo=单场。register 时使用，默认 minor。"
+            },
+            "notes": {
+                "type": "string",
+                "description": "额外备注（register 时使用）。"
             },
             "memory_content": {
                 "type": "string",
