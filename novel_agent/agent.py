@@ -439,6 +439,23 @@ class AIAgent:
             lines.append(f"当前场景: {state.current_scene}")
         lines.append("")
 
+        # 1b. Rhythm bar — mood + word count of last 5 chapters
+        summaries = self.truth_files.load_summaries() if hasattr(self, "truth_files") and self.truth_files else []
+        if summaries and len(summaries) >= 2:
+            recent_5 = summaries[-5:]
+            parts = []
+            for s in recent_5:
+                title = s.title or f"Ch{s.chapter_number}"
+                mood_map = {"tense": "紧张", "hopeful": "希望", "tragic": "悲壮",
+                            "mysterious": "神秘", "dark": "黑暗", "neutral": "中性",
+                            "romantic": "浪漫", "whimsical": "奇幻"}
+                mood_cn = mood_map.get(s.mood, s.mood) if s.mood else "—"
+                parts.append(f"{title} {s.word_count}字 {mood_cn}")
+            if ch > len(summaries):
+                parts.append(f"Ch{ch} (待写)")
+            lines.append(f"📊 最近: {' → '.join(parts)}")
+            lines.append("")
+
         # 2. Previous chapter ending (most important anchor)
         if ch > 1:
             prev_path = self.chapter_path(ch - 1)
@@ -509,9 +526,11 @@ class AIAgent:
             lines.append("")
 
         # 4. Scene characters (from state file)
+        active_chars: set = set()
         if state.characters:
             active = {n: c for n, c in state.characters.items() if c.alive}
             if active:
+                active_chars = set(active.keys())
                 lines.append("## 🎬 当前场景角色")
                 for name, char in active.items():
                     loc = f" @{char.current_location}" if char.current_location else ""
@@ -520,59 +539,100 @@ class AIAgent:
                 lines.append("")
 
         # 4b. Character voice samples (1-2 representative lines per active character)
-        voice_samples = self._fetch_character_voices(active.keys() if active else [])
+        voice_samples = self._fetch_character_voices(active_chars)
         if voice_samples:
             lines.append("## 🗣 角色声音样本")
             for vs in voice_samples:
                 lines.append(f"- {vs}")
             lines.append("")
 
-        # 4c. Style anchor from recent chapter opening
+        # 4c. Golden paragraph — style anchor from ~20% into previous chapter.
+        # Chapter openings warm up (scene-setting, bridging); endings wrap up.
+        # The middle section (~20% in) captures the chapter's core narrative
+        # rhythm — the best reference for maintaining consistent voice.
         if ch > 1:
             prev_path = self.chapter_path(ch - 1)
             if prev_path.exists():
                 prev_text = prev_path.read_text(encoding="utf-8")
-                # Extract first 200 chars of actual prose (after title/header)
+                # Find body start (skip title/header/frontmatter lines)
                 body_start = 0
                 for i, line in enumerate(prev_text.split("\n")):
                     if line.strip() and not line.startswith("#") and not line.startswith("---"):
                         body_start = prev_text.find(line)
                         break
-                opening = prev_text[body_start:body_start + budget.style_anchor_chars].strip() if body_start > 0 else prev_text[:budget.style_anchor_chars]
-                if opening:
+                body = prev_text[body_start:] if body_start > 0 else prev_text
+                # Take golden paragraph from ~20% into the body
+                mid_pos = len(body) // 5
+                golden = body[mid_pos:mid_pos + budget.style_anchor_chars].strip()
+                if golden:
                     lines.append("## 🖋 前一章文风锚点")
-                    lines.append(f"```\n{opening}\n```")
+                    lines.append(f"```\n{golden}\n```")
                     lines.append("")
 
-        # 5. Hooks — only show overdue, book-level, and nearly-due chapter hooks
+        # 4d. POV anchor — viewpoint character and narrative setup for previous chapter
+        prev_summary = summaries[-1] if summaries and summaries[-1].chapter_number == ch - 1 else None
+        if prev_summary and prev_summary.pov_character:
+            pov_parts = [f"上一章视角: {prev_summary.pov_character}"]
+            if prev_summary.narrative_distance:
+                dist_map = {"close_third": "第三人称有限", "omniscient": "全知",
+                            "first_person": "第一人称"}
+                pov_parts.append(dist_map.get(prev_summary.narrative_distance, prev_summary.narrative_distance))
+            if prev_summary.tense:
+                tense_map = {"past": "过去时", "present": "现在时"}
+                pov_parts.append(tense_map.get(prev_summary.tense, prev_summary.tense))
+            lines.append(f"👁 {' | '.join(pov_parts)}")
+            lines.append("")
+
+        # 5. Hooks — tiered by scope and deadline window
         active_hooks = self.hook_ledger.get_active()
         if active_hooks:
             lines.append("## 🔮 伏笔")
+            overdue = self.hook_ledger.get_overdue(ch)
+            overdue_ids = {h.id for h in overdue}
+            window_end = ch + 10  # 10-chapter window for arc/chapter-level hooks
+
+            # --- Overdue: never collapse ---
+            if overdue:
+                lines.append(f"**⚠️ 逾期 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
+
+            # --- Tier 1: Always loaded (book + volume) ---
             book_hooks = [h for h in active_hooks if getattr(h, 'scope', None) == "book"]
             volume_hooks = [h for h in active_hooks if getattr(h, 'scope', None) == "volume"]
-            chapter_hooks = [h for h in active_hooks if getattr(h, 'scope', None) not in ("book", "volume")]
-            overdue = self.hook_ledger.get_overdue(ch)
+            always_shown = book_hooks + volume_hooks
+            if always_shown:
+                lines.append("**全书/本卷:**")
+                for h in always_shown:
+                    overdue_mark = " ⚠️" if h.id in overdue_ids else ""
+                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
+                    lines.append(f"- [{h.id}] {h.description}{target}{overdue_mark}")
 
-            if overdue:
-                lines.append(f"**⚠️ 过期 ({len(overdue)}):** {', '.join(f'[{h.id}]' for h in overdue)}")
+            # --- Tier 2: Window (arc/chapter, within 10 chapters) ---
+            window_hooks = [
+                h for h in active_hooks
+                if getattr(h, 'scope', None) not in ("book", "volume")
+                and h.target_chapter and h.target_chapter <= window_end
+            ]
+            window_hooks.sort(key=lambda h: h.target_chapter or 999)
+            if window_hooks:
+                lines.append(f"**{ch}-{window_end}章内 ({len(window_hooks)}):**")
+                for h in window_hooks:
+                    overdue_mark = " ⚠️" if h.id in overdue_ids else ""
+                    remaining = f" (还剩{h.target_chapter - ch}章)" if h.target_chapter else ""
+                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
+                    lines.append(f"- [{h.id}] {h.description}{target}{remaining}{overdue_mark}")
 
-            if book_hooks:
-                lines.append("**全书:**")
-                for h in book_hooks:
-                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
-                    lines.append(f"- [{h.id}] {h.description}{target}")
-            if volume_hooks:
-                lines.append("**本卷:**")
-                for h in volume_hooks:
-                    urgent = " ⚠️" if h.target_chapter and h.target_chapter <= ch + 3 else ""
-                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
-                    lines.append(f"- [{h.id}] {h.description}{target}{urgent}")
-            if chapter_hooks[:8]:
-                lines.append("**章节:**")
-                for h in sorted(chapter_hooks, key=lambda h: h.target_chapter or 999)[:8]:
-                    urgent = " ⚠️" if h.target_chapter and h.target_chapter <= ch + 1 else ""
-                    target = f" → 第{h.target_chapter}章" if h.target_chapter else ""
-                    lines.append(f"- [{h.id}] {h.description}{target}{urgent}")
+            # --- Tier 3: Folded (far future) ---
+            far_hooks = [
+                h for h in active_hooks
+                if getattr(h, 'scope', None) not in ("book", "volume")
+                and (not h.target_chapter or h.target_chapter > window_end)
+            ]
+            if far_hooks:
+                ids = ", ".join(f"[{h.id}]" for h in far_hooks[:10])
+                more = f" ...等共{len(far_hooks)}个" if len(far_hooks) > 10 else ""
+                lines.append(f"📦 远期伏笔 ({len(far_hooks)}): {ids}{more}")
+                lines.append("  (需要时用 track_hooks(action=report) 查询全部)")
+
             lines.append("")
 
         # 6. Recent + relevant chapter summaries (last 3 always, +5 LLM-selected)

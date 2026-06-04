@@ -82,6 +82,11 @@ class ChapterSummary(BaseModel):
     hooks_planted: list[str] = Field(default_factory=list)
     hooks_resolved: list[str] = Field(default_factory=list)
     mood: str = ""  # e.g. "tense", "hopeful", "tragic"
+    # POV/viewpoint — optional, backward-compatible (empty = unknown)
+    pov_character: str = Field(default="", description="Viewpoint character for this chapter")
+    narrative_distance: str = Field(default="", description="close_third | omniscient | first_person")
+    tense: str = Field(default="", description="past | present")
+    thought_style: str = Field(default="", description="free_indirect | direct_thought | none")
 
 
 # -- Novel State ---------------------------------------------------------------
