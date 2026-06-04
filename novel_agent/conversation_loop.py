@@ -417,9 +417,11 @@ class ConversationLoop:
         )
 
         result = app.run()
-        if isinstance(result, tuple):
+        if isinstance(result, tuple) and len(result) == 2:
             return result
-        return (result, "") if result else ("", "")
+        if isinstance(result, str) and result:
+            return (result, "")
+        return ("", "")
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""
