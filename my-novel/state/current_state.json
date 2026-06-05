@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 7,
+  "current_chapter": 4,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,15 +8,15 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "从测试前的紧绷到成功后的警觉",
-      "goal": "完成借灵循环测试，获取下一步行动方案",
+      "emotional_state": "饥饿转为警觉、好奇，获得线索后决心寻找姜凝",
+      "goal": "寻找食物和水，进而获取更多关于灵气真相的数据",
       "alive": true,
       "chapter_updated": 0
     },
     "丹药铺伙计": {
       "name": "丹药铺伙计",
       "current_location": "",
-      "emotional_state": "恐惧但配合",
+      "emotional_state": "感激",
       "goal": "交出师傅手记帮助沈渊",
       "alive": true,
       "chapter_updated": 0
@@ -24,8 +24,8 @@
     "姜凝": {
       "name": "姜凝",
       "current_location": "",
-      "emotional_state": "谨慎、担忧",
-      "goal": "帮助沈渊完成借灵循环，分享赵三问和玄明的信息",
+      "emotional_state": "面对武器的评估→紧张退去→严肃疏离",
+      "goal": "验证沈渊体系可靠性，必要时独立执行三件事",
       "alive": true,
       "chapter_updated": 0
     },
@@ -48,5 +48,5 @@
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T10:43:38.305860"
+  "last_updated": "2026-06-05T10:54:53.180267"
 }

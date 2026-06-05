@@ -246,12 +246,12 @@
     "description": "灵气通过皮肤标记改变感知——每个人尝出不同味道，证实天道在修士体内有个体化标识",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-05T10:22:06.374543",
-    "updated_at": "2026-06-05T10:22:06.374543"
+    "updated_at": "2026-06-05T10:48:58.457640"
   },
   {
     "id": "hook-19-4",
@@ -273,11 +273,11 @@
     "scope": "chapter",
     "status": "resolved",
     "planted_chapter": 7,
-    "resolved_chapter": 10,
+    "resolved_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-05T10:22:06.393961",
-    "updated_at": "2026-06-05T10:33:17.835145"
+    "updated_at": "2026-06-05T10:48:58.472496"
   },
   {
     "id": "hook-19-6",
@@ -614,5 +614,284 @@
     "related_hooks": [],
     "created_at": "2026-06-05T10:43:38.269086",
     "updated_at": "2026-06-05T10:43:38.269086"
+  },
+  {
+    "id": "hook-22-1",
+    "description": "信号泄漏是摆脱石片锁定的唯一变量，沈渊三天内必须建成旁路阻断",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:48:58.406702",
+    "updated_at": "2026-06-05T10:48:58.406702"
+  },
+  {
+    "id": "hook-22-2",
+    "description": "姜凝与白砚行的交换条件：离开天元宗、姜凝自由、药物记录作为验证证据",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:48:58.418483",
+    "updated_at": "2026-06-05T10:48:58.418483"
+  },
+  {
+    "id": "hook-22-3",
+    "description": "玄明真人获得更高权限，石片持续发热指向丹田位置",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:48:58.428071",
+    "updated_at": "2026-06-05T10:48:58.429072"
+  },
+  {
+    "id": "hook-22-4",
+    "description": "石片数据库从三十二条记录增长至近百条，同步规则待破译",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:48:58.438581",
+    "updated_at": "2026-06-05T10:48:58.438581"
+  },
+  {
+    "id": "hook-22-5",
+    "description": "赵三问生前记录的释放口解剖图标明三厘米安全距离，暗示借灵法的精确性要求",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:48:58.448093",
+    "updated_at": "2026-06-05T10:48:58.448093"
+  },
+  {
+    "id": "hook-006",
+    "description": "青石驿入口松树上的刻字——「丙申年 林慕仙 过此」。刀刻，收笔习惯性上挑，选在视野盲区俯视驿站的位置。林慕仙身份不明。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 60,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:21.609213",
+    "updated_at": "2026-06-05T10:55:15.680067"
+  },
+  {
+    "id": "hook-007",
+    "description": "青云宗护山大阵上月异常波动三天 + 宗门在查「丢了一样东西」。时间线在沈渊穿越之前。原身日记最后一篇暗示他当时想趁大阵关闭逃跑。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:21.620824",
+    "updated_at": "2026-06-05T10:55:15.691336"
+  },
+  {
+    "id": "hook-008",
+    "description": "驿馆门框右下角的叉形刻痕（两道短横交叉）。原身不认识但身体记得——手指无意识重复笔顺。暗示原身有未被揭示的社会关系网络，有人在找他。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:21.632225",
+    "updated_at": "2026-06-05T10:55:15.701285"
+  },
+  {
+    "id": "hook-001",
+    "description": "灵气网络拓扑是被设计的——节点度呈无标度分布，自然界不会进化出这种结构。沈渊第一章在山洞石壁上画出27个节点后确认。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:27.138770",
+    "updated_at": "2026-06-05T10:50:42.632926"
+  },
+  {
+    "id": "hook-002",
+    "description": "原身被逐出青云宗原因不明。赵长老说「天道不纳，留你无益」但未解释。原身日记反复写赵长老名字然后划掉。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "赵长老"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:42.576593",
+    "updated_at": "2026-06-05T10:50:42.576593"
+  },
+  {
+    "id": "hook-003",
+    "description": "山洞石壁上挂着一截断剑——断口平整，不似战斗中崩断，更像被精确手法斩断。谁斩的？为什么留在山洞里？",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:42.590850",
+    "updated_at": "2026-06-05T10:50:42.590850"
+  },
+  {
+    "id": "hook-004",
+    "description": "沈渊博士论文题目——「寄生生物与宿主代谢通路的协同进化」。寄生生物不让宿主知道自己的存在，重构代谢网络让宿主觉得自己更强。与天道寄生本质形成全书核心隐喻。",
+    "hook_type": "naming",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 200,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:42.604886",
+    "updated_at": "2026-06-05T10:50:42.604886"
+  },
+  {
+    "id": "hook-005",
+    "description": "离心机事故真的是事故吗？沈渊记得离心机转子频率偏高两赫兹——这可能是前兆，也可能有人动了设备。穿越原因成谜。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 500,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:50:42.618701",
+    "updated_at": "2026-06-05T10:50:42.618701"
+  },
+  {
+    "id": "hook-02-5",
+    "description": "溪流中发现带有精密线条的灰色碎片，疑似科技造物",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:52:08.621270",
+    "updated_at": "2026-06-05T10:52:08.621270"
+  },
+  {
+    "id": "hook-02-6",
+    "description": "老妪描述灵气像“蜘蛛网”，有东西在上面爬",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:52:08.633623",
+    "updated_at": "2026-06-05T10:52:08.633623"
+  },
+  {
+    "id": "hook-02-7",
+    "description": "老妪指引沈渊去青阳镇找姜凝",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:52:08.644349",
+    "updated_at": "2026-06-05T10:52:08.644349"
+  },
+  {
+    "id": "hook-02-8",
+    "description": "三十年前一个姑娘有类似灵气分布发现，后死亡",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:52:08.657812",
+    "updated_at": "2026-06-05T10:52:08.657812"
+  },
+  {
+    "id": "hook-011",
+    "description": "跛子——认识原身和赵不肯，用草木灰溶液在沈渊肩膀画路径，传递赵不肯三年前封存的葫芦。他被告知沈渊三个月前死于后山野兽，但昨天有人看到沈渊。髋关节有旧伤。→ 第50章回收",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊",
+      "赵不肯"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:55:15.648603",
+    "updated_at": "2026-06-05T10:55:15.648603"
+  },
+  {
+    "id": "hook-012",
+    "description": "赵不肯的葫芦——丙申年封，内藏麻布片画着桑田路径。葫芦内壁有凸起，葫芦嘴用树胶封合。赵不肯说「等葫芦再打开时，他会告诉沈渊一件事」。→ 第50章回收（与hook-011联动）",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊",
+      "赵不肯"
+    ],
+    "related_hooks": [
+      "hook-011"
+    ],
+    "created_at": "2026-06-05T10:55:15.658421",
+    "updated_at": "2026-06-05T10:55:15.658421"
+  },
+  {
+    "id": "hook-013",
+    "description": "桑田——青石驿东三十里废弃蚕田，蚕瘟后土壤含对修炼者有害物质（灵气干扰），可能是「天道盲区」。赵不肯约沈渊在此见面。→ 第5章回收（下一站）",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 5,
+    "related_characters": [
+      "沈渊",
+      "赵不肯"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:55:15.670306",
+    "updated_at": "2026-06-05T10:55:15.670306"
   }
 ]

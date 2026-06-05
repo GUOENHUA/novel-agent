@@ -695,9 +695,7 @@ class ConversationLoop:
         Progress, Scene State, Hook Status, etc.
         """
         from novel_agent.context.token_counter import estimate_messages_tokens
-        from novel_agent.context.compressor import (
-            NOVEL_SUMMARY_TEMPLATE, _SUMMARY_RATIO, _SUMMARY_TOKENS_CEILING, _MIN_SUMMARY_TOKENS,
-        )
+        from novel_agent.context.compressor import NOVEL_SUMMARY_TEMPLATE
 
         history = self.agent.conversation_history
         if len(history) < 12:
