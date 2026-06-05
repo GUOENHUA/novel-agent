@@ -570,6 +570,9 @@ class ConversationLoop:
         body = '\n'.join(lines[body_start:]).strip()
         if not body or len(body) < 200:
             return {"success": False, "error": f"Body too short ({len(body)} chars)"}
+        # Remove old versions of this chapter (LLM may self-revise and re-save)
+        for old in self.agent.chapters_dir.glob(f"ch_{ch_num:03d}_*.md"):
+            old.unlink()
         path = self.agent.chapter_path(ch_num, title or "untitled")
         path.parent.mkdir(parents=True, exist_ok=True)
         final = f"# 第{ch_num}章 {title}\n\n{body}"
