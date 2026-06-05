@@ -586,50 +586,74 @@ class ConversationLoop:
         return _json.dumps({"status": "unknown_tool"})
 
     def _save_chapter_via_subagent(self, ch_num: int, content: str) -> dict:
-        """Save a chapter via a fresh one-shot LLM call — a sub-agent.
+        """Save a chapter with clean formatting via a sub-agent LLM call.
 
-        No conversation history, just the chapter content and save directive.
-        Returns {'success': True, 'title': ...} or {'success': False, 'error': ...}.
+        The sub-agent has ONE job: take raw chapter text and save it in
+        clean standard format. No conversation history, no tool pollution.
+
+        Clean format:  # 第N章 标题 \\n\\n 正文
+        No meta annotations, no markdown separators, no 第一章完 markers.
         """
         import json as _json
+        import re
         try:
+            # Strip meta annotations from content before saving
+            clean = content
+            # Remove end-of-chapter markers
+            clean = re.sub(r'\n?[*\-—]{3,}\s*第[一二三四五六七八九十\d]+章\s*[完终]\s*[*\-—]{0,3}', '', clean)
+            clean = re.sub(r'\n?[*\-—]{3,}\s*(第[一二三四五六七八九十\d]+章)?\s*[完终]\s*[*\-—]{0,3}', '', clean)
+            clean = re.sub(r'\n[*\-—]{3,}\n?', '\n', clean)
+            # Remove meta comment lines
+            clean = re.sub(r'\n（[^）]*(字数|伏笔|第一章|本章|保存|确认)[^）]*）\n?', '', clean)
+            clean = re.sub(r'\n> [^\n]*\n?', '', clean)  # blockquote notes
+            clean = clean.strip()
+
+            if not clean or len(clean) < 200:
+                return {"success": False, "error": f"Content too short after cleaning ({len(clean)} chars)"}
+
+            # Sub-agent: generate title + verify formatting in one shot
             from novel_agent.tools.registry import registry
             tools = registry.get_definitions()
             directive = (
-                f"Save chapter {ch_num}. Steps:\n"
-                f"1. Generate a Chinese title (2-8 chars, poetic)\n"
-                f"2. Call write_chapter(action=save, chapter_number={ch_num}, title=..., content=...)\n"
-                f"3. Call settle_chapter to extract summary/hooks/characters\n\n"
-                f"Chapter content:\n{content[:8000]}"
+                f"Save chapter {ch_num} to disk. Steps:\n"
+                f"1. Read the chapter content below.\n"
+                f"2. Generate a poetic Chinese title (2-8 characters).\n"
+                f"3. Call write_chapter with action=save, chapter_number={ch_num}, your title, and the content.\n"
+                f"   The file must use this EXACT format with NO extra text:\n"
+                f"   # 第{ch_num}章 标题\n\n正文内容...\n"
+                f"   NO '第X章完' markers. NO '字数：xxx'. NO '伏笔：xxx'.\n"
+                f"   NO '---' separators. NO markdown headers inside the body.\n"
+                f"4. Call settle_chapter to extract summary/hooks/characters.\n\n"
+                f"CHAPTER CONTENT:\n{clean[:8000]}"
             )
-            resp = self.agent.call_llm(
+            self.agent.call_llm(
                 messages=[{"role": "user", "content": directive}],
                 tools=tools,
-                max_tokens=4000,
+                max_tokens=2000,
                 temperature=0.3,
             )
-            # The sub-agent should have called write_chapter save. Verify.
+
+            # Verify the file was saved
             path = self.agent.chapter_path(ch_num)
             if path.exists():
                 saved = path.read_text("utf-8")
-                # Extract title from saved content
                 first_line = saved.split("\n")[0] if saved else ""
-                title = first_line.replace(f"# 第{ch_num}章: ", "").strip()
+                title = first_line.replace(f"# 第{ch_num}章 ", "").strip()
                 return {"success": True, "title": title, "path": str(path),
                         "word_count": len(saved)}
             else:
-                # Fallback: save directly without LLM
+                # Fallback: direct save
                 from novel_agent.auto_pipeline import AutoPipeline
                 p = AutoPipeline(self.agent)
-                title = p._generate_title(content, ch_num)
+                title = p._generate_title(clean, ch_num)
                 path = self.agent.chapter_path(ch_num, title or "untitled")
                 path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(f"# 第{ch_num}章: {title}\n\n{content}", encoding="utf-8")
+                path.write_text(f"# 第{ch_num}章 {title}\n\n{clean}", encoding="utf-8")
                 state = self.agent.truth_files.load_state()
                 state.current_chapter = ch_num + 1
                 self.agent.truth_files.save_state(state)
                 return {"success": True, "title": title, "path": str(path),
-                        "word_count": len(content)}
+                        "word_count": len(clean)}
         except Exception as e:
             return {"success": False, "error": str(e)}
 

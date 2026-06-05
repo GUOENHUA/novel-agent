@@ -1,44 +1,11 @@
 {
   "novel_title": "",
-  "current_chapter": 9,
+  "current_chapter": 8,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {
-    "沈渊": {
-      "name": "沈渊",
-      "current_location": "",
-      "emotional_state": "从理性分析转为深层不安——真相的代价从'适应世界'升级为'生死抉择'",
-      "goal": "先搞清楚石片在追什么，再决定下一步",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "王铁柱": {
-      "name": "王铁柱",
-      "current_location": "",
-      "emotional_state": "疲倦的释然——等了二十二年，终于有人认真对待这个真相",
-      "goal": "告知沈渊全部已知信息，让他做出选择",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "药铺伙计": {
-      "name": "药铺伙计",
-      "current_location": "",
-      "emotional_state": "警觉——回头看地底",
-      "goal": "回避追踪，每晚走不同方向",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "石头": {
-      "name": "石头",
-      "current_location": "",
-      "emotional_state": "安静接受，没有哭，用动作回应信任",
-      "goal": "跟随沈渊走",
-      "alive": true,
-      "chapter_updated": 0
-    }
-  },
+  "characters": {},
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T13:00:30.879032"
+  "last_updated": "2026-06-05T14:10:33.757388"
 }
