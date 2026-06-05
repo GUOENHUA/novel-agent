@@ -149,6 +149,11 @@ class AutoPipeline:
             if len(chapter_content) < 500:
                 _safe_print(f"    Chapter too short ({len(chapter_content)} chars), retrying...")
                 continue
+            # Self-revision: review and improve before finalizing
+            chapter_content = self._revise_chapter(chapter_num, chapter_content)
+            if len(chapter_content) < 500:
+                _safe_print(f"    Revision lost content, retrying...")
+                continue
             slop_score, slop_warnings = self._check_slop(chapter_content)
 
             if slop_score >= DRAFT_PASS_THRESHOLD:
@@ -280,6 +285,39 @@ class AutoPipeline:
         content = self.agent.extract_text(resp.content, fallback_to_thinking=True)
         _safe_print(f"    ({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)")
         return content
+
+    def _revise_chapter(self, chapter_num: int, draft: str) -> str:
+        """Self-revision pass — review and improve the chapter before saving.
+
+        Mirrors the conversational mode's preview→edit loop:
+        the model reviews its own output for dialogue consistency,
+        sensory density, pacing, and AI-slop patterns.
+        """
+        _safe_print(f"    Revising...")
+        try:
+            directive = (
+                f"Review and improve this chapter draft. Fix issues, don't rewrite from scratch.\n\n"
+                f"Check for:\n"
+                f"- Dialogue: consistent character voice, Chinese quotes (「」not \"\"), natural rhythm\n"
+                f"- Prose: vary sentence length, avoid '不是X而是Y' pattern overuse\n"
+                f"- Sensory: at least 2-3 concrete sensory details (sight, sound, touch, smell)\n"
+                f"- Pacing: avoid long static passages, end with forward momentum\n"
+                f"- Slop: remove '嘴角勾起/沉声/眸子/冷笑一声' etc.\n\n"
+                f"Return the FULL improved chapter. Don't summarize or truncate.\n\n"
+                f"{draft[:12000]}"
+            )
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": directive}],
+                max_tokens=len(draft) * 3,
+                temperature=0.4,
+            )
+            revised = self.agent.extract_text(resp.content, fallback_to_thinking=True)
+            if revised and len(revised) > len(draft) * 0.5:
+                _safe_print(f"    Revised: {len(draft)} -> {len(revised)} chars")
+                return revised
+        except Exception:
+            pass
+        return draft  # Fallback: keep original
 
     def _check_slop(self, content: str) -> tuple[float, list[str]]:
         """Run mechanical slop check."""
