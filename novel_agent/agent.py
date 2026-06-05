@@ -546,6 +546,27 @@ class AIAgent:
                 lines.append(f"- {vs}")
             lines.append("")
 
+        # 4b2. Minor character register — compact visibility without search.
+        # Scan memory headers for tier=minor/cameo chars seen in recent chapters.
+        # Not in search results, but still visible in context while relevant.
+        try:
+            from novel_agent.memory.memory_store import MemoryStore
+            store = MemoryStore(self.memory_dir)
+            all_headers = store.scan_memory_headers()
+            minor_chars = [
+                h for h in all_headers
+                if h.get("type") == "character" and h.get("tier") in ("minor", "cameo")
+            ]
+            if minor_chars:
+                items = []
+                for h in minor_chars:
+                    desc = h.get("description", "")[:60]
+                    items.append(f"{h['name']}: {desc}" if desc else h["name"])
+                lines.append(f"📋 龙套 ({len(minor_chars)}): {', '.join(items)}")
+                lines.append("")
+        except Exception:
+            pass
+
         # 4c. Golden paragraph — style anchor from ~20% into previous chapter.
         # Chapter openings warm up (scene-setting, bridging); endings wrap up.
         # The middle section (~20% in) captures the chapter's core narrative
