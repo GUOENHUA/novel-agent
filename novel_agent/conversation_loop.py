@@ -528,23 +528,21 @@ class ConversationLoop:
         return ("", "")
 
     def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
-        """Handle preview in auto mode — return content for pipeline to save.
-
-        Does NOT write files itself. The AutoPipeline owns the save path
-        (clean + title + settlement). This method just acknowledges the
-        preview and passes back the content.
-        """
+        """Handle preview in auto mode. Captures content before tool-loop
+        responses overwrite _last_text_output."""
         import json as _json
         content = self._last_text_output
 
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
+            # Stash content so the pipeline can read it even after the tool
+            # loop continues and overwrites _last_text_output
+            self._auto_chapter_content = content
             safe_print(f"  [dim]Ch{ch_num} previewed ({len(content)} chars)[/dim]")
             return _json.dumps({
                 "status": "acknowledged",
                 "chapter_number": ch_num,
-                "content": content,
-                "title_hint": args.get("title", ""),
+                "content_length": len(content),
             })
 
         elif tool_name == "preview_outline":

@@ -1,82 +1,124 @@
 [
   {
-    "id": "hook-03-1",
-    "description": "沈渊体内有'老茧'般的气滞阻碍灵气流动——原主修炼留下的创伤痕迹，暗示死因可能并非意外",
+    "id": "hook-001",
+    "description": "灵气网络拓扑被高度优化——模块化、层级化、反馈调节环——暗示存在设计者/优化者，而非自然演化产物",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "related_characters": [],
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 56,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-05T11:35:21.592601",
-    "updated_at": "2026-06-05T11:43:21.817813"
+    "created_at": "2026-06-05T12:03:31.393185",
+    "updated_at": "2026-06-05T12:03:31.393185"
   },
   {
-    "id": "hook-03-2",
-    "description": "参宿一的闪光规律——沈渊发现它在极短间隙中闪烁，疑似人为编码，怀疑是天道监控或前文明遗留",
+    "id": "hook-002",
+    "description": "原身日记最后一句「它不动了」——灵气系统有意志，主动停止了原身的灵气运转，导致其死亡",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:03:31.400402",
+    "updated_at": "2026-06-05T12:06:02.335467"
+  },
+  {
+    "id": "hook-003",
+    "description": "沈渊丹田拥塞节点突然「通」了——是被动激活还是被天道注意到？与穿越同时发生",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 80,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:03:31.406897",
+    "updated_at": "2026-06-05T12:03:31.406897"
+  },
+  {
+    "id": "hook-004",
+    "description": "沈渊感知到巨型灵气网络的流向是「向上」——单向流动，从低阶修士流向高阶，从人间流向某处，暗示食物链结构",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:03:31.411904",
+    "updated_at": "2026-06-05T12:03:31.411904"
+  },
+  {
+    "id": "hook-005",
+    "description": "章末门被一脚踢开——谁来了？来者不善。沈渊如何应对这个陌生世界的第一波人际冲突？",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 1,
+    "target_chapter": 2,
+    "resolved_chapter": 2,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:03:31.417132",
+    "updated_at": "2026-06-05T12:05:07.243541"
+  },
+  {
+    "id": "hook-006",
+    "description": "原身在《紫府练气真解》上的批注——系统性地记录灵气运转数据，最终批注「它知道我在看」——暗示天道能感知被观察",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:05:07.250676",
+    "updated_at": "2026-06-05T12:05:07.250676"
+  },
+  {
+    "id": "hook-007",
+    "description": "管事对沈渊说「别再练了」——语气不是命令而是共享的恐惧。底层修士是否知道修炼的危险？他知道什么？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊",
+      "管事"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:05:07.255745",
+    "updated_at": "2026-06-05T12:05:07.255745"
+  },
+  {
+    "id": "hook-008",
+    "description": "藏书阁藏有天元宗三百年档案——信息金矿，沈渊获取系统认知的途径。档案里藏着什么秘密？",
     "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T11:35:21.602067",
-    "updated_at": "2026-06-05T11:43:21.827171"
-  },
-  {
-    "id": "hook-03-3",
-    "description": "沈渊尝试向参宿一发信号但意识到可能暴露自己——引入'谨慎隐匿'的生存法则",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T11:35:21.610045",
-    "updated_at": "2026-06-05T11:43:21.836929"
-  },
-  {
-    "id": "hook-03-4",
-    "description": "王铁柱为沈渊引气时，铜绿色灵气进入沈渊丹田——两种灵气接触引发细微但异常的反应",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T11:35:21.619536",
-    "updated_at": "2026-06-05T11:43:21.845175"
-  },
-  {
-    "id": "hook-07-1",
-    "description": "前任管事在簿子上留下「它在说话」四字，暗示信号有智能或有人操控",
-    "hook_type": "direct",
-    "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 7,
+    "planted_chapter": 2,
     "target_chapter": 20,
     "related_characters": [
-      "沈渊",
-      "落雁坪管事"
+      "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T11:42:05.850112",
-    "updated_at": "2026-06-05T11:43:21.796261"
-  },
-  {
-    "id": "hook-07-2",
-    "description": "管事提到「三十年了，你是第一个说这种话的人」——暗示三十年前有过特殊事件",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 7,
-    "target_chapter": 12,
-    "related_characters": [
-      "沈渊",
-      "石头"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T11:42:05.858410",
-    "updated_at": "2026-06-05T11:43:21.807811"
+    "created_at": "2026-06-05T12:05:07.261212",
+    "updated_at": "2026-06-05T12:05:07.261212"
   }
 ]

@@ -123,10 +123,9 @@ class AutoPipeline:
                     interactive=False,
                 )
 
-                # Get chapter content from the conversation loop's last text output.
-                # preview_chapter_auto acknowledged the preview; we save here with
-                # proper title generation, cleaning, and settlement.
-                content = loop._last_text_output
+                # Get chapter content stashed by _handle_preview_auto before
+                # the tool loop's follow-up responses overwrote _last_text_output.
+                content = getattr(loop, '_auto_chapter_content', '')
                 if content and len(content) >= 500:
                     self._settle_state(ch, content)
                     slop_score, slop_warnings = self._check_slop(content)
