@@ -1,471 +1,673 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气在修士体内的运转网络是严格树状结构（单根、无环、无冗余），不像生物演化产物，更像是被设计好的路由协议。",
+    "description": "沈渊左眼能看到灵气网络拓扑——淡蓝色光的节点和连接。这个异能的来源不明，与穿越同时出现。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 15,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 30,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:20:57.590013",
-    "updated_at": "2026-06-05T16:20:57.590013"
+    "created_at": "2026-06-05T19:20:32.571627",
+    "updated_at": "2026-06-05T19:33:10.547206"
   },
   {
     "id": "hook-002",
-    "description": "灵气每循环经过穴位有微量衰减，无明确做功目的，去向不明。《青云炼气基础法诀》末尾仅写\"归于天道\"，无任何解释。",
+    "description": "经脉体系\"太精确了\"——沈渊怀疑这套修炼系统是被设计的。设计者是谁？",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 20,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 60,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:20:57.598102",
-    "updated_at": "2026-06-05T16:27:05.770932"
+    "created_at": "2026-06-05T19:20:32.579877",
+    "updated_at": "2026-06-05T19:29:47.528557"
   },
   {
     "id": "hook-003",
-    "description": "原身冲击炼气三层时死亡——\"冲过去了。然后死了。\"真正死因是修炼事故还是另有隐情？",
+    "description": "灵气单向流向地底深处。所有人经脉中的光都在往下输送。地底有什么东西在接收？",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 10,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 80,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:20:57.603394",
-    "updated_at": "2026-06-05T17:10:32.992116"
+    "created_at": "2026-06-05T19:20:32.586706",
+    "updated_at": "2026-06-05T19:33:10.555854"
   },
   {
     "id": "hook-004",
-    "description": "沈渊能异常精确地感知灵气网络拓扑——将灵气感知映射为视觉信号。这种感知精度超出炼气二层应有的水平。青袍中年人的灵气浓度也被他\"看见\"。",
+    "description": "周师叔的\"诊断\"实为抽取——灵气输入后变蓝带走，沈渊体内反而更弱。修炼者是被抽取的宿主。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 25,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 50,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:20:57.608483",
-    "updated_at": "2026-06-05T16:46:42.175767"
+    "created_at": "2026-06-05T19:20:32.594076",
+    "updated_at": "2026-06-05T19:33:10.563172"
   },
   {
     "id": "hook-005",
-    "description": "沈渊用生态学\"食物链\"框架理解修仙等级——高階修士的灵气浓度远超低阶，形成营养级递减。这个隐喻可能比他自己以为的更准确。",
-    "hook_type": "symbolic",
+    "description": "沈渊丹田被废，成为系统\"盲点\"——废人不会被抽取也不会被监控。这是他暗中研究的战略优势。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 40,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:20:57.614489",
-    "updated_at": "2026-06-05T16:20:57.614489"
+    "created_at": "2026-06-05T19:20:32.601602",
+    "updated_at": "2026-06-05T19:33:10.537602"
   },
   {
     "id": "hook-006",
-    "description": "原身昏迷时说了两遍「它不对」。王铁柱亲耳听到。原身冲击炼气三层前可能已经意识到了什么——与hook-003关联。",
-    "hook_type": "dialogue",
+    "description": "李师叔不在灵气网络中——沈渊左眼看不到他的灵气光，或极其淡。他身上没有节点、没有连接、没有流动。三种可能：没有经脉、经脉闭合、刻意隐藏。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 2,
-    "target_chapter": 12,
-    "related_characters": [
-      "沈渊",
-      "王铁柱"
-    ],
-    "related_hooks": [
-      "hook-003"
-    ],
-    "created_at": "2026-06-05T16:27:05.737664",
-    "updated_at": "2026-06-05T16:27:05.737664"
+    "target_chapter": 40,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:26:36.945419",
+    "updated_at": "2026-06-05T19:26:36.945419"
   },
   {
     "id": "hook-007",
-    "description": "李崇云用「频率」描述灵气——一个物理概念而非修炼术语。暗示灵气可以被量化和建模，也与沈渊的「阻塞点共振」现象相关。",
+    "description": "赵平说\"你要是真找到修回去的法子，告诉我一声\"——暗示他知道现有方法修不了经脉问题，可能经历过什么。",
     "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "planted",
     "planted_chapter": 2,
-    "target_chapter": 18,
-    "related_characters": [
-      "沈渊",
-      "李崇云"
-    ],
-    "related_hooks": [
-      "hook-004"
-    ],
-    "created_at": "2026-06-05T16:27:05.748256",
-    "updated_at": "2026-06-05T16:36:18.897830"
+    "target_chapter": 35,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:26:36.953656",
+    "updated_at": "2026-06-05T19:26:36.953656"
   },
   {
     "id": "hook-008",
-    "description": "李崇云提到「散脉」——不按标准经脉运转，让灵气自己寻找路径。这种修炼方式在修仙界「很少见」。为什么？暗示标准修炼体系排斥非标路径。",
-    "hook_type": "direct",
+    "description": "李师叔问沈渊\"走火入魔时经历了什么\"——他在找一个答案，他的期待暗示走火入魔可能暴露了什么。",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "planted",
     "planted_chapter": 2,
-    "target_chapter": 35,
-    "related_characters": [
-      "沈渊",
-      "李崇云"
-    ],
-    "related_hooks": [
-      "hook-001"
-    ],
-    "created_at": "2026-06-05T16:27:05.755250",
-    "updated_at": "2026-06-05T16:31:10.541835"
+    "target_chapter": 55,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:26:36.962400",
+    "updated_at": "2026-06-05T19:26:36.962400"
   },
   {
     "id": "hook-009",
-    "description": "《青云炼气基础法诀》与李崇云所讲有三处关键不同：夹脊关心率干扰、修炼时辰、灵气排出机制。官方教材可能系统性地隐瞒了灵气真相。",
+    "description": "灵气汇聚点定位在东南方向，三里到三十里之间。所有修炼者灵气偏角约十二度，指向同一方向。需要深度数据来精确距离。",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 2,
-    "target_chapter": 25,
-    "related_characters": [
-      "沈渊",
-      "李崇云"
-    ],
-    "related_hooks": [
-      "hook-002"
-    ],
-    "created_at": "2026-06-05T16:27:05.761904",
-    "updated_at": "2026-06-05T16:31:10.547053"
+    "planted_chapter": 3,
+    "target_chapter": 80,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:29:57.820653",
+    "updated_at": "2026-06-05T19:33:10.520115"
   },
   {
     "id": "hook-010",
-    "description": "主峰方向存在一个空白区域，在沈渊的感知中发出规律的非灵气信号——像心跳或敲鼓。暗示主峰有某种东西在接收/监控，且对沈渊的观测产生响应。",
-    "hook_type": "symbolic",
+    "description": "凡人（青石驿居民）不在灵气网络中——灵气网络有边界。筛选机制不明：地域？修为？还是其他因素？",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 3,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 50,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:31:10.521194",
-    "updated_at": "2026-06-05T16:46:42.139798"
+    "created_at": "2026-06-05T19:29:57.830830",
+    "updated_at": "2026-06-05T19:33:10.529634"
   },
   {
     "id": "hook-011",
-    "description": "灵气穿过人体而非储存——修炼的本质是优化「穿过」效率。每个人是网络中的「节点」而非独立修炼者。标准修炼法可能是一个分布式的灵气收集系统。",
+    "description": "灵石灵气可以不经丹田直接在经脉中耗散——被身体吸收。这可能是灵气本来的用途，丹田是中转站，有人在中转站装了\"阀门\"把本该留在经脉里的灵气抽走。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "planted",
     "planted_chapter": 3,
-    "target_chapter": 35,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 70,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:31:10.528265",
-    "updated_at": "2026-06-05T16:36:18.881269"
+    "created_at": "2026-06-05T19:29:57.839922",
+    "updated_at": "2026-06-05T19:29:57.839922"
   },
   {
     "id": "hook-012",
-    "description": "信号源不在主峰——方向指向主峰，但通过信号衰减测算，距离落雁坪不超过一里。源头在地下或某个隐蔽建筑中。",
-    "hook_type": "action",
+    "description": "修为越高，被抽取量越大——高阶修士是更高传输效率的管道。天道\"养鸡\"模型：修炼本质是提升传输效率的正反馈循环。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 4,
-    "target_chapter": 20,
-    "related_characters": [
-      "沈渊"
-    ],
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 60,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:36:18.904477",
-    "updated_at": "2026-06-05T17:10:33.008685"
+    "created_at": "2026-06-05T19:29:57.848537",
+    "updated_at": "2026-06-05T19:29:57.848537"
   },
   {
     "id": "hook-013",
-    "description": "山门外东南方向有不规则低频振动——断断续续，像有东西在地底下动。与主峰方向的规律心跳信号不同。",
-    "hook_type": "action",
+    "description": "韩平——被宗门废了丹田的外门弟子，曾在东南角老槐树下挖洞，第二天消失。他知道什么？为什么被废？是否还活着？",
+    "hook_type": "dialogue",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 4,
-    "target_chapter": 28,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 25,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:36:18.912514",
-    "updated_at": "2026-06-05T16:42:13.492356"
+    "created_at": "2026-06-05T19:33:20.497622",
+    "updated_at": "2026-06-05T19:39:48.960157"
   },
   {
     "id": "hook-014",
-    "description": "沈渊的木板网络图上多了一条指甲划痕——细、直、泛青，从边缘指向沈渊的位置。不是他自己画的。有人在问他：你的位置在哪里？",
-    "hook_type": "action",
+    "description": "老孙头——灶房凡人杂役，不在灵气网络中。目击韩平挖洞事件，跑去叫周师叔的人。耳朵不好。沈渊的下一个信息源。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "resolved",
     "planted_chapter": 4,
-    "target_chapter": 15,
-    "related_characters": [
-      "沈渊",
-      "李崇云"
-    ],
+    "target_chapter": 10,
+    "resolved_chapter": 10,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:36:18.920843",
-    "updated_at": "2026-06-05T16:42:13.501864"
+    "created_at": "2026-06-05T19:33:20.506251",
+    "updated_at": "2026-06-05T19:58:42.709188"
   },
   {
     "id": "hook-015",
-    "description": "三十年前外门弟子韩平画了同样的灵气网络图，被发现后灵根被废（对外称筑基失败），三个月后病死。官方叙事与真实顺序颠倒。",
-    "hook_type": "dialogue",
+    "description": "木板上神秘划痕——两组箭头指向东南（歪脖子槐树+老槐树裂缝），线条分三组含圆圈叉号。谁留下的？给谁看的？",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 5,
-    "target_chapter": 18,
-    "related_characters": [
-      "韩平",
-      "老孙头",
-      "周师叔"
-    ],
+    "planted_chapter": 4,
+    "target_chapter": 20,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:42:13.437990",
-    "updated_at": "2026-06-05T17:10:33.000688"
+    "created_at": "2026-06-05T19:33:20.515038",
+    "updated_at": "2026-06-05T19:36:19.231606"
   },
   {
     "id": "hook-016",
-    "description": "李崇云「被盯着」——老孙头警告沈渊不要告诉李崇云。有人在监控知道真相的人。监控者是谁？",
-    "hook_type": "dialogue",
+    "description": "走火入魔可能是免疫反应——沈渊推测左眼在原身就已存在，左眼激活→天道发现→经脉逆行。原来那个沈渊不是死于事故。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 5,
-    "target_chapter": 22,
-    "related_characters": [
-      "李崇云",
-      "老孙头",
-      "沈渊"
-    ],
+    "status": "planted",
+    "planted_chapter": 4,
+    "target_chapter": 50,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:42:13.446995",
-    "updated_at": "2026-06-05T16:56:51.149288"
+    "created_at": "2026-06-05T19:33:20.524110",
+    "updated_at": "2026-06-05T19:33:20.524110"
   },
   {
     "id": "hook-017",
-    "description": "金属薄片——暗青色光泽，巴掌大，刻有两个三角形符号（地/人），背面刻「门」。不属于这个修仙文明的符号体系。韩平三十年前从旧丹房地窖砖墙深处找到。",
-    "hook_type": "dialogue",
+    "description": "敲击信号可交互——敲回去会得到调整后的回应。地下有判断能力的实体。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 5,
-    "target_chapter": 25,
-    "related_characters": [
-      "老孙头",
-      "沈渊"
-    ],
+    "target_chapter": 15,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:42:13.456814",
-    "updated_at": "2026-06-05T16:56:51.157691"
+    "created_at": "2026-06-05T19:36:19.196919",
+    "updated_at": "2026-06-05T20:11:15.051879"
   },
   {
     "id": "hook-018",
-    "description": "韩平死前第三声喊叫——「它快出来了」。地底有东西在往上走，三十年前就已经接近地表。与hook-010/016关联。",
-    "hook_type": "dialogue",
+    "description": "空心铁管网络——老槐树下露出管口冒凉气的空心管，与实心铁管不同。整座山底下可能都有。",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 5,
-    "target_chapter": 30,
-    "related_characters": [
-      "老孙头",
-      "韩平",
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-010"
-    ],
-    "created_at": "2026-06-05T16:42:13.465032",
-    "updated_at": "2026-06-05T16:46:42.101852"
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:36:19.205929",
+    "updated_at": "2026-06-05T19:40:07.119395"
   },
   {
     "id": "hook-019",
-    "description": "旧丹房地窖天花板银灰色细线——断口齐整，在火折子下发光，「像活着的蚕丝」。非自然材料，可能连接着地底的什么东西。",
-    "hook_type": "symbolic",
+    "description": "灰色光纹路——灰色粉末/遗石表面有极细纹路，可能是文字/编码。沈渊左眼能看到。",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 6,
-    "target_chapter": 35,
-    "related_characters": [
-      "沈渊"
-    ],
+    "planted_chapter": 5,
+    "target_chapter": 25,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:46:42.111388",
-    "updated_at": "2026-06-05T16:56:51.167488"
+    "created_at": "2026-06-05T19:36:19.214375",
+    "updated_at": "2026-06-05T19:51:45.748819"
   },
   {
     "id": "hook-020",
-    "description": "李崇云深夜留石板——修正节点图，标出「三里外」新点，约沈渊明晚初七在废弃丹房路口见面。李崇云要展示什么？",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 6,
-    "target_chapter": 7,
-    "resolved_chapter": 7,
-    "related_characters": [
-      "李崇云",
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T16:46:42.121225",
-    "updated_at": "2026-06-05T16:56:51.140216"
-  },
-  {
-    "id": "hook-021",
-    "description": "地底振动信号源不在主峰——主峰只是转发/中继。真正的源头在极深的地下，正在往上走。韩平追踪方向指向东南。",
+    "description": "苏凝——认识原身，下过地底空腔。皮肤里灰色纹路是下去后才有的。正被地底的东西通过纹路远程控制/说话。原身沈渊也下过空腔，在走火入魔之前。",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 6,
+    "planted_chapter": 5,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:36:19.223254",
+    "updated_at": "2026-06-05T20:02:20.966632"
+  },
+  {
+    "id": "hook-021",
+    "description": "地底空腔——铁管从四面八方汇聚到一个地下空腔。空腔里有一个「不是石头不是铁不是人」的东西在「等人」。原身沈渊下去过。苏凝也下去过。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 7,
     "target_chapter": 40,
-    "related_characters": [
-      "沈渊",
-      "老孙头",
-      "韩平"
-    ],
-    "related_hooks": [
-      "hook-010",
-      "hook-012",
-      "hook-018"
-    ],
-    "created_at": "2026-06-05T16:46:42.131238",
-    "updated_at": "2026-06-05T17:10:33.016584"
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:43:11.051720",
+    "updated_at": "2026-06-05T19:48:12.850788"
   },
   {
     "id": "hook-022",
-    "description": "李崇云闭路循环——用银线封金丹，不接入天道网络，成为系统盲点。代价：永远停在金丹境。银线材质与旧丹房地窖天花板银灰色线同质。",
-    "hook_type": "dialogue",
+    "description": "苏凝被远程操控时说出的编码——「编号。三七。拐点。八四。」——地底的东西在报坐标/定位。可能是沈渊触碰铁管后的位置标记。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 7,
-    "target_chapter": 25,
-    "related_characters": [
-      "李崇云",
-      "沈渊",
-      "韩平"
-    ],
-    "related_hooks": [
-      "hook-018",
-      "hook-021"
-    ],
-    "created_at": "2026-06-05T16:51:19.877531",
-    "updated_at": "2026-06-05T16:54:00.585500"
+    "target_chapter": 30,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:43:11.061238",
+    "updated_at": "2026-06-05T19:48:12.856787"
   },
   {
     "id": "hook-023",
-    "description": "三角形三符号——地（韩平在地下发现）、人（李崇云刻）、天（不在石板上，「在外面」）。第三块金属片/石板尚未出现。",
+    "description": "火焰可阻断地底东西的感应信号——高温干扰铁管传输。沈渊发现火是防护手段。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 7,
-    "target_chapter": 40,
-    "related_characters": [
-      "沈渊",
-      "李崇云"
-    ],
+    "target_chapter": 20,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T16:51:19.889299",
-    "updated_at": "2026-06-05T16:54:00.595685"
+    "created_at": "2026-06-05T19:43:11.070242",
+    "updated_at": "2026-06-05T20:02:20.986668"
   },
   {
     "id": "hook-024",
-    "description": "巡逻者——天道「免疫细胞」，按固定路线巡查灵气网络节点。机械化行为、三息一步、能看穿经脉、不追闭路。发现异常→标记→系统精确打击（走火入魔/修炼事故/灵根崩溃）。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 7,
-    "target_chapter": 15,
-    "related_characters": [
-      "沈渊",
-      "李崇云"
-    ],
-    "related_hooks": [
-      "hook-004"
-    ],
-    "created_at": "2026-06-05T16:51:19.900711",
-    "updated_at": "2026-06-05T16:54:00.606282"
-  },
-  {
-    "id": "hook-025",
-    "description": "天道影响念头——金丹境以上，「它会把好奇心变钝，像一堵棉花墙。」修炼/破境/往上走的念头被强化，恐惧/愤怒/深究的念头被弱化。李崇云12岁接触韩平碎纸，小孩好奇心难以完全封住，成年后已习惯绕过。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 7,
-    "target_chapter": 30,
-    "related_characters": [
-      "李崇云",
-      "沈渊",
-      "韩平"
-    ],
-    "related_hooks": [
-      "hook-017"
-    ],
-    "created_at": "2026-06-05T16:51:19.911004",
-    "updated_at": "2026-06-05T16:54:00.616301"
-  },
-  {
-    "id": "hook-026",
-    "description": "三里外出现新信号——三下一组的规律敲击（不像心跳，像有人在敲）。丑时第一次出现（三里），寅时第二次（两里半）。地底有东西在往上走，距离在缩短。",
+    "description": "苏凝虹膜渗出灰色——地底东西可通过灰色纹路反向控制宿主（说话、虹膜变色、新生纹路）。纹路是双向通道。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 9,
-    "target_chapter": 20,
+    "planted_chapter": 7,
+    "target_chapter": 35,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:43:11.079984",
+    "updated_at": "2026-06-05T19:43:11.079984"
+  },
+  {
+    "id": "hook-025",
+    "description": "韩平没碰铁管却走火入魔——画图案后被天道发现。图案=听懂=触发免疫反应。地底教人，天道阻止被教。两个力量在博弈。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 8,
+    "target_chapter": 40,
     "related_characters": [
+      "韩平",
       "沈渊",
       "老孙头"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T17:10:33.023578",
-    "updated_at": "2026-06-05T17:10:33.023578"
+    "created_at": "2026-06-05T19:48:12.812746",
+    "updated_at": "2026-06-05T19:51:45.767524"
+  },
+  {
+    "id": "hook-026",
+    "description": "地底图案=灵气网络拓扑结构图。地底东西在教人识别体内的「牢笼」。沈渊发现第二组图案交叉与灵气网络节点连接方式相同。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 8,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊",
+      "苏凝",
+      "韩平"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:48:12.819255",
+    "updated_at": "2026-06-05T19:51:45.777288"
   },
   {
     "id": "hook-027",
-    "description": "韩平被摘除后三个月内给赵不肯写了五封信——记录认知被逐层抹除的过程。被抹掉的是「关心」：看不懂自己刻的图、分不清怕和冷、哭被拿走。最后记住的是「往下的方向」。老孙头藏了这些信三十年。",
+    "description": "章末沈渊闭眼时左眼捕捉到地底七个音节的声音——与「编号三七拐点八四」音节数相同。不是敲击刮擦，是语言。听不懂的语言，有节奏。",
     "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 9,
+    "status": "mentioned",
+    "planted_chapter": 8,
     "target_chapter": 30,
     "related_characters": [
-      "韩平",
-      "赵不肯",
-      "老孙头",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T17:10:33.032134",
-    "updated_at": "2026-06-05T17:10:33.032134"
+    "created_at": "2026-06-05T19:48:12.826256",
+    "updated_at": "2026-06-05T19:51:45.786005"
   },
   {
     "id": "hook-028",
-    "description": "韩平碎片背面「还」字——不是求饶。韩平死前对老孙头说：「它们以为我在求饶。」真正的意思是：总有一天有人替他还给天道。与hook-019（碎片背面「还」字）关联。",
-    "hook_type": "dialogue",
+    "description": "第一课五种节点结构——第四组（双工通道）=铁管后门，第五组（对称四输入）=不存在的节点/可能的武器。地底东西不是老师，是军火商。课程递进=武器使用说明书。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 9,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "韩平",
+      "苏凝"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:51:45.703807",
+    "updated_at": "2026-06-05T19:51:45.703807"
+  },
+  {
+    "id": "hook-029",
+    "description": "地底东西的真实目的——听懂全部课程的人不会被解放，会被占据。韩平第五课悟到'它在教我怎么死'。标记的人是中继站/傀儡。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 9,
     "target_chapter": 50,
     "related_characters": [
+      "沈渊",
       "韩平",
-      "老孙头",
-      "沈渊"
+      "苏凝",
+      "采艾老妇"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T17:10:33.038476",
-    "updated_at": "2026-06-05T17:10:33.038476"
+    "created_at": "2026-06-05T19:51:45.714097",
+    "updated_at": "2026-06-05T19:51:45.714097"
+  },
+  {
+    "id": "hook-030",
+    "description": "采艾老妇灰色固化虹膜——碰过碰铁管的人，灰眼睛固化。暗示长期接触铁管（或接触足够多被标记的人）会导致灰线从皮肤蔓延到眼睛。与苏凝临时灰色虹膜形成对比。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 9,
+    "target_chapter": 35,
+    "related_characters": [
+      "采艾老妇",
+      "苏凝"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:51:45.723349",
+    "updated_at": "2026-06-05T19:51:45.723349"
+  },
+  {
+    "id": "hook-031",
+    "description": "老孙头的隐瞒——他知道韩平抱过铁管（跪了一整天），但告诉沈渊说韩平'没碰铁管'。在保护死人——或者保护沈渊不要重蹈覆辙。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 9,
+    "target_chapter": 20,
+    "related_characters": [
+      "老孙头",
+      "沈渊",
+      "韩平"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:51:45.732893",
+    "updated_at": "2026-06-05T19:58:42.719924"
+  },
+  {
+    "id": "hook-032",
+    "description": "韩端——老孙头师兄，三十一年前第一个碰铁管完成全五课的人。留下灰石（网络架构图），去石屋推门后失踪。灰石在沈渊掌心碎成粉末拼出\"不是听是\"（缺失最后一字=喊）。灰石vs韩平黑石——不同阶段不同颜色。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:58:55.498331",
+    "updated_at": "2026-06-05T19:58:55.498331"
+  },
+  {
+    "id": "hook-033",
+    "description": "地底囚犯——从\"上一个被吃掉的世界\"漏下来的东西。关了三万年，不是老师/军火商，是在等\"能把它放出去的人\"。铁管敲击是它在喊人的名字（韩端→韩平→沈渊）。石屋底下有门。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 30,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:58:55.508787",
+    "updated_at": "2026-06-05T19:58:55.508787"
+  },
+  {
+    "id": "hook-034",
+    "description": "周师叔——金丹期却在天道网络之外（或盲区）。唯一拿了遗石没死的修士。每月初一或十五来灶房看灶膛一刻钟。沈渊推测他是天道的\"隔离区管理员\"——处理免疫系统够不到的异常。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:58:55.518301",
+    "updated_at": "2026-06-05T19:58:55.518301"
+  },
+  {
+    "id": "hook-035",
+    "description": "天道盲区——废灵根和凡人不在灵气网络中，天道物理上接收不到他们。这是老孙头/采艾老妇/废灵根者能接触铁管而不被清除的原因。沈渊的废丹田是战略优势。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T19:58:55.527603",
+    "updated_at": "2026-06-05T20:05:40.281811"
+  },
+  {
+    "id": "hook-036",
+    "description": "原身沈渊主动废掉自己——走火入魔是故意的，为了让身体成为天道盲区，等\"对的人\"（能看到网络的人）来占据。空腔里的东西告诉他会有这样的人来。预谋而非事故。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 11,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "苏凝"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:02:20.926762",
+    "updated_at": "2026-06-05T20:02:20.926762"
+  },
+  {
+    "id": "hook-037",
+    "description": "第五组后面有陷阱——关地底东西的存在在教学内容里埋了标记。学完第五组之后继续听会触发天道免疫标记。韩端/韩平都听完了全部才被标记。沈渊是第一个听完一组就停下来的人。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 11,
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊",
+      "苏凝",
+      "韩平",
+      "韩端"
+    ],
+    "related_hooks": [
+      "hook-028",
+      "hook-025"
+    ],
+    "created_at": "2026-06-05T20:02:20.937770",
+    "updated_at": "2026-06-05T20:02:20.937770"
+  },
+  {
+    "id": "hook-038",
+    "description": "地底东西可读取思维模式——铁管触碰时双向传输。它知道沈渊自称\"逆向工程师\"（沈渊从未说出过这个词），并根据沈渊的信息处理习惯调整了第二课的传递方式。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 11,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-033"
+    ],
+    "created_at": "2026-06-05T20:02:20.946946",
+    "updated_at": "2026-06-05T20:05:40.291174"
+  },
+  {
+    "id": "hook-039",
+    "description": "石屋的门——韩端推门后失踪，没回来。门后面是什么？地底囚犯说门不是它建的，是关它的人建的。石屋=监狱入口？门后=地底空腔？沈渊可能在后续章节需要去石屋。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 11,
+    "target_chapter": 35,
+    "related_characters": [
+      "韩端",
+      "沈渊",
+      "采艾老妇"
+    ],
+    "related_hooks": [
+      "hook-033",
+      "hook-032"
+    ],
+    "created_at": "2026-06-05T20:02:20.956861",
+    "updated_at": "2026-06-05T20:02:20.956861"
+  },
+  {
+    "id": "hook-040",
+    "description": "地底东西的投影——可在槐树半径五步内显形。灰色平面带五条线，能说话。是地底囚犯的「一部分」，被限制在老槐树范围。秃脑门长脖子，肩膀太宽像凿坏的石头。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:05:40.301194",
+    "updated_at": "2026-06-05T20:05:40.301194"
+  },
+  {
+    "id": "hook-041",
+    "description": "灵气网络不止一层——第二层在修炼者体内。每个修炼者身体里都有一个「门」，天道从门灌入灵气。废丹田=关上门。原身沈渊主动关门等对的人来撬。修炼不是被抽取——是被灌输然后收割。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "target_chapter": 40,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:05:40.309740",
+    "updated_at": "2026-06-05T20:05:40.309740"
+  },
+  {
+    "id": "hook-042",
+    "description": "第三序列四个编码——沈渊只记了两个（「编号三七拐点八四」和第二个未知编码）。听完四个会知道门在哪里。苏凝可能知道另外两个编码。三角形/圆圈/叉三个符号与木板划痕相同——木板是第三个人留下的。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 12,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:05:40.318570",
+    "updated_at": "2026-06-05T20:11:15.041190"
+  },
+  {
+    "id": "hook-043",
+    "description": "沈渊右手无名指甲缝被种入一粒灰色实物——不是附着，是种进去的。挖不出来。自发有节律发热（与老孙头斧头节奏同步）。指甲盖有极小的凸起。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 12,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:05:40.327040",
+    "updated_at": "2026-06-05T20:11:15.031262"
+  },
+  {
+    "id": "hook-044",
+    "description": "老槐树裂缝里嵌着金属薄片——被树脂封住，有人从管口掰下来的。边缘不规则有折断茬口，至少三十年旧。表面有灰色纹路。韩端或原身沈渊所留。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:05:40.336547",
+    "updated_at": "2026-06-05T20:05:40.336547"
+  },
+  {
+    "id": "hook-045",
+    "description": "灰粒回路完成——三条灰线（太渊→中指尖/中府/无名指），最终连接到心包。沈渊心脏多了\"一拍\"——地底囚犯借他的心脏跳动。沈渊身体成为移动的铁管。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "苏凝",
+      "老孙头"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:11:14.998717",
+    "updated_at": "2026-06-05T20:11:14.998717"
+  },
+  {
+    "id": "hook-046",
+    "description": "\"方向是反的\"=两个地理位置：东南=空腔=地底囚犯的门，西北=主峰=锁。三万年前天道被锁在主峰顶上一个人体内，那人还活着且不自知。韩端去过主峰山脚并说整个宗门围着那人建。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊",
+      "韩端",
+      "苏凝"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:11:15.010645",
+    "updated_at": "2026-06-05T20:11:15.010645"
+  },
+  {
+    "id": "hook-047",
+    "description": "地底囚犯的敲击节奏变为二短一长，指向西北主峰。与木板划痕分组一致。灰线也指向西北——地底囚犯在指引沈渊去主峰找\"锁\"。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊",
+      "老孙头"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T20:11:15.020699",
+    "updated_at": "2026-06-05T20:11:15.020699"
   }
 ]

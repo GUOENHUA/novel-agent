@@ -248,8 +248,11 @@ def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
             })
         return tool_result(success=True, toc=toc, count=len(toc))
 
-    path = Path(chapters_dir) / f"ch_{chapter_num:02d}.md"
-    if path.exists():
+    # Find chapter file by glob (actual naming: ch_001_title.md)
+    chapters_path = Path(chapters_dir)
+    matches = list(chapters_path.glob(f"ch_{chapter_num:03d}_*.md"))
+    if matches:
+        path = matches[0]
         content = path.read_text(encoding="utf-8")
         return tool_result(
             success=True,
@@ -261,7 +264,7 @@ def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
         return tool_result(
             success=False,
             chapter=chapter_num,
-            error=f"Chapter {chapter_num} not found at {path}",
+            error=f"Chapter {chapter_num} not found",
         )
 
 
