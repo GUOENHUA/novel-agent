@@ -95,13 +95,16 @@ class AutoPipeline:
         self.results = []
         loop = ConversationLoop(self.agent)
 
-        if count > 10:
+        if count > 10 and sys.__stdin__ and sys.__stdin__.isatty():
             estimated_tokens = count * words * 1.5
             _safe_print(f"\n  WARNING: {count} chapters, ~{estimated_tokens:,.0f} tokens estimated")
-            confirm = input("  Continue? [y/N] ").strip().lower()
-            if confirm not in ("y", "yes"):
-                _safe_print("  Cancelled")
-                return []
+            try:
+                confirm = input("  Continue? [y/N] ").strip().lower()
+                if confirm not in ("y", "yes"):
+                    _safe_print("  Cancelled")
+                    return []
+            except EOFError:
+                pass  # Non-interactive — proceed
 
         _safe_print(f"\n  Auto mode: ch{start_chapter}-{start_chapter + count - 1}, {count} chapters, ~{words} words each")
         _safe_print(f"  (Ctrl+C to interrupt)\n")

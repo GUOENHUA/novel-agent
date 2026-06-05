@@ -1,35 +1,10 @@
 {
   "novel_title": "",
-  "current_chapter": 4,
+  "current_chapter": 2,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {
-    "沈渊": {
-      "name": "沈渊",
-      "current_location": "",
-      "emotional_state": "分析性警觉→被道破身份时的震撼",
-      "goal": "收集信息、理解苏凝的暗示、调查赵不肯生死之谜",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "苏凝": {
-      "name": "苏凝",
-      "current_location": "",
-      "emotional_state": "被压制但保持冷静",
-      "goal": "争取时间，传递信息给沈渊",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "赵不肯": {
-      "name": "赵不肯",
-      "current_location": "",
-      "emotional_state": "饥饿消耗但警觉冷静",
-      "goal": "等待沈渊",
-      "alive": true,
-      "chapter_updated": 0
-    }
-  },
+  "characters": {},
   "active_conflicts": [],
   "unresolved_questions": [],
   "last_updated": "2026-06-05T11:06:53.084292"
