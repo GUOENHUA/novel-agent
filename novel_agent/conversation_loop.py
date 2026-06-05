@@ -35,7 +35,7 @@ import novel_agent.tools.export_tool       # noqa: F401  # chapter export
 logger = logging.getLogger(__name__)
 
 PROMPT = "novel-agent > "
-console = Console(force_terminal=True, legacy_windows=False) if __import__('sys').platform == 'win32' else Console()
+console = Console(force_terminal=True, legacy_windows=False, no_color=False) if __import__('sys').platform == 'win32' else Console()
 
 # Global abort flag for Ctrl+C
 _abort_flag = False
@@ -50,7 +50,7 @@ def _on_sigint(signum, frame):
 def safe_print(text: str) -> None:
     """Print text, falling back to ascii on encoding errors."""
     try:
-        console.print(text)
+        print(text)
     except UnicodeEncodeError:
         safe = text.encode('ascii', errors='replace').decode('ascii')
         print(safe)
@@ -305,14 +305,14 @@ class ConversationLoop:
                 messages.append({"role": "user", "content": tool_results})
 
                 tool_rounds += 1
-                with console.status(f"Thinking... (tool round {tool_rounds})", spinner="dots") as status:
-                    t0 = time.time()
-                    response = self.agent.call_llm(messages=messages, tools=all_tools)
-                    elapsed = time.time() - t0
-                    if hasattr(response, "usage") and response.usage:
-                        pct = response.usage.input_tokens / budget.total * 100
-                        warn = " ⚠️" if response.usage.input_tokens > budget.compress_threshold else ""
-                        status.update(f"Thinking... ({elapsed:.1f}s, {response.usage.input_tokens:,}+{response.usage.output_tokens:,} tk = {pct:.0f}%{warn})")
+                safe_print(f"  [dim]Thinking... (tool round {tool_rounds})[/dim]")
+                t0 = time.time()
+                response = self.agent.call_llm(messages=messages, tools=all_tools)
+                elapsed = time.time() - t0
+                if hasattr(response, "usage") and response.usage:
+                    pct = response.usage.input_tokens / budget.total * 100
+                    warn = " ⚠️" if response.usage.input_tokens > budget.compress_threshold else ""
+                    safe_print(f"  [dim]...done ({elapsed:.1f}s, {response.usage.input_tokens:,}+{response.usage.output_tokens:,} tk = {pct:.0f}%{warn})[/dim]")
 
                 if hasattr(response, "usage") and response.usage:
                     turn_input_tokens += response.usage.input_tokens

@@ -14,20 +14,19 @@ from __future__ import annotations
 
 import logging
 import signal
+import sys
 import time
 from typing import Any
-
-from rich.console import Console
 
 from novel_agent.agent import AIAgent
 from novel_agent.utils.constants import MAX_RETRY_ATTEMPTS, DRAFT_PASS_THRESHOLD
 
 logger = logging.getLogger(__name__)
-console = Console(highlight=False, force_terminal=True)
-import sys
+
 def _safe_print(text: str) -> None:
+    """Windows-safe print — avoids GBK encoding errors with Unicode chars."""
     try:
-        console.print(text)
+        print(text)
     except UnicodeEncodeError:
         print(text.encode('ascii', errors='replace').decode('ascii'))
 
@@ -207,17 +206,15 @@ class AutoPipeline:
             directive += f"\n\n（这是第{attempt}次重试，请确保质量。）"
 
         label = f"Writing ch{chapter_num}" + (f" (retry {attempt})" if attempt > 1 else "")
-        with console.status(f"[bold yellow]{label}...", spinner="dots") as status:
-            t0 = time.time()
-            resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": directive}],
-                max_tokens=words * 3,
-                temperature=0.8,
-            )
-            elapsed = time.time() - t0
-            content = self.agent.extract_text(resp.content, fallback_to_thinking=False)
-            status.update(
-                f"[bold yellow]{label}...[/bold yellow] "
+        _safe_print(f"  {label}...")
+        t0 = time.time()
+        resp = self.agent.call_llm(
+            messages=[{"role": "user", "content": directive}],
+            max_tokens=words * 3,
+            temperature=0.8,
+        )
+        elapsed = time.time() - t0
+        content = self.agent.extract_text(resp.content, fallback_to_thinking=False)
                 f"({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)"
             )
         return content
