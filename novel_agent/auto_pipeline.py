@@ -131,7 +131,13 @@ class AutoPipeline:
                     _safe_print(f"    Retry {retry+1}/{MAX_RETRY_ATTEMPTS} ch{ch}...")
                     time.sleep(15)
                     loop.process_turn(
-                        f"第{ch}章没有保存成功。请重新输出第{ch}章正文到章节代码块，调用 preview_chapter。",
+                        f"第{ch}章没有保存成功——上一轮输出的章节内容不在代码块内。\n\n"
+                        f"请严格按以下格式重新输出：\n\n"
+                        f"```章节\n"
+                        f"# 第{ch}章 标题\n\n"
+                        f"正文内容...\n"
+                        f"```\n\n"
+                        f"然后调用 preview_chapter 保存。",
                         interactive=False,
                     )
                 if chapter_path.exists():
