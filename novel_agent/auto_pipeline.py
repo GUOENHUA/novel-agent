@@ -123,9 +123,17 @@ class AutoPipeline:
                     interactive=False,
                 )
 
-                # Sub-agent already saved the chapter via _handle_preview_auto.
-                # Just verify the file exists and run slop check.
+                # Verify file was saved; retry once if not
                 chapter_path = self.agent.chapter_path(ch)
+                for retry in range(2):
+                    if chapter_path.exists():
+                        break
+                    if retry == 0:
+                        _safe_print(f"    Retrying ch{ch}...")
+                        loop.process_turn(
+                            f"第{ch}章没有保存成功。请重新输出第{ch}章正文，确保放在章节代码块内，然后调用 preview_chapter。",
+                            interactive=False,
+                        )
                 if chapter_path.exists():
                     content = chapter_path.read_text("utf-8")
                     slop_score, slop_warnings = self._check_slop(content)
@@ -135,14 +143,14 @@ class AutoPipeline:
                         "chapter": ch, "success": True,
                         "word_count": len(content),
                         "slop_score": slop_score, "slop_warnings": slop_warnings,
-                        "attempts": 1,
+                        "attempts": retry + 1,
                     })
                 else:
-                    _safe_print(f"  [{progress}] ch{ch} FAILED (no file)")
+                    _safe_print(f"  [{progress}] ch{ch} FAILED after retry")
                     self.results.append({
                         "chapter": ch, "success": False,
                         "word_count": 0, "slop_score": 0,
-                        "slop_warnings": [], "attempts": 1,
+                        "slop_warnings": [], "attempts": 2,
                     })
 
             # Summary

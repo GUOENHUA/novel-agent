@@ -1,216 +1,241 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气网络拓扑：三条主线、六个标准节点+丹田、完美闭环——结构过于干净，暗示人造设计而非自然演化",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T14:23:50.639240",
-    "updated_at": "2026-06-05T14:23:50.639240"
-  },
-  {
-    "id": "hook-002",
-    "description": "第三个节点（靠近心脏）损伤——\"练岔\"导致灵气进岔道=短路烧毁。暗示系统预设路由，岔道=被设计禁止的路径",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
-    "target_chapter": 20,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T14:23:50.645659",
-    "updated_at": "2026-06-05T14:23:50.645659"
-  },
-  {
-    "id": "hook-003",
-    "description": "沈渊穿越的隐喻——\"被放进旧系统的最后一个空位里\"，暗示他的到来是系统行为而非随机",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
-    "target_chapter": 80,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T14:23:50.650957",
-    "updated_at": "2026-06-05T14:23:50.650957"
-  },
-  {
-    "id": "hook-004",
-    "description": "\"九层\"体系——引气诀九层、炼气九层，\"整个修真界都知道\"。数字太整齐，暗示统一标准/设计规范",
+    "description": "原身死前说出\"它被设计过，它在优化，不是天道的恩赐，是代谢通路\"——原身在死亡边界看到了什么？这个不属于世界的词汇怎么来的？",
     "hook_type": "dialogue",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 1,
-    "target_chapter": 30,
     "related_characters": [
       "沈渊",
       "王铁柱"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:23:50.656588",
-    "updated_at": "2026-06-05T14:23:50.656588"
+    "created_at": "2026-06-05T15:00:45.637496",
+    "updated_at": "2026-06-05T15:00:45.637496"
   },
   {
-    "id": "hook-005",
-    "description": "章末悬念：沈渊决定\"不照图纸练\"——主动探索系统预设之外的路径，即将触发系统防御机制",
-    "hook_type": "action",
+    "id": "hook-002",
+    "description": "灵气单向向上流动，没有回路——灵气最终去了哪里？谁/什么在接收这些信号？\"有什么东西在进食？\"",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 5,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:23:50.661765",
-    "updated_at": "2026-06-05T14:39:51.624713"
+    "created_at": "2026-06-05T15:00:45.644498",
+    "updated_at": "2026-06-05T15:07:46.198732"
   },
   {
-    "id": "hook-006",
-    "description": "首次实验触发扫描——调第一节点流量后被\"注视\"。节点可能具有传感器功能，偏离预设参数触发上游监控。扫描后第三节点流量被外部下调——系统留下了痕迹。",
+    "id": "hook-003",
+    "description": "金丹境讲经师李崇云传话要见沈渊——为什么金丹修士要关注一个底层外门弟子？",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "deferred",
+    "planted_chapter": 1,
+    "target_chapter": 7,
+    "related_characters": [
+      "沈渊",
+      "李崇云"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:00:45.649664",
+    "updated_at": "2026-06-05T15:38:12.850490"
+  },
+  {
+    "id": "hook-004",
+    "description": "沈渊决定\"装正常\"——潜伏策略启动，在弄清规则前伪装成被修炼事故吓坏的弟子",
     "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 2,
-    "target_chapter": 5,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-005"
+    "planted_chapter": 1,
+    "related_characters": [
+      "沈渊"
     ],
-    "created_at": "2026-06-05T14:28:50.954139",
-    "updated_at": "2026-06-05T14:34:48.747377"
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:00:45.654697",
+    "updated_at": "2026-06-05T15:07:46.205993"
+  },
+  {
+    "id": "hook-005",
+    "description": "连消化都被灵气优化——身体的生物系统被灵气全面渗透，暗示修炼的本质是系统性替换",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:00:45.660565",
+    "updated_at": "2026-06-05T15:00:45.660565"
+  },
+  {
+    "id": "hook-006",
+    "description": "李崇云的灵气\"被规范过\"——比正常金丹修士安静，存在感异常（视觉盲点），拇指按食指侧面可调节灵气流量（自定义穴位操作）。他可能在对抗或规避天道的某种机制。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [
+      "李崇云",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:04:48.158127",
+    "updated_at": "2026-06-05T15:04:48.158127"
   },
   {
     "id": "hook-007",
-    "description": "丹田不是天生器官而是需要持续灵气供给的\"设备\"——杂役房灵气配额减半=丹田无法维持。这意味着丹田是被安装的。",
+    "description": "每个外门弟子体内的灵气网络都在微微振动，频率不同但都在振——像是接收某种统一信号/等待统一指令。暗示天道对所有修士有实时连接。",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 2,
-    "target_chapter": 25,
-    "related_characters": [],
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:28:50.961586",
-    "updated_at": "2026-06-05T14:34:48.752531"
+    "created_at": "2026-06-05T15:04:48.164065",
+    "updated_at": "2026-06-05T15:07:46.210992"
   },
   {
     "id": "hook-008",
-    "description": "歪肩膀（韩姓弟子）的第三节点泄漏高频编码信号——波动具有结构，衰减慢。暗示某些个体上行通信节点出现故障/被修改，可能在发送异常数据。需进一步观测。",
+    "description": "歪肩膀（左肩高四指的外门弟子）第三节点发出二短一长同步脉冲——编码信号，可能是与其他节点同步的时钟。他的灵气泄漏不是故障，是功能。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "planted",
     "planted_chapter": 3,
-    "target_chapter": 12,
+    "target_chapter": 8,
     "related_characters": [
       "歪肩膀",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:34:48.730172",
-    "updated_at": "2026-06-05T14:39:51.614761"
+    "created_at": "2026-06-05T15:07:46.216315",
+    "updated_at": "2026-06-05T15:07:46.216315"
   },
   {
     "id": "hook-009",
-    "description": "第三节点=上行通信节点。系统在\"沉默\"沈渊——切断上行链路阻止异常状态被报告。关键推论：'系统'和'上游'（天道）不是同一个东西。系统不希望上游知道有异常。",
-    "hook_type": "direct",
+    "description": "杂物房老孙头——无灵根凡人，在外门三十多年，从来不看任何人——在沈渊观察同步时盯着他看了两次呼吸。他知道什么？他看到了什么？",
+    "hook_type": "action",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "resolved",
     "planted_chapter": 3,
-    "target_chapter": 25,
+    "target_chapter": 5,
+    "resolved_chapter": 6,
     "related_characters": [
+      "老孙头",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:34:48.737384",
-    "updated_at": "2026-06-05T14:39:51.620133"
+    "created_at": "2026-06-05T15:07:46.222157",
+    "updated_at": "2026-06-05T15:37:11.648928"
   },
   {
     "id": "hook-010",
-    "description": "沈渊决定潜伏——像HIV病毒一样潜伏在系统内部，装作正常。策略：正常砍柴、练功、考校，不让系统发现他已知情。章末隐喻：他是'虫子身上携带的一种东西，一种系统不认识的东西'。",
+    "description": "老孙头桌上的黑色直角碎片——巴掌大，半透明，边缘规整如黑曜石但四角都是直角。不像这个世界的工艺。老孙头从哪里得到的？是什么东西的碎片？",
     "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 3,
-    "target_chapter": 60,
+    "status": "resolved",
+    "planted_chapter": 4,
+    "target_chapter": 5,
+    "resolved_chapter": 6,
     "related_characters": [
+      "老孙头",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:34:48.742378",
-    "updated_at": "2026-06-05T14:34:48.742378"
+    "created_at": "2026-06-05T15:12:30.174395",
+    "updated_at": "2026-06-05T15:37:11.655989"
   },
   {
     "id": "hook-011",
-    "description": "韩平的第三节点发出三短一长同步脉冲——\"我在线。我还活着。我准备好了。\"接收方不在系统内。韩平不知道自己在发信号。",
-    "hook_type": "action",
+    "description": "凡人不在灵气网络中=天道盲区。老孙头作为凡人看了三十一年，看到的东西比任何修士都多。这是沈渊对抗天道的结构性优势——但也是老孙头能活到现在的原因？天道是否知道自己有盲区？",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 4,
     "target_chapter": 15,
     "related_characters": [
-      "韩平",
+      "老孙头",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:39:51.591425",
-    "updated_at": "2026-06-05T14:39:51.591425"
+    "created_at": "2026-06-05T15:12:30.179831",
+    "updated_at": "2026-06-05T15:37:11.666435"
   },
   {
     "id": "hook-012",
-    "description": "丹房执事在杂物房搜索，间接寻找\"接近韩平的人\"。丹房不能/不愿直接接触韩平——在避开什么？丹房不是系统的公开代理人。",
-    "hook_type": "action",
+    "description": "三角形符号+三条断开的平行横线——嵌在黑色碎片内部，工业级精度。一个正三角形内部三条平行横线一端连着右边一端悬空，像断开的连接。碎片嵌入石头后暗金色光沿毛细血管纹路流动——闭合回路但缺了什么。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 18,
+    "planted_chapter": 6,
+    "target_chapter": 12,
     "related_characters": [
-      "丹房执事",
-      "韩平",
-      "沈渊"
+      "沈渊",
+      "老孙头"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:39:51.597754",
-    "updated_at": "2026-06-05T14:39:51.597754"
+    "created_at": "2026-06-05T15:37:27.418308",
+    "updated_at": "2026-06-05T15:37:27.418308"
   },
   {
     "id": "hook-013",
-    "description": "韩平每天卯时到辰时去后山挖东西——从锄头换成铁锹，\"在往下挖\"。可能是信号接收方所在位置，也可能是信号源。",
-    "hook_type": "action",
+    "description": "三十年前死去的弟子临死前用手指画了一横一竖——十字？加号？未完成的字？他说'它知道我'之后嗓子被透明液体堵住，只能用手势传达最后信息。老孙头找了三十年没找到与之对应的东西。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 10,
+    "planted_chapter": 6,
+    "target_chapter": 15,
     "related_characters": [
-      "韩平",
-      "沈渊"
+      "沈渊",
+      "老孙头"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T14:39:51.603233",
-    "updated_at": "2026-06-05T14:39:51.603233"
+    "created_at": "2026-06-05T15:37:27.423693",
+    "updated_at": "2026-06-05T15:37:27.423693"
   },
   {
     "id": "hook-014",
-    "description": "沈渊发现自己被压低的第三节点可以成为\"接收端\"——系统的沉默反而制造了盲区。决定在自己身上尝试接收韩平信号。",
-    "hook_type": "action",
+    "description": "李崇云深夜出现在杂物房门外——他怎么知道沈渊在杂物房？他听到了多少？第2章中李崇云的灵气'被规范过'，他是否在用某种方式绕过天道监视？这次突然出现意味着什么？",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 8,
+    "planted_chapter": 6,
+    "target_chapter": 7,
     "related_characters": [
-      "沈渊"
+      "李崇云",
+      "沈渊",
+      "老孙头"
     ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T14:39:51.608462",
-    "updated_at": "2026-06-05T14:39:51.608462"
+    "related_hooks": [
+      "hook-003",
+      "hook-006"
+    ],
+    "created_at": "2026-06-05T15:37:27.429840",
+    "updated_at": "2026-06-05T15:37:27.429840"
+  },
+  {
+    "id": "hook-015",
+    "description": "碎片+石头=不完整的闭合回路——三条横线断开导致回路不完整。完整的回路能做什么？石板上的图案是完整的，碎片被撬断后石板'死了'。后山断崖下面还有什么？石板被师父收了之后去了哪里？",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊",
+      "老孙头"
+    ],
+    "related_hooks": [
+      "hook-012",
+      "hook-013"
+    ],
+    "created_at": "2026-06-05T15:37:27.435277",
+    "updated_at": "2026-06-05T15:37:27.435277"
   }
 ]
