@@ -112,7 +112,7 @@ def _handle_register(args: dict[str, Any]) -> str:
 **出场章节**: {chapter or '未指定'}
 **身份/定位**: {role or '未指定'}
 
-请基于以上信息，用 2-4 句话概括这个角色的核心特征，保存为 memory（type=character）。
+请基于以上信息，用 2-4 句话概括这个角色的核心特征，保存为 memory。
 格式示例：
   - 外貌/辨识特征（1 句）
   - 与主角/主线的关联（1 句）
@@ -120,7 +120,9 @@ def _handle_register(args: dict[str, Any]) -> str:
 
 {f'补充说明: {notes}' if notes else ''}
 
-保存后，在 MEMORY.md 中添加一行索引。"""
+重要: 保存时使用 memory add, type=character。
+如果 tier 为 minor 或 cameo，在 frontmatter 中加上 tier: {tier}，
+并且不要添加到 MEMORY.md（龙套角色不参与索引搜索）。"""
 
     return tool_result(
         success=True,
@@ -128,7 +130,7 @@ def _handle_register(args: dict[str, Any]) -> str:
         name=name,
         tier=tier,
         directive=directive,
-        hint="Use the memory tool (action=add, type=character) to save this character. Keep description brief (2-4 sentences).",
+        hint="Use memory add (type=character). For minor/cameo: add 'tier: {tier}' to frontmatter, skip MEMORY.md.",
     )
 
 

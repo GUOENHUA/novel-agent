@@ -105,7 +105,7 @@ class MemoryStore:
 
         # Build frontmatter
         fm_lines = ["---"]
-        for key in ["name", "description", "type"]:
+        for key in ["name", "description", "type", "tier"]:
             if key in frontmatter:
                 fm_lines.append(f"{key}: {frontmatter[key]}")
         if "related" in frontmatter and frontmatter["related"]:
@@ -160,6 +160,7 @@ class MemoryStore:
                 "name": fm.get("name", filepath.stem),
                 "description": fm.get("description", ""),
                 "type": fm.get("type", ""),
+                "tier": fm.get("tier", "major"),  # major/supporting/minor/cameo
                 "mtime": filepath.stat().st_mtime if filepath.exists() else 0,
             })
 

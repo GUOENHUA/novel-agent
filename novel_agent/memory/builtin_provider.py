@@ -123,6 +123,7 @@ class BuiltinProvider(MemoryProvider):
         name = args.get("name", "").strip()
         description = args.get("description", "").strip()
         content = args.get("content", "").strip()
+        tier = args.get("tier", "").strip()
 
         if not name or not description or not content:
             return json.dumps({
@@ -141,29 +142,38 @@ class BuiltinProvider(MemoryProvider):
                 "error": f"Memory '{name}' already exists at {filename}. Use update to modify.",
             }, ensure_ascii=False)
 
+        # Build frontmatter — include tier for character types
+        fm = {
+            "name": name,
+            "description": description,
+            "type": memory_type,
+        }
+        if tier:
+            fm["tier"] = tier
+
         # Write memory file
         self.store.write_memory(
             filename=filename,
-            frontmatter={
-                "name": name,
-                "description": description,
-                "type": memory_type,
-            },
+            frontmatter=fm,
             content=content,
         )
 
-        # Update index
-        self.store.add_to_index(
-            title=name,
-            filename=filename,
-            hook=description[:150],
-        )
+        # For minor/cameo characters, skip MEMORY.md index —
+        # they are "即用即丢" (use-and-discard) and should not
+        # participate in memory search.
+        if memory_type != "character" or tier not in ("minor", "cameo"):
+            self.store.add_to_index(
+                title=name,
+                filename=filename,
+                hook=description[:150],
+            )
 
         return json.dumps({
             "success": True,
             "message": f"Memory '{name}' saved to {filename}.",
             "filename": filename,
             "type": memory_type,
+            "tier": tier or None,
         }, ensure_ascii=False)
 
     def _memory_update(self, memory_type: str, args: dict[str, Any]) -> str:
@@ -259,6 +269,13 @@ class BuiltinProvider(MemoryProvider):
         headers = self.store.scan_memory_headers()
         if memory_type:
             headers = [h for h in headers if h["type"] == memory_type]
+
+        # Exclude minor/cameo characters from search — they are
+        # "即用即丢" (use-and-discard). Only major/supporting characters
+        # participate in memory search. Minor characters live in chapters,
+        # not in the persistent memory index.
+        if memory_type == "character":
+            headers = [h for h in headers if h.get("tier", "major") not in ("minor", "cameo")]
 
         if query:
             headers = [
