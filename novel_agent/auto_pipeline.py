@@ -123,15 +123,13 @@ class AutoPipeline:
                     interactive=False,
                 )
 
-                # Post-processing: slop check and settlement on the saved chapter
-                chapter_path = self.agent.chapter_path(ch)
-                if chapter_path.exists():
-                    content = chapter_path.read_text("utf-8")
+                # Get chapter content from the conversation loop's last text output.
+                # preview_chapter_auto acknowledged the preview; we save here with
+                # proper title generation, cleaning, and settlement.
+                content = loop._last_text_output
+                if content and len(content) >= 500:
+                    self._settle_state(ch, content)
                     slop_score, slop_warnings = self._check_slop(content)
-                    try:
-                        self._settle_state(ch, content)
-                    except Exception:
-                        pass  # Settlement is best-effort
                     elapsed = time.time() - t0
                     _safe_print(f"  [{progress}] ch{ch} OK ({len(content)} chars, slop {slop_score:.0f}, {elapsed:.0f}s)")
                     self.results.append({
@@ -141,10 +139,10 @@ class AutoPipeline:
                         "attempts": 1,
                     })
                 else:
-                    _safe_print(f"  [{progress}] ch{ch} FAILED (no file saved)")
+                    _safe_print(f"  [{progress}] ch{ch} FAILED (no content: {len(content)} chars)")
                     self.results.append({
                         "chapter": ch, "success": False,
-                        "word_count": 0, "slop_score": 0,
+                        "word_count": len(content) if content else 0, "slop_score": 0,
                         "slop_warnings": [], "attempts": 1,
                     })
 

@@ -528,25 +528,24 @@ class ConversationLoop:
         return ("", "")
 
     def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
-        """Auto-save preview content without interactive dialog (for auto mode)."""
+        """Handle preview in auto mode — return content for pipeline to save.
+
+        Does NOT write files itself. The AutoPipeline owns the save path
+        (clean + title + settlement). This method just acknowledges the
+        preview and passes back the content.
+        """
         import json as _json
         content = self._last_text_output
 
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
-            title = args.get("title", "")
-            if not title:
-                from novel_agent.auto_pipeline import AutoPipeline
-                p = AutoPipeline(self.agent)
-                title = p._generate_title(content, ch_num)
-            path = self.agent.chapter_path(ch_num, title or "untitled")
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(f"# 第{ch_num}章: {title}\n\n{content}", encoding="utf-8")
-            state = self.agent.truth_files.load_state()
-            state.current_chapter = ch_num + 1
-            self.agent.truth_files.save_state(state)
-            safe_print(f"  [green]Auto-saved: Ch{ch_num} {title}[/green]")
-            return _json.dumps({"status": "saved", "path": str(path), "title": title})
+            safe_print(f"  [dim]Ch{ch_num} previewed ({len(content)} chars)[/dim]")
+            return _json.dumps({
+                "status": "acknowledged",
+                "chapter_number": ch_num,
+                "content": content,
+                "title_hint": args.get("title", ""),
+            })
 
         elif tool_name == "preview_outline":
             out_dir = self.agent.project_dir / "outline"

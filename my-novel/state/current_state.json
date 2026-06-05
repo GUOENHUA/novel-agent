@@ -1,11 +1,36 @@
 {
   "novel_title": "",
-  "current_chapter": 3,
+  "current_chapter": 11,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {},
+  "characters": {
+    "沈渊": {
+      "name": "沈渊",
+      "current_location": "",
+      "emotional_state": "警觉且冷静，逐渐理解系统全貌",
+      "goal": "留下来观察网络运作，寻找更多证据",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "王铁柱": {
+      "name": "王铁柱",
+      "current_location": "",
+      "emotional_state": "对沈渊保持警惕但愿意交易",
+      "goal": "维持铁匠铺经营，不惹麻烦",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "管事": {
+      "name": "管事",
+      "current_location": "",
+      "emotional_state": "疲倦但被沈渊的话触动——认出同类",
+      "goal": "留下沈渊作为看守人",
+      "alive": true,
+      "chapter_updated": 0
+    }
+  },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T11:24:06.567116"
+  "last_updated": "2026-06-05T11:49:34.926360"
 }

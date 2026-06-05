@@ -1,1 +1,82 @@
-[]
+[
+  {
+    "id": "hook-03-1",
+    "description": "沈渊体内有'老茧'般的气滞阻碍灵气流动——原主修炼留下的创伤痕迹，暗示死因可能并非意外",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T11:35:21.592601",
+    "updated_at": "2026-06-05T11:43:21.817813"
+  },
+  {
+    "id": "hook-03-2",
+    "description": "参宿一的闪光规律——沈渊发现它在极短间隙中闪烁，疑似人为编码，怀疑是天道监控或前文明遗留",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T11:35:21.602067",
+    "updated_at": "2026-06-05T11:43:21.827171"
+  },
+  {
+    "id": "hook-03-3",
+    "description": "沈渊尝试向参宿一发信号但意识到可能暴露自己——引入'谨慎隐匿'的生存法则",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T11:35:21.610045",
+    "updated_at": "2026-06-05T11:43:21.836929"
+  },
+  {
+    "id": "hook-03-4",
+    "description": "王铁柱为沈渊引气时，铜绿色灵气进入沈渊丹田——两种灵气接触引发细微但异常的反应",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T11:35:21.619536",
+    "updated_at": "2026-06-05T11:43:21.845175"
+  },
+  {
+    "id": "hook-07-1",
+    "description": "前任管事在簿子上留下「它在说话」四字，暗示信号有智能或有人操控",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊",
+      "落雁坪管事"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T11:42:05.850112",
+    "updated_at": "2026-06-05T11:43:21.796261"
+  },
+  {
+    "id": "hook-07-2",
+    "description": "管事提到「三十年了，你是第一个说这种话的人」——暗示三十年前有过特殊事件",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 12,
+    "related_characters": [
+      "沈渊",
+      "石头"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T11:42:05.858410",
+    "updated_at": "2026-06-05T11:43:21.807811"
+  }
+]
