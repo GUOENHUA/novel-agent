@@ -281,7 +281,7 @@ class ConversationLoop:
                     extra_body={"thinking": {"type": "enabled"}},
                 )
             # Accumulate text from this turn for preview tools
-            self._last_text_output = self.agent.extract_text(response.content) or ""
+            self._last_text_output = self.agent.extract_text(response.content, fallback_to_thinking=True) or ""
 
             if _abort_flag:
                 safe_print("  [dim](interrupted)[/dim]")
@@ -354,7 +354,7 @@ class ConversationLoop:
                 # Track the current response's text for preview tools.
                 # Replace (don't accumulate) so each preview gets the correct
                 # text for THIS response, not stale text from previous rounds.
-                new_text = self.agent.extract_text(response.content) or ""
+                new_text = self.agent.extract_text(response.content, fallback_to_thinking=True) or ""
                 self._last_text_output = new_text
                 if new_text.strip():
                     safe_print(new_text)
