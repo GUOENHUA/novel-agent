@@ -27,5 +27,256 @@
     "narrative_distance": "close_third",
     "tense": "past",
     "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 6,
+    "title": "沈渊在镇口站了很",
+    "word_count": 3603,
+    "summary": "沈渊在镇口送别王铁柱一行，写下两张纸条记录信息，并将记载王铁柱路线的纸条藏于蚁穴。他返回镇上观察修士，决定不回天元宗，用自己在纸上写字的能力换取聚气丹样本，以着手检测龙骨，最后暗示这将是对天道的主动审视。",
+    "key_events": [],
+    "characters_appearing": [],
+    "hooks_planted": [],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "",
+    "narrative_distance": "",
+    "tense": "",
+    "thought_style": ""
+  },
+  {
+    "chapter_number": 7,
+    "title": "沈渊在客栈里住了",
+    "word_count": 3550,
+    "summary": "沈渊用记账格式换取客栈住宿一夜。他在房中整理线索，铁片灵光彻底熄灭并开始生锈。深夜他察觉到房间内有异常扰动，铁片上凭空出现一粒灰白色球形晶体。他分析嗡声频率来自南方桑田，怀疑地下埋有大量丹药，天蒙蒙亮便出门寻找识货之人。",
+    "key_events": [
+      "沈渊用五栏记账法换取顺来客栈住宿",
+      "铁片灵光彻底熄灭，边缘出现锈斑，沈渊确认金手指已失效",
+      "沈渊补写需求：需确定佐剂中四种辅料，怀疑其中含灵脉结晶抑制剂",
+      "沈渊分析夜间嗡声频率分布，锁定来源为南方桑田",
+      "深夜油灯火苗异常扰动，铁片上凭空出现一粒灰白色球形晶体",
+      "沈渊测量嗡声频率约40次/秒，推断桑田地下埋有大量丹药",
+      "天亮后沈渊带着晶体离开客栈，寻找识货之人"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "客栈掌柜"
+    ],
+    "hooks_planted": [
+      "hook-009",
+      "hook-010",
+      "hook-011",
+      "hook-012",
+      "hook-013"
+    ],
+    "hooks_resolved": [
+      "hook-003"
+    ],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 8,
+    "title": "伙计转过头。一张",
+    "word_count": 4017,
+    "summary": "沈渊带着在客栈发现的白色晶体来到丹药铺，年轻伙计识出那是埋藏五十年以上的灵核。伙计展示师傅赵三问遗留的手记，揭示青木镇地下存在五十七个以丹药标记的嗡声节点，间距七尺、脉动同步。师傅临终遗言暗示地下有更深层的存在，沈渊开始拼凑出一个超大阵列的轮廓。",
+    "key_events": [
+      "伙计识出沈渊手中晶体是灵核——丹药埋藏五十年以上与矿物结合的废料",
+      "伙计展示师傅赵三问的手记，揭示青木镇地下有57个嗡声节点构成规则阵列",
+      "伙计将师傅遗言交给沈渊：嗡声不是丹药脉动，前因在地下更深处"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "丹药铺伙计"
+    ],
+    "hooks_planted": [
+      "hook-014",
+      "hook-015",
+      "hook-016"
+    ],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 9,
+    "title": "伙计把叠成方胜的",
+    "word_count": 316,
+    "summary": "沈渊在丹药铺与伙计对话，伙计确认师傅等了他三年。沈渊询问黑石片感应灵气的能力，得知能区分离体灵核的死灵气与活人经络中的流转灵气，随后展开地形草图请求伙计帮忙。",
+    "key_events": [
+      "伙计确认师傅等沈渊等了三年",
+      "沈渊询问黑石片感应灵气精度的能力",
+      "沈渊展开桑田地形草图请求伙计帮忙"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "丹药铺伙计"
+    ],
+    "hooks_planted": [
+      "hook-017",
+      "hook-018"
+    ],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 10,
+    "title": "沈渊把地形草图往",
+    "word_count": 2969,
+    "summary": "沈渊邀请丹药铺伙计协助调查桑田阵列，得知伙计因\"嗡染\"被困药铺百步之内。伙计交出赵三问遗物铜盒，沈渊打开后发现盒中是一块嵌有灵核的怪石——与客栈铁片上析出的灵核同源。与此同时，桑田五十七个嗡声节点全部苏醒，沈渊掌心在铜盖上留下的汗渍让铜片在三秒内老了十年。",
+    "key_events": [
+      "伙计透露自己因触碰铜片被嗡染，经络受染后只能在黑石片共鸣范围内活动",
+      "伙计描述桑田灵气分布异常——'像水面，平的，死的'，并声称嗡声'在等'",
+      "沈渊打开赵三问封遗的铜盒子，发现内嵌灵核的灰白怪石——第二粒灵核",
+      "沈渊发现石头上存在高温能量切割后迅速冷却的光滑切面",
+      "伙计报告五十七个嗡声节点全部同时苏醒，节奏相同——'同一个东西在五十七个位置同时振'",
+      "沈渊掌心在铜盖上留下异常汗渍，接触处铜片迅速氧化老化"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "丹药铺伙计"
+    ],
+    "hooks_planted": [
+      "hook-019",
+      "hook-020"
+    ],
+    "hooks_resolved": [
+      "hook-009"
+    ],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 11,
+    "title": "沈渊盯着铜盖上那",
+    "word_count": 3822,
+    "summary": "沈渊发现封蜡中掺有灵核粉末，揭示赵三问用同源灵核屏蔽嗡声的反向封印机制。伙计的嗡染加速扩散，只剩三天时间。沈渊决定三天内前往桑田中心，挖开赵三问三十年前未穿透的灵压固化层。阅读赵三问手记时发现惊人记录：五十七个节点不是阵列而是盖子，地下有活物。",
+    "key_events": [
+      "沈渊发现封蜡中掺有灵核粉末——同源灵核可屏蔽同源嗡声",
+      "伙计的嗡染从第二指节爬到第三指节，加速扩散仅剩三天",
+      "沈渊从石头中取出灵核样本，决定前往桑田中心",
+      "沈渊阅读赵三问的'石感杂录'手记",
+      "手记第十七页揭露：五十七个节点是盖子，地下是活的",
+      "沈渊安排伙计留在铺子监控节点，用铜盒碎片阻隔嗡声"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "丹药铺伙计",
+      "王铁柱"
+    ],
+    "hooks_planted": [
+      "hook-011-1",
+      "hook-011-2",
+      "hook-011-3"
+    ],
+    "hooks_resolved": [],
+    "mood": "tense",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 12,
+    "title": "第12章沈渊",
+    "word_count": 4494,
+    "summary": "沈渊独自前往桑田镇外的荒地，实地勘测五十七个节点阵列的中心。他发现地面被灵压固化层覆盖、裂缝中长出能吸取灵核的灰色丝状物，最终在阵列中心一个土包上找到了灵压层被从内部顶破的孔洞，确认地下封存的一万年前的'活物'仍在往上顶。他决定先回镇上收集更多数据再尝试挖掘。",
+    "key_events": [
+      "沈渊发现桑田方向天空被'滤掉一层光'，土壤无灵气、无生命迹象",
+      "发现灵压固化层——地面硬如铁板，裂缝光滑如打磨，是灵压重排土粒所致",
+      "发现裂缝中长出的灰色丝状物能主动吸取灵核，灵核被吸取后颜色变浅",
+      "发现丝状物根部有与嗡声同步的脉动光，五十七个节点同步往中心汇聚",
+      "到达阵列中心土包——唯一有绿草和正常土壤的地方，灰丝被排斥在三尺之外",
+      "用黑石片放大器感知到从地底传来的超低频脉动，草叶影子同步抖动",
+      "用研钵敲击土包，发现灵压固化层存在结构缺陷——被从内部顶开的孔洞",
+      "透过孔洞看到深处有膜状结构和一万年前颜色的浓稠光芒",
+      "做出判断：两铲就能挖开，但决定先回镇上观测裂缝是否自愈、收集更多数据"
+    ],
+    "characters_appearing": [
+      "沈渊"
+    ],
+    "hooks_planted": [
+      "hook-021",
+      "hook-022",
+      "hook-023",
+      "hook-024"
+    ],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 13,
+    "title": "沈渊回到药铺的时",
+    "word_count": 2881,
+    "summary": "沈渊返回药铺，与伙计分享桑田发现，深入检查赵三问铜盒发现盒盖内侧刻有五十七等分同心圆图案和灵核粉末镀层，推测赵三问在封盒前已知道地下结构。沈渊用灵核粉针尖测试纸面膜图，确认铜锈下封有灵核粉末层——赵三问封盒是为了防止里面的东西被发现。夜归桑田前，沈渊布置伙计用黑石片监听频率变化，并给王铁柱留了时辰地点纸条。",
+    "key_events": [
+      "沈渊与伙计交换桑田和赵三问挖掘信息，确认伙计嗡染已扩散到嗓子",
+      "发现铜盒盖内侧有五十七等分同心圆刻痕，与桑田节点数完全一致",
+      "用灵核粉末涂层针尖对纸面膜图进行刺穿实验，发现盒盖铜锈下整层封着灵核粉末",
+      "伙计透露赵三问死时脖子后面有灰色圆形印记，与街上裂缝中的灰丝同色",
+      "沈渊意识到阵列精度超出认知——这是一个工程而非古老封印，质疑修仙史五千年前的空白",
+      "沈渊布置伙计夜间监听黑石片频率变化，独自前往桑田观察灵压层夜间变化"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "丹药铺伙计"
+    ],
+    "hooks_planted": [
+      "hook-025",
+      "hook-026",
+      "hook-027",
+      "hook-028",
+      "hook-029"
+    ],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 14,
+    "title": "夜间的桑田和白天",
+    "word_count": 3231,
+    "summary": "沈渊夜间在桑田监测数据，发现灰丝有节律蠕动、地面下沉，确认地下封存物具备生物活性，并记录灵压日较差从三十年前的三成暴涨至百分之一百五十。他决定次日挖掘验证。同一时间，药铺伙计用黑石片监听到嗡声停止，黑石片发出金光，赵三问手记上浮现隐藏文字“不是盖子。是门。”",
+    "key_events": [
+      "沈渊夜间在桑田完成灵压、灰丝等变量的多轮测量，绘制出灵压尖峰曲线",
+      "发现灰丝有节律蠕动、地面下沉，推测地下封存物是活体",
+      "观察到灵压层孔洞边缘长出半透明自愈薄膜，渗出液含活性灵气",
+      "药铺伙计发现黑石片金光大作，三十年嗡声首次停止",
+      "赵三问手记在金光照耀下浮现隐藏字迹：“不是盖子。是门。”"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "丹药铺伙计"
+    ],
+    "hooks_planted": [
+      "hook-030",
+      "hook-031",
+      "hook-032"
+    ],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "沈渊, 丹药铺伙计",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
   }
 ]

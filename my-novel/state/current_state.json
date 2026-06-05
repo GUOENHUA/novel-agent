@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 6,
+  "current_chapter": 15,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,21 +8,29 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "紧张而坚定，准备冒险潜入禁书区，却因神秘纸条的出现而警觉不安",
-      "goal": "进入藏书阁第三层查证聚气丹配方，验证关于佐剂的假设",
+      "emotional_state": "疲惫但坚决，兴奋于数据收敛到的结论",
+      "goal": "在三天窗口期内挖穿灵压层，将黑石片塞入地下验证生物活性",
       "alive": true,
       "chapter_updated": 0
     },
     "王铁柱": {
       "name": "王铁柱",
       "current_location": "",
-      "emotional_state": "从沉默愤怒转为决绝，愿意为找出真相冒险",
-      "goal": "找出姐姐和外甥灵根崩塌的真相",
+      "emotional_state": "未描述",
+      "goal": "保护伙计，应对可能的执法队搜查",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "丹药铺伙计": {
+      "name": "丹药铺伙计",
+      "current_location": "",
+      "emotional_state": "震惊，意识到三十年的沉默被打破了",
+      "goal": "继续随侍并观察黑石片的变化，或许揭开师傅遗言的真相",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T09:28:12.965585"
+  "last_updated": "2026-06-05T09:58:53.209419"
 }

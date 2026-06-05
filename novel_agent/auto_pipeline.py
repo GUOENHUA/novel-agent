@@ -188,30 +188,88 @@ class AutoPipeline:
 
     # -- Phase implementations --------------------------------------------------
 
+    def _build_memory_context(self) -> str:
+        """Preload key character/world/style memories into the writing directive."""
+        try:
+            from novel_agent.memory.memory_store import MemoryStore
+            store = MemoryStore(self.agent.memory_dir)
+            headers = store.scan_memory_headers()
+            lines = []
+            # Major characters (tier != minor/cameo)
+            chars = [h for h in headers if h.get("type") == "character"
+                     and h.get("tier", "major") not in ("minor", "cameo")]
+            if chars:
+                lines.append("## 角色速查")
+                for h in chars[:5]:
+                    content = store.read_memory(h["filename"])
+                    if content:
+                        body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
+                        # First 2 sentences per character
+                        lines.append(f"- {h['name']}: {body[:200]}")
+            # World rules
+            worlds = [h for h in headers if h.get("type") == "world"][:2]
+            if worlds:
+                lines.append("## 世界观约束")
+                for h in worlds:
+                    content = store.read_memory(h["filename"])
+                    if content:
+                        body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
+                        lines.append(f"- {body[:300]}")
+            # Style constraints
+            styles = [h for h in headers if h.get("type") == "style"][:2]
+            if styles:
+                lines.append("## 风格要求")
+                for h in styles:
+                    content = store.read_memory(h["filename"])
+                    if content:
+                        body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
+                        lines.append(f"- {body[:200]}")
+            return "\n".join(lines) if lines else ""
+        except Exception:
+            return ""
+
+    def _build_hook_context(self, chapter_num: int) -> str:
+        """List active hooks relevant to the current chapter window."""
+        try:
+            hooks = self.agent.hook_ledger.get_active()
+            if not hooks:
+                return ""
+            lines = ["## 活跃伏笔"]
+            for h in hooks:
+                target = h.target_chapter or 999
+                if target <= chapter_num + 10:
+                    urgent = " ⚠️" if target <= chapter_num + 3 else ""
+                    lines.append(f"- [{h.id}] {h.description} → 第{target}章{urgent}")
+            return "\n".join(lines) if len(lines) > 1 else ""
+        except Exception:
+            return ""
+
     def _write_chapter(self, chapter_num: int, words: int, attempt: int) -> str:
-        """Write a chapter by calling the LLM with novel context."""
+        """Write a chapter by calling the LLM with novel context + preloaded memory."""
+        # Build rich context: novel state + character details + active hooks
         novel_context = self.agent.build_novel_context(f"写第{chapter_num}章")
+        memory_context = self._build_memory_context()
+        hook_context = self._build_hook_context(chapter_num)
         directive = (
-            f"{novel_context}\n\n---\n\n"
-            f"请写第{chapter_num}章的完整正文。目标{words}字左右。\n\n"
-            f"格式要求（严格遵守）：\n"
-            f"- 不要输出章标题（标题会自动添加），直接开始正文\n"
-            f"- 正文中禁止使用任何Markdown格式：禁止 # ## ### 标题、禁止 **加粗**、禁止 *斜体*\n"
-            f"- 段落之间用空行分隔，除此之外不使用任何特殊格式\n"
-            f"- 禁止在章末添加任何元注释：禁止（第一章完）、（字数：xxx）、（伏笔：xxx）等。你的正文应该是纯粹的叙事，像一本真正的书\n"
-            f"- 开头直接进入场景，不要前言；结尾自然结束，不要后记\n"
-            f"- 这是一段纯粹的叙事文本，像一本真正的书一样"
+            f"{novel_context}\n\n"
+            f"{memory_context}\n"
+            f"{hook_context}\n"
+            f"---\n\n"
+            f"写第{chapter_num}章的完整正文。目标{words}字左右。\n\n"
+            f"直接开始正文，不要章标题。段落间空行分隔，不使用Markdown。\n"
+            f"章末不加元注释。开头直接进入场景，结尾自然结束。"
         )
         if attempt > 1:
-            directive += f"\n\n（这是第{attempt}次重试，请确保质量。）"
+            directive += f"\n\n（第{attempt}次重试，请确保质量。）"
 
         label = f"Writing ch{chapter_num}" + (f" (retry {attempt})" if attempt > 1 else "")
         _safe_print(f"  {label}...")
         t0 = time.time()
         resp = self.agent.call_llm(
             messages=[{"role": "user", "content": directive}],
-            max_tokens=words * 3,
-            temperature=0.8,
+            max_tokens=words * 4,
+            temperature=0.7,
+            extra_body={"thinking": {"type": "enabled"}},
         )
         elapsed = time.time() - t0
         content = self.agent.extract_text(resp.content, fallback_to_thinking=False)
