@@ -145,6 +145,10 @@ class AutoPipeline:
         """Write one chapter with slop-check retry loop."""
         for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
             chapter_content = self._write_chapter(chapter_num, words, attempt)
+            # Guard: too-short chapters are automatic failures
+            if len(chapter_content) < 500:
+                _safe_print(f"    Chapter too short ({len(chapter_content)} chars), retrying...")
+                continue
             slop_score, slop_warnings = self._check_slop(chapter_content)
 
             if slop_score >= DRAFT_PASS_THRESHOLD:
@@ -272,7 +276,8 @@ class AutoPipeline:
             extra_body={"thinking": {"type": "enabled"}},
         )
         elapsed = time.time() - t0
-        content = self.agent.extract_text(resp.content, fallback_to_thinking=False)
+        # Fallback to thinking — deepseek-v4-pro sometimes outputs most prose in thinking blocks
+        content = self.agent.extract_text(resp.content, fallback_to_thinking=True)
         _safe_print(f"    ({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)")
         return content
 
@@ -493,20 +498,34 @@ class AutoPipeline:
     }
 
     def _generate_title(self, content: str, chapter_num: int) -> str:
-        """Generate title via tool call — API guarantees valid JSON."""
+        """Generate a 4-8 character Chinese title from chapter content."""
         try:
             resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": f"为这一章起一个中文标题，4-8个汉字，富有诗意。\n\n{content[:1000]}"}],
-                tools=[self.TITLE_TOOL], max_tokens=50, temperature=0.3,
+                messages=[{"role": "user", "content": (
+                    f"为这一章起一个中文标题。只返回标题本身，4-8个汉字，不要任何其他文字。\n\n"
+                    f"{content[:1000]}"
+                )}],
+                max_tokens=30, temperature=0.3,
             )
-            for block in resp.content:
-                if hasattr(block, "type") and block.type == "tool_use" and isinstance(block.input, dict):
-                    t = block.input.get("title", "").strip()
-                    if 2 <= len(t) <= 20:
-                        return t
+            title = self.agent.extract_text(resp.content).strip()
+            # Clean up common artifacts
+            for prefix in ("标题：", "《", '"', "'"):
+                if title.startswith(prefix):
+                    title = title[len(prefix):]
+            for suffix in ("》", '"', "'"):
+                if title.endswith(suffix):
+                    title = title[:-1]
+            if 2 <= len(title) <= 20:
+                return title
         except Exception:
             pass
-        fallback = content.strip()[:8].replace("\n", "")
+        # Fallback: use a meaningful chunk from the chapter itself
+        body = content.strip()
+        for line in body.split("\n"):
+            line = line.strip()
+            if 4 <= len(line) <= 12 and not line.startswith("#"):
+                return line
+        return f"第{chapter_num}章"
         return fallback if len(fallback) >= 2 else f"第{chapter_num}章"
 
     @staticmethod

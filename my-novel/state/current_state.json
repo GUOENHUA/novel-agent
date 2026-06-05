@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 15,
+  "current_chapter": 11,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,29 +8,45 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "疲惫但坚决，兴奋于数据收敛到的结论",
-      "goal": "在三天窗口期内挖穿灵压层，将黑石片塞入地下验证生物活性",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "王铁柱": {
-      "name": "王铁柱",
-      "current_location": "",
-      "emotional_state": "未描述",
-      "goal": "保护伙计，应对可能的执法队搜查",
+      "emotional_state": "紧迫——发现时间从三个月压缩到三天",
+      "goal": "找到白砚行了解玄明写入习惯，在三天内建立旁路",
       "alive": true,
       "chapter_updated": 0
     },
     "丹药铺伙计": {
       "name": "丹药铺伙计",
       "current_location": "",
-      "emotional_state": "震惊，意识到三十年的沉默被打破了",
-      "goal": "继续随侍并观察黑石片的变化，或许揭开师傅遗言的真相",
+      "emotional_state": "恐惧但配合",
+      "goal": "交出师傅手记帮助沈渊",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "姜凝": {
+      "name": "姜凝",
+      "current_location": "",
+      "emotional_state": "压抑的安静——在赵三问的传承与沈渊的危险之间",
+      "goal": "确保沈渊在三天内建立旁路，活下去",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "白砚行": {
+      "name": "白砚行",
+      "current_location": "",
+      "emotional_state": "等待——空转三十年后的沉静",
+      "goal": "未明确，但暗示他在等受不了空转的那一天",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "玄明真人": {
+      "name": "玄明真人",
+      "current_location": "",
+      "emotional_state": "无情绪，平缓如读报告",
+      "goal": "完成沈渊的逆向解析，执行写入协议",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T09:58:53.209419"
+  "last_updated": "2026-06-05T10:33:17.866301"
 }
