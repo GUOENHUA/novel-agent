@@ -663,12 +663,19 @@ class AIAgent:
                 lines.append(f"- **Ch{s.chapter_number}** ({s.word_count}字, {s.mood}): {s.summary}{hook_note}")
             lines.append("")
 
-        # 7. Style constraints (from memory)
-        style_memories = self._fetch_style_constraints()
-        if style_memories:
+        # 7. Style constraints + reference texts (from memory)
+        style_constraints, style_references = self._fetch_style_constraints(ch)
+        if style_constraints:
             lines.append("## 🖊 风格约束")
-            for s in style_memories[:2]:
+            for s in style_constraints[:3]:
                 lines.append(f"- {s}")
+            lines.append("")
+        if style_references:
+            lines.append("## 📖 参考文风样本")
+            for ref in style_references[:2]:
+                # Truncate long samples, keep the first ~800 chars per sample
+                display = ref[:800] + ("..." if len(ref) > 800 else "")
+                lines.append(f"```\n{display}\n```")
             lines.append("")
 
         # 9. User instruction
@@ -761,25 +768,47 @@ class AIAgent:
         except Exception:
             return []
 
-    def _fetch_style_constraints(self) -> list[str]:
-        """Fetch style constraints from memory system."""
+    def _fetch_style_constraints(self, current_chapter: int = 0) -> tuple[list[str], list[str]]:
+        """Fetch style constraints and reference texts from memory.
+
+        Returns (constraints, reference_texts). Entries with an
+        ``active_until_chapter`` frontmatter field are treated as
+        reference samples — they auto-expire after that chapter.
+        Entries without it are permanent constraints.
+        """
         try:
             from novel_agent.memory.memory_store import MemoryStore
             store = MemoryStore(self.memory_dir)
             headers = store.scan_memory_headers()
             style_headers = [h for h in headers if h.get("type") == "style"]
-            constraints = []
-            for h in style_headers[:3]:
+            constraints: list[str] = []
+            references: list[str] = []
+            for h in style_headers[:5]:
                 content = store.read_memory(h["filename"])
-                if content:
-                    # Extract first meaningful line after frontmatter
-                    body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
+                if not content:
+                    continue
+                fm = store._parse_simple_frontmatter(content) if content.startswith("---") else {}
+                # Check expiration
+                expires = fm.get("active_until_chapter", "")
+                if expires:
+                    try:
+                        if current_chapter > int(expires):
+                            continue  # expired — skip entirely
+                    except ValueError:
+                        pass  # malformed value — keep it
+                body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
+                if expires:
+                    # Reference text — return full body
+                    if body:
+                        references.append(body)
+                else:
+                    # Permanent constraint — return one-line summary
                     first_line = body.split("\n")[0].strip()
                     if first_line and len(first_line) < 200:
                         constraints.append(first_line)
-            return constraints
+            return constraints, references
         except Exception:
-            return []
+            return [], []
 
     def _fetch_character_voices(self, active_names: set) -> list[str]:
         """Fetch 1-2 representative dialogue lines per active character from memory.
