@@ -143,8 +143,18 @@ class AutoPipeline:
                 if chapter_path.exists():
                     content = chapter_path.read_text("utf-8")
                     slop_score, slop_warnings = self._check_slop(content)
+                    # Settlement: extract hooks, summaries, character changes
+                    try:
+                        self._settle_state(ch, content)
+                    except Exception:
+                        pass
                     elapsed = time.time() - t0
-                    _safe_print(f"  [{progress}] ch{ch} OK ({len(content)} chars, slop {slop_score:.0f}, {elapsed:.0f}s)")
+                    hooks_info = ""
+                    hooks = self.agent.hook_ledger.get_active()
+                    summaries = self.agent.truth_files.load_summaries()
+                    if hooks: hooks_info += f", hooks:{len(hooks)}"
+                    if summaries: hooks_info += f", summaries:{len(summaries)}"
+                    _safe_print(f"  [{progress}] ch{ch} OK ({len(content)} chars, slop {slop_score:.0f}{hooks_info}, {elapsed:.0f}s)")
                     self.results.append({
                         "chapter": ch, "success": True,
                         "word_count": len(content),
