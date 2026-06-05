@@ -340,7 +340,6 @@ class ConversationLoop:
                                 choice = (
                                     "[自动模式] 用户不在线。上述选项中你认为最合理的那个，"
                                     "直接按它执行，不需要再确认。")
-                                )
                             tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
