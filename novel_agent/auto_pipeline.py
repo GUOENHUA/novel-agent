@@ -385,20 +385,29 @@ class AutoPipeline:
 
     TITLE_TOOL = {
         "name": "set_title",
-        "description": "Set the chapter title. 4-8 Chinese characters, poetic and evocative.",
+        "description": (
+            "Set the chapter title. Usually 2-8 characters, evocative and poetic. "
+            "Occasionally a short verse or couplet. Rarely a single character for impact."
+        ),
         "input_schema": {
             "type": "object",
-            "properties": {"title": {"type": "string", "description": "4-8 character chapter title"}},
+            "properties": {"title": {"type": "string", "description": "Chapter title"}},
             "required": ["title"],
         },
     }
 
     def _generate_title(self, content: str, chapter_num: int) -> str:
-        """Generate a novel-quality chapter title via tool call."""
+        """Generate a novel-quality chapter title via tool call.
+
+        Title conventions: 2-8 chars most common, short verse for climax
+        chapters, single character for high-impact minimalist moments.
+        """
         try:
             resp = self.agent.call_llm(
                 messages=[{"role": "user", "content": (
-                    f"为这一章起一个中文标题（4-8个汉字），像真正的章回小说标题那样富有诗意和画面感。\n\n"
+                    f"为这一章起一个中文标题。章回小说风格，富有诗意和画面感。\n"
+                    f"通常2-8个汉字，高潮章节可用短诗或对句，极简时刻可用单字。\n\n"
+                    f"示例: 醒来 / 下山 / 驿馆 / 问剑 / 春风不度鬼门关 / 他看见自己的尸体 / 归\n\n"
                     f"{content[:1000]}"
                 )}],
                 tools=[self.TITLE_TOOL],
@@ -408,16 +417,10 @@ class AutoPipeline:
             for block in resp.content:
                 if hasattr(block, "type") and block.type == "tool_use" and isinstance(block.input, dict):
                     t = block.input.get("title", "").strip()
-                    if 2 <= len(t) <= 20:
+                    if 1 <= len(t) <= 40:
                         return t
         except Exception:
             pass
-        # Fallback: first meaningful short line that looks like a title
-        body = content.strip()
-        for line in body.split("\n"):
-            line = line.strip()
-            if 4 <= len(line) <= 12 and not line.startswith("#") and not line.endswith("。"):
-                return line
         return f"第{chapter_num}章"
         return fallback if len(fallback) >= 2 else f"第{chapter_num}章"
 
