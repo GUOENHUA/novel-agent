@@ -215,8 +215,7 @@ class AutoPipeline:
         )
         elapsed = time.time() - t0
         content = self.agent.extract_text(resp.content, fallback_to_thinking=False)
-                f"({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)"
-            )
+        _safe_print(f"    ({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)")
         return content
 
     def _check_slop(self, content: str) -> tuple[float, list[str]]:
