@@ -535,21 +535,22 @@ class ConversationLoop:
         return ("", "")
 
     @staticmethod
-    def _extract_chapter_from_code_block(text: str) -> str:
-        """Extract chapter content from a ```章节 code block."""
+    @staticmethod
+    def _extract_chapter_from_code_block(text: str):
+        """Extract from chapter code block. Returns None if not found."""
         import re
-        m = re.search(r'```章节\s*\n(.*?)```', text, re.DOTALL)
+        m = re.search(r"```章节\s*\n(.*?)```", text, re.DOTALL)
         if m:
             return m.group(1).strip()
-        for marker in ('```章节', '```chapter'):
+        for marker in ("```章节", "```chapter", "``` 章节"):
             start = text.find(marker)
             if start >= 0:
-                body_start = text.find('\n', start) + 1
-                end = text.find('\n```', body_start)
-                if end < 0: end = text.find('```', body_start)
+                body_start = text.find("\n", start) + 1
+                end = text.find("\n```", body_start)
+                if end < 0: end = text.find("```", body_start)
                 if end > body_start:
                     return text[body_start:end].strip()
-        return text.strip()
+        return None
 
     def _save_chapter_to_file(self, ch_num: int, content: str) -> dict:
         """Save chapter content directly to file. No LLM call needed —
