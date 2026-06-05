@@ -1,112 +1,167 @@
 [
   {
     "id": "hook-001",
-    "description": "天道通过松果体位置的接收器结构辨认了沈渊，叫出他的名字。语调上扬四分之一音——在辨认而非呼叫。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 15,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T20:24:16.080395",
-    "updated_at": "2026-06-05T20:42:57.594600"
-  },
-  {
-    "id": "hook-002",
-    "description": "沈渊百会穴阻塞——灵气逆行事故的后遗症。阻塞点上游压力升高，下游流量减少。清脉散的药力能绕过但无法消除阻塞。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 30,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T20:24:16.089589",
-    "updated_at": "2026-06-05T20:26:24.764678"
-  },
-  {
-    "id": "hook-003",
-    "description": "孙齐听到沈渊说「数据」一词，决定不告诉张执事。孙齐对沈渊产生了警觉和好奇。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 10,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T20:24:16.099428",
-    "updated_at": "2026-06-05T20:42:57.549805"
-  },
-  {
-    "id": "hook-004",
-    "description": "沈渊发现灵气循环系统「精确得像设计好的代谢通路」——暗示天道对修炼体系的工程化设计。丹田为囊状结构，灵气沿经络分布。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 56,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T20:24:16.107660",
-    "updated_at": "2026-06-05T20:39:07.603211"
-  },
-  {
-    "id": "hook-005",
-    "description": "练气台石板上的暗色石头滤芯——抽取修士灵气。滤芯下方裂纹延伸入地面，连着什么。石板凹槽构成体外循环管路，功能疑似采集/传输灵气。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "target_chapter": 56,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T20:35:49.662812",
-    "updated_at": "2026-06-05T20:42:57.576728"
-  },
-  {
-    "id": "hook-006",
-    "description": "天道探针从「分析」阶段完成，进入第四阶段「改造」——探针大部分转移到百会穴阻塞斑块核心，留下丝线作为永久通道。阻塞缩小（米粒→芝麻），斑块中心出现空泡。丝线从空腔外壁穿过组织间隙连接阻塞，形成持续共振结构。天道在利用这个异常斑块作为某种天线/放大器。",
+    "description": "灵气流转过于精确，不像自然系统。暗示修炼体系是被人为设计的\"底层协议\"，可能有设计者。",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 3,
-    "target_chapter": 15,
-    "related_characters": [],
+    "planted_chapter": 1,
+    "target_chapter": 56,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-05T20:35:49.671406",
-    "updated_at": "2026-06-05T20:42:57.585502"
+    "created_at": "2026-06-05T21:55:40.114913",
+    "updated_at": "2026-06-05T21:59:38.768177"
+  },
+  {
+    "id": "hook-002",
+    "description": "原身冲击炼气八层失败之谜：所有已知变量满足条件却仍失败。存在隐藏变量或有人操控结果。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-001"
+    ],
+    "created_at": "2026-06-05T21:55:40.122930",
+    "updated_at": "2026-06-05T21:55:40.122930"
+  },
+  {
+    "id": "hook-003",
+    "description": "章末意象：沈渊感觉世界深处有\"东西\"在呼吸，缓慢均匀，在等待。暗示天道/寄生者的存在和意识。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 80,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-001"
+    ],
+    "created_at": "2026-06-05T21:55:40.131033",
+    "updated_at": "2026-06-05T22:06:28.051077"
+  },
+  {
+    "id": "hook-004",
+    "description": "《青云引气术》经脉关窍章最后一段墨色不同，是后来加上去的。赵石记得以前没有这段。暗示功法在某个时间点被修订过。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "赵石"
+    ],
+    "related_hooks": [
+      "hook-001",
+      "hook-002"
+    ],
+    "created_at": "2026-06-05T21:59:19.339038",
+    "updated_at": "2026-06-05T22:13:06.391141"
+  },
+  {
+    "id": "hook-005",
+    "description": "药园药畦下方不到一尺处埋着刻有纹路的石板，是某个更大圆形图案的一部分。灵气浓度分布不均匀。暗示药园下方有某种阵法或装置。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊",
+      "徐老头"
+    ],
+    "related_hooks": [
+      "hook-001"
+    ],
+    "created_at": "2026-06-05T21:59:19.350152",
+    "updated_at": "2026-06-05T22:06:28.036824"
+  },
+  {
+    "id": "hook-006",
+    "description": "王管事在沈渊走火入魔后第一个到现场（比药堂孙管事还快），追问沈渊是否「动了手脚」。暗示走火入魔的真实原因王管事可能知情。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊",
+      "王管事"
+    ],
+    "related_hooks": [
+      "hook-002"
+    ],
+    "created_at": "2026-06-05T21:59:19.361075",
+    "updated_at": "2026-06-05T22:13:06.400518"
   },
   {
     "id": "hook-007",
-    "description": "张执事将沈渊调往杂务堂——「隔离」策略。杂役不参加考校，不升内门。张执事察觉沈渊在练功区到处探查（蹲看凹槽、捏泥、借铁钎），决定用最便宜的方式处理异常工具。此指令背后是否有更高层授意？",
-    "hook_type": "action",
+    "description": "老徐和王管事都知道药园石板的存在，保守着同一个秘密。药园近五年衰败，「根扎不下去」。老徐说五年前开始变差。山谷深处人迹罕至处有异常雾气起伏。暗示五年前发生过某事。",
+    "hook_type": "dialogue",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 4,
-    "target_chapter": 12,
+    "planted_chapter": 3,
+    "target_chapter": 45,
     "related_characters": [
-      "张执事",
       "沈渊",
-      "孙齐"
+      "徐老头",
+      "王管事"
     ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T20:39:27.386325",
-    "updated_at": "2026-06-05T20:42:57.568218"
+    "related_hooks": [
+      "hook-005",
+      "hook-006"
+    ],
+    "created_at": "2026-06-05T22:06:28.056068",
+    "updated_at": "2026-06-05T22:13:06.396049"
   },
   {
     "id": "hook-008",
-    "description": "探针发送信号后区域灵气浓度下降——多个弟子下午感觉灵气稀薄。孙齐也确认皮肤接触灵气不发热。天道是否在响应探针信号而调整区域灵气分布？信号内容是什么？",
-    "hook_type": "action",
+    "description": "刘青的信：五年前被清退的炼气八层弟子刘青，死前声称发现功法问题并藏了一封信。信的内容和下落不明。暗示功法缺陷可能已有前人发现。 → Ch55",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "planted",
     "planted_chapter": 4,
-    "target_chapter": 10,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-006"
+    "target_chapter": 55,
+    "related_characters": [
+      "沈渊",
+      "赵石",
+      "刘青"
     ],
-    "created_at": "2026-06-05T20:39:27.395835",
-    "updated_at": "2026-06-05T20:42:57.559341"
+    "related_hooks": [
+      "hook-002",
+      "hook-004",
+      "hook-007"
+    ],
+    "created_at": "2026-06-05T22:08:51.096409",
+    "updated_at": "2026-06-05T22:08:51.096409"
+  },
+  {
+    "id": "hook-009",
+    "description": "顾仲元的身份和动机：二十五年前在功法中新增有问题的引导法段落，声称\"复原\"但证据显示是凭空新增。五年前主持外门清退。同一个人在两个关键时间点出现——是个人行为还是受人指使？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊",
+      "顾仲元",
+      "王管事"
+    ],
+    "related_hooks": [
+      "hook-004",
+      "hook-007"
+    ],
+    "created_at": "2026-06-05T22:13:06.384571",
+    "updated_at": "2026-06-05T22:13:06.384571"
   }
 ]

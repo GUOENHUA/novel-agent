@@ -581,7 +581,13 @@ class ConversationLoop:
         state.current_chapter = ch_num + 1
         self.agent.truth_files.save_state(state)
         safe_print(f"  [green]Saved: Ch{ch_num} {title or '?'}[/green]")
-        return {"success": True, "title": title, "path": str(path), "word_count": len(body)}
+        # Check if plot memory exists — remind LLM if missing
+        result = {"success": True, "title": title, "path": str(path), "word_count": len(body)}
+        plot_patterns = [f"plot-第{ch_num}章*.md", f"plot-*{ch_num}*已写*.md"]
+        has_plot = any(list(self.agent.memory_dir.glob(p)) for p in plot_patterns)
+        if not has_plot:
+            result["needs_plot_memory"] = True
+        return result
 
     def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
         """Handle preview in auto mode — extract from code block and save."""
@@ -595,6 +601,10 @@ class ConversationLoop:
                 return _json.dumps({"status": "no_content", "chapter_number": ch_num})
             self._auto_chapter_content = content
             result = self._save_chapter_to_file(ch_num, content)
+            if result.get("needs_plot_memory"):
+                result["message"] = (f"Chapter {ch_num} saved. "
+                                     f"Please call memory add type=plot name='第{ch_num}章已写' "
+                                     f"with key events, hooks, and Why/How analysis.")
             return _json.dumps(result)
 
         elif tool_name == "preview_outline":
