@@ -123,11 +123,11 @@ class AutoPipeline:
                     interactive=False,
                 )
 
-                # Get chapter content stashed by _handle_preview_auto before
-                # the tool loop's follow-up responses overwrote _last_text_output.
-                content = getattr(loop, '_auto_chapter_content', '')
-                if content and len(content) >= 500:
-                    self._settle_state(ch, content)
+                # Sub-agent already saved the chapter via _handle_preview_auto.
+                # Just verify the file exists and run slop check.
+                chapter_path = self.agent.chapter_path(ch)
+                if chapter_path.exists():
+                    content = chapter_path.read_text("utf-8")
                     slop_score, slop_warnings = self._check_slop(content)
                     elapsed = time.time() - t0
                     _safe_print(f"  [{progress}] ch{ch} OK ({len(content)} chars, slop {slop_score:.0f}, {elapsed:.0f}s)")
@@ -138,10 +138,10 @@ class AutoPipeline:
                         "attempts": 1,
                     })
                 else:
-                    _safe_print(f"  [{progress}] ch{ch} FAILED (no content: {len(content)} chars)")
+                    _safe_print(f"  [{progress}] ch{ch} FAILED (no file)")
                     self.results.append({
                         "chapter": ch, "success": False,
-                        "word_count": len(content) if content else 0, "slop_score": 0,
+                        "word_count": 0, "slop_score": 0,
                         "slop_warnings": [], "attempts": 1,
                     })
 

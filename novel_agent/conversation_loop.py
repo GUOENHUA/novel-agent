@@ -528,22 +528,32 @@ class ConversationLoop:
         return ("", "")
 
     def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
-        """Handle preview in auto mode. Captures content before tool-loop
-        responses overwrite _last_text_output."""
+        """Handle preview in auto mode via a sub-agent call.
+
+        Spawns a fresh one-shot LLM call to save the chapter — the sub-agent
+        doesn't need conversation history, just the chapter content and a
+        save directive. This keeps the main context clean.
+        """
         import json as _json
         content = self._last_text_output
 
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
-            # Stash content so the pipeline can read it even after the tool
-            # loop continues and overwrites _last_text_output
+            if not content or len(content) < 500:
+                return _json.dumps({"status": "no_content", "chapter_number": ch_num})
+
+            # Stash content for the auto pipeline to read as fallback
             self._auto_chapter_content = content
-            safe_print(f"  [dim]Ch{ch_num} previewed ({len(content)} chars)[/dim]")
-            return _json.dumps({
-                "status": "acknowledged",
-                "chapter_number": ch_num,
-                "content_length": len(content),
-            })
+            safe_print(f"  [dim]Ch{ch_num} previewed ({len(content)} chars) — saving via sub-agent...[/dim]")
+
+            # Sub-agent: fresh context, just save instructions + content
+            result = self._save_chapter_via_subagent(ch_num, content)
+
+            if result.get("success"):
+                safe_print(f"  [green]Ch{ch_num}: {result.get('title', '?')}[/green]")
+            else:
+                safe_print(f"  [red]Ch{ch_num} save failed: {result.get('error', '?')}[/red]")
+            return _json.dumps(result)
 
         elif tool_name == "preview_outline":
             out_dir = self.agent.project_dir / "outline"
@@ -574,6 +584,54 @@ class ConversationLoop:
             return result
 
         return _json.dumps({"status": "unknown_tool"})
+
+    def _save_chapter_via_subagent(self, ch_num: int, content: str) -> dict:
+        """Save a chapter via a fresh one-shot LLM call — a sub-agent.
+
+        No conversation history, just the chapter content and save directive.
+        Returns {'success': True, 'title': ...} or {'success': False, 'error': ...}.
+        """
+        import json as _json
+        try:
+            from novel_agent.tools.registry import registry
+            tools = registry.get_definitions()
+            directive = (
+                f"Save chapter {ch_num}. Steps:\n"
+                f"1. Generate a Chinese title (2-8 chars, poetic)\n"
+                f"2. Call write_chapter(action=save, chapter_number={ch_num}, title=..., content=...)\n"
+                f"3. Call settle_chapter to extract summary/hooks/characters\n\n"
+                f"Chapter content:\n{content[:8000]}"
+            )
+            resp = self.agent.call_llm(
+                messages=[{"role": "user", "content": directive}],
+                tools=tools,
+                max_tokens=4000,
+                temperature=0.3,
+            )
+            # The sub-agent should have called write_chapter save. Verify.
+            path = self.agent.chapter_path(ch_num)
+            if path.exists():
+                saved = path.read_text("utf-8")
+                # Extract title from saved content
+                first_line = saved.split("\n")[0] if saved else ""
+                title = first_line.replace(f"# 第{ch_num}章: ", "").strip()
+                return {"success": True, "title": title, "path": str(path),
+                        "word_count": len(saved)}
+            else:
+                # Fallback: save directly without LLM
+                from novel_agent.auto_pipeline import AutoPipeline
+                p = AutoPipeline(self.agent)
+                title = p._generate_title(content, ch_num)
+                path = self.agent.chapter_path(ch_num, title or "untitled")
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(f"# 第{ch_num}章: {title}\n\n{content}", encoding="utf-8")
+                state = self.agent.truth_files.load_state()
+                state.current_chapter = ch_num + 1
+                self.agent.truth_files.save_state(state)
+                return {"success": True, "title": title, "path": str(path),
+                        "word_count": len(content)}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""

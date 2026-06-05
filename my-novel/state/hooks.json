@@ -1,124 +1,383 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气网络拓扑被高度优化——模块化、层级化、反馈调节环——暗示存在设计者/优化者，而非自然演化产物",
+    "description": "王铁柱的闭合回路功法——灵气不逸散而是回流，正统宗门称为\"死路\"。练了二十二年未死，灵气通过噬灵铁排出。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
-    "target_chapter": 56,
+    "status": "mentioned",
+    "planted_chapter": 2,
     "related_characters": [
+      "王铁柱",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:03:31.393185",
-    "updated_at": "2026-06-05T12:03:31.393185"
+    "created_at": "2026-06-05T12:32:29.901752",
+    "updated_at": "2026-06-05T12:41:42.906541"
   },
   {
     "id": "hook-002",
-    "description": "原身日记最后一句「它不动了」——灵气系统有意志，主动停止了原身的灵气运转，导致其死亡",
-    "hook_type": "dialogue",
+    "description": "噬灵铁石片——黑色石片，持续吸附灵气二十二年未满。在丹药铺伙计出现时震动，频率为短-长-短，像心跳/信号。",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 30,
+    "status": "resolved",
+    "planted_chapter": 2,
+    "resolved_chapter": 8,
     "related_characters": [
-      "沈渊"
+      "王铁柱",
+      "沈渊",
+      "丹药铺伙计"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:03:31.400402",
-    "updated_at": "2026-06-05T12:06:02.335467"
+    "created_at": "2026-06-05T12:32:29.911104",
+    "updated_at": "2026-06-05T13:00:30.846495"
   },
   {
     "id": "hook-003",
-    "description": "沈渊丹田拥塞节点突然「通」了——是被动激活还是被天道注意到？与穿越同时发生",
-    "hook_type": "action",
+    "description": "\"不要飞升。飞升就是喂给它\"——王铁柱师父的遗言。师父大笑后吐血，血中有\"不属于血的东西\"。",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
-    "target_chapter": 80,
+    "status": "mentioned",
+    "planted_chapter": 2,
     "related_characters": [
+      "王铁柱",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:03:31.406897",
-    "updated_at": "2026-06-05T12:03:31.406897"
+    "created_at": "2026-06-05T12:32:29.918791",
+    "updated_at": "2026-06-05T13:00:30.809067"
   },
   {
     "id": "hook-004",
-    "description": "沈渊感知到巨型灵气网络的流向是「向上」——单向流动，从低阶修士流向高阶，从人间流向某处，暗示食物链结构",
-    "hook_type": "direct",
+    "description": "丹药铺伙计手腕上的灵气纹路逸散方向是斜下方（地底），而非斜上方（天道）。暗示地下也有某种收集系统。",
+    "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
-    "target_chapter": 40,
+    "status": "mentioned",
+    "planted_chapter": 2,
     "related_characters": [
+      "丹药铺伙计",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:03:31.411904",
-    "updated_at": "2026-06-05T12:03:31.411904"
+    "created_at": "2026-06-05T12:32:29.925793",
+    "updated_at": "2026-06-05T13:00:30.822293"
   },
   {
     "id": "hook-005",
-    "description": "章末门被一脚踢开——谁来了？来者不善。沈渊如何应对这个陌生世界的第一波人际冲突？",
-    "hook_type": "action",
+    "description": "跛子每年送一两个\"能问出正确问题的人\"到王铁柱处。此前的人或疯或失踪或死于修炼事故。暗示天道/宗门有清除机制。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 1,
-    "target_chapter": 2,
-    "resolved_chapter": 2,
+    "status": "mentioned",
+    "planted_chapter": 2,
     "related_characters": [
+      "跛子",
+      "王铁柱",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:03:31.417132",
-    "updated_at": "2026-06-05T12:05:07.243541"
+    "created_at": "2026-06-05T12:32:29.933462",
+    "updated_at": "2026-06-05T12:57:13.118081"
   },
   {
     "id": "hook-006",
-    "description": "原身在《紫府练气真解》上的批注——系统性地记录灵气运转数据，最终批注「它知道我在看」——暗示天道能感知被观察",
+    "description": "\"两张嘴\"假说——沈渊推演：天道是上方收集系统，石片是人工收集器，药铺伙计灵气往地底走，意味着地底也有一个收集系统。不是上下两层，是两张嘴。天上那张吃修士，地下那张吃什么？",
     "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "target_chapter": 50,
+    "status": "mentioned",
+    "planted_chapter": 3,
     "related_characters": [
-      "沈渊"
+      "沈渊",
+      "王铁柱"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:05:07.250676",
-    "updated_at": "2026-06-05T12:05:07.250676"
+    "created_at": "2026-06-05T12:41:57.080117",
+    "updated_at": "2026-06-05T13:00:30.833926"
   },
   {
     "id": "hook-007",
-    "description": "管事对沈渊说「别再练了」——语气不是命令而是共享的恐惧。底层修士是否知道修炼的危险？他知道什么？",
-    "hook_type": "dialogue",
+    "description": "地底存在——寅时石片发光震动，地底传来三秒沉闷声响，像呼吸/巨大生物翻身。王铁柱说石片是\"警告\"而非追踪器。\"它来了\"——地下有东西在往上爬。",
+    "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "target_chapter": 35,
+    "status": "mentioned",
+    "planted_chapter": 3,
     "related_characters": [
       "沈渊",
-      "管事"
+      "王铁柱"
     ],
-    "related_hooks": [],
-    "created_at": "2026-06-05T12:05:07.255745",
-    "updated_at": "2026-06-05T12:05:07.255745"
+    "related_hooks": [
+      "hook-002",
+      "hook-004"
+    ],
+    "created_at": "2026-06-05T12:41:57.123554",
+    "updated_at": "2026-06-05T12:53:33.839496"
   },
   {
     "id": "hook-008",
-    "description": "藏书阁藏有天元宗三百年档案——信息金矿，沈渊获取系统认知的途径。档案里藏着什么秘密？",
+    "description": "地底有第二个灵气收集系统，正在往上移动——不是上下两张嘴，是地下那张嘴正在往上爬",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [
+      "丹药铺伙计",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-002",
+      "hook-004"
+    ],
+    "created_at": "2026-06-05T12:41:57.168712",
+    "updated_at": "2026-06-05T13:00:30.748879"
+  },
+  {
+    "id": "hook-009",
+    "description": "药铺伙计知道石片在追他／他脚下的东西，每晚走不同方向回避追踪，回头时看向地底",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:43:54.680247",
+    "updated_at": "2026-06-05T13:00:30.762303"
+  },
+  {
+    "id": "hook-010",
+    "description": "王铁柱师父临终遗言：'它会来找你的'——'它'的身份指向地下存在",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:43:54.690763",
+    "updated_at": "2026-06-05T13:00:30.773392"
+  },
+  {
+    "id": "hook-011",
+    "description": "王铁柱揭示追查真相者的三个结局：一个疯了、一个走了再无消息、一个三个月后死于修炼事故——可能不是被清除，而是主动暴露",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:43:54.701288",
+    "updated_at": "2026-06-05T13:00:30.785843"
+  },
+  {
+    "id": "hook-012",
+    "description": "石片移动指向药铺——方向追踪机制揭示",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:47:56.550235",
+    "updated_at": "2026-06-05T12:47:56.550235"
+  },
+  {
+    "id": "hook-013",
+    "description": "地下有东西在往上爬——寅时石片震动伴随地底沉闷声响",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:47:56.560740",
+    "updated_at": "2026-06-05T12:53:33.862629"
+  },
+  {
+    "id": "hook-014",
+    "description": "药铺伙计知道石片在追他——每天走不同方向回避追踪",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:47:56.569690",
+    "updated_at": "2026-06-05T12:53:33.873137"
+  },
+  {
+    "id": "hook-015",
+    "description": "王铁柱师父遗言：'它会来找你的'",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:47:56.580105",
+    "updated_at": "2026-06-05T12:47:56.580105"
+  },
+  {
+    "id": "hook-016",
+    "description": "地底也有一个收集系统——两张嘴，天上吃修士，地下吃什么？",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:47:56.589735",
+    "updated_at": "2026-06-05T12:47:56.590740"
+  },
+  {
+    "id": "hook-038-1",
+    "description": "石头手指暗蓝光与沈渊眉心冷白光接触时产生差频共振，混成极淡金色——两种频率融合可能具有特殊意义",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 2,
-    "target_chapter": 20,
-    "related_characters": [
-      "沈渊"
-    ],
+    "planted_chapter": 38,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T12:05:07.261212",
-    "updated_at": "2026-06-05T12:05:07.261212"
+    "created_at": "2026-06-05T12:53:33.774604",
+    "updated_at": "2026-06-05T12:53:33.774604"
+  },
+  {
+    "id": "hook-038-2",
+    "description": "王铁柱砧台里封着二十年淬火积攒的灵气残渣，他自己就是一座灵站——铁匠不依赖灵石灯",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 38,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:53:33.785635",
+    "updated_at": "2026-06-05T12:53:33.785635"
+  },
+  {
+    "id": "hook-038-3",
+    "description": "王铁柱送出全部碎灵粉末，这些碎灵是他二十年淬火攒下的灵矿石粉末，发出'杂色的、即将熄灭的残白'微光",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 38,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:53:33.796998",
+    "updated_at": "2026-06-05T12:53:33.796998"
+  },
+  {
+    "id": "hook-038-4",
+    "description": "地下河路线：鹰嘴崖北侧→北山断裂带→水路一天一夜→海边深渊口。卯时涨潮时流速最快",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 38,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:53:33.807813",
+    "updated_at": "2026-06-05T12:53:33.807813"
+  },
+  {
+    "id": "hook-038-5",
+    "description": "回春堂伙计手腕有灵气纹路，看到石头暗蓝光眼和沈渊后说'往北走，别走东边，东边有晶石柱今晚巡检'——回春堂的人也在网中，且晶石柱在巡检",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 38,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:53:33.817451",
+    "updated_at": "2026-06-05T12:53:33.817451"
+  },
+  {
+    "id": "hook-017",
+    "description": "石片缓慢向东移动指向药铺，寅时震动发光，地下传来沉闷声响——持续强化地底存在的未知事物",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:54:13.797679",
+    "updated_at": "2026-06-05T12:54:13.797679"
+  },
+  {
+    "id": "hook-018",
+    "description": "王铁柱师父遗言：'它会来找你的'——暗示石片或地底之物最终会主动找到持有者",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:54:13.808401",
+    "updated_at": "2026-06-05T12:54:13.808401"
+  },
+  {
+    "id": "hook-019",
+    "description": "沈渊推论：地下也有一张嘴，正在往上爬——地底收集系统或地底存在正在接近地表",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:54:13.820489",
+    "updated_at": "2026-06-05T12:54:13.820489"
+  },
+  {
+    "id": "hook-020",
+    "description": "药铺伙计每天走不同方向回避追踪，回头看向铁匠铺地底——他知道地底之物的存在",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:54:13.831637",
+    "updated_at": "2026-06-05T12:54:13.831637"
+  },
+  {
+    "id": "hook-021",
+    "description": "地底有东西在往上爬——寅时石片震动发光，地下传出沉闷呼吸声",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:57:13.045286",
+    "updated_at": "2026-06-05T12:57:13.045286"
+  },
+  {
+    "id": "hook-022",
+    "description": "石片是警告装置——'它会来找你的'",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:57:13.057520",
+    "updated_at": "2026-06-05T12:57:13.057520"
+  },
+  {
+    "id": "hook-023",
+    "description": "药铺伙计知道被追踪，每晚换方向，回头看地底",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:57:13.068200",
+    "updated_at": "2026-06-05T12:57:13.068200"
+  },
+  {
+    "id": "hook-024",
+    "description": "地底可能有第二个收集系统——天上地下一共两张嘴",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T12:57:13.078570",
+    "updated_at": "2026-06-05T12:57:13.078570"
   }
 ]
