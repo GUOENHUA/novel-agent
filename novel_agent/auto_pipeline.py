@@ -23,7 +23,13 @@ from novel_agent.agent import AIAgent
 from novel_agent.utils.constants import MAX_RETRY_ATTEMPTS, DRAFT_PASS_THRESHOLD
 
 logger = logging.getLogger(__name__)
-console = Console(highlight=False)
+console = Console(highlight=False, force_terminal=True)
+import sys
+def _safe_print(text: str) -> None:
+    try:
+        console.print(text)
+    except UnicodeEncodeError:
+        print(text.encode('ascii', errors='replace').decode('ascii'))
 
 # Tool schema for settlement extraction — model calls this, API guarantees valid JSON
 SETTLE_TOOL = {
@@ -92,14 +98,14 @@ class AutoPipeline:
 
         if count > 10:
             estimated_tokens = count * words * 1.5
-            print(f"\n  WARNING: {count} chapters, ~{estimated_tokens:,.0f} tokens estimated")
+            _safe_print(f"\n  WARNING: {count} chapters, ~{estimated_tokens:,.0f} tokens estimated")
             confirm = input("  Continue? [y/N] ").strip().lower()
             if confirm not in ("y", "yes"):
-                print("  Cancelled")
+                _safe_print("  Cancelled")
                 return []
 
-        print(f"\n  Auto mode: ch{start_chapter}-{start_chapter + count - 1}, {count} chapters, ~{words} words each")
-        print(f"  (Ctrl+C to interrupt)\n")
+        _safe_print(f"\n  Auto mode: ch{start_chapter}-{start_chapter + count - 1}, {count} chapters, ~{words} words each")
+        _safe_print(f"  (Ctrl+C to interrupt)\n")
 
         # Setup signal handler for graceful interrupt
         original_handler = signal.getsignal(signal.SIGINT)
@@ -108,7 +114,7 @@ class AutoPipeline:
         try:
             for ch in range(start_chapter, start_chapter + count):
                 if self.agent.interrupted:
-                    print(f"\n  PAUSED  自动模式已暂停 (已完成 {ch - start_chapter}/{count} 章)")
+                    _safe_print(f"\n  PAUSED  自动模式已暂停 (已完成 {ch - start_chapter}/{count} 章)")
                     break
 
                 result = self._write_chapter_with_retry(ch, words)
@@ -117,18 +123,18 @@ class AutoPipeline:
 
                 if result["success"]:
                     hooks_info = result.get("hooks_info", "")
-                    print(f"  [{progress}] ch{ch} OK ({result['word_count']} chars, slop {result['slop_score']:.0f}{hooks_info})")
+                    _safe_print(f"  [{progress}] ch{ch} OK ({result['word_count']} chars, slop {result['slop_score']:.0f}{hooks_info})")
                 else:
-                    print(f"  [{progress}] ch{ch} FAILED after {result['attempts']} retries")
+                    _safe_print(f"  [{progress}] ch{ch} FAILED after {result['attempts']} retries")
 
             # Summary
             completed = [r for r in self.results if r["success"]]
             total_words = sum(r["word_count"] for r in completed)
-            print(f"\n  OK {len(completed)}/{len(self.results)} 章完成，总计 {total_words} 字")
+            _safe_print(f"\n  OK {len(completed)}/{len(self.results)} 章完成，总计 {total_words} 字")
 
             warnings = [r for r in completed if r.get("slop_warnings")]
             if warnings:
-                print(f"  WARN️  {len(warnings)} 章有 slop 警告，建议人工复查")
+                _safe_print(f"  WARN️  {len(warnings)} 章有 slop 警告，建议人工复查")
 
         finally:
             signal.signal(signal.SIGINT, original_handler)
@@ -265,6 +271,10 @@ class AutoPipeline:
                 hooks_planted=[h["id"] for h in settlement.get("hooks_planted", [])],
                 hooks_resolved=settlement.get("hooks_resolved", []),
                 mood=mood,
+                pov_character=settlement.get("pov_character", ""),
+                narrative_distance=settlement.get("narrative_distance", ""),
+                tense=settlement.get("tense", ""),
+                thought_style=settlement.get("thought_style", ""),
             ))
 
         # Update character states
@@ -302,6 +312,10 @@ class AutoPipeline:
                 f'  "key_events": ["事件1", "事件2"],\n'
                 f'  "characters_appearing": ["角色名"],\n'
                 f'  "mood": "tense|hopeful|tragic|mysterious|dark|neutral",\n'
+                f'  "pov_character": "本章视角角色名（如单一POV则填一个名字，如多POV用逗号分隔）",\n'
+                f'  "narrative_distance": "close_third|omniscient|first_person",\n'
+                f'  "tense": "past|present",\n'
+                f'  "thought_style": "free_indirect|direct_thought|none",\n'
                 f'  "character_changes": {{\n'
                 f'    "角色名": {{"location": "新位置", "emotional_state": "情绪", "goal": "目标", "important_fact": "新发现的重要事实"}}\n'
                 f'  }},\n'
@@ -315,7 +329,7 @@ class AutoPipeline:
             )
             resp = self.agent.call_llm(
                 messages=[{"role": "user", "content": directive}],
-                max_tokens=800, temperature=0.3,
+                max_tokens=2000, temperature=0.3,
             )
             raw = self.agent.extract_text(resp.content, fallback_to_thinking=True).strip()
             if not raw:
@@ -426,5 +440,5 @@ class AutoPipeline:
     @staticmethod
     def _interrupt_handler(signum, frame):
         """Handle Ctrl+C gracefully."""
-        print("\n\n  PAUSED  收到中断信号，完成当前章节后切换回对话模式...")
+        _safe_print("\n\n  PAUSED  收到中断信号，完成当前章节后切换回对话模式...")
         # The agent.interrupted flag is checked at the top of each chapter loop
