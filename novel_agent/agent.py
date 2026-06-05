@@ -931,12 +931,12 @@ class AIAgent:
                 return self.client.messages.create(**kwargs)
             except anthropic.RateLimitError as e:
                 last_error = e
-                wait = 2 ** attempt * 5
+                wait = 4 ** attempt * 5
                 time.sleep(wait)
             except anthropic.APIStatusError as e:
                 if e.status_code >= 500:
                     last_error = e
-                    wait = 2 ** attempt
+                    wait = 4 ** attempt
                     time.sleep(wait)
                 else:
                     raise
@@ -952,11 +952,11 @@ class AIAgent:
                 return self._do_stream(messages, tools, temperature, max_tokens, extra_body)
             except anthropic.RateLimitError as e:
                 last_error = e
-                time.sleep(2 ** attempt * 5)
+                time.sleep(4 ** attempt * 5)
             except anthropic.APIStatusError as e:
                 if e.status_code >= 500:
                     last_error = e
-                    time.sleep(2 ** attempt)
+                    time.sleep(4 ** attempt)
                 else:
                     raise
         raise last_error or RuntimeError("Stream failed after 3 retries")

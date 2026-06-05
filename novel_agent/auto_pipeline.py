@@ -129,7 +129,7 @@ class AutoPipeline:
                     if chapter_path.exists():
                         break
                     _safe_print(f"    Retry {retry+1}/{MAX_RETRY_ATTEMPTS} ch{ch}...")
-                    time.sleep(60)
+                    time.sleep(15)
                     loop.process_turn(
                         f"第{ch}章没有保存成功。请重新输出第{ch}章正文到章节代码块，调用 preview_chapter。",
                         interactive=False,
