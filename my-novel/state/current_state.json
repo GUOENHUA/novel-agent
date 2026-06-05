@@ -8,45 +8,29 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "饥饿转为警觉、好奇，获得线索后决心寻找姜凝",
-      "goal": "寻找食物和水，进而获取更多关于灵气真相的数据",
+      "emotional_state": "分析性警觉→被道破身份时的震撼",
+      "goal": "收集信息、理解苏凝的暗示、调查赵不肯生死之谜",
       "alive": true,
       "chapter_updated": 0
     },
-    "丹药铺伙计": {
-      "name": "丹药铺伙计",
+    "苏凝": {
+      "name": "苏凝",
       "current_location": "",
-      "emotional_state": "感激",
-      "goal": "交出师傅手记帮助沈渊",
+      "emotional_state": "被压制但保持冷静",
+      "goal": "争取时间，传递信息给沈渊",
       "alive": true,
       "chapter_updated": 0
     },
-    "姜凝": {
-      "name": "姜凝",
+    "赵不肯": {
+      "name": "赵不肯",
       "current_location": "",
-      "emotional_state": "面对武器的评估→紧张退去→严肃疏离",
-      "goal": "验证沈渊体系可靠性，必要时独立执行三件事",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "白砚行": {
-      "name": "白砚行",
-      "current_location": "",
-      "emotional_state": "等待——空转三十年后的沉静",
-      "goal": "未明确，但暗示他在等受不了空转的那一天",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "玄明真人": {
-      "name": "玄明真人",
-      "current_location": "",
-      "emotional_state": "无情绪，平缓如读报告",
-      "goal": "完成沈渊的逆向解析，执行写入协议",
+      "emotional_state": "饥饿消耗但警觉冷静",
+      "goal": "等待沈渊",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T10:54:53.180267"
+  "last_updated": "2026-06-05T11:06:53.084292"
 }

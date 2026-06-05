@@ -383,33 +383,40 @@ class AutoPipeline:
         },
     }
 
+    TITLE_TOOL = {
+        "name": "set_title",
+        "description": "Set the chapter title. 4-8 Chinese characters, poetic and evocative.",
+        "input_schema": {
+            "type": "object",
+            "properties": {"title": {"type": "string", "description": "4-8 character chapter title"}},
+            "required": ["title"],
+        },
+    }
+
     def _generate_title(self, content: str, chapter_num: int) -> str:
-        """Generate a 4-8 character Chinese title from chapter content."""
+        """Generate a novel-quality chapter title via tool call."""
         try:
             resp = self.agent.call_llm(
                 messages=[{"role": "user", "content": (
-                    f"为这一章起一个中文标题。只返回标题本身，4-8个汉字，不要任何其他文字。\n\n"
+                    f"为这一章起一个中文标题（4-8个汉字），像真正的章回小说标题那样富有诗意和画面感。\n\n"
                     f"{content[:1000]}"
                 )}],
-                max_tokens=30, temperature=0.3,
+                tools=[self.TITLE_TOOL],
+                tool_choice={"type": "tool", "name": "set_title"},
+                max_tokens=200, temperature=0.5,
             )
-            title = self.agent.extract_text(resp.content).strip()
-            # Clean up common artifacts
-            for prefix in ("标题：", "《", '"', "'"):
-                if title.startswith(prefix):
-                    title = title[len(prefix):]
-            for suffix in ("》", '"', "'"):
-                if title.endswith(suffix):
-                    title = title[:-1]
-            if 2 <= len(title) <= 20:
-                return title
+            for block in resp.content:
+                if hasattr(block, "type") and block.type == "tool_use" and isinstance(block.input, dict):
+                    t = block.input.get("title", "").strip()
+                    if 2 <= len(t) <= 20:
+                        return t
         except Exception:
             pass
-        # Fallback: use a meaningful chunk from the chapter itself
+        # Fallback: first meaningful short line that looks like a title
         body = content.strip()
         for line in body.split("\n"):
             line = line.strip()
-            if 4 <= len(line) <= 12 and not line.startswith("#"):
+            if 4 <= len(line) <= 12 and not line.startswith("#") and not line.endswith("。"):
                 return line
         return f"第{chapter_num}章"
         return fallback if len(fallback) >= 2 else f"第{chapter_num}章"
