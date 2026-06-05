@@ -1,44 +1,11 @@
 {
   "novel_title": "",
-  "current_chapter": 6,
+  "current_chapter": 7,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {
-    "沈渊": {
-      "name": "沈渊",
-      "current_location": "",
-      "emotional_state": "警觉",
-      "goal": "建立独立世界模型，躲避追踪，验证灵气回路假设",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "赵管事": {
-      "name": "赵管事",
-      "current_location": "",
-      "emotional_state": "执行常规、暗含警告",
-      "goal": "继续用'自己掂量着'这个标准句式警告沈渊遵守规则",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "外门弟子乙": {
-      "name": "外门弟子乙",
-      "current_location": "",
-      "emotional_state": "冷淡，带警告意味",
-      "goal": "无明确目标",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "王教习": {
-      "name": "王教习",
-      "current_location": "",
-      "emotional_state": "程序化、无善意无恶意",
-      "goal": "确认沈渊是否察觉灵气被抽走的方向，并按某种指令行事",
-      "alive": true,
-      "chapter_updated": 0
-    }
-  },
+  "characters": {},
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T07:02:19.734855"
+  "last_updated": "2026-06-06T07:34:52.684329"
 }

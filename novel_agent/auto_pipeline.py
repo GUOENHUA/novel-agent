@@ -214,10 +214,18 @@ class AutoPipeline:
         # Update chapter summary
         if settlement.get("chapter_summary"):
             from novel_agent.state.schemas import ChapterSummary
+            # Title was already saved by _save_chapter_to_file — read it back
+            import re as _re
+            saved_title = ""
+            cp = self.agent.chapter_path(chapter_num)
+            if cp.exists():
+                fl = cp.read_text("utf-8").split("\n")[0]
+                m = _re.match(r'#\s*第\d+章\s+(.+)', fl)
+                saved_title = m.group(1).strip() if m else ""
             chars = settlement.get("characters_appearing", [])
             mood = settlement.get("mood", "neutral")
             self.agent.truth_files.add_summary(ChapterSummary(
-                chapter_number=chapter_num, title=title,
+                chapter_number=chapter_num, title=saved_title,
                 word_count=len(content), summary=settlement["chapter_summary"],
                 key_events=settlement.get("key_events", []),
                 characters_appearing=chars,
