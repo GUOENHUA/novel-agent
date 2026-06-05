@@ -183,18 +183,32 @@ class ConversationLoop:
 
         # Build novel context
         novel_context = self.agent.build_novel_context(user_message)
-        augmented_message = (
-            f"{novel_context}\n\n---\n\n"
-            f"基于以上状态处理用户指令。\n"
-            f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。\n\n"
-            f"写章节正文时，将内容放在代码块内：\n\n"
-            f"```章节\n"
-            f"# 第N章 标题（N为阿拉伯数字）\n\n"
-            f"（正文内容，纯叙事文本）\n"
-            f"```\n\n"
-            f"格式：章标题 # 第N章 标题（N为阿拉伯数字），空行后正文，不要「第X章完/字数/伏笔」等。\n"
-            f"代码块外正常写思考和工具调用，系统自动提取代码块内容保存。"
-        )
+        if interactive:
+            augmented_message = (
+                f"{novel_context}\n\n---\n\n"
+                f"基于以上状态处理用户指令。\n"
+                f"大纲/角色/世界观内容请**务必**使用对应工具：outline_plot save, memory add, track_hooks。\n\n"
+                f"写章节正文时，将内容放在代码块内：\n\n"
+                f"```章节\n"
+                f"# 第N章 标题（N为阿拉伯数字）\n\n"
+                f"（正文内容，纯叙事文本）\n"
+                f"```\n\n"
+                f"格式：章标题 # 第N章 标题（N为阿拉伯数字），空行后正文，不要「第X章完/字数/伏笔」等。\n"
+                f"代码块外正常写思考和工具调用，系统自动提取代码块内容保存。"
+            )
+        else:
+            augmented_message = (
+                f"{novel_context}\n\n---\n\n"
+                f"自动模式：基于以上状态推进写作。无需 clarify 确认，自己做创作决策并保存。\n"
+                f"大纲/角色/世界观内容请**务必**使用对应工具：outline_plot save, memory add, track_hooks。\n\n"
+                f"写章节正文时，将内容放在代码块内：\n\n"
+                f"```章节\n"
+                f"# 第N章 标题（N为阿拉伯数字）\n\n"
+                f"（正文内容，纯叙事文本）\n"
+                f"```\n\n"
+                f"格式：章标题 # 第N章 标题（N为阿拉伯数字），空行后正文，不要「第X章完/字数/伏笔」等。\n"
+                f"代码块外正常写思考和工具调用，系统自动提取代码块内容保存。"
+            )
 
         messages = self.agent.conversation_history + [
             {"role": "user", "content": augmented_message}
@@ -243,7 +257,9 @@ class ConversationLoop:
                     "required": ["setting_type", "name", "description", "content"],
                 },
             },
-            {
+        ]
+        if interactive:
+            preview_tools.append({
                 "name": "clarify",
                 "description": "Ask the user a clarifying question with options. Always include 'Other...' as a choice for text input.",
                 "input_schema": {
@@ -254,8 +270,7 @@ class ConversationLoop:
                     },
                     "required": ["question", "options"],
                 },
-            },
-        ]
+            })
         all_tools = (tools or []) + preview_tools
 
         turn_input_tokens = 0
@@ -321,8 +336,11 @@ class ConversationLoop:
                                 if note:
                                     choice = f"{choice}\n[备注] {note}"
                             else:
-                                # Auto mode: pick the first option (usually "继续" or "直接开始")
-                                choice = options[0]
+                                # Auto mode: let LLM pick the most reasonable option
+                                choice = (
+                                    "[自动模式] 用户不在线。上述选项中你认为最合理的那个，"
+                                    "直接按它执行，不需要再确认。")
+                                )
                             tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
@@ -599,7 +617,10 @@ class ConversationLoop:
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
             if not content or len(content) < 200:
-                return _json.dumps({"status": "no_content", "chapter_number": ch_num})
+                return _json.dumps({
+                    "status": "retry",
+                    "error": "未在代码块内找到章节内容。",
+                    "instruction": f"请将第{ch_num}章正文放入 ```章节 代码块，然后再次调用 preview_chapter。"})
             self._auto_chapter_content = content
             result = self._save_chapter_to_file(ch_num, content)
             if result.get("needs_plot_memory"):
