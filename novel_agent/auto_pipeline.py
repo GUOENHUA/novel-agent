@@ -193,18 +193,9 @@ class AutoPipeline:
         return result["score"], warnings
 
     def _settle_state(self, chapter_num: int, content: str) -> None:
-        """Save chapter, extract hooks + summary + character changes, update state."""
-        title = self._generate_title(content, chapter_num)
-
-        # Clean formatting via LLM — more reliable than regex
-        clean = self._clean_chapter_via_llm(content)
-
-        chapter_path = self.agent.chapter_path(chapter_num, title)
-        chapter_path.parent.mkdir(parents=True, exist_ok=True)
-        final = f"# 第{chapter_num}章: {title}\n\n{clean}"
-        chapter_path.write_text(final, encoding="utf-8")
-
-        # Phase 2: settlement (low-temp extraction of structured data)
+        """Extract hooks + summary + character changes from a saved chapter.
+        Does NOT write the chapter file — _save_chapter_to_file already did that."""
+        # Settlement: low-temp extraction of structured data
         settlement = self._run_settlement(chapter_num, content)
 
         # Update hook ledger (include scope when provided by settlement)

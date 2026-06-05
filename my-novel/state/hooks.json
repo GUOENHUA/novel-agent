@@ -1,54 +1,371 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气循环过于干净高效，像被设计而非自然演化——核心谜题的第一颗种子",
+    "description": "陈太平修炼事故中的\"外部牵引\"感——死前感觉后颈被从上方（主峰方向）拉了一下，随即真气失控。疑似天道/高阶存在抽取低阶修士灵气的证据。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "陈太平"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:38:26.191700",
+    "updated_at": "2026-06-06T06:50:47.102735"
+  },
+  {
+    "id": "hook-002",
+    "description": "油灯自行熄灭——沈渊离开房间后，油灯（灯油尚存一半）的火苗被\"从上方按住\"掐灭。暗示有不可见的存在在观察沈渊。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:38:26.207417",
+    "updated_at": "2026-06-06T06:50:47.106826"
+  },
+  {
+    "id": "hook-003",
+    "description": "天元宗建筑布局与经脉坐标的对应关系——沈渊发现膳堂到住宿区到早课殿的距离、朝向、高度差与《引气诀》经脉节点坐标存在尚未明确的对应。暗示整个宗门是一个巨大的\"阵法\"或\"培养皿\"。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 60,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:38:26.207417",
+    "updated_at": "2026-06-06T06:50:47.106826"
+  },
+  {
+    "id": "hook-01-1",
+    "description": "陈太平死前感到后颈有外部'牵引感'，方向朝向天元宗主峰",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:40:28.046486",
+    "updated_at": "2026-06-06T06:40:28.046486"
+  },
+  {
+    "id": "hook-01-2",
+    "description": "油灯在沈渊离开后无人自灭，火苗被什么东西从上方掐掉",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:40:28.046486",
+    "updated_at": "2026-06-06T06:40:28.046486"
+  },
+  {
+    "id": "hook-01-3",
+    "description": "天元宗九峰布局像一只攥着的手掌，与外门建筑距离、朝向、高度差构成某种阵法结构",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:40:28.046486",
+    "updated_at": "2026-06-06T06:40:28.046486"
+  },
+  {
+    "id": "hook-01-4",
+    "description": "修炼功法《引气诀》精确得像用户手册，沈渊怀疑修炼系统是人工设计的",
     "hook_type": "dialogue",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 56,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T22:31:48.831569",
-    "updated_at": "2026-06-05T22:47:36.065142"
-  },
-  {
-    "id": "hook-002",
-    "description": "灵气\"归于天地\"——实际去了哪里？暗示灵气单向流动，从低阶修士流向某处",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 35,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T22:31:48.838837",
-    "updated_at": "2026-06-05T22:47:36.071162"
-  },
-  {
-    "id": "hook-003",
-    "description": "沈渊穿越后获得感知他人体内灵气流动的能力——异常能力，原因不明",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "target_chapter": 80,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-05T22:31:48.844838",
-    "updated_at": "2026-06-05T22:47:36.076352"
+    "created_at": "2026-06-06T06:40:28.062411",
+    "updated_at": "2026-06-06T06:45:42.651668"
   },
   {
     "id": "hook-004",
-    "description": "沈渊灵气任脉第三寸存在极小的停顿——天道修复走火入魔后留下的\"疤痕\"。这个疤痕可能是天道无法完全控制他的证据，也可能是天道刻意保留的标记。",
+    "description": "偏殿经脉图墙上气海关元位置有刻痕延伸向上——不是人体经脉，是有人刻的。暗示前人也在追踪灵气的\"去向\"。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 15,
+    "related_characters": [
+      "王教习",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:43:36.488976",
+    "updated_at": "2026-06-06T06:43:36.488976"
+  },
+  {
+    "id": "hook-005",
+    "description": "\"你自己掂量着\"——赵管事和王教习重复使用相同句式（三次）。像标准操作语。暗示宗门内部存在某种统一的指令系统或话术规范。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 20,
+    "related_characters": [
+      "赵管事",
+      "王教习"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:43:36.490788",
+    "updated_at": "2026-06-06T06:49:16.374791"
+  },
+  {
+    "id": "hook-006",
+    "description": "王教习敲手指节奏与灶膛老头添柴节奏一致（三-二-一）——秘密暗号。二人属于同一知情者网络。天元宗内部存在地下组织。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 10,
+    "related_characters": [
+      "王教习",
+      "灶膛老头"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:43:36.490788",
+    "updated_at": "2026-06-06T06:49:16.374791"
+  },
+  {
+    "id": "hook-007",
+    "description": "三天不吐纳的真正目的——王教习说是治疗经脉，沈渊怀疑是为了断掉灵气抽取让\"某个东西\"察觉不到他。停止吐纳后牵引感确实在减弱。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 5,
+    "related_characters": [
+      "沈渊",
+      "王教习"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:43:36.502541",
+    "updated_at": "2026-06-06T06:49:16.374791"
+  },
+  {
+    "id": "hook-02-1",
+    "description": "真气在气海关元被抽走千分之三，方向指向主峰——修炼系统存在向上输送灵气的机制，底层修士是管道",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:45:42.629129",
+    "updated_at": "2026-06-06T06:45:42.629129"
+  },
+  {
+    "id": "hook-02-2",
+    "description": "王教习手指三下敲击与膳堂老头添柴节奏完全一致（三根-两根-一根），疑似某种暗号系统或身份标记",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:45:42.632296",
+    "updated_at": "2026-06-06T06:45:42.632296"
+  },
+  {
+    "id": "hook-008",
+    "description": "外门弟子死亡频率——本月第七个，七天死两个（陈太平+刘什么）。真正死因是气海关元灵气被抽空的\"衰竭\"，而非走火入魔。王教习和孙管事知情但对外宣称走火入魔。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊",
+      "王教习",
+      "孙管事"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:49:16.343319",
+    "updated_at": "2026-06-06T06:49:16.343319"
+  },
+  {
+    "id": "hook-009",
+    "description": "\"上面\"关心吐纳数据而非弟子死活——孙管事说\"少一份数据，上面会查\"。外门弟子是数据采集点，死亡只意味着数据缺失。暗示天元宗上层存在一个不关心人命、只关心数据收集的体系。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "孙管事",
+      "王教习"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:49:16.350200",
+    "updated_at": "2026-06-06T06:49:16.350200"
+  },
+  {
+    "id": "hook-010",
+    "description": "墙缝麻布——前人（练气三层，左起第七铺位）死前留下的记录。内容已揭示：灵气抽取系统、北面裂谷、暗号网络、三条生存指令（第三条被中断）。沈渊在麻布背面补充了新发现：北面是裂谷，谷内有建筑。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 8,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:49:16.350200",
+    "updated_at": "2026-06-06T06:54:32.154508"
+  },
+  {
+    "id": "hook-011",
+    "description": "主峰北面——弟子在石阶路上向主峰方向跪拜，但沈渊分析后认为跪的不是主峰，是北面。外门弟子不能进山，主峰是禁区。北面有什么？",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:49:16.359001",
+    "updated_at": "2026-06-06T06:49:16.359001"
+  },
+  {
+    "id": "hook-012",
+    "description": "灵气回路——沈渊用炭条画出天元宗九峰+外门区域，发现是从主峰出发经过外门区域回到主峰的回路。外门弟子在线上面，像串联的电池。修炼体系可能是一个巨大的阵法，修士是能量传输节点。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 5,
-    "target_chapter": 20,
+    "planted_chapter": 3,
+    "target_chapter": 60,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:49:16.359001",
+    "updated_at": "2026-06-06T06:49:16.359001"
+  },
+  {
+    "id": "hook-03-1",
+    "description": "灶膛老头的三-二-一暗号与三七药片——暗示老头知道内情并以加密方式传递信息",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-05T22:47:36.080457",
-    "updated_at": "2026-06-05T22:47:36.080457"
+    "created_at": "2026-06-06T06:50:47.075874",
+    "updated_at": "2026-06-06T06:50:47.075874"
+  },
+  {
+    "id": "hook-03-2",
+    "description": "沈渊在墙缝中发现卷起的软质纤维物品——未知内容，可能关联更早的死者",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:50:47.075874",
+    "updated_at": "2026-06-06T06:50:47.075874"
+  },
+  {
+    "id": "hook-03-3",
+    "description": "沈渊绘制的天元宗九峰灵气回路图——外门弟子作为串联'电池'的假设待验证",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:50:47.089117",
+    "updated_at": "2026-06-06T06:50:47.089117"
+  },
+  {
+    "id": "hook-03-4",
+    "description": "部分弟子在石阶路朝主峰北面跪拜——北面是禁区，暗示某种宗教性或功能性行为",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:50:47.091121",
+    "updated_at": "2026-06-06T06:50:47.091121"
+  },
+  {
+    "id": "hook-03-5",
+    "description": "王教习手指不再敲击——暗示其情绪或状态发生变化，可能因死亡数据被上面追查",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:50:47.097090",
+    "updated_at": "2026-06-06T06:50:47.097090"
+  },
+  {
+    "id": "hook-013",
+    "description": "前人未写完的第三件事——第一停吐纳、第二不被发现不吐纳、第三（被中断）。这第三条指令是什么？前人写到一半被\"它\"打断。沈渊需要自己推断出来。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "target_chapter": 12,
+    "related_characters": [
+      "沈渊",
+      "前人"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:54:36.717267",
+    "updated_at": "2026-06-06T06:54:36.717267"
+  },
+  {
+    "id": "hook-015",
+    "description": "周平（瘦高个）被黑袍内门弟子带走——沈渊昨天问了他\"气海关元空\"的问题，今天黑袍就下来收人。信息传递系统不只在暗号网络里运行，也在\"上面\"的眼线里运行。黑袍为什么对\"问题\"如此敏感？",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "target_chapter": 15,
+    "related_characters": [
+      "周平",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:55:07.992632",
+    "updated_at": "2026-06-06T06:55:07.992632"
+  },
+  {
+    "id": "hook-016",
+    "description": "外门弟子没有名字——早课点名簿用铺位号+修为标识（\"左七/练气二\"），不记录真实姓名。前人最后警告：\"它在看的时候你不要写自己名字\"。名字可能是某种标记/追踪机制。为什么名字危险？\"它\"如何通过名字定位？",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊",
+      "前人"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T06:55:13.420451",
+    "updated_at": "2026-06-06T06:55:13.420451"
   }
 ]
