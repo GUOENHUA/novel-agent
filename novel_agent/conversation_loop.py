@@ -185,8 +185,15 @@ class ConversationLoop:
         novel_context = self.agent.build_novel_context(user_message)
         augmented_message = (
             f"{novel_context}\n\n---\n\n"
-            f"基于以上状态处理用户指令。章节正文会由系统自动保存，无需手动调工具。\n"
-            f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。"
+            f"基于以上状态处理用户指令。\n"
+            f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。\n\n"
+            f"写章节正文时，将内容放在代码块内：\n\n"
+            f"```章节\n"
+            f"# 第N章 标题\n\n"
+            f"（正文内容，纯叙事文本）\n"
+            f"```\n\n"
+            f"格式：章标题 # 第N章 标题，空行后正文，不要"第X章完/字数/伏笔"等。\n"
+            f"代码块外正常写思考和工具调用，系统自动提取代码块内容保存。"
         )
 
         messages = self.agent.conversation_history + [
@@ -527,32 +534,64 @@ class ConversationLoop:
             return (result, "")
         return ("", "")
 
-    def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
-        """Handle preview in auto mode via a sub-agent call.
+    @staticmethod
+    def _extract_chapter_from_code_block(text: str) -> str:
+        """Extract chapter content from a ```章节 code block."""
+        import re
+        m = re.search(r'```章节\s*\n(.*?)```', text, re.DOTALL)
+        if m:
+            return m.group(1).strip()
+        for marker in ('```章节', '```chapter'):
+            start = text.find(marker)
+            if start >= 0:
+                body_start = text.find('\n', start) + 1
+                end = text.find('\n```', body_start)
+                if end < 0: end = text.find('```', body_start)
+                if end > body_start:
+                    return text[body_start:end].strip()
+        return text.strip()
 
-        Spawns a fresh one-shot LLM call to save the chapter — the sub-agent
-        doesn't need conversation history, just the chapter content and a
-        save directive. This keeps the main context clean.
-        """
+    def _save_chapter_to_file(self, ch_num: int, content: str) -> dict:
+        """Save chapter content directly to file. No LLM call needed —
+        the code block already contains the title and clean prose."""
         import json as _json
-        content = self._last_text_output
+        # Extract title from first line (# 第N章 标题)
+        lines = content.split('\n')
+        title = ''
+        body_start = 0
+        if lines and lines[0].startswith('#'):
+            import re
+            m = re.match(r'#\s*第\d+章\s+(.+)', lines[0])
+            title = m.group(1).strip() if m else lines[0].lstrip('#').strip()
+            body_start = 1
+            # Skip blank line after title
+            if body_start < len(lines) and not lines[body_start].strip():
+                body_start += 1
+        body = '\n'.join(lines[body_start:]).strip()
+        if not body or len(body) < 200:
+            return {"success": False, "error": f"Body too short ({len(body)} chars)"}
+        path = self.agent.chapter_path(ch_num, title or "untitled")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        final = f"# 第{ch_num}章 {title}\n\n{body}"
+        path.write_text(final, encoding="utf-8")
+        state = self.agent.truth_files.load_state()
+        state.current_chapter = ch_num + 1
+        self.agent.truth_files.save_state(state)
+        safe_print(f"  [green]Saved: Ch{ch_num} {title or '?'}[/green]")
+        return {"success": True, "title": title, "path": str(path), "word_count": len(body)}
+
+    def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
+        """Handle preview in auto mode — extract from code block and save."""
+        import json as _json
+        raw = self._last_text_output
+        content = self._extract_chapter_from_code_block(raw)
 
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
-            if not content or len(content) < 500:
+            if not content or len(content) < 200:
                 return _json.dumps({"status": "no_content", "chapter_number": ch_num})
-
-            # Stash content for the auto pipeline to read as fallback
             self._auto_chapter_content = content
-            safe_print(f"  [dim]Ch{ch_num} previewed ({len(content)} chars) — saving via sub-agent...[/dim]")
-
-            # Sub-agent: fresh context, just save instructions + content
-            result = self._save_chapter_via_subagent(ch_num, content)
-
-            if result.get("success"):
-                safe_print(f"  [green]Ch{ch_num}: {result.get('title', '?')}[/green]")
-            else:
-                safe_print(f"  [red]Ch{ch_num} save failed: {result.get('error', '?')}[/red]")
+            result = self._save_chapter_to_file(ch_num, content)
             return _json.dumps(result)
 
         elif tool_name == "preview_outline":
@@ -585,84 +624,13 @@ class ConversationLoop:
 
         return _json.dumps({"status": "unknown_tool"})
 
-    def _save_chapter_via_subagent(self, ch_num: int, content: str) -> dict:
-        """Save a chapter with clean formatting via a sub-agent LLM call.
-
-        The sub-agent has ONE job: take raw chapter text and save it in
-        clean standard format. No conversation history, no tool pollution.
-
-        Clean format:  # 第N章 标题 \\n\\n 正文
-        No meta annotations, no markdown separators, no 第一章完 markers.
-        """
-        import json as _json
-        import re
-        try:
-            # Strip meta annotations from content before saving
-            clean = content
-            # Remove end-of-chapter markers
-            clean = re.sub(r'\n?[*\-—]{3,}\s*第[一二三四五六七八九十\d]+章\s*[完终]\s*[*\-—]{0,3}', '', clean)
-            clean = re.sub(r'\n?[*\-—]{3,}\s*(第[一二三四五六七八九十\d]+章)?\s*[完终]\s*[*\-—]{0,3}', '', clean)
-            clean = re.sub(r'\n[*\-—]{3,}\n?', '\n', clean)
-            # Remove meta comment lines
-            clean = re.sub(r'\n（[^）]*(字数|伏笔|第一章|本章|保存|确认)[^）]*）\n?', '', clean)
-            clean = re.sub(r'\n> [^\n]*\n?', '', clean)  # blockquote notes
-            clean = clean.strip()
-
-            if not clean or len(clean) < 200:
-                return {"success": False, "error": f"Content too short after cleaning ({len(clean)} chars)"}
-
-            # Sub-agent: generate title + verify formatting in one shot
-            from novel_agent.tools.registry import registry
-            tools = registry.get_definitions()
-            directive = (
-                f"Save chapter {ch_num} to disk. Steps:\n"
-                f"1. Read the chapter content below.\n"
-                f"2. Generate a poetic Chinese title (2-8 characters).\n"
-                f"3. Call write_chapter with action=save, chapter_number={ch_num}, your title, and the content.\n"
-                f"   The file must use this EXACT format with NO extra text:\n"
-                f"   # 第{ch_num}章 标题\n\n正文内容...\n"
-                f"   NO '第X章完' markers. NO '字数：xxx'. NO '伏笔：xxx'.\n"
-                f"   NO '---' separators. NO markdown headers inside the body.\n"
-                f"4. Call settle_chapter to extract summary/hooks/characters.\n\n"
-                f"CHAPTER CONTENT:\n{clean[:8000]}"
-            )
-            self.agent.call_llm(
-                messages=[{"role": "user", "content": directive}],
-                tools=tools,
-                max_tokens=2000,
-                temperature=0.3,
-            )
-
-            # Verify the file was saved
-            path = self.agent.chapter_path(ch_num)
-            if path.exists():
-                saved = path.read_text("utf-8")
-                first_line = saved.split("\n")[0] if saved else ""
-                title = first_line.replace(f"# 第{ch_num}章 ", "").strip()
-                return {"success": True, "title": title, "path": str(path),
-                        "word_count": len(saved)}
-            else:
-                # Fallback: direct save
-                from novel_agent.auto_pipeline import AutoPipeline
-                p = AutoPipeline(self.agent)
-                title = p._generate_title(clean, ch_num)
-                path = self.agent.chapter_path(ch_num, title or "untitled")
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(f"# 第{ch_num}章 {title}\n\n{clean}", encoding="utf-8")
-                state = self.agent.truth_files.load_state()
-                state.current_chapter = ch_num + 1
-                self.agent.truth_files.save_state(state)
-                return {"success": True, "title": title, "path": str(path),
-                        "word_count": len(clean)}
-        except Exception as e:
-            return {"success": False, "error": str(e)}
-
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""
         import json
 
         if tool_name == "preview_chapter":
-            content = self._last_text_output
+            raw = self._last_text_output
+            content = self._extract_chapter_from_code_block(raw)
             title = args.get("title", "")
             ch_num = args.get("chapter_number", 0)
             label = f"Chapter {ch_num}"
@@ -717,21 +685,13 @@ class ConversationLoop:
 
         feedback = note if "Save" in action else ""
 
-        # Save
+        # Save — title is already inside the code block (# 第N章 标题)
         if tool_name == "preview_chapter":
-            if not title:
-                from novel_agent.auto_pipeline import AutoPipeline
-                p = AutoPipeline(self.agent)
-                title = p._generate_title(content, ch_num)
-            path = self.agent.chapter_path(ch_num, title or "untitled")
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(f"# 第{ch_num}章: {title}\n\n{content}", encoding="utf-8")
-            # Update state
-            state = self.agent.truth_files.load_state()
-            state.current_chapter = ch_num + 1
-            self.agent.truth_files.save_state(state)
-            safe_print(f"  [green]Saved: {title}[/green]")
-            return json.dumps({"status": "saved", "path": str(path), "title": title})
+            result = self._save_chapter_to_file(ch_num, content)
+            if result.get("success"):
+                return json.dumps({"status": "saved", "path": result["path"], "title": result["title"]})
+            else:
+                return json.dumps({"status": "error", "error": result.get("error", "?")})
 
         elif tool_name == "preview_outline":
             out_dir = self.agent.project_dir / "outline"
