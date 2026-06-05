@@ -64,7 +64,7 @@ MEMORY_SCHEMA = {
             },
             "name": {
                 "type": "string",
-                "description": "记忆名称（如 'char-zhang-san' 或 '角色: 张三'）。add/update 时需要。delete/search 可选。"
+                "description": "记忆名称。不要加类型前缀（系统会自动加）。add/update 时需要。示例：'沈渊'（角色）、'第一章已写'（情节）、'灵气寄生规则'（世界观）。"
             },
             "description": {
                 "type": "string",
