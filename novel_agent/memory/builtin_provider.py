@@ -293,11 +293,15 @@ class BuiltinProvider(MemoryProvider):
     @staticmethod
     def _name_to_filename(name: str, memory_type: str) -> str:
         """Convert a memory name to a safe filename."""
+        prefix = {"character": "char", "world": "world", "plot": "plot", "style": "style"}
+        pfx = prefix.get(memory_type, "mem")
+        # Strip prefix if LLM already included it in the name
+        if name.startswith(f"{pfx}-"):
+            name = name[len(pfx) + 1:]
         safe = name.lower().replace(" ", "-").replace("_", "-")
         # Remove non-alphanumeric chars (keep Chinese, hyphens)
         safe = "".join(c for c in safe if c.isalnum() or c in "-_一-鿿")
-        prefix = {"character": "char", "world": "world", "plot": "plot", "style": "style"}
-        return f"{prefix.get(memory_type, 'mem')}-{safe}.md"
+        return f"{pfx}-{safe}.md"
 
 
 # -- Tool schema ---------------------------------------------------------------
