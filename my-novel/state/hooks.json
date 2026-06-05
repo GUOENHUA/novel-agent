@@ -26,23 +26,24 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-05T15:00:45.644498",
-    "updated_at": "2026-06-05T15:07:46.198732"
+    "updated_at": "2026-06-05T15:59:53.019612"
   },
   {
     "id": "hook-003",
     "description": "金丹境讲经师李崇云传话要见沈渊——为什么金丹修士要关注一个底层外门弟子？",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "deferred",
+    "status": "resolved",
     "planted_chapter": 1,
     "target_chapter": 7,
+    "resolved_chapter": 7,
     "related_characters": [
       "沈渊",
       "李崇云"
     ],
     "related_hooks": [],
     "created_at": "2026-06-05T15:00:45.649664",
-    "updated_at": "2026-06-05T15:38:12.850490"
+    "updated_at": "2026-06-05T15:54:37.706304"
   },
   {
     "id": "hook-004",
@@ -106,16 +107,17 @@
     "description": "歪肩膀（左肩高四指的外门弟子）第三节点发出二短一长同步脉冲——编码信号，可能是与其他节点同步的时钟。他的灵气泄漏不是故障，是功能。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "resolved",
     "planted_chapter": 3,
     "target_chapter": 8,
+    "resolved_chapter": 8,
     "related_characters": [
       "歪肩膀",
       "沈渊"
     ],
     "related_hooks": [],
     "created_at": "2026-06-05T15:07:46.216315",
-    "updated_at": "2026-06-05T15:07:46.216315"
+    "updated_at": "2026-06-05T15:59:53.001580"
   },
   {
     "id": "hook-009",
@@ -165,14 +167,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-05T15:12:30.179831",
-    "updated_at": "2026-06-05T15:37:11.666435"
+    "updated_at": "2026-06-05T15:48:44.646986"
   },
   {
     "id": "hook-012",
     "description": "三角形符号+三条断开的平行横线——嵌在黑色碎片内部，工业级精度。一个正三角形内部三条平行横线一端连着右边一端悬空，像断开的连接。碎片嵌入石头后暗金色光沿毛细血管纹路流动——闭合回路但缺了什么。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 6,
     "target_chapter": 12,
     "related_characters": [
@@ -181,14 +183,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-05T15:37:27.418308",
-    "updated_at": "2026-06-05T15:37:27.418308"
+    "updated_at": "2026-06-05T15:48:44.631829"
   },
   {
     "id": "hook-013",
     "description": "三十年前死去的弟子临死前用手指画了一横一竖——十字？加号？未完成的字？他说'它知道我'之后嗓子被透明液体堵住，只能用手势传达最后信息。老孙头找了三十年没找到与之对应的东西。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 6,
     "target_chapter": 15,
     "related_characters": [
@@ -197,16 +199,17 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-05T15:37:27.423693",
-    "updated_at": "2026-06-05T15:37:27.423693"
+    "updated_at": "2026-06-05T15:48:44.636828"
   },
   {
     "id": "hook-014",
     "description": "李崇云深夜出现在杂物房门外——他怎么知道沈渊在杂物房？他听到了多少？第2章中李崇云的灵气'被规范过'，他是否在用某种方式绕过天道监视？这次突然出现意味着什么？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "resolved",
     "planted_chapter": 6,
     "target_chapter": 7,
+    "resolved_chapter": 7,
     "related_characters": [
       "李崇云",
       "沈渊",
@@ -217,7 +220,7 @@
       "hook-006"
     ],
     "created_at": "2026-06-05T15:37:27.429840",
-    "updated_at": "2026-06-05T15:37:27.429840"
+    "updated_at": "2026-06-05T15:54:37.713306"
   },
   {
     "id": "hook-015",
@@ -237,5 +240,190 @@
     ],
     "created_at": "2026-06-05T15:37:27.435277",
     "updated_at": "2026-06-05T15:37:27.435277"
+  },
+  {
+    "id": "hook-016",
+    "description": "赵不肯——原身沈渊的师父，三十年前韩平撬碎片时递刀的人。三个月前被逐出师门（修炼事故，丹田被废但活着），现在青石驿给人写信。三个月前找过老孙头，说\"那东西还在说话\"和\"沈渊那孩子不像沈渊，但别怕，是好事\"。他知道什么？为什么说\"还在说话\"？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 5,
+    "target_chapter": 8,
+    "resolved_chapter": 8,
+    "related_characters": [
+      "赵不肯",
+      "沈渊",
+      "老孙头",
+      "韩平"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:48:44.613906",
+    "updated_at": "2026-06-05T15:59:53.009168"
+  },
+  {
+    "id": "hook-017",
+    "description": "李崇云的灵气不走脚底——老孙头扫了十二年地观察到的。金丹修士的灵气循环与别人不同，暗示李崇云可能在刻意修改自己的灵气路径以规避天道的某种机制。与hook-006（灵气被规范过）相关联。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 7,
+    "related_characters": [
+      "李崇云",
+      "老孙头",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-006"
+    ],
+    "created_at": "2026-06-05T15:48:44.620940",
+    "updated_at": "2026-06-05T15:54:37.719307"
+  },
+  {
+    "id": "hook-018",
+    "description": "老孙头说还有\"第三件事\"——等沈渊从青石驿回来再告诉他。前两件事是碎片/石板和韩平之死。第三件事是什么？可能与三十一年的观察有关。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 9,
+    "related_characters": [
+      "老孙头",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:48:44.626822",
+    "updated_at": "2026-06-05T15:48:44.626822"
+  },
+  {
+    "id": "hook-019",
+    "description": "第二块石板——十二年前李崇云在断崖上方一里处发现，暗金纹路聚成\"死\"字（报错信息）。敲碎后当晚灵气变成闭路循环。埋回去了。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 20,
+    "related_characters": [
+      "李崇云",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-006",
+      "hook-017",
+      "hook-015"
+    ],
+    "created_at": "2026-06-05T15:54:37.724416",
+    "updated_at": "2026-06-05T15:54:37.724416"
+  },
+  {
+    "id": "hook-020",
+    "description": "青石驿地下深处有东西——李崇云警告沈渊\"不要去找\"。沈渊离山时脚底感觉到了极深处的敲击般的感觉。与hook-002（灵气被谁接收）和hook-015（后山还有什么）相关联。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 7,
+    "target_chapter": 10,
+    "related_characters": [
+      "沈渊",
+      "李崇云"
+    ],
+    "related_hooks": [
+      "hook-002",
+      "hook-015"
+    ],
+    "created_at": "2026-06-05T15:54:37.728860",
+    "updated_at": "2026-06-05T15:59:53.014239"
+  },
+  {
+    "id": "hook-021",
+    "description": "李崇云教沈渊伪装技巧——竹简上刻着引气诀标准路径，让探查者以为他走标准路线。原理：灵气表层伪装。李崇云自己用了十二年。这是对抗天道监视的实用技术。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 12,
+    "related_characters": [
+      "李崇云",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T15:54:37.734924",
+    "updated_at": "2026-06-05T15:54:37.734924"
+  },
+  {
+    "id": "hook-022",
+    "description": "收废铁的男人——三十年前韩平撬碎片时在场的第三个弟子，没有死而是逃了。推独轮车在青石驿挨家挨户收废铁，每次经过赵不肯门口都停下来盯着地面看，问\"有东西要卖吗\"。他在找\"推开石板的人\"。他经过时地下敲击会停。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 12,
+    "related_characters": [
+      "收废铁的男人",
+      "赵不肯",
+      "沈渊",
+      "韩平"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-05T16:00:10.008618",
+    "updated_at": "2026-06-05T16:00:10.008618"
+  },
+  {
+    "id": "hook-023",
+    "description": "第三块石板在青石驿地下——赵不肯听了三十年：石板往下喊，地下的东西回答\"我在\"。敲击频率是石板和地下东西之间的通信。与hook-020（地下敲击）和hook-019（第二块石板\"死\"字）相关联。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 15,
+    "related_characters": [
+      "赵不肯",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-020",
+      "hook-019",
+      "hook-012"
+    ],
+    "created_at": "2026-06-05T16:00:10.014612",
+    "updated_at": "2026-06-05T16:00:10.014612"
+  },
+  {
+    "id": "hook-024",
+    "description": "敲击节奏从七次呼吸变成七次心跳——地下的东西在靠近？还是注意到了沈渊？暗示地下东西对沈渊有反应。章末悬念升级。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 10,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-020",
+      "hook-023"
+    ],
+    "created_at": "2026-06-05T16:00:10.021156",
+    "updated_at": "2026-06-05T16:00:10.021156"
+  },
+  {
+    "id": "hook-025",
+    "description": "赵不肯的灵气会\"说话\"——丹田碎了之后，灵气在自己走，有时候会往脑子里放念头。\"不是你的念头。但你知道它在那里。\"与hook-001（原身说\"它在优化\"）和hook-017（李崇云闭路循环）相关联——非丹田路由的灵气可能有自主意识？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 15,
+    "related_characters": [
+      "赵不肯",
+      "沈渊",
+      "李崇云"
+    ],
+    "related_hooks": [
+      "hook-001",
+      "hook-017"
+    ],
+    "created_at": "2026-06-05T16:00:10.027597",
+    "updated_at": "2026-06-05T16:00:10.027597"
   }
 ]

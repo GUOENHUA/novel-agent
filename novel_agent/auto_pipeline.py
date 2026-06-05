@@ -123,17 +123,17 @@ class AutoPipeline:
                     interactive=False,
                 )
 
-                # Verify file was saved; retry once if not
+                # Verify file was saved; retry up to MAX_RETRY_ATTEMPTS times
                 chapter_path = self.agent.chapter_path(ch)
-                for retry in range(2):
+                for retry in range(MAX_RETRY_ATTEMPTS):
                     if chapter_path.exists():
                         break
-                    if retry == 0:
-                        _safe_print(f"    Retrying ch{ch}...")
-                        loop.process_turn(
-                            f"第{ch}章没有保存成功。请重新输出第{ch}章正文，确保放在章节代码块内，然后调用 preview_chapter。",
-                            interactive=False,
-                        )
+                    _safe_print(f"    Retry {retry+1}/{MAX_RETRY_ATTEMPTS} ch{ch}...")
+                    time.sleep(60)
+                    loop.process_turn(
+                        f"第{ch}章没有保存成功。请重新输出第{ch}章正文到章节代码块，调用 preview_chapter。",
+                        interactive=False,
+                    )
                 if chapter_path.exists():
                     content = chapter_path.read_text("utf-8")
                     slop_score, slop_warnings = self._check_slop(content)
@@ -146,11 +146,11 @@ class AutoPipeline:
                         "attempts": retry + 1,
                     })
                 else:
-                    _safe_print(f"  [{progress}] ch{ch} FAILED after retry")
+                    _safe_print(f"  [{progress}] ch{ch} FAILED after {MAX_RETRY_ATTEMPTS} retries")
                     self.results.append({
                         "chapter": ch, "success": False,
                         "word_count": 0, "slop_score": 0,
-                        "slop_warnings": [], "attempts": 2,
+                        "slop_warnings": [], "attempts": MAX_RETRY_ATTEMPTS,
                     })
 
             # Summary
