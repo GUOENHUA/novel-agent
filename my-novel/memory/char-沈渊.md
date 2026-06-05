@@ -1,6 +1,6 @@
 ---
 name: 沈渊
-description: 主角·穿越者。生物信息学博士，黑色幽默的疲惫科研人，穿越为天元宗藏书阁管理员，无金手指纯靠科学方法论解构修仙世界。
+description: Auto-extracted facts about 沈渊
 type: character
 ---
 
@@ -147,3 +147,5 @@ type: character
 ---
 
 角色设定完成。现在进行预览保存。
+
+发现有人暗中观察自己和铁柱的对话，留下纸条警告他第三层不是禁书并劝他快走

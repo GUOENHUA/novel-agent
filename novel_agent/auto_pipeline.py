@@ -332,29 +332,47 @@ class AutoPipeline:
                 return {}
             for fence in ("```json", "```"):
                 raw = raw.replace(fence, "").strip()
-            # Find JSON object boundaries — if no braces, settlement failed
+            # Find JSON object boundaries
             start = raw.find("{")
             end = raw.rfind("}")
             if start < 0 or end <= start:
-                return {}  # No JSON in response, likely pure thinking block
+                return {}
             raw = raw[start:end + 1]
-            # Try parsing; if broken, ask LLM to fix its own JSON
+
+            # Try parsing; if broken, ask LLM to fix; if still broken, salvage fields
             try:
                 return json.loads(raw)
             except json.JSONDecodeError as e:
+                # Ask LLM to fix its own JSON
                 fix_resp = self.agent.call_llm(
                     messages=[{"role": "user", "content": (
                         f"Fix this invalid JSON. Return ONLY valid JSON, no explanation.\n"
                         f"Error: {e}\n\n{raw}"
                     )}],
-                    max_tokens=800, temperature=0,
+                    max_tokens=1200, temperature=0,
                 )
                 fixed = self.agent.extract_text(fix_resp.content, fallback_to_thinking=True).strip()
+                for fence in ("```json", "```"):
+                    fixed = fixed.replace(fence, "").strip()
                 fs = fixed.find("{")
                 fe = fixed.rfind("}")
                 if fs >= 0 and fe > fs:
-                    return json.loads(fixed[fs:fe + 1])
-                return {}
+                    try:
+                        return json.loads(fixed[fs:fe + 1])
+                    except json.JSONDecodeError:
+                        pass
+
+                # Last resort: regex-extract at least the chapter_summary
+                import re
+                result = {}
+                m = re.search(r'"chapter_summary"\s*:\s*"([^"]*)"', raw)
+                if m:
+                    result["chapter_summary"] = m.group(1)
+                    logger.warning("Salvaged chapter_summary via regex for ch%d", chapter_num)
+                m = re.search(r'"mood"\s*:\s*"([^"]*)"', raw)
+                if m:
+                    result["mood"] = m.group(1)
+                return result
         except Exception:
             logger.warning("Settlement failed for ch%d", chapter_num, exc_info=True)
             return {}

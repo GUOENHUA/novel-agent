@@ -4,22 +4,23 @@
     "description": "灵气在人体内形成精确的无标度网络拓扑——不是自然进化的产物，是被设计出来的。沈渊在第一章通过自我感知发现27个节点构成的路由网络。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "resolved",
     "planted_chapter": 1,
     "target_chapter": 50,
+    "resolved_chapter": 4,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
     "created_at": "2026-06-04T11:18:49.021504",
-    "updated_at": "2026-06-04T11:18:49.021504"
+    "updated_at": "2026-06-05T09:22:50.039084"
   },
   {
     "id": "hook-002",
     "description": "原身被逐出青云宗——「天道不纳，留你无益」。师父没有解释何谓灵根、何谓天道。原因不明。",
     "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
     "target_chapter": 30,
     "related_characters": [
@@ -28,7 +29,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-04T11:18:49.029587",
-    "updated_at": "2026-06-04T11:18:49.029587"
+    "updated_at": "2026-06-05T09:22:50.030764"
   },
   {
     "id": "hook-003",
@@ -74,5 +75,41 @@
     "related_hooks": [],
     "created_at": "2026-06-04T11:18:49.050067",
     "updated_at": "2026-06-04T11:18:49.050067"
+  },
+  {
+    "id": "hook-006",
+    "description": "神秘纸条揭示藏书阁第三层不是禁书，暗示沈渊的认知可能有误，同时纸条上的'快走'警告表明有人在暗中关照或监视他",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T09:22:50.002652",
+    "updated_at": "2026-06-05T09:22:50.002652"
+  },
+  {
+    "id": "hook-007",
+    "description": "王铁柱外甥处于慢性灵根崩塌状态，灵气正在逐步离开但尚未死亡——暗示存在不同收割方式，且可能可逆或延缓",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T09:22:50.011517",
+    "updated_at": "2026-06-05T09:22:50.011517"
+  },
+  {
+    "id": "hook-008",
+    "description": "沈渊计划利用二十六息时间窗口潜入禁书区，这一行动的成败将是下一章的关键悬念",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T09:22:50.021137",
+    "updated_at": "2026-06-05T09:22:50.021137"
   }
 ]

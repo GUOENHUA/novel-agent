@@ -1,0 +1,31 @@
+[
+  {
+    "chapter_number": 4,
+    "title": "男人没说话。他看",
+    "word_count": 3822,
+    "summary": "沈渊向王铁柱解释灵气寄生理论，两人制定潜入藏书阁禁书区的计划。沈渊在茶摊发现神秘纸条，提示第三层不是禁书，并警告他快走。",
+    "key_events": [
+      "沈渊用画圈的方式向王铁柱解释灵气寄生理论，说明灵根崩塌是灵气成熟的收割过程",
+      "两人制定潜入计划：利用朔日清点藏书的日子，趁管事师兄周瑾言进入禁书区后的二十六息时间窗口潜入",
+      "王铁柱主动提出协助，约定在镇西山口接应",
+      "沈渊在茶摊角落发现一杯未收的茶水和一张纸条，纸条正面写'第三层不是禁书'，背面写'快走'"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "王铁柱"
+    ],
+    "hooks_planted": [
+      "hook-006",
+      "hook-007",
+      "hook-008"
+    ],
+    "hooks_resolved": [
+      "hook-001"
+    ],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  }
+]
