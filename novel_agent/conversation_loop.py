@@ -162,8 +162,22 @@ class ConversationLoop:
 
             self._process_turn(user_input)
 
-    def _process_turn(self, user_message: str) -> None:
-        """Process one turn: build context → agent → tools → response → persist."""
+    def process_turn(self, user_message: str, *, interactive: bool = True) -> str:
+        """Process one turn: build context → agent → tools → response → persist.
+
+        Args:
+            user_message: The user's input / instruction.
+            interactive: If False, auto-confirm previews, auto-select first
+                clarify option, and suppress streaming display.  Used by
+                AutoPipeline to reuse the full conversational stack.
+
+        Returns:
+            The assistant's text response (for auto mode callers).
+        """
+        return self._process_turn(user_message, interactive=interactive)
+
+    def _process_turn(self, user_message: str, *, interactive: bool = True) -> str:
+        """Internal: process one turn."""
         global _abort_flag
         _abort_flag = False
 
@@ -243,14 +257,22 @@ class ConversationLoop:
         safe_print("")
 
         try:
-            # First call — streaming for real-time display
-            safe_print("  [dim]Thinking...[/dim]")
-            response = self.agent.stream_with_display(
-                messages=messages,
-                tools=all_tools,
-                extra_body={"thinking": {"type": "enabled"}},
-            )
-            safe_print("")
+            # First call
+            if interactive:
+                safe_print("  [dim]Thinking...[/dim]")
+                response = self.agent.stream_with_display(
+                    messages=messages,
+                    tools=all_tools,
+                    extra_body={"thinking": {"type": "enabled"}},
+                )
+                safe_print("")
+            else:
+                response = self.agent.call_llm(
+                    messages=messages,
+                    tools=all_tools,
+                    max_tokens=8192,
+                    extra_body={"thinking": {"type": "enabled"}},
+                )
             # Accumulate text from this turn for preview tools
             self._last_text_output = self.agent.extract_text(response.content) or ""
 
@@ -276,19 +298,24 @@ class ConversationLoop:
                         tool_input = block.input if isinstance(block.input, dict) else {}
 
                         if tool_name in ("preview_chapter", "preview_outline", "preview_setting"):
-                            result = self._handle_preview(tool_name, tool_input)
+                            if interactive:
+                                result = self._handle_preview(tool_name, tool_input)
+                            else:
+                                # Auto mode: always save without confirmation dialog
+                                result = self._handle_preview_auto(tool_name, tool_input)
                             tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
                         elif tool_name == "clarify":
                             question = tool_input.get("question", "")
                             options = tool_input.get("options", [])
-                            # Always use interactive select. If the model forgot to
-                            # provide options (or provided an empty list), offer a
-                            # sensible default so the user always gets a good UX.
                             if not options:
                                 options = ["继续", "跳过", "Other（让我详细说明）"]
-                            choice, note = self._interactive_select(question, options)
-                            if note:
-                                choice = f"{choice}\n[备注] {note}"
+                            if interactive:
+                                choice, note = self._interactive_select(question, options)
+                                if note:
+                                    choice = f"{choice}\n[备注] {note}"
+                            else:
+                                # Auto mode: pick the first option (usually "继续" or "直接开始")
+                                choice = options[0]
                             tool_results.append({"type": "tool_result", "tool_use_id": block.id, "content": choice})
                         else:
                             safe_print(f"  [dim][{tool_name}][/dim] {json.dumps(tool_input, ensure_ascii=False)[:100]}")
@@ -356,11 +383,15 @@ class ConversationLoop:
             assistant_text = self.agent.extract_text(response.content)
             self.agent.sync_memories(user_message, assistant_text or "")
 
+            return assistant_text or ""
+
         except KeyboardInterrupt:
             safe_print("\n  [dim](interrupted)[/dim]\n")
+            return ""
         except Exception as e:
             logger.exception("Turn processing failed")
             safe_print(f"  [red][ERROR][/red] {e}\n")
+            return ""
         finally:
             # Always save session, even on error
             try:
@@ -495,6 +526,57 @@ class ConversationLoop:
         if isinstance(result, str) and result:
             return (result, "")
         return ("", "")
+
+    def _handle_preview_auto(self, tool_name: str, args: dict) -> str:
+        """Auto-save preview content without interactive dialog (for auto mode)."""
+        import json as _json
+        content = self._last_text_output
+
+        if tool_name == "preview_chapter":
+            ch_num = args.get("chapter_number", 0)
+            title = args.get("title", "")
+            if not title:
+                from novel_agent.auto_pipeline import AutoPipeline
+                p = AutoPipeline(self.agent)
+                title = p._generate_title(content, ch_num)
+            path = self.agent.chapter_path(ch_num, title or "untitled")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"# 第{ch_num}章: {title}\n\n{content}", encoding="utf-8")
+            state = self.agent.truth_files.load_state()
+            state.current_chapter = ch_num + 1
+            self.agent.truth_files.save_state(state)
+            safe_print(f"  [green]Auto-saved: Ch{ch_num} {title}[/green]")
+            return _json.dumps({"status": "saved", "path": str(path), "title": title})
+
+        elif tool_name == "preview_outline":
+            out_dir = self.agent.project_dir / "outline"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            path = out_dir / "full.md"
+            path.write_text(content, encoding="utf-8")
+            safe_print("  [green]Auto-saved: outline[/green]")
+            return _json.dumps({"status": "saved", "path": str(path)})
+
+        elif tool_name == "preview_setting":
+            s_type = args.get("setting_type", "character")
+            name = args.get("name", "")
+            desc = args.get("description", "")
+            result = registry.dispatch(
+                "memory",
+                {"action": "add", "type": s_type, "name": name, "description": desc, "content": content},
+                chapters_dir=str(self.agent.chapters_dir),
+                project_dir=str(self.agent.project_dir),
+            )
+            try:
+                parsed = _json.loads(result)
+                if parsed.get("success"):
+                    safe_print(f"  [green]Auto-saved: {name}[/green]")
+                else:
+                    safe_print(f"  [red]Save failed: {parsed.get('error', '?')}[/red]")
+            except Exception:
+                safe_print(f"  [green]Auto-saved: {name}[/green]")
+            return result
+
+        return _json.dumps({"status": "unknown_tool"})
 
     def _handle_preview(self, tool_name: str, args: dict) -> str:
         """Show preview/confirm dialog for chapter, outline, or setting content."""

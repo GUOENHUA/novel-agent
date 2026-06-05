@@ -89,19 +89,66 @@
     "thought_style": "free_indirect"
   },
   {
-    "chapter_number": 6,
-    "title": "他试了四次。",
-    "word_count": 5226,
-    "summary": "沈渊在姜凝指导下通过四次尝试感知灵气，最终在冰水中确认灵气是从体内向外被抽取的单向流动。他理解借灵法的核心是建立不经过丹田的体表循环回路，随后接触到赵三问留下的黑石片，发现石片是信息存储介质，读取到",
-    "key_events": [],
-    "characters_appearing": [],
-    "hooks_planted": [],
+    "chapter_number": 5,
+    "title": "沈渊是被冻醒的。",
+    "word_count": 7072,
+    "summary": "沈渊开始修炼借灵法，仅用三刻钟完成第一步——感知毛孔摄入灵气。发现掌心球形节点复刻了赵三问黑石碎片上的三层分叉结构。建立闭合回路时关节处遇阻力，但上臂路径因节点预设而畅通。试图完成释放步骤时发现珠子封住出口，只能进不能出——这成了第二个丹田。沈渊用刻刀在掌心珠子边缘割开新释放通道，灵气化为雾气散逸。",
+    "key_events": [
+      "沈渊用三刻钟完成借灵法第一步，从毛孔摄入灵气",
+      "发现掌心珠子复刻了赵三问三层分叉结构",
+      "建立从右手到脚底再返回的完整闭合回路",
+      "关节处灵气通过需要强行撑开通道",
+      "上臂灵气通行无阻，发现节点预先开过路",
+      "释放步骤中珠子封死出口，灵气只能进不能出",
+      "用刻刀在掌心珠子边缘割开新释放通道",
+      "灵气从刀口雾化散逸成功"
+    ],
+    "characters_appearing": [
+      "沈渊"
+    ],
+    "hooks_planted": [
+      "hook-05-1",
+      "hook-05-2"
+    ],
     "hooks_resolved": [],
-    "mood": "mysterious",
-    "pov_character": "",
-    "narrative_distance": "",
-    "tense": "",
-    "thought_style": ""
+    "mood": "tense",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 6,
+    "title": "他从无梦的睡眠中醒来。",
+    "word_count": 7900,
+    "summary": "沈渊在姜凝的桑田完成借灵法十二圈循环，回路固定成功，但代价是珠子分裂至左掌、身体出现异常反应。姜凝讲述了玄明真人成为天道活体接口的真相，而沈渊完成循环后，石片开始接收外部信号。",
+    "key_events": [
+      "沈渊醒来发现右手珠子在左手掌也扩张出小型珠子",
+      "沈渊在桑田找到姜凝，她展示赵三问回路图并讲述玄明真人真相",
+      "沈渊完成借灵法十二圈完整循环，回路固定",
+      "循环过程中出现发冷、发抖、深层肌肉渗透等异常反应",
+      "完成循环后石片开始接收外部信号",
+      "石片共振从相长变为相消，干扰减弱"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "姜凝"
+    ],
+    "hooks_planted": [
+      "hook-31-1",
+      "hook-31-2",
+      "hook-31-3",
+      "hook-31-4",
+      "hook-31-5",
+      "hook-31-6",
+      "hook-31-7"
+    ],
+    "hooks_resolved": [],
+    "mood": "tense",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
   },
   {
     "chapter_number": 7,

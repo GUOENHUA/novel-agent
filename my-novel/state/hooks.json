@@ -186,12 +186,12 @@
     "description": "姜凝师傅在八丈以下挖到“不该挖的东西”，恐惧到填洞并警告不要往下挖",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 4,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-05T10:12:18.011986",
-    "updated_at": "2026-06-05T10:12:18.011986"
+    "updated_at": "2026-06-05T10:39:33.324032"
   },
   {
     "id": "hook-04-3",
@@ -203,7 +203,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-05T10:12:18.021321",
-    "updated_at": "2026-06-05T10:33:17.798974"
+    "updated_at": "2026-06-05T10:39:33.332245"
   },
   {
     "id": "hook-04-4",
@@ -215,7 +215,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-05T10:12:18.031188",
-    "updated_at": "2026-06-05T10:22:06.447734"
+    "updated_at": "2026-06-05T10:39:33.343713"
   },
   {
     "id": "hook-19-1",
@@ -506,5 +506,113 @@
     "related_hooks": [],
     "created_at": "2026-06-05T10:33:17.777063",
     "updated_at": "2026-06-05T10:33:17.777063"
+  },
+  {
+    "id": "hook-05-1",
+    "description": "掌心珠子复刻的黑石碎片三层结构——第一层输入、第二层存储、第三层输出——暗藏赵三问死亡真相：输出层将信息上传数据库导致天道反向定位",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:39:33.305310",
+    "updated_at": "2026-06-05T10:43:38.279727"
+  },
+  {
+    "id": "hook-05-2",
+    "description": "珠子封闭释放出口，灵气只能进不能出，成为'第二个丹田'吸收每轮循环的部分灵气——暗示珠子会持续生长，最终可能引发未知后果",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:39:33.314497",
+    "updated_at": "2026-06-05T10:39:33.314497"
+  },
+  {
+    "id": "hook-31-1",
+    "description": "珠子在左手掌也出现，借灵法与石片的双重系统合一",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.212969",
+    "updated_at": "2026-06-05T10:43:38.212969"
+  },
+  {
+    "id": "hook-31-2",
+    "description": "灵气循环改变体温调节和血液循环，开始替代部分生理功能",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.223852",
+    "updated_at": "2026-06-05T10:43:38.223852"
+  },
+  {
+    "id": "hook-31-3",
+    "description": "沈渊在循环中获得本体感觉——不靠眼睛感知灵气回路的三维位置",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.232801",
+    "updated_at": "2026-06-05T10:43:38.232801"
+  },
+  {
+    "id": "hook-31-4",
+    "description": "玄明真人详情：化神境，十二处阵纹，二十年未离开修炼室，石片与金丹完全融合",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.241582",
+    "updated_at": "2026-06-05T10:43:38.241582"
+  },
+  {
+    "id": "hook-31-5",
+    "description": "灵气从全身毛孔泄漏造成信号衰减，保护沈渊不被天道识别为合格宿主",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.250798",
+    "updated_at": "2026-06-05T10:43:38.250798"
+  },
+  {
+    "id": "hook-31-6",
+    "description": "灵气循环第十圈开始往深层肌肉渗透，改变肌肉纤维结构",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.259227",
+    "updated_at": "2026-06-05T10:43:38.259227"
+  },
+  {
+    "id": "hook-31-7",
+    "description": "完成十二圈回路后石片开始接收外部信号，不是内部共振",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-05T10:43:38.269086",
+    "updated_at": "2026-06-05T10:43:38.269086"
   }
 ]

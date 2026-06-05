@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 5,
+  "current_chapter": 7,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,8 +8,8 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "紧迫——发现时间从三个月压缩到三天",
-      "goal": "找到白砚行了解玄明写入习惯，在三天内建立旁路",
+      "emotional_state": "从测试前的紧绷到成功后的警觉",
+      "goal": "完成借灵循环测试，获取下一步行动方案",
       "alive": true,
       "chapter_updated": 0
     },
@@ -24,8 +24,8 @@
     "姜凝": {
       "name": "姜凝",
       "current_location": "",
-      "emotional_state": "压抑的安静——在赵三问的传承与沈渊的危险之间",
-      "goal": "确保沈渊在三天内建立旁路，活下去",
+      "emotional_state": "谨慎、担忧",
+      "goal": "帮助沈渊完成借灵循环，分享赵三问和玄明的信息",
       "alive": true,
       "chapter_updated": 0
     },
@@ -48,5 +48,5 @@
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-05T10:35:38.940015"
+  "last_updated": "2026-06-05T10:43:38.305860"
 }

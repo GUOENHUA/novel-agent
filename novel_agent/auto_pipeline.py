@@ -82,18 +82,18 @@ class AutoPipeline:
         count: int = 1,
         words_per_chapter: int | None = None,
     ) -> list[dict[str, Any]]:
-        """Run the auto pipeline for N chapters.
+        """Run the auto pipeline for N chapters using the full conversational stack.
 
-        Args:
-            start_chapter: First chapter number to write.
-            count: Number of chapters to generate.
-            words_per_chapter: Target word count per chapter (defaults to agent setting).
-
-        Returns:
-            List of result dicts per chapter.
+        Each chapter is processed via ConversationLoop.process_turn(interactive=False),
+        which reuses the complete context assembly, thinking mode, tool loop, history
+        accumulation, and compression — identical to interactive mode, just without
+        user prompts for clarify/preview.
         """
+        from novel_agent.conversation_loop import ConversationLoop
+
         words = words_per_chapter or self.agent.chapter_words
         self.results = []
+        loop = ConversationLoop(self.agent)
 
         if count > 10:
             estimated_tokens = count * words * 1.5
@@ -116,24 +116,46 @@ class AutoPipeline:
                     _safe_print(f"\n  PAUSED  自动模式已暂停 (已完成 {ch - start_chapter}/{count} 章)")
                     break
 
-                result = self._write_chapter_with_retry(ch, words)
-                self.results.append(result)
                 progress = f"{ch - start_chapter + 1}/{count}"
+                _safe_print(f"  [{progress}] Writing ch{ch}...")
+                t0 = time.time()
 
-                if result["success"]:
-                    hooks_info = result.get("hooks_info", "")
-                    _safe_print(f"  [{progress}] ch{ch} OK ({result['word_count']} chars, slop {result['slop_score']:.0f}{hooks_info})")
+                # Use the full conversational stack — thinking, tools, history, compression
+                assistant_text = loop.process_turn(
+                    f"写第{ch}章完整正文，目标{words}字左右。"
+                    f"写完后调用 preview_chapter 保存。",
+                    interactive=False,
+                )
+
+                # Post-processing: slop check and settlement on the saved chapter
+                chapter_path = self.agent.chapter_path(ch)
+                if chapter_path.exists():
+                    content = chapter_path.read_text("utf-8")
+                    slop_score, slop_warnings = self._check_slop(content)
+                    try:
+                        self._settle_state(ch, content)
+                    except Exception:
+                        pass  # Settlement is best-effort
+                    elapsed = time.time() - t0
+                    _safe_print(f"  [{progress}] ch{ch} OK ({len(content)} chars, slop {slop_score:.0f}, {elapsed:.0f}s)")
+                    self.results.append({
+                        "chapter": ch, "success": True,
+                        "word_count": len(content),
+                        "slop_score": slop_score, "slop_warnings": slop_warnings,
+                        "attempts": 1,
+                    })
                 else:
-                    _safe_print(f"  [{progress}] ch{ch} FAILED after {result['attempts']} retries")
+                    _safe_print(f"  [{progress}] ch{ch} FAILED (no file saved)")
+                    self.results.append({
+                        "chapter": ch, "success": False,
+                        "word_count": 0, "slop_score": 0,
+                        "slop_warnings": [], "attempts": 1,
+                    })
 
             # Summary
             completed = [r for r in self.results if r["success"]]
             total_words = sum(r["word_count"] for r in completed)
-            _safe_print(f"\n  OK {len(completed)}/{len(self.results)} 章完成，总计 {total_words} 字")
-
-            warnings = [r for r in completed if r.get("slop_warnings")]
-            if warnings:
-                _safe_print(f"  WARN️  {len(warnings)} 章有 slop 警告，建议人工复查")
+            _safe_print(f"\n  OK {len(completed)}/{len(self.results)} chapters, {total_words} chars total")
 
         finally:
             signal.signal(signal.SIGINT, original_handler)
@@ -141,183 +163,9 @@ class AutoPipeline:
 
         return self.results
 
-    def _write_chapter_with_retry(self, chapter_num: int, words: int) -> dict[str, Any]:
-        """Write one chapter with slop-check retry loop."""
-        for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
-            chapter_content = self._write_chapter(chapter_num, words, attempt)
-            # Guard: too-short chapters are automatic failures
-            if len(chapter_content) < 500:
-                _safe_print(f"    Chapter too short ({len(chapter_content)} chars), retrying...")
-                continue
-            # Self-revision: review and improve before finalizing
-            chapter_content = self._revise_chapter(chapter_num, chapter_content)
-            if len(chapter_content) < 500:
-                _safe_print(f"    Revision lost content, retrying...")
-                continue
-            slop_score, slop_warnings = self._check_slop(chapter_content)
 
-            if slop_score >= DRAFT_PASS_THRESHOLD:
-                hooks_before = len(self.agent.hook_ledger.get_active())
-                summaries_before = len(self.agent.truth_files.load_summaries())
-                self._settle_state(chapter_num, chapter_content)
-                hooks_delta = len(self.agent.hook_ledger.get_active()) - hooks_before
-                has_summary = len(self.agent.truth_files.load_summaries()) > summaries_before
 
-                parts = []
-                if hooks_delta:
-                    parts.append(f"hooks {hooks_delta:+d}")
-                if has_summary:
-                    parts.append("summary")
-                info = f", {' '.join(parts)}" if parts else ""
 
-                return {
-                    "chapter": chapter_num,
-                    "success": True,
-                    "word_count": len(chapter_content),
-                    "slop_score": slop_score,
-                    "slop_warnings": slop_warnings,
-                    "attempts": attempt,
-                    "hooks_info": info,
-                }
-            else:
-                logger.info(
-                    "Chapter %d attempt %d: slop %.1f < %.1f, retrying",
-                    chapter_num, attempt, slop_score, DRAFT_PASS_THRESHOLD,
-                )
-
-        # All retries exhausted
-        return {
-            "chapter": chapter_num,
-            "success": False,
-            "word_count": 0,
-            "slop_score": 0,
-            "slop_warnings": [],
-            "attempts": MAX_RETRY_ATTEMPTS,
-        }
-
-    # -- Phase implementations --------------------------------------------------
-
-    def _build_memory_context(self) -> str:
-        """Preload key character/world/style memories into the writing directive."""
-        try:
-            from novel_agent.memory.memory_store import MemoryStore
-            store = MemoryStore(self.agent.memory_dir)
-            headers = store.scan_memory_headers()
-            lines = []
-            # Major characters (tier != minor/cameo)
-            chars = [h for h in headers if h.get("type") == "character"
-                     and h.get("tier", "major") not in ("minor", "cameo")]
-            if chars:
-                lines.append("## 角色速查")
-                for h in chars[:5]:
-                    content = store.read_memory(h["filename"])
-                    if content:
-                        body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
-                        # First 2 sentences per character
-                        lines.append(f"- {h['name']}: {body[:200]}")
-            # World rules
-            worlds = [h for h in headers if h.get("type") == "world"][:2]
-            if worlds:
-                lines.append("## 世界观约束")
-                for h in worlds:
-                    content = store.read_memory(h["filename"])
-                    if content:
-                        body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
-                        lines.append(f"- {body[:300]}")
-            # Style constraints
-            styles = [h for h in headers if h.get("type") == "style"][:2]
-            if styles:
-                lines.append("## 风格要求")
-                for h in styles:
-                    content = store.read_memory(h["filename"])
-                    if content:
-                        body = content.split("---", 2)[-1].strip() if content.count("---") >= 2 else content
-                        lines.append(f"- {body[:200]}")
-            return "\n".join(lines) if lines else ""
-        except Exception:
-            return ""
-
-    def _build_hook_context(self, chapter_num: int) -> str:
-        """List active hooks relevant to the current chapter window."""
-        try:
-            hooks = self.agent.hook_ledger.get_active()
-            if not hooks:
-                return ""
-            lines = ["## 活跃伏笔"]
-            for h in hooks:
-                target = h.target_chapter or 999
-                if target <= chapter_num + 10:
-                    urgent = " ⚠️" if target <= chapter_num + 3 else ""
-                    lines.append(f"- [{h.id}] {h.description} → 第{target}章{urgent}")
-            return "\n".join(lines) if len(lines) > 1 else ""
-        except Exception:
-            return ""
-
-    def _write_chapter(self, chapter_num: int, words: int, attempt: int) -> str:
-        """Write a chapter by calling the LLM with novel context + preloaded memory."""
-        # Build rich context: novel state + character details + active hooks
-        novel_context = self.agent.build_novel_context(f"写第{chapter_num}章")
-        memory_context = self._build_memory_context()
-        hook_context = self._build_hook_context(chapter_num)
-        directive = (
-            f"{novel_context}\n\n"
-            f"{memory_context}\n"
-            f"{hook_context}\n"
-            f"---\n\n"
-            f"写第{chapter_num}章的完整正文。目标{words}字左右。\n\n"
-            f"直接开始正文，不要章标题。段落间空行分隔，不使用Markdown。\n"
-            f"章末不加元注释。开头直接进入场景，结尾自然结束。"
-        )
-        if attempt > 1:
-            directive += f"\n\n（第{attempt}次重试，请确保质量。）"
-
-        label = f"Writing ch{chapter_num}" + (f" (retry {attempt})" if attempt > 1 else "")
-        _safe_print(f"  {label}...")
-        t0 = time.time()
-        resp = self.agent.call_llm(
-            messages=[{"role": "user", "content": directive}],
-            max_tokens=words * 4,
-            temperature=0.7,
-            extra_body={"thinking": {"type": "enabled"}},
-        )
-        elapsed = time.time() - t0
-        # Fallback to thinking — deepseek-v4-pro sometimes outputs most prose in thinking blocks
-        content = self.agent.extract_text(resp.content, fallback_to_thinking=True)
-        _safe_print(f"    ({elapsed:.1f}s, {resp.usage.input_tokens}+{resp.usage.output_tokens} tk, {len(content)} chars)")
-        return content
-
-    def _revise_chapter(self, chapter_num: int, draft: str) -> str:
-        """Self-revision pass — review and improve the chapter before saving.
-
-        Mirrors the conversational mode's preview→edit loop:
-        the model reviews its own output for dialogue consistency,
-        sensory density, pacing, and AI-slop patterns.
-        """
-        _safe_print(f"    Revising...")
-        try:
-            directive = (
-                f"Review and improve this chapter draft. Fix issues, don't rewrite from scratch.\n\n"
-                f"Check for:\n"
-                f"- Dialogue: consistent character voice, Chinese quotes (「」not \"\"), natural rhythm\n"
-                f"- Prose: vary sentence length, avoid '不是X而是Y' pattern overuse\n"
-                f"- Sensory: at least 2-3 concrete sensory details (sight, sound, touch, smell)\n"
-                f"- Pacing: avoid long static passages, end with forward momentum\n"
-                f"- Slop: remove '嘴角勾起/沉声/眸子/冷笑一声' etc.\n\n"
-                f"Return the FULL improved chapter. Don't summarize or truncate.\n\n"
-                f"{draft[:12000]}"
-            )
-            resp = self.agent.call_llm(
-                messages=[{"role": "user", "content": directive}],
-                max_tokens=len(draft) * 3,
-                temperature=0.4,
-            )
-            revised = self.agent.extract_text(resp.content, fallback_to_thinking=True)
-            if revised and len(revised) > len(draft) * 0.5:
-                _safe_print(f"    Revised: {len(draft)} -> {len(revised)} chars")
-                return revised
-        except Exception:
-            pass
-        return draft  # Fallback: keep original
 
     def _check_slop(self, content: str) -> tuple[float, list[str]]:
         """Run mechanical slop check."""
