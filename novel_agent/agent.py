@@ -546,6 +546,38 @@ class AIAgent:
                 lines.append(f"- {vs}")
             lines.append("")
 
+        # 4b2. Character roster — all known characters, always loaded (no search needed).
+        # Active/major characters get detailed display; minor/cameo get one-liners.
+        try:
+            from novel_agent.memory.memory_store import MemoryStore
+            store = MemoryStore(self.memory_dir)
+            all_headers = store.scan_memory_headers()
+            char_headers = [h for h in all_headers if h.get("type") == "character"]
+            if char_headers:
+                # Separate major (active or in state) from minor
+                shown_names = active_chars | {c.name for c in (state.characters or {}).values()}
+                major_chars = [h for h in char_headers if h.get("name") in shown_names]
+                minor_chars = [h for h in char_headers if h.get("name") not in shown_names]
+                # Show major characters that aren't already in the scene display
+                roster_lines = []
+                for h in major_chars:
+                    if h.get("name") not in active_chars:  # not already shown above
+                        roster_lines.append(f"- **{h['name']}**: {h.get('description', '')}")
+                # Show minor characters compactly
+                if minor_chars:
+                    roster_lines.append("")
+                    roster_lines.append("*配角/龙套:*")
+                    for h in minor_chars:
+                        desc = h.get("description", "")[:60]
+                        roster_lines.append(f"- {h['name']}: {desc}")
+                if roster_lines:
+                    lines.append("## 👥 角色名册")
+                    for rl in roster_lines:
+                        lines.append(rl)
+                    lines.append("")
+        except Exception:
+            pass  # Memory store unavailable — skip roster
+
         # 4c. Golden paragraph — style anchor from ~20% into previous chapter.
         # Chapter openings warm up (scene-setting, bridging); endings wrap up.
         # The middle section (~20% in) captures the chapter's core narrative
