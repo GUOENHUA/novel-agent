@@ -51,7 +51,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:37:22.286537",
-    "updated_at": "2026-06-06T19:08:06.842154"
+    "updated_at": "2026-06-06T20:12:05.585782"
   },
   {
     "id": "hook-005",
@@ -75,7 +75,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:37:22.301564",
-    "updated_at": "2026-06-06T19:08:06.861592"
+    "updated_at": "2026-06-06T20:12:05.595612"
   },
   {
     "id": "hook-007",
@@ -91,7 +91,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:39:21.010437",
-    "updated_at": "2026-06-06T19:14:41.693218"
+    "updated_at": "2026-06-06T20:12:05.605004"
   },
   {
     "id": "hook-008",
@@ -146,7 +146,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:40:56.726637",
-    "updated_at": "2026-06-06T19:08:06.909352"
+    "updated_at": "2026-06-06T20:12:05.616091"
   },
   {
     "id": "hook-012",
@@ -161,7 +161,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:46:20.919428",
-    "updated_at": "2026-06-06T19:08:06.920375"
+    "updated_at": "2026-06-06T20:12:05.625100"
   },
   {
     "id": "hook-013",
@@ -176,7 +176,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:46:20.929064",
-    "updated_at": "2026-06-06T19:08:06.930212"
+    "updated_at": "2026-06-06T20:12:05.635944"
   },
   {
     "id": "hook-014",
@@ -192,23 +192,23 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:46:20.939579",
-    "updated_at": "2026-06-06T19:08:06.939954"
+    "updated_at": "2026-06-06T20:12:05.644377"
   },
   {
     "id": "hook-015",
     "description": "窗棂被刻新缝隙——监视升级，方便从窗外观察室内。同时床板第一条刻字被刀尖划掉（灵植同源），对方留下明确警告：此方向不通",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 3,
-    "target_chapter": 10,
+    "target_chapter": 12,
     "related_characters": [
       "沈渊",
       "铜符弟子"
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:46:20.948911",
-    "updated_at": "2026-06-06T19:08:06.950361"
+    "updated_at": "2026-06-06T20:12:05.653910"
   },
   {
     "id": "hook-016",
@@ -249,7 +249,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:47:59.288949",
-    "updated_at": "2026-06-06T19:08:06.981131"
+    "updated_at": "2026-06-06T20:12:05.664139"
   },
   {
     "id": "hook-019",
@@ -273,7 +273,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:47:59.305873",
-    "updated_at": "2026-06-06T19:08:07.002171"
+    "updated_at": "2026-06-06T20:12:05.674398"
   },
   {
     "id": "hook-021",
@@ -285,7 +285,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:47:59.315340",
-    "updated_at": "2026-06-06T19:08:07.012862"
+    "updated_at": "2026-06-06T20:12:05.684292"
   },
   {
     "id": "hook-022",
@@ -303,7 +303,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:51:23.417495",
-    "updated_at": "2026-06-06T19:08:07.022816"
+    "updated_at": "2026-06-06T20:12:05.695136"
   },
   {
     "id": "hook-023",
@@ -335,7 +335,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:51:23.435697",
-    "updated_at": "2026-06-06T19:08:07.042178"
+    "updated_at": "2026-06-06T20:12:05.703666"
   },
   {
     "id": "hook-025",
@@ -347,7 +347,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:53:05.346737",
-    "updated_at": "2026-06-06T19:08:07.052237"
+    "updated_at": "2026-06-06T20:12:05.713025"
   },
   {
     "id": "hook-026",
@@ -359,7 +359,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:53:05.355658",
-    "updated_at": "2026-06-06T19:08:07.063172"
+    "updated_at": "2026-06-06T20:12:05.723374"
   },
   {
     "id": "hook-027",
@@ -371,7 +371,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:53:05.364780",
-    "updated_at": "2026-06-06T19:08:07.072861"
+    "updated_at": "2026-06-06T20:12:05.733940"
   },
   {
     "id": "hook-028",
@@ -386,7 +386,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:56:42.815025",
-    "updated_at": "2026-06-06T19:08:07.083040"
+    "updated_at": "2026-06-06T20:12:05.744616"
   },
   {
     "id": "hook-029",
@@ -403,7 +403,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:56:42.824985",
-    "updated_at": "2026-06-06T19:14:41.714865"
+    "updated_at": "2026-06-06T20:12:05.754048"
   },
   {
     "id": "hook-030",
@@ -419,7 +419,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:56:42.835568",
-    "updated_at": "2026-06-06T19:08:07.103198"
+    "updated_at": "2026-06-06T20:12:05.763314"
   },
   {
     "id": "hook-031",
@@ -435,7 +435,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T18:56:42.845956",
-    "updated_at": "2026-06-06T19:08:07.113108"
+    "updated_at": "2026-06-06T20:12:05.772549"
   },
   {
     "id": "hook-032",
@@ -449,7 +449,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T18:58:37.881902",
-    "updated_at": "2026-06-06T19:14:41.646002"
+    "updated_at": "2026-06-06T20:12:05.783007"
   },
   {
     "id": "hook-033",
@@ -482,7 +482,7 @@
     "description": "陈玄感应被注视——铜符弟子看到陈玄拔草不带泥土（常态），但沈渊和铜符弟子一起看时草根有泥土。陈玄能感知被观察并伪装。藏了四十九年的东西知道什么时候被看",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 6,
     "target_chapter": 25,
     "related_characters": [
@@ -495,7 +495,7 @@
       "hook-029"
     ],
     "created_at": "2026-06-06T19:05:23.860406",
-    "updated_at": "2026-06-06T19:05:23.860406"
+    "updated_at": "2026-06-06T20:12:05.793287"
   },
   {
     "id": "hook-036",
@@ -515,13 +515,13 @@
     "description": "断根任务——原身遗书指出脱离系统的唯一方法：切断灵根灌顶时种下的聚灵阵接口。陈玄是唯一已知断根者，但他不会说（说出来会被听见）。沈渊只能观察他「做」",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 6,
     "target_chapter": 25,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T19:08:06.776047",
-    "updated_at": "2026-06-06T19:14:41.661054"
+    "updated_at": "2026-06-06T20:12:05.803398"
   },
   {
     "id": "hook-038",
@@ -555,20 +555,20 @@
     "description": "井水特殊灵气——沉的、不刺麻、渗入皮肤，与灵田静电式灵气完全不同。井水穿透黏土直接渗入硬土层，似乎在找地下暗河。暗河可能是聚灵阵盲区（→Ch25）",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 6,
     "target_chapter": 25,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-06T19:08:06.802860",
-    "updated_at": "2026-06-06T19:22:27.993759"
+    "updated_at": "2026-06-06T20:12:05.814328"
   },
   {
     "id": "hook-041",
     "description": "南三区土层异常——两寸松土铺在硬土层上，无过渡层，像人为铺设。暗示南三区是某种改造过的环境（→Ch25）",
     "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 8,
     "target_chapter": 25,
     "related_characters": [
@@ -576,14 +576,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T19:22:28.003878",
-    "updated_at": "2026-06-06T19:22:28.003878"
+    "updated_at": "2026-06-06T20:12:05.823355"
   },
   {
     "id": "hook-042",
     "description": "井边稻谷——普通稻谷（非灵稻）出现在南墙根，壳上有刀刻痕迹。赵老四往南墙方向走过。南三区不种普通稻谷（→Ch15，赵老四身份线索）",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 8,
     "target_chapter": 15,
     "related_characters": [
@@ -592,14 +592,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T19:22:28.014682",
-    "updated_at": "2026-06-06T19:22:28.014682"
+    "updated_at": "2026-06-06T20:12:05.832520"
   },
   {
     "id": "hook-043",
     "description": "断根第一步——脉门按压。陈玄用无名指和小指触碰沈渊手腕内侧（灵根灌顶位置）。按压后酸意从手腕→前臂→肩膀，被某物阻断。断根不是一次手术，是持续按压对抗系统重建——陈玄按了四十九年（→Ch25）",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 8,
     "target_chapter": 25,
     "related_characters": [
@@ -608,14 +608,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T19:22:28.025323",
-    "updated_at": "2026-06-06T19:22:28.025323"
+    "updated_at": "2026-06-06T20:20:05.750351"
   },
   {
     "id": "hook-044",
     "description": "灰浆墙——南墙上有灰色灰浆抹痕，底下土是深褐色（被井水浸过）。灰浆在增加（第二天多了一块），有人在持续维护（→Ch25）",
     "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 8,
     "target_chapter": 25,
     "related_characters": [
@@ -623,6 +623,197 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-06T19:22:28.036172",
-    "updated_at": "2026-06-06T19:22:28.036172"
+    "updated_at": "2026-06-06T20:20:05.739820"
+  },
+  {
+    "id": "hook-045",
+    "description": "井水断根法——沈渊发现井水能直接从脉门拽出灵根，通过水路进入暗河（系统外），灵根出系统后自行瘪掉。这是断根的直连通路，比陈玄的间接按压更高效",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 9,
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊",
+      "陈玄",
+      "赵老四"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:05:00.208069",
+    "updated_at": "2026-06-06T20:21:45.443604"
+  },
+  {
+    "id": "hook-046",
+    "description": "井底断指——49年前取手时断落（实为故意塞入），堵住暗河入口。碎片无法进暗河，那只手只能留在阵眼。断指在井水中软化，每次浸手冲击加速松动。四十九年后即将彻底软化。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 10,
+    "target_chapter": 25,
+    "resolved_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:08:43.718603",
+    "updated_at": "2026-06-06T20:21:45.519059"
+  },
+  {
+    "id": "hook-047",
+    "description": "暗河坟场——陈玄揭示暗河不只有上一个穿越者的灵根，还有上一个时代彻底断了根的修炼者。暗河是一个集体归宿，不止一个灵根在里面。通了之后不知道什么东西会从暗河里出来。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "target_chapter": 50,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:08:51.034339",
+    "updated_at": "2026-06-06T20:20:05.777240"
+  },
+  {
+    "id": "hook-048",
+    "description": "天道换手——赵老四说那只手磨光之后天道会换一只新的。暗示寄生系统有后备机制，断根/缠手不是永久解决方案，只是争取时间。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "target_chapter": 100,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:08:55.032954",
+    "updated_at": "2026-06-06T20:21:45.464936"
+  },
+  {
+    "id": "hook-049",
+    "description": "灰墙在本日崩裂——碎片从裂纹往外挤，落地后蠕动向井边，闻到了暗河的味道。陈玄用手按压涌泉正上方阻止碎片从涌泉往上钻。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "target_chapter": 13,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.516487",
+    "updated_at": "2026-06-06T20:21:45.474985"
+  },
+  {
+    "id": "hook-050",
+    "description": "断指构造揭示——外层软皮肉泡了49年已软化，内芯是指甲尚硬。灵根只需从指甲与软皮肉之间的缝钻入暗河，不需推开整个断指。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 13,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.526469",
+    "updated_at": "2026-06-06T20:20:11.684515"
+  },
+  {
+    "id": "hook-051",
+    "description": "墙内碎片、井底断指、阵眼本体三处同步——每七八息同步脉动，互相寻找",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.535990",
+    "updated_at": "2026-06-06T20:12:05.535990"
+  },
+  {
+    "id": "hook-052",
+    "description": "前辈灵根在暗河守了四十九年，磨掉手的大部分，还剩最后一截",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.545184",
+    "updated_at": "2026-06-06T20:21:45.485318"
+  },
+  {
+    "id": "hook-053",
+    "description": "赵老四说'天道会换一只新的'——手的本质与天道系统相连，可以被替换",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.554300",
+    "updated_at": "2026-06-06T20:21:45.495716"
+  },
+  {
+    "id": "hook-054",
+    "description": "陈玄眼白灰线呈环状如年轮四十九圈——与赵老四的放射状不同，暗示灵根状态不同",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.564908",
+    "updated_at": "2026-06-06T20:12:05.564908"
+  },
+  {
+    "id": "hook-055",
+    "description": "暗河是上一个时代修炼者的坟场——所有彻底断根者的灵根都在暗河里",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 10,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:12:05.575251",
+    "updated_at": "2026-06-06T20:21:45.507069"
+  },
+  {
+    "id": "hook-056",
+    "description": "赵老四揭示断指内核是未软化的指甲——灵根只需钻过指甲与软皮肉之间的缝隙",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:21:45.398693",
+    "updated_at": "2026-06-06T20:21:45.398693"
+  },
+  {
+    "id": "hook-057",
+    "description": "赵老四交代操作三步骤：灵根先下→碎片跟着下→焙烧碎片堵涌泉",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:21:45.411727",
+    "updated_at": "2026-06-06T20:21:45.411727"
+  },
+  {
+    "id": "hook-058",
+    "description": "暗河里的灵气是活的，不在聚灵阵范围内——与井水死灵气截然不同",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:21:45.422739",
+    "updated_at": "2026-06-06T20:21:45.422739"
+  },
+  {
+    "id": "hook-059",
+    "description": "灵根进入暗河后不回来了——接续上一个穿越者磨损的灵根，合力缠住碎片和断指",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T20:21:45.432417",
+    "updated_at": "2026-06-06T20:21:45.432417"
   }
 ]

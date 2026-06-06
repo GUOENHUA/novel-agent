@@ -1,36 +1,11 @@
 {
   "novel_title": "",
-  "current_chapter": 10,
+  "current_chapter": 100,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {
-    "沈渊": {
-      "name": "沈渊",
-      "current_location": "",
-      "emotional_state": "警觉，信息冲击中重新拼图",
-      "goal": "弄清原身死亡真相和陈玄的秘密",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "陈玄": {
-      "name": "陈玄",
-      "current_location": "",
-      "emotional_state": "平静中带着深沉——等了六天一个确定已死的人",
-      "goal": "完成承诺，将原身遗物交给值得托付的人",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "铜符弟子": {
-      "name": "铜符弟子",
-      "current_location": "",
-      "emotional_state": "警惕，压抑，有所忌惮",
-      "goal": "传递原身遗物和警告，保护沈渊不被收割",
-      "alive": true,
-      "chapter_updated": 0
-    }
-  },
+  "characters": {},
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T19:36:15.719438"
+  "last_updated": "2026-06-06T20:35:11.837806"
 }
