@@ -8,21 +8,29 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "警觉、分析中",
-      "goal": "在不暴露身份的情况下继续收集灵气系统的信息",
+      "emotional_state": "接近兴奋但被恐惧包裹",
+      "goal": "找个绝对不受打扰的位置，逆向还原触发条件，进入相同状态但不失控",
       "alive": true,
       "chapter_updated": 0
     },
-    "何执事": {
-      "name": "何执事",
+    "陆行舟": {
+      "name": "陆行舟",
       "current_location": "",
-      "emotional_state": "压抑的警觉",
-      "goal": "查验沈渊状况，警告其不要追问",
+      "emotional_state": "担忧",
+      "goal": "帮沈渊保管杂物袋",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "刘大": {
+      "name": "刘大",
+      "current_location": "",
+      "emotional_state": "平静中隐含审视",
+      "goal": "要求沈渊补交灵力浓度记录和杂役修炼数据，天亮前交到管事处",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T22:23:25.069751"
+  "last_updated": "2026-06-06T23:04:31.106991"
 }

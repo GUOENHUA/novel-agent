@@ -630,11 +630,14 @@ class ConversationLoop:
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
             if not content or len(content) < 200:
-                # Keep longest text from entire turn as fallback
+                # Keep best chapter-like text as fallback (not LLM meta-analysis)
                 if not hasattr(self, '_auto_fallback_text'):
                     self._auto_fallback_text = {}
+                import re
                 candidates = [raw] + getattr(self, '_turn_texts', [])
-                best = max(candidates, key=len)
+                # Only keep texts that look like chapter content
+                chapter_like = [t for t in candidates if re.search(r'#\s*第\s*\d+\s*章', t)]
+                best = max(chapter_like, key=len) if chapter_like else max(candidates, key=len)
                 prev = self._auto_fallback_text.get(ch_num, "")
                 if len(best) > len(prev):
                     self._auto_fallback_text[ch_num] = best
