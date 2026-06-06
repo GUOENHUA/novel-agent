@@ -143,11 +143,23 @@ class AutoPipeline:
                 if chapter_path.exists():
                     content = chapter_path.read_text("utf-8")
                     slop_score, slop_warnings = self._check_slop(content)
-                    # Settlement: extract hooks, summaries, character changes
-                    try:
-                        self._settle_state(ch, content)
-                    except Exception:
-                        pass
+                    # Settlement: retry until summary exists (max 3)
+                    for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
+                        try:
+                            self._settle_state(ch, content)
+                        except Exception:
+                            pass
+                        if any(s.chapter_number == ch for s in self.agent.truth_files.load_summaries()):
+                            break
+                        if attempt < MAX_RETRY_ATTEMPTS:
+                            _safe_print(f"    Settlement retry {attempt+1}/{MAX_RETRY_ATTEMPTS} ch{ch}...")
+                    # Plot memory: retry until exists (max 3)
+                    for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
+                        if self._has_plot_memory(ch):
+                            break
+                        if attempt < MAX_RETRY_ATTEMPTS:
+                            _safe_print(f"    Plot memory retry {attempt+1}/{MAX_RETRY_ATTEMPTS} ch{ch}...")
+                        self._ensure_plot_memory(ch, content)
                     elapsed = time.time() - t0
                     hooks_info = ""
                     hooks = self.agent.hook_ledger.get_active()
@@ -183,6 +195,40 @@ class AutoPipeline:
 
 
 
+
+    def _has_plot_memory(self, chapter_num: int) -> bool:
+        """Check if a plot memory exists for this chapter."""
+        for p in self.agent.memory_dir.glob(f"plot-*{chapter_num}*已写*.md"):
+            return True
+        for p in self.agent.memory_dir.glob(f"plot-*第{chapter_num}章*.md"):
+            return True
+        return False
+
+    def _ensure_plot_memory(self, chapter_num: int, content: str) -> None:
+        """Create a plot memory for this chapter via a one-shot LLM call.
+        Best-effort — failures are silently ignored."""
+        try:
+            title = ""
+            cp = self.agent.chapter_path(chapter_num)
+            if cp.exists():
+                fl = cp.read_text("utf-8").split("\n")[0]
+                import re
+                m = re.match(r'#\s*第\d+章\s+(.+)', fl)
+                title = m.group(1).strip() if m else ""
+            if len(content) < 3000:
+                _safe_print(f"    [WARN] Ch{chapter_num} only {len(content)} chars, plot memory may be sparse")
+            directive = (
+                f"Save a plot memory for chapter {chapter_num}. "
+                f"Call memory add type=plot name='第{chapter_num}章已写' "
+                f"with: chapter summary, key events, hooks, and Why/How analysis.\n\n"
+                f"Content:\n{content[:3000]}"
+            )
+            self.agent.call_llm(
+                messages=[{"role": "user", "content": directive}],
+                max_tokens=800, temperature=0.3,
+            )
+        except Exception:
+            pass
 
     def _check_slop(self, content: str) -> tuple[float, list[str]]:
         """Run mechanical slop check."""

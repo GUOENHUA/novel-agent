@@ -1,279 +1,651 @@
 [
   {
     "id": "hook-001",
-    "description": "沈衍之走火入魔的真正原因——经脉中灵气残留分布过于均匀，不像冲击失败失控，更像被什么东西抽干了。原主死亡前的记忆一片空白。",
+    "description": "膻中穴灵气泄漏：灵气在体内运转经过膻中穴时会微量减少，疑似被某种外部力量抽取。沈渊第一次实证观测。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 35,
+    "target_chapter": 15,
     "related_characters": [
-      "沈渊",
-      "周管事"
+      "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:06:05.646263",
-    "updated_at": "2026-06-06T07:11:27.024497"
+    "created_at": "2026-06-06T07:40:21.345150",
+    "updated_at": "2026-06-06T08:27:36.922447"
   },
   {
     "id": "hook-002",
-    "description": "朔日朝礼——所有弟子同一时间运转心法，面朝苍山主峰行三拜九叩。沈渊怀疑这是一个数据采集节点，所有低阶修士在仪式中被同步抽取灵气。",
-    "hook_type": "symbolic",
+    "description": "走火入魔的真实原因：低阶修士突破时灵气泄漏加速导致经脉爆裂，非随机事故而是系统性设计缺陷。",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 50,
+    "target_chapter": 30,
     "related_characters": [
-      "沈渊"
+      "沈渊",
+      "李三石"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:06:05.653268",
-    "updated_at": "2026-06-06T07:14:29.672994"
+    "created_at": "2026-06-06T07:40:21.353077",
+    "updated_at": "2026-06-06T08:27:36.927738"
   },
   {
     "id": "hook-003",
-    "description": "周管事说\"报上去了，上面还没回话\"——「上面」是什么？内门？还是更高层级？走火入魔这种\"修炼事故\"似乎需要上报到某个地方。",
-    "hook_type": "dialogue",
+    "description": "余子微暗示\"内门弟子练的功法不止一种\"——暗示不同功法对应不同泄漏点和税率，有人可能已找到规避泄漏的方法。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "resolved",
     "planted_chapter": 1,
-    "target_chapter": 20,
-    "related_characters": [
-      "周管事",
-      "沈渊"
-    ],
+    "target_chapter": 8,
+    "resolved_chapter": 7,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:06:05.659780",
-    "updated_at": "2026-06-06T07:06:05.659780"
+    "created_at": "2026-06-06T07:40:42.331973",
+    "updated_at": "2026-06-06T08:19:36.889959"
   },
   {
     "id": "hook-004",
-    "description": "沈渊发现沈衍之经脉中灵气残留分布异常均匀，不像走火入魔失控，更像被外力抽干",
-    "hook_type": "direct",
+    "description": "回气散绕过了正常灵气代谢通路直接进入丹田——暗示整个世界的丹药/灵气补充体系也是设计的一部分，不是为了帮助修士，而是为了确保灵气经过抽取节点。",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:40:42.341486",
+    "updated_at": "2026-06-06T07:59:01.220083"
+  },
+  {
+    "id": "hook-01-1",
+    "description": "灵气在膻中穴的泄漏现象——沈渊第一次观测到灵气在体内运转时会被某种东西抽走微量",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
     "planted_chapter": 1,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:06:30.212201",
-    "updated_at": "2026-06-06T07:06:30.212201"
+    "created_at": "2026-06-06T07:41:28.675290",
+    "updated_at": "2026-06-06T07:59:01.227716"
+  },
+  {
+    "id": "hook-01-2",
+    "description": "'天道取酬'的猜想——如果修炼不是吸纳天地灵气，而是被什么东西吸收修炼者",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:41:28.686290",
+    "updated_at": "2026-06-06T07:46:19.259630"
+  },
+  {
+    "id": "hook-01-3",
+    "description": "‘天道酬勤’可能是谎言，真实是‘天道取酬’",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:41:38.424567",
+    "updated_at": "2026-06-06T07:46:19.268308"
+  },
+  {
+    "id": "hook-01-4",
+    "description": "沈渊手腕上的灵脉破裂旧疤——原身因突破时泄漏过剧而死",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:41:38.432411",
+    "updated_at": "2026-06-06T07:46:19.278764"
   },
   {
     "id": "hook-005",
-    "description": "周管事提到走火入魔的事已报上去，上面还没回话",
-    "hook_type": "dialogue",
+    "description": "沈渊发现穴位是系统接口——不同功法有不同泄漏穴位，但所有泄漏方向都向上。如果把所有功法的泄漏点叠加，会形成一张完整的穴位矩阵图。",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 1,
+    "status": "resolved",
+    "planted_chapter": 2,
+    "target_chapter": 15,
+    "resolved_chapter": 6,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:06:30.219875",
-    "updated_at": "2026-06-06T07:06:30.219875"
+    "created_at": "2026-06-06T07:45:28.225037",
+    "updated_at": "2026-06-06T08:27:36.933536"
   },
   {
     "id": "hook-006",
-    "description": "朝礼仪式要求所有弟子同时面向主峰运转心法，沈渊怀疑是数据采集节点",
-    "hook_type": "symbolic",
+    "description": "余子微注意到了沈渊——内门前十弟子在演武场转头与杂役弟子对视，灵气与动作不同步的异常。赵老四警告杂役别盯着他看。",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 1,
+    "planted_chapter": 2,
+    "target_chapter": 15,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:06:30.226809",
-    "updated_at": "2026-06-06T07:14:29.683019"
+    "created_at": "2026-06-06T07:45:28.233603",
+    "updated_at": "2026-06-06T08:27:36.939546"
   },
   {
     "id": "hook-007",
-    "description": "丹房弟子抱怨筑基丹灵气含量比上批低了四成——修炼资源的质量在下降。暗示灵气被抽取不仅影响修士修为，还影响丹药等依赖灵气的整个修炼生态。",
-    "hook_type": "dialogue",
+    "description": "晶石测灵脉容量而非灵气存量——巡检晶石对所有人亮度和\"练气二层\"判定高度一致，不符合正态分布。沈渊推断灵脉是外源植入的标准化接口/轨道。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 40,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:45:28.242393",
+    "updated_at": "2026-06-06T08:27:36.945549"
+  },
+  {
+    "id": "hook-02-1",
+    "description": "余子微练拳时灵气与动作转换疑似不同步——可能灵气运转在某个节点被拖慢",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:46:19.178727",
+    "updated_at": "2026-06-06T07:59:01.237754"
+  },
+  {
+    "id": "hook-02-2",
+    "description": "钟声每天同时响起，同步所有弟子的修炼节奏——沈渊怀疑钟声是抽取系统的调度信号",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 2,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊"
-    ],
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:09:49.634333",
-    "updated_at": "2026-06-06T07:09:49.634333"
+    "created_at": "2026-06-06T07:46:19.188946",
+    "updated_at": "2026-06-06T07:46:19.188946"
+  },
+  {
+    "id": "hook-02-3",
+    "description": "赵老四透露沈渊昏迷时说梦话「不要用石头计数」，暗示前世科学家身份更深层的泄露",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:46:19.198284",
+    "updated_at": "2026-06-06T07:59:01.246864"
+  },
+  {
+    "id": "hook-02-4",
+    "description": "《青云养气诀》扉页「天道酬勤」四字，沈渊在「酬」字上画圈——功法可能另有含义",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:46:19.207347",
+    "updated_at": "2026-06-06T07:59:01.255161"
+  },
+  {
+    "id": "hook-02-5",
+    "description": "沈渊决定前往藏经阁获取不同版本功法路径图进行比较",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:46:19.216206",
+    "updated_at": "2026-06-06T07:59:01.265225"
   },
   {
     "id": "hook-008",
-    "description": "《苍山引气诀》第十句口诀\"升顶化清，回馈天地\"——功法本身内嵌了灵气上缴机制。沈渊怀疑所有宗门功法都有类似设计。这是系统性的、写入底层协议的抽取。",
-    "hook_type": "action",
+    "description": "周长老设下三招之约：三天后沈渊接外门弟子三招，接住给临时入阁牌，接不住下山还俗。赵老四直言这是死刑——历年偷进藏经阁的杂役全部死亡",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
+    "status": "resolved",
     "planted_chapter": 2,
-    "target_chapter": 40,
+    "target_chapter": 5,
+    "resolved_chapter": 5,
     "related_characters": [
+      "赵老四",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:09:49.643063",
-    "updated_at": "2026-06-06T07:09:49.643063"
+    "created_at": "2026-06-06T07:50:22.912873",
+    "updated_at": "2026-06-06T08:09:32.996922"
   },
   {
     "id": "hook-009",
-    "description": "柴房管事田头——沈渊感知不到他的修为。老头一眼看出沈渊握斧姿势不对、判断\"以前劈过柴\"。此人不像普通杂役管事。",
-    "hook_type": "action",
+    "description": "沈渊假设膻中穴是输送系统的「逆止阀」，试图找到卡住阀门的方法——在接招瞬间堵住泄漏，释放真实修为",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "resolved",
     "planted_chapter": 2,
-    "target_chapter": 25,
+    "target_chapter": 5,
+    "resolved_chapter": 5,
     "related_characters": [
-      "沈渊",
-      "田头"
+      "沈渊"
     ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T07:09:49.651258",
-    "updated_at": "2026-06-06T07:33:31.172059"
-  },
-  {
-    "id": "hook-002-1",
-    "description": "沈渊构建灵气收集模型：苍山主峰是中心节点，所有修士通过心法中的'回馈天地'步骤向上输送灵气，形成从外门到内门的浓度梯度",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T07:11:27.006131",
-    "updated_at": "2026-06-06T07:11:27.006131"
-  },
-  {
-    "id": "hook-002-2",
-    "description": "朔日朝礼被揭示为可能的关键数据采集节点——所有弟子同时运转心法面对主峰",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T07:11:27.015193",
-    "updated_at": "2026-06-06T07:14:29.691549"
+    "related_hooks": [
+      "hook-001"
+    ],
+    "created_at": "2026-06-06T07:50:22.921608",
+    "updated_at": "2026-06-06T08:09:33.006437"
   },
   {
     "id": "hook-010",
-    "description": "朔日朝礼中，沈渊确认灵气抽取是主动的\"泵\"机制而非被动扩散——同步率越高，抽取效率越高。朝礼本质是\"同步协议\"。同时发现执事堂的钱师兄不参加朝礼，只负责监督。他是知情者吗？",
-    "hook_type": "direct",
+    "description": "沈渊感知到「蜂巢」结构——数百万六边形巢房悬浮在维度之上，每个修士一个巢房，灵气被中央吸走。需要找大陆地图标出蜂巢中心地面位置。",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 3,
-    "target_chapter": 40,
+    "target_chapter": 15,
     "related_characters": [
-      "沈渊",
-      "孟三两",
-      "钱师兄",
-      "田头"
+      "周长老",
+      "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:14:29.700417",
-    "updated_at": "2026-06-06T07:14:29.700417"
+    "created_at": "2026-06-06T07:52:31.185595",
+    "updated_at": "2026-06-06T08:27:31.639994"
   },
   {
-    "id": "hook-014",
-    "description": "北崖灵气方向异常——不是往上（天道），而是往下渗入山体。老赵和孙旺财在北崖采云纹草时经历过：站在岩石上灵气从涌泉穴流失。老孙头说\"山的血管里有东西在呼吸\"。暗示苍山主峰本身可能是活的，或者山里封着什么东西。 → Ch35",
+    "id": "hook-011",
+    "description": "周长老对沈渊接住第三招的方式产生警惕——问「你刚才是怎么接住第三指的」。警惕可能升级为针对沈渊的行动。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "target_chapter": 10,
+    "related_characters": [
+      "赵老四",
+      "周长老"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:52:31.193736",
+    "updated_at": "2026-06-06T08:12:29.209251"
+  },
+  {
+    "id": "hook-012",
+    "description": "髓海逆转=触发全大陆筑基修士追杀——老张头师弟遗言：「它会通过髓海把我的位置传给所有筑基以上的修士」",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T07:59:01.182340",
+    "updated_at": "2026-06-06T08:19:36.903466"
+  },
+  {
+    "id": "hook-05-1",
+    "description": "沈渊冲破膜看见了巨大蜂巢结构，数以百万计修士的灵气被抽取，蜂巢中心有一个东西。他的感知可能被膜对面的存在察觉。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.931812",
+    "updated_at": "2026-06-06T08:12:29.160102"
+  },
+  {
+    "id": "hook-05-2",
+    "description": "周长老对沈渊接住第三招的方式表现出异常警惕，追问'怎么接住的'",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.941048",
+    "updated_at": "2026-06-06T08:12:29.167200"
+  },
+  {
+    "id": "hook-05-3",
+    "description": "沈渊计划在藏经阁找到世界地图，把蜂巢结构画在地图上，找出蜂巢中心对应的地面位置",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.949142",
+    "updated_at": "2026-06-06T08:12:29.173397"
+  },
+  {
+    "id": "hook-05-4",
+    "description": "老张头的师弟二十年前被同一个人用同一招所杀，老张头因此隐藏二十年——他与蜂巢的过去",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 5,
-    "target_chapter": 35,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.959871",
+    "updated_at": "2026-06-06T08:12:29.181239"
+  },
+  {
+    "id": "hook-05-5",
+    "description": "沈渊发现原身不是资质差——膻中穴一直在泄漏灵气，练出来的灵气每天都被抽走。整个大陆所有修士的膻中穴都在被抽取。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.969426",
+    "updated_at": "2026-06-06T08:12:29.188240"
+  },
+  {
+    "id": "hook-05-6",
+    "description": "膻中穴阀门在外部冲击+内部逆冲挤压下可以翻转，突破膜看到蜂巢",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.979306",
+    "updated_at": "2026-06-06T08:12:29.195461"
+  },
+  {
+    "id": "hook-05-7",
+    "description": "站在场边的散修/外宗之人目睹了杂役接住练气四层三招的全过程——消息可能外传",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:09:32.988035",
+    "updated_at": "2026-06-06T08:12:29.202211"
+  },
+  {
+    "id": "hook-013",
+    "description": "缓冲路径：灵墟穴可暂代髓海，三步缓冲不被它立刻感知——老张头验证过的活路",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "resolved_chapter": 8,
     "related_characters": [
-      "老赵",
-      "孙旺财",
-      "沈渊"
+      "沈渊",
+      "老张头"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:24:17.787435",
-    "updated_at": "2026-06-06T07:33:31.180148"
+    "created_at": "2026-06-06T08:11:51.575587",
+    "updated_at": "2026-06-06T08:28:18.589801"
+  },
+  {
+    "id": "hook-014",
+    "description": "天元宗灭门真相：三十年前一夜之间两千七百人同时走火入魔——不是天劫惩罚，是免疫反应（白细胞清除异常细胞）",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "老张头"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:11:51.582775",
+    "updated_at": "2026-06-06T08:27:36.950716"
   },
   {
     "id": "hook-015",
-    "description": "丹房韩师叔在准备的\"东西\"需要云纹草（破境丹主药），但方鉴明已筑基，这东西不是给他用的。是给人用的吗？还是别的东西？冬至前需要采集云纹草，这是沈渊进入内门的潜在途径。 → Ch25",
-    "hook_type": "action",
+    "description": "藏经阁有人给沈渊担保半个月——《逆灵诀》缺书，管理员透露担保人身份不能查，半个月后书不还担保失效",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 5,
-    "target_chapter": 25,
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 18,
     "related_characters": [
       "沈渊",
-      "老赵",
-      "韩师叔",
-      "方鉴明"
+      "余子微"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:24:17.798598",
-    "updated_at": "2026-06-06T07:24:17.798598"
+    "created_at": "2026-06-06T08:11:51.589838",
+    "updated_at": "2026-06-06T08:27:36.957010"
+  },
+  {
+    "id": "hook-06-1",
+    "description": "八个穴位在人体上半身形成近乎完美的圆形阵列——是人工放置的阵法，不是自然进化结果",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.104015",
+    "updated_at": "2026-06-06T08:12:29.104015"
+  },
+  {
+    "id": "hook-06-2",
+    "description": "修炼体系本质：以人体为采掘工具，从被囚禁在地下的存在身上榨取灵气，蜂巢是收集器不是分发器",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 6,
+    "resolved_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.111893",
+    "updated_at": "2026-06-06T08:26:42.083609"
+  },
+  {
+    "id": "hook-06-3",
+    "description": "天遗之地——七国交界大陆正中央，地图上被刻意留白的区域，蜂巢中心",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 6,
+    "resolved_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.119219",
+    "updated_at": "2026-06-06T08:28:18.583802"
+  },
+  {
+    "id": "hook-06-4",
+    "description": "《逆灵诀》封面留言'我找到了。它发现了。如果你看到这个——跑'，封底被齐整撕掉一页，残留笔画'丶'",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.126528",
+    "updated_at": "2026-06-06T08:26:42.070818"
+  },
+  {
+    "id": "hook-06-5",
+    "description": "入阁牌计时灵纹被加速消耗——那个东西在调取藏经阁访问记录，已知道沈渊的行为",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.132461",
+    "updated_at": "2026-06-06T08:26:42.064736"
+  },
+  {
+    "id": "hook-06-6",
+    "description": "内门弟子筑基后每月行灌顶礼，在泄漏节点主动打开通道——不知情的自我献祭",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.139216",
+    "updated_at": "2026-06-06T08:12:29.139216"
+  },
+  {
+    "id": "hook-06-7",
+    "description": "老张头师弟二十年前死在去天遗之地的路上，死亡真相未明",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:12:29.147300",
+    "updated_at": "2026-06-06T08:28:18.571665"
   },
   {
     "id": "hook-016",
-    "description": "王师兄——去年冬至在北崖活着回来的杂役，被选入内门丹房，之后\"再没出来过\"。他是死是活？在丹房里做什么？是知情者还是实验品？ → Ch30",
+    "description": "逆灵镜法完整版——沈渊从指骨译出：在璇玑穴逆转灵气方向0.3个脉跳，以膻中为镜反射抽取，骗过系统而不触发免疫。需在安全环境下首次修炼。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 7,
+    "target_chapter": 14,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:19:36.925044",
+    "updated_at": "2026-06-06T08:27:13.201272"
+  },
+  {
+    "id": "hook-08-1",
+    "description": "沈渊教刘小毛风池穴侧偏改道法——修炼慢一半但灵气是自己的",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.007261",
+    "updated_at": "2026-06-06T08:28:18.537188"
+  },
+  {
+    "id": "hook-08-2",
+    "description": "周药师揭示身份——天元宗幸存者，怀疑天道是三千年前飞升失败者所造",
     "hook_type": "dialogue",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 5,
-    "target_chapter": 30,
-    "related_characters": [
-      "王师兄",
-      "老赵",
-      "孟三两",
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-015"
-    ],
-    "created_at": "2026-06-06T07:24:17.807224",
-    "updated_at": "2026-06-06T07:24:17.807224"
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.014836",
+    "updated_at": "2026-06-06T08:28:18.543199"
+  },
+  {
+    "id": "hook-08-3",
+    "description": "系统通过感染链反向追踪——从韩铁到余子微再到沈渊",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.022009",
+    "updated_at": "2026-06-06T08:28:18.548201"
+  },
+  {
+    "id": "hook-08-4",
+    "description": "断脊山脉北麓猎户被吸干灵气——不是修士却被抽干，脸干眼窝凹",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.028402",
+    "updated_at": "2026-06-06T08:28:18.554256"
+  },
+  {
+    "id": "hook-08-5",
+    "description": "赵老四要沈渊带回答案——天遗之地是监狱还是祭坛，是被关的东西还是被留的东西",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.035373",
+    "updated_at": "2026-06-06T08:28:18.560660"
+  },
+  {
+    "id": "hook-08-6",
+    "description": "周药师说老张师弟二十年前往北寻找天遗之地未归，三十年前另有一人也往北未归",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.042105",
+    "updated_at": "2026-06-06T08:27:36.909959"
+  },
+  {
+    "id": "hook-08-7",
+    "description": "赵老四留守十五年等待带回天遗之地的答案——'是监狱还是祭坛。是被关的东西还是被留的东西'",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:26:42.048705",
+    "updated_at": "2026-06-06T08:27:36.916175"
   },
   {
     "id": "hook-017",
-    "description": "丹房侧门白脸修士——百会穴光环、灵气抵消体重、不见太阳的白。疑为被关在丹房内的修士。从侧门出来，不走正门。与王师兄\"进了内门再没出来\"可能有关联。",
+    "description": "余子微被系统侵入识海——灌顶礼中「它进来看了一下，看了我记没记住你的脸」。系统正在反向追溯感染链：韩铁→余子微→沈渊。余子微昏迷中。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 6,
-    "target_chapter": 30,
+    "planted_chapter": 8,
+    "target_chapter": 12,
     "related_characters": [
-      "白脸修士",
-      "沈渊",
-      "韩师叔",
-      "王师兄"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T07:33:31.147362",
-    "updated_at": "2026-06-06T07:33:31.147362"
-  },
-  {
-    "id": "hook-018",
-    "description": "钱师兄夜访夹道，在灶房墙上敲三下——是找谁？老孙头？田头？三下敲墙是什么暗号？与老孙头当天跟沈渊说了那么多话有关吗？",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "target_chapter": 20,
-    "related_characters": [
-      "钱师兄",
-      "老孙头",
-      "田头"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T07:33:31.155587",
-    "updated_at": "2026-06-06T07:33:31.155587"
-  },
-  {
-    "id": "hook-019",
-    "description": "老孙头说\"以前的灵气是活的，现在的灵气不是\"——暗示苍山灵气生态发生过某种根本性变化。证据：烧窑成品率从100%降到10%。这种变化的时间节点？是否与\"天道\"寄生系统有关？",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "target_chapter": 45,
-    "related_characters": [
-      "老孙头",
+      "余子微",
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T07:33:31.164783",
-    "updated_at": "2026-06-06T07:33:31.164783"
+    "created_at": "2026-06-06T08:27:17.305263",
+    "updated_at": "2026-06-06T08:27:17.305263"
+  },
+  {
+    "id": "hook-018",
+    "description": "断脊山脉北麓猎户被吸干灵气——守卫透露近期猎户「脸是干的，眼窝凹进去」，死后像被抽过一样。猎户不是修士没有灵气——意味着「它」在扩张/往上涌动，可能正在突破囚禁。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 15,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:27:22.015009",
+    "updated_at": "2026-06-06T08:27:22.015009"
+  },
+  {
+    "id": "hook-019",
+    "description": "周药师请求带一撮北荒的土——天元宗幸存者三十年的期许：「如果你活着回来——带一撮北荒的土。我想看看。三十年了。还没见过。」情感锚点，与沈渊的回归承诺绑定。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 80,
+    "related_characters": [
+      "周药师",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T08:27:26.141569",
+    "updated_at": "2026-06-06T08:27:26.141569"
   }
 ]
