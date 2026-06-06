@@ -200,7 +200,8 @@ class ConversationLoop:
             augmented_message = (
                 f"{novel_context}\n\n---\n\n"
                 f"自动模式：基于以上状态推进写作。无需 clarify 确认，自己做创作决策并保存。\n"
-                f"大纲/角色/世界观内容请**务必**使用对应工具：outline_plot save, memory add, track_hooks。\n\n"
+                f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。\n"
+                f"如果还没有 style 记忆，请先创建一份（全局一份，写作前设定，不要按章节更新）。\n\n"
                 f"写章节正文时，将内容放在代码块内：\n\n"
                 f"```章节\n"
                 f"# 第N章 标题（N为阿拉伯数字）\n\n"

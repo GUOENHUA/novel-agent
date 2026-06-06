@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 9,
+  "current_chapter": 4,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,61 +8,13 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "紧迫而冷静——系统正在逼近，必须立刻离开",
-      "goal": "向北前往天遗之地",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "刘小毛": {
-      "name": "刘小毛",
-      "current_location": "",
-      "emotional_state": "不舍但强忍——用烟熏掩饰眼泪",
-      "goal": "学会穴位知识，将来也想知道灵气去哪了",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "赵老四": {
-      "name": "赵老四",
-      "current_location": "",
-      "emotional_state": "像送亲人上路的沉默",
-      "goal": "继续留守——接应可能回来的人",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "王二狗": {
-      "name": "王二狗",
-      "current_location": "",
-      "emotional_state": "濒死——培元散断药后灵脉溃烂",
-      "goal": "活下来",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "周药师": {
-      "name": "周药师",
-      "current_location": "",
-      "emotional_state": "压抑三十年的冷静——透露真实身份",
-      "goal": "继续隐姓埋名，等待答案",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "老张头": {
-      "name": "老张头",
-      "current_location": "",
-      "emotional_state": "沉重而决绝——守护秘密二十年，选择信任沈渊",
-      "goal": "保护沈渊，传递师弟未竟的真相",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "余子微": {
-      "name": "余子微",
-      "current_location": "",
-      "emotional_state": "昏迷——被系统扫描记忆",
-      "goal": "抵御系统对自己记忆的搜索",
+      "emotional_state": "警觉而冷静，充满探究欲",
+      "goal": "系统性地收集数据，验证灵气流动的'食物链'假说而不被发现",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T08:28:18.626495"
+  "last_updated": "2026-06-06T09:04:23.970760"
 }
