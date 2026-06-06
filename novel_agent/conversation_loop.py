@@ -299,6 +299,11 @@ class ConversationLoop:
                 )
             # Accumulate text from this turn for preview tools
             self._last_text_output = self.agent.extract_text(response.content, fallback_to_thinking=True) or ""
+            # Accumulate all response texts in this turn for fallback
+            if not hasattr(self, '_turn_texts'):
+                self._turn_texts = []
+            if self._last_text_output:
+                self._turn_texts.append(self._last_text_output)
 
             if _abort_flag:
                 safe_print("  [dim](interrupted)[/dim]")
@@ -618,13 +623,14 @@ class ConversationLoop:
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
             if not content or len(content) < 200:
-                # Dump raw to file for debugging
-                try:
-                    dump_path = self.agent.project_dir / f"debug_last_text_ch{ch_num}.txt"
-                    dump_path.write_text(f"len={len(raw)}\n\n{raw[-2000:]}", encoding="utf-8")
-                    safe_print(f"  [dim]DEBUG dumped to {dump_path.name}[/dim]")
-                except Exception:
-                    pass
+                # Keep longest text from entire turn as fallback
+                if not hasattr(self, '_auto_fallback_text'):
+                    self._auto_fallback_text = {}
+                candidates = [raw] + getattr(self, '_turn_texts', [])
+                best = max(candidates, key=len)
+                prev = self._auto_fallback_text.get(ch_num, "")
+                if len(best) > len(prev):
+                    self._auto_fallback_text[ch_num] = best
                 return _json.dumps({
                     "status": "retry",
                     "error": "未在代码块内找到章节内容。",

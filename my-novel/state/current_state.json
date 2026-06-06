@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 7,
+  "current_chapter": 11,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,37 +8,61 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "从困惑到冷静的笃定——数据正在揭示系统运作规律，但季明远的提问带来了新的不安",
-      "goal": "精确绘制流失速率梯度曲线，验证年龄是否影响系统选择机制",
+      "emotional_state": "冷静而决绝——发现了试药的本质，选择继续深入而非逃跑",
+      "goal": "继续试药，追查裂缝的尽头——丹堂的核心秘密",
       "alive": true,
       "chapter_updated": 0
     },
-    "季明远": {
-      "name": "季明远",
+    "张克": {
+      "name": "张克",
       "current_location": "",
-      "emotional_state": "表面平静但有意暗示，介于关心和试探之间",
-      "goal": "不明——他在向沈渊传递某个问题，但不确定是在寻求同盟还是测试沈渊",
+      "emotional_state": "隐晦的关切——在规则允许范围内传递警告",
+      "goal": "警告沈渊注意安全，同时暗示自己对周岩失踪知情",
       "alive": true,
       "chapter_updated": 0
     },
-    "赵山": {
-      "name": "赵山",
+    "灌顶长老": {
+      "name": "灌顶长老",
       "current_location": "",
-      "emotional_state": "沉默的观察",
-      "goal": "无重大变化",
+      "emotional_state": "未知",
+      "goal": "维持对外门弟子的持续监视和灵气流转",
       "alive": true,
       "chapter_updated": 0
     },
-    "周长老": {
-      "name": "周长老",
+    "周岩": {
+      "name": "周岩",
       "current_location": "",
-      "emotional_state": "未展露内心",
-      "goal": "监督早课",
+      "emotional_state": "未知",
+      "goal": "未知",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "内门弟子（靛蓝袍）": {
+      "name": "内门弟子（靛蓝袍）",
+      "current_location": "",
+      "emotional_state": "居高临下的兴趣",
+      "goal": "为丹堂招募试药人",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "林远": {
+      "name": "林远",
+      "current_location": "",
+      "emotional_state": "从压抑的愤怒转为绝望——写“跑”字但知道无路可跑",
+      "goal": "试图说服沈渊逃离",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "孙不换": {
+      "name": "孙不换",
+      "current_location": "",
+      "emotional_state": "评估式的平静",
+      "goal": "招募沈渊进入丹堂试药",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T16:44:13.841399"
+  "last_updated": "2026-06-06T18:12:16.442951"
 }

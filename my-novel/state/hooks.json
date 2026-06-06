@@ -1,330 +1,520 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气被单向抽取——沈渊发现体内灵气以微量但持续的方式流失，方向确定，像一个收集系统。这是全书核心谜题的种子",
-    "hook_type": "direct",
+    "description": "灵气的定向流动：灵气并非自然弥漫，而是有方向性——偏西约15度，指向内门方向。暗示灵气分布是人工设计的管道系统，而非\"天地恩赐\"。",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 80,
+    "target_chapter": 15,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:17:22.108828",
-    "updated_at": "2026-06-06T16:22:08.468013"
+    "created_at": "2026-06-06T17:04:11.232551",
+    "updated_at": "2026-06-06T18:02:04.193970"
   },
   {
     "id": "hook-002",
-    "description": "原身死亡之谜——原身因试图\"优化\"功法而在修炼事故中死亡。是单纯的事故还是有人不想让他优化成功？",
-    "hook_type": "action",
+    "description": "灵气灌顶的真实机制：灵气穿过低阶弟子的身体（从涌泉、劳宫、百会导出），被长老回收。低阶弟子只是\"管道\"，残留3-5%是\"饵\"。灌顶不是恩赐，是收割。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 30,
+    "target_chapter": 20,
     "related_characters": [
       "沈渊",
-      "赵山"
+      "灌顶长老"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:17:22.118115",
-    "updated_at": "2026-06-06T16:17:22.118115"
+    "created_at": "2026-06-06T17:04:11.240760",
+    "updated_at": "2026-06-06T17:17:12.923075"
   },
   {
     "id": "hook-003",
-    "description": "灵气修炼体系疑似是一个收集系统，所有修士的灵气被牵引向同一个方向",
+    "description": "章末的\"注视\"：沈渊在怀疑灌顶机制后感受到来自西偏北方向（内门/山顶）的静止目光。某个存在（天道？）注意到了他的异常思维。那东西似乎知道他在想什么。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 1,
-    "related_characters": [],
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:18:54.089123",
-    "updated_at": "2026-06-06T16:22:08.478828"
+    "created_at": "2026-06-06T17:04:11.247237",
+    "updated_at": "2026-06-06T18:13:51.245915"
   },
   {
     "id": "hook-004",
-    "description": "【已大幅推进 Ch3】灵气流失的脉动节律——早课大规模观测证实：τ≈120呼吸的脉动在所有低阶修士中完全同步。这意味着存在一个外部时钟源在协调采集。同步精度达到纳秒级。hook-005 护山大阵嗡鸣可能是时钟源。",
+    "description": "周岩失踪：外门感气期弟子，入门四年，挑水67担后从晨课点名中消失。老一批外门弟子无声消失的模式——是被逐出？还是被消耗殆尽？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 2,
-    "target_chapter": 40,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-001",
-      "hook-003"
-    ],
-    "created_at": "2026-06-06T16:22:33.509599",
-    "updated_at": "2026-06-06T16:32:52.797679"
+    "status": "resolved",
+    "planted_chapter": 1,
+    "target_chapter": 8,
+    "resolved_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:05:29.471455",
+    "updated_at": "2026-06-06T18:02:04.158009"
   },
   {
     "id": "hook-005",
-    "description": "护山大阵的灵气波动——每个时辰一次的低沉嗡鸣，会让沈渊丹田里的灵气\"震一下\"，像被扫描。护山大阵和收集系统之间是否存在关联？",
+    "description": "丹堂试药系统：内门丹堂用外门弟子作为活体试药者，每月一块下品灵石补偿，但大多三年内出现不可逆经脉损伤后被逐出。沈渊是第一个说\"再想想\"的人。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:05:29.478487",
+    "updated_at": "2026-06-06T17:30:28.607378"
+  },
+  {
+    "id": "hook-006",
+    "description": "沈渊吐血半盆：原主\"走火入魔\"时吐血半盆——远超正常走岔气的症状。林远暗示这不正常。原主死因可能不是意外。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:05:29.484146",
+    "updated_at": "2026-06-06T17:30:28.594398"
+  },
+  {
+    "id": "hook-007",
+    "description": "沈渊提出寄生藤假设——整个修行体系的底层运作模式被质疑",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 1,
+    "target_chapter": 3,
+    "resolved_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:05:29.489749",
+    "updated_at": "2026-06-06T17:21:55.545974"
+  },
+  {
+    "id": "hook-008",
+    "description": "内门丹堂试药邀约——沈渊说再想想，暗示后续可能与丹堂产生关系",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:11:29.122971",
+    "updated_at": "2026-06-06T17:11:29.122971"
+  },
+  {
+    "id": "hook-009",
+    "description": "周岩消失——外门弟子在系统压力下的最终命运暗示",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 2,
-    "target_chapter": 60,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-001",
-      "hook-003"
-    ],
-    "created_at": "2026-06-06T16:22:33.519000",
-    "updated_at": "2026-06-06T16:34:02.742823"
-  },
-  {
-    "id": "hook-02-1",
-    "description": "灵气流失的间歇性脉动：静止时连续渗漏，运功时每120息被抽走一小股，暗示存在主动采集机制",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:23:30.123345",
-    "updated_at": "2026-06-06T16:23:30.123345"
+    "created_at": "2026-06-06T17:11:29.128003",
+    "updated_at": "2026-06-06T17:21:55.551787"
   },
   {
-    "id": "hook-02-2",
-    "description": "护山大阵的嗡鸣引起沈渊丹田灵气震颤，像某种扫描",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:23:30.133085",
-    "updated_at": "2026-06-06T16:23:30.133085"
-  },
-  {
-    "id": "hook-02-3",
-    "description": "沈渊用前世数学符号（δ, τ, Q, →）记录观测数据，这些符号在这个世界不存在，可能成为日后暴露或发现的线索",
+    "id": "hook-010",
+    "description": "青溪水从上流下带着灵气——水源=灵气=单向从上传下，象征等级剥削的物质基础",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 2,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:23:30.141592",
-    "updated_at": "2026-06-06T16:23:30.141592"
+    "created_at": "2026-06-06T17:11:29.133611",
+    "updated_at": "2026-06-06T17:11:29.133611"
   },
   {
-    "id": "hook-02-4",
-    "description": "沈渊将自己比作获得自我意识的细胞，暗示整个修炼体系可能是一个培养皿，外面有未知的存在",
-    "hook_type": "direct",
+    "id": "hook-011",
+    "description": "周岩的炭笔记录：在石屋角落石板下发现周岩留下的草纸——记录了灵气抽取率逐年下降的数据、\"麻袋里——\"断句、\"别被发现你在数\"的警告、背面\"天道不养人\"。丹堂侧门麻袋里是什么？",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:23:30.149211",
-    "updated_at": "2026-06-06T16:23:30.149211"
-  },
-  {
-    "id": "hook-006",
-    "description": "【Ch3种植】食物链结构——早课发现高阶修士（周长老）在低阶被采集的同一时刻出现\"接收\"震颤。修炼体系是字面意义上的食物链：灵气从低层渗透到高层，每个境界提升意味着更强的抽取能力。\"天道\"不是规则，是顶端那个最终接收者。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 3,
-    "target_chapter": 60,
+    "status": "mentioned",
+    "planted_chapter": 0,
+    "target_chapter": 18,
     "related_characters": [
       "沈渊",
-      "周长老"
+      "林远",
+      "周岩",
+      "何大柱"
+    ],
+    "related_hooks": [
+      "hook-004",
+      "hook-005",
+      "hook-009"
+    ],
+    "created_at": "2026-06-06T17:15:16.251336",
+    "updated_at": "2026-06-06T17:24:47.152694"
+  },
+  {
+    "id": "hook-012",
+    "description": "\"观测是罪\"：周岩和何大柱都在\"数\"——记录自身的灵气抽取率——然后他们都消失了。沈渊从中推断：上面不仅知道下面在观察，而且禁止观察。\"那双眼睛也许不是天道，也许是人\"",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 0,
+    "target_chapter": 25,
+    "resolved_chapter": 4,
+    "related_characters": [
+      "沈渊",
+      "周岩",
+      "何大柱"
     ],
     "related_hooks": [
       "hook-003",
-      "hook-004",
-      "hook-005"
+      "hook-006"
     ],
-    "created_at": "2026-06-06T16:26:26.775242",
-    "updated_at": "2026-06-06T16:26:26.775242"
+    "created_at": "2026-06-06T17:15:16.260729",
+    "updated_at": "2026-06-06T17:21:55.579849"
   },
   {
-    "id": "hook-007",
-    "description": "【Ch3种植】季明远的直觉——\"别坐前排\"这句话被沈渊重新解读：季明远可能在多年的底层修炼中，对灵气向上流动的机制产生了模糊的直觉。他是否知道更多？还是仅仅凭经验在规避某些东西？",
+    "id": "hook-003-1",
+    "description": "周岩纸条记录：灵气抽取率从3%降至2.5%，逐年递减，持续追踪被榨干的过程",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 3,
+    "resolved_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:17:12.889759",
+    "updated_at": "2026-06-06T17:32:18.697833"
+  },
+  {
+    "id": "hook-003-2",
+    "description": "何大柱留下的警告：'别被发现你在数'——观测和计数被宗门禁止，暗示上面知道并镇压知情者",
     "hook_type": "dialogue",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 3,
-    "target_chapter": 50,
-    "related_characters": [
-      "季明远",
-      "沈渊"
-    ],
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:26:26.785310",
-    "updated_at": "2026-06-06T16:45:30.439037"
+    "created_at": "2026-06-06T17:17:12.896757",
+    "updated_at": "2026-06-06T17:32:18.691180"
   },
   {
-    "id": "hook-03-1",
-    "description": "同步信号源待确定——护山大阵的时辰嗡鸣(hook-005)与高阶修士灵气场波动可能是同一系统的不同频率表现",
+    "id": "hook-003-3",
+    "description": "外门夜晚的安静'被管理过'——三百人居住区无鼾声无梦话，不自然",
     "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 3,
+    "resolved_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:17:12.903399",
+    "updated_at": "2026-06-06T17:32:18.704124"
+  },
+  {
+    "id": "hook-003-4",
+    "description": "沈渊决定'今天他会看着每一张脸，数每一个不在的人'——继承周岩和何大柱的暗中观察",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 3,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T16:27:32.030709",
-    "updated_at": "2026-06-06T16:27:32.030709"
+    "created_at": "2026-06-06T17:17:12.910659",
+    "updated_at": "2026-06-06T17:17:12.910659"
   },
   {
-    "id": "hook-008",
-    "description": "【Ch4种植】τ的非固定性——集体修炼时τ从120呼吸压缩到~72呼吸，采集频率提升近一倍。系统具有密度感知和反馈调节能力。护山大阵时辰嗡鸣可能是传感器（hook-005关联加深）。→ Ch60",
-    "hook_type": "direct",
+    "id": "hook-013",
+    "description": "孙不换递给沈渊的丹堂通行证——印好的格式，手写名字，执事的笔迹",
+    "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "resolved",
     "planted_chapter": 4,
-    "target_chapter": 60,
+    "target_chapter": 5,
+    "resolved_chapter": 5,
     "related_characters": [
-      "沈渊"
+      "沈渊",
+      "孙不换",
+      "何大柱",
+      "周岩"
     ],
-    "related_hooks": [
-      "hook-004",
-      "hook-005"
-    ],
-    "created_at": "2026-06-06T16:32:52.757678",
-    "updated_at": "2026-06-06T16:32:52.757678"
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:21:02.483784",
+    "updated_at": "2026-06-06T17:24:47.144406"
   },
   {
-    "id": "hook-009",
-    "description": "【Ch4种植】梯度抽取——修为越低被抽比例越高（炼气二层~0.6‰，四层~0.4‰，六层~0.3‰，七层+可忽略）。临界点在炼气后期，之上开始接收。系统是筛选结构，像肾小球过滤。→ Ch60",
+    "id": "hook-014",
+    "description": "扁石下寄生藤图——从外门到丹堂的虚线，根部标记周岩与何大柱",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 4,
+    "target_chapter": 8,
+    "resolved_chapter": 8,
+    "related_characters": [
+      "张克",
+      "林远",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:21:02.488901",
+    "updated_at": "2026-06-06T18:02:04.165012"
+  },
+  {
+    "id": "hook-015",
+    "description": "丹堂执事在沈渊伤病史栏写\"疑\"字——原主死因被正式标记为可疑，不是走火入魔。执事知道什么？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 60,
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 12,
     "related_characters": [
-      "沈渊"
+      "沈渊",
+      "丹堂执事"
     ],
     "related_hooks": [
       "hook-006"
     ],
-    "created_at": "2026-06-06T16:32:52.767689",
-    "updated_at": "2026-06-06T16:32:52.767689"
+    "created_at": "2026-06-06T17:25:52.181262",
+    "updated_at": "2026-06-06T17:39:20.355575"
   },
   {
-    "id": "hook-010",
-    "description": "【Ch4种植】三十岁之谜——季明远首次直接提问\"为什么内门考核要设在三十岁？\"，暗示三十岁是系统选择机制的截止线。三十岁以上外门修士的命运和灵气特征待验证。→ Ch50",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 50,
-    "related_characters": [
-      "季明远",
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-007"
-    ],
-    "created_at": "2026-06-06T16:32:52.775929",
-    "updated_at": "2026-06-06T16:32:52.775929"
-  },
-  {
-    "id": "hook-04-1",
-    "description": "季明远的问题：为什么内门考核设在三十岁？暗示三十岁可能是系统选择机制的关鍵年龄节点",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:34:02.702597",
-    "updated_at": "2026-06-06T16:34:02.702597"
-  },
-  {
-    "id": "hook-04-2",
-    "description": "沈渊假设：三十岁以上修士的灵气可能缺少系统需要的东西，或者系统对三十岁以上的人做了某种处理",
+    "id": "hook-016",
+    "description": "三日复诊倒计时——孙不换说三天后没问题就加到基础剂量。沈渊的身体能否承受加量？复诊时会发现什么？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:34:02.712683",
-    "updated_at": "2026-06-06T16:34:02.712683"
-  },
-  {
-    "id": "hook-04-3",
-    "description": "季明远可能知道某些内情——'你以前不是这样的'暗示他注意到了沈渊的改变，且他主动提出关鍵问题",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:34:02.722672",
-    "updated_at": "2026-06-06T16:34:02.722672"
-  },
-  {
-    "id": "hook-04-4",
-    "description": "系统可能具备感知异常细胞的能力——免疫系统会攻击异常细胞，暗示获得自我意识的沈渊可能面临危险",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:34:02.732695",
-    "updated_at": "2026-06-06T16:34:02.732695"
-  },
-  {
-    "id": "hook-011",
-    "description": "陆衍遗稿——六年前死者留下的丹田观测笔记，记录了\"被尝\"感、自震、流失加速、异物感消失后死亡的完整序列。被尝感暗示系统有主动感知能力",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "target_chapter": 80,
-    "related_characters": [
-      "陆衍",
-      "季明远",
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:44:50.999982",
-    "updated_at": "2026-06-06T16:44:50.999982"
-  },
-  {
-    "id": "hook-012",
-    "description": "免疫扫描触发条件——第二次扫描在沈渊与季明远交换陆衍信息后触发。假设：系统监控的是信息传递（认知在两人之间的交换），而非单纯的认知活动",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "target_chapter": 40,
+    "status": "resolved",
+    "planted_chapter": 5,
+    "target_chapter": 8,
+    "resolved_chapter": 7,
     "related_characters": [
       "沈渊",
-      "季明远"
+      "孙不换"
     ],
-    "related_hooks": [
-      "hook-002",
-      "hook-007"
-    ],
-    "created_at": "2026-06-06T16:44:54.800681",
-    "updated_at": "2026-06-06T16:44:54.800681"
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:25:52.187453",
+    "updated_at": "2026-06-06T17:39:05.185971"
   },
   {
-    "id": "hook-013",
-    "description": "系统进化——死亡人数从11-7年前的高峰（年9-12人）降至近年（年0-2人）。系统从早期粗糙的过度清除进化为精确校准的免疫识别。如果进化继续，第三次扫描可能比前两次更精确",
+    "id": "hook-017",
+    "description": "张克与周岩失踪的关系——张克主动告知\"周岩失踪前三天门也没锁过\"，但主语缺失（\"没锁过\"而非\"我没锁\"或\"有人锁了\"）。张克是旁观者还是参与者？他为什么让林远进沈渊的屋？外门执事在系统中的真实角色待揭示。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 15,
+    "related_characters": [
+      "张克",
+      "周岩",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-004",
+      "hook-014"
+    ],
+    "created_at": "2026-06-06T17:30:28.554049",
+    "updated_at": "2026-06-06T17:59:07.641097"
+  },
+  {
+    "id": "hook-018",
+    "description": "沈渊身体变化——甲七药丸激活左肺上叶内侧支后出现异常：搏动增强、肩胛下浅红痕迹沿灵脉走向、舌尖铁锈味持续三日不散且加深。沈渊推断药是催化剂，外门弟子灵脉本身才是过滤器——处理的是流经灵脉的灵气。激活的灵脉段在\"处理某物\"。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 12,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-005",
+      "hook-001",
+      "hook-016"
+    ],
+    "created_at": "2026-06-06T17:30:28.562324",
+    "updated_at": "2026-06-06T17:39:20.348329"
+  },
+  {
+    "id": "hook-019",
+    "description": "沈渊推断试药本质：药是催化剂，外门弟子灵脉本身是过滤器，产物为不可代谢结晶。处理对象可能是灵气本身。",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 6,
-    "target_chapter": 60,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:32:18.655539",
+    "updated_at": "2026-06-06T17:32:18.655539"
+  },
+  {
+    "id": "hook-020",
+    "description": "张克暗示周岩失踪前三天门也没锁——是张克开的还是另有其人？主语缺失本身是信息。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:32:18.665556",
+    "updated_at": "2026-06-06T17:32:18.665556"
+  },
+  {
+    "id": "hook-021",
+    "description": "三个新失踪的外门弟子——第七排左四、第九排右二、第十一排中，沈渊记下位置但不知名字。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:32:18.671997",
+    "updated_at": "2026-06-06T17:32:18.671997"
+  },
+  {
+    "id": "hook-022",
+    "description": "回路=天线：甲七基础剂量打通左肺上叶→锁骨内侧→胸骨旁→心包三段回路。回路封闭循环后，沈渊发现注视不是从外面来的——是从回路里来的。药打通灵脉形成的不只是过滤管道，更是一个信号接收/发射装置。铁锈味=那个注视的味道。外门弟子被变成了天线。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 7,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [
+      "hook-003",
+      "hook-018"
+    ],
+    "created_at": "2026-06-06T17:39:05.194347",
+    "updated_at": "2026-06-06T18:13:51.240222"
+  },
+  {
+    "id": "hook-023",
+    "description": "结晶离体后继续生长：麻袋侧面的枝状凸起——三天前没有，现在出现了。被取出的\"药渣\"离体后仍在生长。结晶不是代谢废物，是活的。这暗示结晶可能有自己的生命属性——或者仍在与某个更大的系统保持连接。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [
+      "hook-011"
+    ],
+    "created_at": "2026-06-06T17:39:05.200690",
+    "updated_at": "2026-06-06T17:39:05.200690"
+  },
+  {
+    "id": "hook-024",
+    "description": "沈渊数据偏离预期：甲七吸收率比感气期均值高两成，半剂量激活位稳定存续三日（正常需基础剂量）。孙不换说\"你的灵脉——或者别的什么东西——分辨得很清楚\"。执事说\"底子不差\"是标记不是夸奖。沈渊的身体/原主的身体有什么特殊之处？",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [
+      "hook-006",
+      "hook-015"
+    ],
+    "created_at": "2026-06-06T17:39:05.208052",
+    "updated_at": "2026-06-06T17:39:05.208052"
+  },
+  {
+    "id": "hook-025",
+    "description": "观测双向性：数得越快→回路亮得越快→被定位越快。周岩数了半年→回路亮→被带走；沈渊几天数清楚→回路亮得更快。不是巧合是因果。天道回应观测——观测天道的同时被天道观测。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 8,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:59:07.628257",
+    "updated_at": "2026-06-06T18:13:51.234004"
+  },
+  {
+    "id": "hook-026",
+    "description": "回路=缰绳：周岩回路运转第六日自主意志丧失——自己走出去，未挣扎。药打通灵脉的同时打通服从。沈渊面临三天后标准剂量复诊，回路将从四段延长到六段。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 8,
+    "target_chapter": 12,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:59:07.634515",
+    "updated_at": "2026-06-06T18:12:54.442615"
+  },
+  {
+    "id": "hook-027",
+    "description": "三天后复诊——孙不换送来草纸通知：辰时丹堂侧门，标准剂量（加量）。丹堂已感知到沈渊回路亮度增长。张克提前解了锁（每一天都是解锁状态），但沈渊选择不走。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 9,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T17:59:07.654373",
+    "updated_at": "2026-06-06T18:02:04.181236"
+  },
+  {
+    "id": "hook-032",
+    "description": "回路自我延伸：标准剂量乙三打通六段，但腹主动脉前丛下方腹腔支开始自主搏动。回路不需要丹堂加量——它会自己往下扎根。药只是开门，天道的东西自己会往里走。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 12,
     "related_characters": [
-      "老丁",
       "沈渊"
     ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T16:45:00.655526",
-    "updated_at": "2026-06-06T16:45:00.655526"
+    "related_hooks": [
+      "hook-026",
+      "hook-022"
+    ],
+    "created_at": "2026-06-06T18:12:54.422168",
+    "updated_at": "2026-06-06T18:12:54.422168"
+  },
+  {
+    "id": "hook-033",
+    "description": "主动接触其他试药者：沈渊感知到西北方300步外外门试药者（3-4段回路）在恐惧。决定明天通过张克确认身份，主动接触——搞清楚网络感知规则，能否反向定位山顶信号源。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 11,
+    "related_characters": [
+      "沈渊",
+      "张克"
+    ],
+    "related_hooks": [
+      "hook-028",
+      "hook-022"
+    ],
+    "created_at": "2026-06-06T18:12:54.429614",
+    "updated_at": "2026-06-06T18:12:54.429614"
+  },
+  {
+    "id": "hook-034",
+    "description": "天道=这座山：石台底部裂缝渗出浅黄色结晶（与丹堂瓷瓶同质），铁锈是液相前体，结晶是固相成品。山体内部有大规模结晶，振动频率与回路共振。整个青云宗建立在一个巨大的寄生体上——天道不在山顶，天道就是这座山。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-003",
+      "hook-022",
+      "hook-025"
+    ],
+    "created_at": "2026-06-06T18:12:54.435614",
+    "updated_at": "2026-06-06T18:12:54.435614"
   }
 ]
