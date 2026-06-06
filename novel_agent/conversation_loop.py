@@ -180,6 +180,7 @@ class ConversationLoop:
         """Internal: process one turn."""
         global _abort_flag
         _abort_flag = False
+        self._turn_texts = []  # Reset per-turn accumulator
 
         # Build novel context
         novel_context = self.agent.build_novel_context(user_message)
