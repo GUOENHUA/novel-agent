@@ -201,19 +201,20 @@ class ConversationLoop:
                 f"{novel_context}\n\n---\n\n"
                 f"自动模式：基于以上状态推进写作。无需 clarify 确认，自己做创作决策并保存。\n"
                 f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。\n"
-                f"如果还没有 style 记忆，请先创建一份（全局一份，写作前设定，不要按章节更新）。\n\n"
-                f"写章节正文时，将内容放在代码块内：\n\n"
-                f"```章节\n"
-                f"# 第N章 标题（N为阿拉伯数字）\n\n"
-                f"（正文内容，纯叙事文本）\n"
-                f"```\n\n"
-                f"格式：章标题 # 第N章 标题（N为阿拉伯数字），空行后正文，不要「第X章完/字数/伏笔」等。\n"
-                f"代码块外正常写思考和工具调用，系统自动提取代码块内容保存。"
+                f"如果还没有 style 记忆，请先创建一份（全局一份，写作前设定，不要按章节更新）。"
             )
 
         messages = self.agent.conversation_history + [
-            {"role": "user", "content": augmented_message}
+            {"role": "user", "content": augmented_message},
         ]
+        if not interactive:
+            messages.append({"role": "user", "content": (
+                "【章节格式】写在代码块内，写完调 preview_chapter 保存：\n"
+                "```章节\n"
+                "# 第N章 标题（N=阿拉伯数字）\n\n"
+                "正文...\n"
+                "```\n"
+                "代码块外写思考。系统只提取代码块内容。")})
         # Sanitize: ensure all assistant messages use ContentBlock array format
         for msg in messages:
             if msg.get("role") == "assistant" and isinstance(msg.get("content"), str):
@@ -617,6 +618,13 @@ class ConversationLoop:
         if tool_name == "preview_chapter":
             ch_num = args.get("chapter_number", 0)
             if not content or len(content) < 200:
+                # Dump raw to file for debugging
+                try:
+                    dump_path = self.agent.project_dir / f"debug_last_text_ch{ch_num}.txt"
+                    dump_path.write_text(f"len={len(raw)}\n\n{raw[-2000:]}", encoding="utf-8")
+                    safe_print(f"  [dim]DEBUG dumped to {dump_path.name}[/dim]")
+                except Exception:
+                    pass
                 return _json.dumps({
                     "status": "retry",
                     "error": "未在代码块内找到章节内容。",

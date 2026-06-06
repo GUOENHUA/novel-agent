@@ -1,77 +1,601 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气运转路径过于合理——无冗余、像工业流水线而非自然进化产物。沈渊作为生物信息学博士的直觉：这个修炼系统是被设计的。",
-    "hook_type": "symbolic",
+    "description": "原身沈渊在偷偷尝试修改灵气运转路径——他在测试什么？谁给了他功法？还是他自己发现了什么？他的死是意外还是灭口？",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 55,
-    "related_characters": [],
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊",
+      "张执事"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T08:55:26.157034",
-    "updated_at": "2026-06-06T09:01:57.238967"
+    "created_at": "2026-06-06T14:18:08.065362",
+    "updated_at": "2026-06-06T15:05:32.936459"
   },
   {
     "id": "hook-002",
-    "description": "护山大阵的蓝光在沈渊瞳孔停留了半秒（比正常时间久）。暗示：天道/大阵有意志，已察觉到沈渊发现了\"不对劲\"。",
-    "hook_type": "action",
+    "description": "灵气浓度呈梯度分布：山脚最低、山顶最高，不是自然现象应有的随机分布——首次暗示天道/灵气体系的人为设计痕迹",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
     "target_chapter": 30,
-    "related_characters": [],
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T08:56:04.656823",
-    "updated_at": "2026-06-06T09:00:21.074412"
+    "created_at": "2026-06-06T14:18:08.072225",
+    "updated_at": "2026-06-06T14:50:55.186761"
   },
   {
-    "id": "hook-003",
-    "description": "沈渊怀疑原主之死不是意外——炼气三层冲击四层死亡率本不高，但原主死得太精确，像是在给什么东西让出位置。暗示穿越本身可能是被安排的。",
-    "hook_type": "dialogue",
+    "id": "hook-01-1",
+    "description": "灵气浓度从山脚到山顶呈梯度分布，与自然现象不符，暗示灵气分布受人为控制",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 2,
-    "target_chapter": 100,
+    "planted_chapter": 1,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T09:00:21.079455",
-    "updated_at": "2026-06-06T09:00:21.079455"
+    "created_at": "2026-06-06T14:19:18.983993",
+    "updated_at": "2026-06-06T14:19:18.983993"
   },
   {
-    "id": "hook-02-1",
-    "description": "护山大阵的蓝光似乎有意识，会延迟、挪移并观察沈渊",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T09:01:57.221061",
-    "updated_at": "2026-06-06T09:01:57.221061"
-  },
-  {
-    "id": "hook-02-2",
-    "description": "沈渊推测灵气系统是设计成从低阶修士向上抽取的管道，存在'食物链'",
+    "id": "hook-01-2",
+    "description": "原身沈渊在尝试修改灵气运转路线后死亡，他测试的假设和死亡真正原因未知",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 2,
+    "planted_chapter": 1,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T09:01:57.228207",
-    "updated_at": "2026-06-06T09:01:57.228207"
+    "created_at": "2026-06-06T14:19:18.990420",
+    "updated_at": "2026-06-06T14:19:18.990420"
   },
   {
-    "id": "hook-02-3",
-    "description": "周师叔问沈渊是否看到不寻常的东西，暗示他知道某些秘密且有人在监视",
+    "id": "hook-01-3",
+    "description": "下个月宗门考核，若沈渊仍停留在引气初阶将面临严重后果",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:19:18.997186",
+    "updated_at": "2026-06-06T14:19:18.997186"
+  },
+  {
+    "id": "hook-003",
+    "description": "功法黑箱：青云引气诀单次传授、禁止弟子间交流运气细节——功法是标准化的控制工具而非教育系统",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "赵山"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:25:13.250817",
+    "updated_at": "2026-06-06T15:34:49.431336"
+  },
+  {
+    "id": "hook-004",
+    "description": "赵山对高阶修士饮食问题的回避反应——他知道或听说过筑基以上修士不吃饭，但不敢说",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 2,
+    "target_chapter": 25,
+    "resolved_chapter": 9,
+    "related_characters": [
+      "赵山",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:25:13.256809",
+    "updated_at": "2026-06-06T15:35:54.644949"
+  },
+  {
+    "id": "hook-005",
+    "description": "寄生蜂假说：沈渊首次将修仙体系类比为寄生关系——宿主代谢操控因子。目前被视为\"过度模式识别\"，但隐喻已种下",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 80,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:25:13.262061",
+    "updated_at": "2026-06-06T15:35:54.637967"
+  },
+  {
+    "id": "hook-006",
+    "description": "林远看到沈渊的\"食→灵\"图后说\"不该被画出来\"，瞳孔放大——他理解了什么但选择沉默。他知道什么？他是如何知道的？是个人观察还是从其他渠道听说？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "target_chapter": 50,
+    "related_characters": [
+      "林远",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:43:53.815569",
+    "updated_at": "2026-06-06T14:50:55.216438"
+  },
+  {
+    "id": "hook-007",
+    "description": "赵山在沈渊的草纸上看到了什么\"让他想起了自己不愿意想起来的东西\"——赵山有被压抑的记忆/认知，与修炼体系的真相相关",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "target_chapter": 30,
+    "related_characters": [
+      "赵山",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:43:53.821403",
+    "updated_at": "2026-06-06T14:50:55.223344"
+  },
+  {
+    "id": "hook-03-1",
+    "description": "林远警告沈渊“不该被画出来”，暗示宗门内有不可追究的真相",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:44:34.183097",
+    "updated_at": "2026-06-06T15:05:32.956926"
+  },
+  {
+    "id": "hook-03-2",
+    "description": "沈渊提出假设2：修炼体系是一个能量富集系统，低阶修士转化生物能，高阶接收",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:44:34.189095",
+    "updated_at": "2026-06-06T14:44:34.189095"
+  },
+  {
+    "id": "hook-03-3",
+    "description": "沈渊计划对赵山进行修炼前后灵气感受的对照实验，以验证假设",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:44:34.194684",
+    "updated_at": "2026-06-06T14:44:34.194684"
+  },
+  {
+    "id": "hook-008",
+    "description": "外门建筑群符纹网络——食堂、弟子房、藏经阁等所有建筑基石均刻有与石柱相同的符纹，整个外门是一个灵气采集阵列。符纹被刻意藏在台阶侧面、门框内壁等视线死角。这个网络可能延伸到内门甚至更远。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:51:12.043228",
+    "updated_at": "2026-06-06T15:34:49.423222"
+  },
+  {
+    "id": "hook-009",
+    "description": "\"搬去内门\"的失踪者——上一个被张执事注意到的弟子声称搬去了内门，但从此无人见过。赵山的语调暗示这是向下走（危险），不是向上（晋升）。暗示内门可能比外门更危险，或者\"搬去内门\"是某种处理的委婉说法。",
     "hook_type": "dialogue",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 2,
+    "planted_chapter": 4,
+    "target_chapter": 50,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T09:01:57.232533",
-    "updated_at": "2026-06-06T09:01:57.232533"
+    "created_at": "2026-06-06T14:51:12.051721",
+    "updated_at": "2026-06-06T14:51:12.051721"
+  },
+  {
+    "id": "hook-010",
+    "description": "早课钟声是灵气抽取的开关机制——钟声敲响时抽取量暴增10倍，回响期间持续抽取，弟子出现肩塌/头垂/揉腿等生理反应。钟声本身是石质共鸣（非铜钟），可能与符纹网络联动。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊",
+      "赵山"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:57:43.398843",
+    "updated_at": "2026-06-06T14:57:43.398843"
+  },
+  {
+    "id": "hook-011",
+    "description": "内门外门边界石墙——每8块砖一个单元，第八块为红色符纹，纵向排列。触碰即被抽取生命能量（非仅灵气）。墙高4丈，无植物附着。可能是中继站，终点在山顶。红色符纹的功能未知。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:57:43.410681",
+    "updated_at": "2026-06-06T14:57:43.410681"
+  },
+  {
+    "id": "hook-012",
+    "description": "张执事的15年疲倦——知道\"搬去内门\"的真相，用\"你觉得内门是什么地方\"暗示内门可能是比外门更危险的终点。语调是疲倦而非威胁。他同时在保护沈渊（\"这是救你\"）和维护系统。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 50,
+    "related_characters": [
+      "张执事",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:57:43.420767",
+    "updated_at": "2026-06-06T14:57:43.420767"
+  },
+  {
+    "id": "hook-013",
+    "description": "赵山成为沈渊的\"内部观察者\"——每日早课时观察灵气抽取的实时过程（空气波纹、弟子反应），口头汇报给沈渊。风险：被张执事注意到。赵山问\"原身死前最后在做什么\"后说\"和我想的一样\"——暗示他可能知道比透露的更多。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 15,
+    "related_characters": [
+      "赵山",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T14:57:43.429721",
+    "updated_at": "2026-06-06T14:57:43.429721"
+  },
+  {
+    "id": "hook-014",
+    "description": "原身发现功法是两套体系嫁接（底层+上层叠加），嫁接者非人。找到了关闭第一层的方法并成功关闭，但被系统发现后杀死。撕掉的最后几页可能记载了关闭方法，口述给了藏经阁老人。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "藏经阁老人"
+    ],
+    "related_hooks": [
+      "hook-001",
+      "hook-003"
+    ],
+    "created_at": "2026-06-06T15:04:29.756331",
+    "updated_at": "2026-06-06T15:04:29.757356"
+  },
+  {
+    "id": "hook-015",
+    "description": "藏经阁老人手指持续画符纹笔画循环，沈渊走过时停了半拍——暗示他认出了什么或知道什么。老人可能是原身最后的托付者，掌握关闭第一层的方法。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "related_characters": [
+      "藏经阁老人",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-014"
+    ],
+    "created_at": "2026-06-06T15:04:29.766526",
+    "updated_at": "2026-06-06T15:04:29.766526"
+  },
+  {
+    "id": "hook-016",
+    "description": "人形影子=修士的\"自我\"或灵魂。引气高阶者头顶无影子（已被抽空），低阶有完整人形影子且挣扎。修炼=将\"自我\"炼化为可被天道吸收的形式，境界越高被提取越彻底。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 35,
+    "related_characters": [
+      "赵山",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-005"
+    ],
+    "created_at": "2026-06-06T15:04:29.776455",
+    "updated_at": "2026-06-06T15:04:29.776455"
+  },
+  {
+    "id": "hook-017",
+    "description": "张执事当面摊牌\"你不是沈渊\"，去山顶汇报。山顶的回应将决定沈渊能否活过今晚。张执事从第1天就知道真相，现在不再伪装。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 6,
+    "target_chapter": 8,
+    "resolved_chapter": 9,
+    "related_characters": [
+      "张执事",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:04:29.785026",
+    "updated_at": "2026-06-06T15:34:49.413517"
+  },
+  {
+    "id": "hook-05-1",
+    "description": "张执事透露前沈渊也探索过符纹网络并因此而死，暗示原身死因与系统免疫反应相关",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:05:32.886844",
+    "updated_at": "2026-06-06T15:05:32.886844"
+  },
+  {
+    "id": "hook-05-2",
+    "description": "早课钟声触发定时大规模灵气抽取，修炼场弟子集体被抽取生命能量",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:05:32.897358",
+    "updated_at": "2026-06-06T15:05:32.897358"
+  },
+  {
+    "id": "hook-05-3",
+    "description": "内门边界石墙上的红色符纹纵向重复排列，疑似向上传输的中继站",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:05:32.907874",
+    "updated_at": "2026-06-06T15:05:32.907874"
+  },
+  {
+    "id": "hook-05-4",
+    "description": "张执事对沈渊的严密监视与最终警告，暗示外门有暗中监管机制",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:05:32.917390",
+    "updated_at": "2026-06-06T15:05:32.917390"
+  },
+  {
+    "id": "hook-05-5",
+    "description": "张执事问“你觉得内门是什么地方？”，暗示内门并非福地，可能吞噬弟子",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:05:32.926905",
+    "updated_at": "2026-06-06T15:05:32.926905"
+  },
+  {
+    "id": "hook-06-1",
+    "description": "石柱碎片显示符纹天然长在石头内部，并非人为刻制——外门建筑本身就是采集器，整个青云门可能建在某种天生灵石矿脉上",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:11:50.467174",
+    "updated_at": "2026-06-06T15:11:50.467174"
+  },
+  {
+    "id": "hook-06-2",
+    "description": "沈渊被指定三日后进入内门，山顶对他的异常身份抱有'纯粹的好奇'，内门将是对他本质的最终测试场",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:11:50.478149",
+    "updated_at": "2026-06-06T15:11:50.478149"
+  },
+  {
+    "id": "hook-018",
+    "description": "沈渊留给赵山的信——「如果我明天没有回来，你看这封信。」内容未公开。赵山需等「明天之后」才能看。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 20,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:18:46.257302",
+    "updated_at": "2026-06-06T15:26:57.086359"
+  },
+  {
+    "id": "hook-019",
+    "description": "藏经阁老人知道怎么走到第三步（修改符纹），但没有走。张执事透露：老人「知道怎么走到第三步。他没有走。」——为什么？他在等什么？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 60,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:18:50.346905",
+    "updated_at": "2026-06-06T15:26:57.097173"
+  },
+  {
+    "id": "hook-020",
+    "description": "林远开始笑了——赵山观察「林远从来不笑。他笑起来比不笑吓人。」林远是之前说「不该画出来」的弟子。行为异常信号。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:18:54.285164",
+    "updated_at": "2026-06-06T15:26:57.106513"
+  },
+  {
+    "id": "hook-021",
+    "description": "第三部分'正在进'——进天道。天道不是概念，是一个真实存在于地下的东西，会翻身",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "target_chapter": 40,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:18:58.624566",
+    "updated_at": "2026-06-06T15:35:54.623860"
+  },
+  {
+    "id": "hook-022",
+    "description": "接引者指尖有灰白色残留物——他是否也在被抽取？或者他是天道的某种延伸？",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 9,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "接引者"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:35:01.332645",
+    "updated_at": "2026-06-06T15:35:54.631861"
+  },
+  {
+    "id": "hook-023",
+    "description": "第一层三层结构——收容层（已空）、处理层（正在空，49门洞）、第三部分（正在进）。第三部分「正在进」是什么？描述：阶梯向下，符纹暗橙/暗红交替如呼吸，天道在其中",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 9,
+    "target_chapter": 10,
+    "resolved_chapter": 10,
+    "related_characters": [
+      "沈渊",
+      "接引者"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:35:01.341594",
+    "updated_at": "2026-06-06T15:40:10.753412"
+  },
+  {
+    "id": "hook-024",
+    "description": "「天道不是一个概念。是一个东西。」它在第一层第三部分等沈渊。沈渊靠近时温热感往下沉（不是往上抽），「像是脚下的天道翻了个身」",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 9,
+    "target_chapter": 12,
+    "resolved_chapter": 10,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:35:01.350519",
+    "updated_at": "2026-06-06T15:40:10.762970"
+  },
+  {
+    "id": "hook-025",
+    "description": "眼球等物理组织可被转化为灵气抽走——第九日起眼球震颤，随后溶解消失。抽取过程不仅抽取生命信息，还溶解物理身体",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 9,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:35:01.360474",
+    "updated_at": "2026-06-06T15:35:01.360474"
+  },
+  {
+    "id": "hook-026",
+    "description": "柱体内部通道——骨柱裂缝通往第二层，内壁温热搏动60次/分（与脊柱频率一致），陡直往上。通往第二层入口。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 11,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:40:32.771625",
+    "updated_at": "2026-06-06T15:40:32.771625"
+  },
+  {
+    "id": "hook-027",
+    "description": "老者的黑笔——藏经阁老者托接引者在沈渊画完第一层图后转交。通体黑色，笔尖暗金软质矿物不需蘸墨，笔杆有螺旋凹槽（与老者手指在松木桌上画的螺旋一致）。口信：「线不要断」。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 60,
+    "related_characters": [
+      "藏经阁老人",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:40:32.783664",
+    "updated_at": "2026-06-06T15:40:32.783664"
+  },
+  {
+    "id": "hook-028",
+    "description": "12根空小脊柱——第一层地下骨面平原上的12根较小脊柱，各连骨盆基座，空腔底部只有灰白色粉末。与收容层12个空壳修士一一对应。等新的「原料」填入。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 40,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:40:32.795714",
+    "updated_at": "2026-06-06T15:40:32.795714"
+  },
+  {
+    "id": "hook-029",
+    "description": "同心圆符纹圈——基座侧面的骨质面板上刻满同心圆符纹，10层，外圈每10秒转一圈，越往内越快，最内圈肉眼无法分辨方向。疑似离心分离/色谱柱功能，将生命信息按组分分离。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 10,
+    "target_chapter": 50,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T15:40:32.806400",
+    "updated_at": "2026-06-06T15:40:32.806400"
   }
 ]

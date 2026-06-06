@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 4,
+  "current_chapter": 11,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,13 +8,29 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "警觉而冷静，充满探究欲",
-      "goal": "系统性地收集数据，验证灵气流动的'食物链'假说而不被发现",
+      "emotional_state": "认知冲击转为冷静决断——毛骨悚然的真相被层层确认后化为继续观测的动力",
+      "goal": "完善天道系统的完整结构图——需要看完第三部分",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "赵山": {
+      "name": "赵山",
+      "current_location": "",
+      "emotional_state": "恐惧、不安，生理反应明显",
+      "goal": "生存，跟随沈渊",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "张执事": {
+      "name": "张执事",
+      "current_location": "",
+      "emotional_state": "疲惫、愧疚，内心挣扎",
+      "goal": "传达山顶指令，交出原身遗物以弥补或警示",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T09:04:23.970760"
+  "last_updated": "2026-06-06T15:39:11.619337"
 }
