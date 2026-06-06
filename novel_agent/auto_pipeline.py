@@ -177,6 +177,9 @@ class AutoPipeline:
                     # Fallback: save longest raw text from failed attempts if > 1000 chars
                     fallback = getattr(loop, '_auto_fallback_text', {}).get(ch, '')
                     if fallback and len(fallback) > 1000:
+                        # Delete old versions first
+                        for old in self.agent.chapters_dir.glob(f'ch_{ch:03d}_*.md'):
+                            old.unlink()
                         title = self._generate_title(fallback, ch)
                         path = self.agent.chapter_path(ch, title or 'untitled')
                         path.parent.mkdir(parents=True, exist_ok=True)
