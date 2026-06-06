@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 11,
+  "current_chapter": 7,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,29 +8,37 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "认知冲击转为冷静决断——毛骨悚然的真相被层层确认后化为继续观测的动力",
-      "goal": "完善天道系统的完整结构图——需要看完第三部分",
+      "emotional_state": "从困惑到冷静的笃定——数据正在揭示系统运作规律，但季明远的提问带来了新的不安",
+      "goal": "精确绘制流失速率梯度曲线，验证年龄是否影响系统选择机制",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "季明远": {
+      "name": "季明远",
+      "current_location": "",
+      "emotional_state": "表面平静但有意暗示，介于关心和试探之间",
+      "goal": "不明——他在向沈渊传递某个问题，但不确定是在寻求同盟还是测试沈渊",
       "alive": true,
       "chapter_updated": 0
     },
     "赵山": {
       "name": "赵山",
       "current_location": "",
-      "emotional_state": "恐惧、不安，生理反应明显",
-      "goal": "生存，跟随沈渊",
+      "emotional_state": "沉默的观察",
+      "goal": "无重大变化",
       "alive": true,
       "chapter_updated": 0
     },
-    "张执事": {
-      "name": "张执事",
+    "周长老": {
+      "name": "周长老",
       "current_location": "",
-      "emotional_state": "疲惫、愧疚，内心挣扎",
-      "goal": "传达山顶指令，交出原身遗物以弥补或警示",
+      "emotional_state": "未展露内心",
+      "goal": "监督早课",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T15:39:11.619337"
+  "last_updated": "2026-06-06T16:44:13.841399"
 }

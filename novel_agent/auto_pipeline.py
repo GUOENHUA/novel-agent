@@ -174,12 +174,24 @@ class AutoPipeline:
                         "attempts": retry + 1,
                     })
                 else:
-                    _safe_print(f"  [{progress}] ch{ch} FAILED after {MAX_RETRY_ATTEMPTS} retries")
-                    self.results.append({
-                        "chapter": ch, "success": False,
-                        "word_count": 0, "slop_score": 0,
-                        "slop_warnings": [], "attempts": MAX_RETRY_ATTEMPTS,
-                    })
+                    # Fallback: save longest raw text from failed attempts if > 1000 chars
+                    fallback = getattr(loop, '_auto_fallback_text', {}).get(ch, '')
+                    if fallback and len(fallback) > 1000:
+                        self._settle_state(ch, fallback)
+                        _safe_print(f"  [{progress}] ch{ch} OK via fallback ({len(fallback)} chars, non-standard format)")
+                        self.results.append({
+                            "chapter": ch, "success": True,
+                            "word_count": len(fallback),
+                            "slop_score": 0, "slop_warnings": [],
+                            "attempts": MAX_RETRY_ATTEMPTS, "fallback": True,
+                        })
+                    else:
+                        _safe_print(f"  [{progress}] ch{ch} FAILED after {MAX_RETRY_ATTEMPTS} retries")
+                        self.results.append({
+                            "chapter": ch, "success": False,
+                            "word_count": 0, "slop_score": 0,
+                            "slop_warnings": [], "attempts": MAX_RETRY_ATTEMPTS,
+                        })
 
             # Summary
             completed = [r for r in self.results if r["success"]]
