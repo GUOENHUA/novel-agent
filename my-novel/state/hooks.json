@@ -1,236 +1,295 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气的定向流动：灵气并非自然弥漫，而是有方向性——偏西约15度，指向内门方向。暗示灵气分布是人工设计的管道系统，而非\"天地恩赐\"。",
-    "hook_type": "symbolic",
+    "description": "沈渊首次感知到灵气流动的\"设计感\"——灵气在经脉中的运转路径过于精确，不像自然现象。这是他对天道寄生本质产生怀疑的第一粒种子。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 15,
+    "target_chapter": 20,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:04:11.232551",
-    "updated_at": "2026-06-06T18:02:04.193970"
+    "created_at": "2026-06-06T18:34:59.436398",
+    "updated_at": "2026-06-06T19:14:41.685507"
   },
   {
     "id": "hook-002",
-    "description": "灵气灌顶的真实机制：灵气穿过低阶弟子的身体（从涌泉、劳宫、百会导出），被长老回收。低阶弟子只是\"管道\"，残留3-5%是\"饵\"。灌顶不是恩赐，是收割。",
-    "hook_type": "direct",
+    "description": "破障法记忆被选择性擦除，铜符弟子对沈渊疤痕异常关注——执法堂可能在监控使用破障法的幸存者",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 20,
-    "related_characters": [
-      "沈渊",
-      "灌顶长老"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T17:04:11.240760",
-    "updated_at": "2026-06-06T17:17:12.923075"
-  },
-  {
-    "id": "hook-003",
-    "description": "章末的\"注视\"：沈渊在怀疑灌顶机制后感受到来自西偏北方向（内门/山顶）的静止目光。某个存在（天道？）注意到了他的异常思维。那东西似乎知道他在想什么。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "deferred",
-    "planted_chapter": 1,
-    "target_chapter": 20,
+    "target_chapter": 35,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:04:11.247237",
-    "updated_at": "2026-06-06T18:20:10.475519"
+    "created_at": "2026-06-06T18:34:59.443397",
+    "updated_at": "2026-06-06T19:08:06.821252"
+  },
+  {
+    "id": "hook-003",
+    "description": "灵气运转路径过于规整精确，疑似被设计而非自然形成",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:37:22.278336",
+    "updated_at": "2026-06-06T19:08:06.832096"
   },
   {
     "id": "hook-004",
-    "description": "周岩失踪：外门感气期弟子，入门四年，挑水67担后从晨课点名中消失。老一批外门弟子无声消失的模式——是被逐出？还是被消耗殆尽？",
+    "description": "聚灵阵按弟子等级逐层抽取灵气，高阶修士效率建立在对低阶的剥夺之上",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
+    "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 8,
-    "resolved_chapter": 8,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:05:29.471455",
-    "updated_at": "2026-06-06T18:02:04.158009"
+    "created_at": "2026-06-06T18:37:22.286537",
+    "updated_at": "2026-06-06T19:08:06.842154"
   },
   {
     "id": "hook-005",
-    "description": "丹堂试药系统：内门丹堂用外门弟子作为活体试药者，每月一块下品灵石补偿，但大多三年内出现不可逆经脉损伤后被逐出。沈渊是第一个说\"再想想\"的人。",
-    "hook_type": "direct",
+    "description": "原身关于破障法能量来源的记忆被人为抹除",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 15,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:05:29.478487",
-    "updated_at": "2026-06-06T17:30:28.607378"
+    "created_at": "2026-06-06T18:37:22.294123",
+    "updated_at": "2026-06-06T19:08:06.852077"
   },
   {
     "id": "hook-006",
-    "description": "沈渊吐血半盆：原主\"走火入魔\"时吐血半盆——远超正常走岔气的症状。林远暗示这不正常。原主死因可能不是意外。",
-    "hook_type": "direct",
+    "description": "阵纹在'看'——沈渊感到被聚灵阵注视",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 12,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:05:29.484146",
-    "updated_at": "2026-06-06T17:30:28.594398"
+    "created_at": "2026-06-06T18:37:22.301564",
+    "updated_at": "2026-06-06T19:08:06.861592"
   },
   {
     "id": "hook-007",
-    "description": "沈渊提出寄生藤假设——整个修行体系的底层运作模式被质疑",
-    "hook_type": "action",
+    "description": "破障法来源——散修传入，非青云宗原创，十年前苍澜山北瘟疫期间流出。十年内使用者几乎全部死亡，仅一人疑似存活但结局不明。执法堂对此高度敏感。",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 1,
-    "target_chapter": 3,
-    "resolved_chapter": 3,
-    "related_characters": [],
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊",
+      "铜符弟子"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:05:29.489749",
-    "updated_at": "2026-06-06T17:21:55.545974"
+    "created_at": "2026-06-06T18:39:21.010437",
+    "updated_at": "2026-06-06T19:14:41.693218"
   },
   {
     "id": "hook-008",
-    "description": "内门丹堂试药邀约——沈渊说再想想，暗示后续可能与丹堂产生关系",
-    "hook_type": "dialogue",
+    "description": "铜符弟子（执法堂）知晓沈渊左臂疤痕的精确位置——暗示执法堂对原身死亡事件并非不知情，可能在监视或等待什么",
+    "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 2,
-    "related_characters": [],
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊",
+      "铜符弟子"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:11:29.122971",
-    "updated_at": "2026-06-06T17:11:29.122971"
+    "created_at": "2026-06-06T18:39:21.017963",
+    "updated_at": "2026-06-06T19:08:06.879808"
   },
   {
     "id": "hook-009",
-    "description": "周岩消失——外门弟子在系统压力下的最终命运暗示",
-    "hook_type": "symbolic",
+    "description": "沈渊在床板下用指甲刻字做秘密记录——既是数据记录手段，也是他在这个世界自我保护的第一道防线",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 2,
-    "related_characters": [],
+    "target_chapter": 15,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:11:29.128003",
-    "updated_at": "2026-06-06T17:21:55.551787"
+    "created_at": "2026-06-06T18:39:21.024486",
+    "updated_at": "2026-06-06T19:14:41.701464"
   },
   {
     "id": "hook-010",
-    "description": "青溪水从上流下带着灵气——水源=灵气=单向从上传下，象征等级剥削的物质基础",
+    "description": "灵植的同源分形模式暗示世界底层规则是被构建的——'设计者'的存在被暗示",
     "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 2,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:11:29.133611",
-    "updated_at": "2026-06-06T17:11:29.133611"
+    "created_at": "2026-06-06T18:40:56.719558",
+    "updated_at": "2026-06-06T19:08:06.900820"
   },
   {
     "id": "hook-011",
-    "description": "周岩的炭笔记录：在石屋角落石板下发现周岩留下的草纸——记录了灵气抽取率逐年下降的数据、\"麻袋里——\"断句、\"别被发现你在数\"的警告、背面\"天道不养人\"。丹堂侧门麻袋里是什么？",
+    "description": "木梁上的蛛网两次无故晃动——可能隐喻被监视",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 0,
-    "target_chapter": 18,
-    "related_characters": [
-      "沈渊",
-      "林远",
-      "周岩",
-      "何大柱"
-    ],
-    "related_hooks": [
-      "hook-004",
-      "hook-005",
-      "hook-009"
-    ],
-    "created_at": "2026-06-06T17:15:16.251336",
-    "updated_at": "2026-06-06T17:24:47.152694"
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:40:56.726637",
+    "updated_at": "2026-06-06T19:08:06.909352"
   },
   {
     "id": "hook-012",
-    "description": "\"观测是罪\"：周岩和何大柱都在\"数\"——记录自身的灵气抽取率——然后他们都消失了。沈渊从中推断：上面不仅知道下面在观察，而且禁止观察。\"那双眼睛也许不是天道，也许是人\"",
+    "description": "原身修炼笔记——四列数据中第四列为零的未知常量，在灵气递减大趋势中保持不变。沈渊怀疑是某种\"不受抽取系统影响的量\"",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 0,
+    "status": "mentioned",
+    "planted_chapter": 3,
     "target_chapter": 25,
-    "resolved_chapter": 4,
     "related_characters": [
-      "沈渊",
-      "周岩",
-      "何大柱"
+      "沈渊"
     ],
-    "related_hooks": [
-      "hook-003",
-      "hook-006"
-    ],
-    "created_at": "2026-06-06T17:15:16.260729",
-    "updated_at": "2026-06-06T17:21:55.579849"
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:46:20.919428",
+    "updated_at": "2026-06-06T19:08:06.920375"
   },
   {
-    "id": "hook-003-1",
-    "description": "周岩纸条记录：灵气抽取率从3%降至2.5%，逐年递减，持续追踪被榨干的过程",
-    "hook_type": "direct",
+    "id": "hook-013",
+    "description": "石头上的简笔画——圈内外流向图，\"外圈向内，内圈向——\"未完成。沈渊推测流向可能是双向：灵气向内抽取，但修炼产物（寿命/记忆/意识）也可能在向外流动",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:46:20.929064",
+    "updated_at": "2026-06-06T19:08:06.930212"
+  },
+  {
+    "id": "hook-014",
+    "description": "原身分散隐藏线索——储物柜石头、笔记数据、丹房外墙刻痕。原身预感到自己会死或失忆，像\"知道会失忆的人给未来的自己留面包屑\"。刻痕指向四十九号邻居",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "resolved",
     "planted_chapter": 3,
-    "resolved_chapter": 6,
-    "related_characters": [],
+    "target_chapter": 4,
+    "resolved_chapter": 4,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:17:12.889759",
-    "updated_at": "2026-06-06T17:32:18.697833"
+    "created_at": "2026-06-06T18:46:20.939579",
+    "updated_at": "2026-06-06T19:08:06.939954"
   },
   {
-    "id": "hook-003-2",
-    "description": "何大柱留下的警告：'别被发现你在数'——观测和计数被宗门禁止，暗示上面知道并镇压知情者",
+    "id": "hook-015",
+    "description": "窗棂被刻新缝隙——监视升级，方便从窗外观察室内。同时床板第一条刻字被刀尖划掉（灵植同源），对方留下明确警告：此方向不通",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "target_chapter": 10,
+    "related_characters": [
+      "沈渊",
+      "铜符弟子"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:46:20.948911",
+    "updated_at": "2026-06-06T19:08:06.950361"
+  },
+  {
+    "id": "hook-016",
+    "description": "赵老四对沈渊说\"杂草别拔太深。伤根\"——表面是农活经验，可能暗含警告。赵老四作为底层管事，可能知道外门生存法则中的危险边界",
     "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 3,
+    "target_chapter": 15,
+    "resolved_chapter": 4,
+    "related_characters": [
+      "赵老四",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:46:20.959784",
+    "updated_at": "2026-06-06T19:08:06.960696"
+  },
+  {
+    "id": "hook-017",
+    "description": "修炼笔记中第四列始终为零的数据——在灵气浓度和灵石配给递减趋势中保持不变",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 3,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:17:12.896757",
-    "updated_at": "2026-06-06T17:32:18.691180"
+    "created_at": "2026-06-06T18:47:59.277441",
+    "updated_at": "2026-06-06T19:08:06.970370"
   },
   {
-    "id": "hook-003-3",
-    "description": "外门夜晚的安静'被管理过'——三百人居住区无鼾声无梦话，不自然",
-    "hook_type": "direct",
+    "id": "hook-018",
+    "description": "石头上未完成的图案：圈内外的点，连线方向从外圈向内，内圈方向未完成",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "resolved",
+    "status": "mentioned",
     "planted_chapter": 3,
-    "resolved_chapter": 6,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:17:12.903399",
-    "updated_at": "2026-06-06T17:32:18.704124"
+    "created_at": "2026-06-06T18:47:59.288949",
+    "updated_at": "2026-06-06T19:08:06.981131"
   },
   {
-    "id": "hook-003-4",
-    "description": "沈渊决定'今天他会看着每一张脸，数每一个不在的人'——继承周岩和何大柱的暗中观察",
+    "id": "hook-019",
+    "description": "丹房东墙刻痕：四十九号辰时三刻东墙",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 3,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:17:12.910659",
-    "updated_at": "2026-06-06T17:17:12.910659"
+    "created_at": "2026-06-06T18:47:59.297619",
+    "updated_at": "2026-06-06T19:08:06.990680"
   },
   {
-    "id": "hook-013",
-    "description": "孙不换递给沈渊的丹堂通行证——印好的格式，手写名字，执事的笔迹",
+    "id": "hook-020",
+    "description": "床板刻字被划了一道——监视者留下警告，灵植根系发现被否定",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:47:59.305873",
+    "updated_at": "2026-06-06T19:08:07.002171"
+  },
+  {
+    "id": "hook-021",
+    "description": "窗户被刻了新缝——方便从外窥视",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:47:59.315340",
+    "updated_at": "2026-06-06T19:08:07.012862"
+  },
+  {
+    "id": "hook-022",
+    "description": "槐树洞里有东西——铜符弟子主动告知沈渊。铜符弟子明知沈渊去了东墙，但不抓他，反而告诉他树洞有东西。意图：可能是测试、可能是铜符弟子放的、可能是陈玄/原身放的被铜符弟子发现但未取走。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "resolved",
@@ -239,282 +298,331 @@
     "resolved_chapter": 5,
     "related_characters": [
       "沈渊",
-      "孙不换",
-      "何大柱",
-      "周岩"
+      "铜符弟子",
+      "陈玄"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:21:02.483784",
-    "updated_at": "2026-06-06T17:24:47.144406"
-  },
-  {
-    "id": "hook-014",
-    "description": "扁石下寄生藤图——从外门到丹堂的虚线，根部标记周岩与何大柱",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 4,
-    "target_chapter": 8,
-    "resolved_chapter": 8,
-    "related_characters": [
-      "张克",
-      "林远",
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T17:21:02.488901",
-    "updated_at": "2026-06-06T18:02:04.165012"
-  },
-  {
-    "id": "hook-015",
-    "description": "丹堂执事在沈渊伤病史栏写\"疑\"字——原主死因被正式标记为可疑，不是走火入魔。执事知道什么？",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 5,
-    "target_chapter": 12,
-    "related_characters": [
-      "沈渊",
-      "丹堂执事"
-    ],
-    "related_hooks": [
-      "hook-006"
-    ],
-    "created_at": "2026-06-06T17:25:52.181262",
-    "updated_at": "2026-06-06T17:39:20.355575"
-  },
-  {
-    "id": "hook-016",
-    "description": "三日复诊倒计时——孙不换说三天后没问题就加到基础剂量。沈渊的身体能否承受加量？复诊时会发现什么？",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 5,
-    "target_chapter": 8,
-    "resolved_chapter": 7,
-    "related_characters": [
-      "沈渊",
-      "孙不换"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T17:25:52.187453",
-    "updated_at": "2026-06-06T17:39:05.185971"
-  },
-  {
-    "id": "hook-017",
-    "description": "张克与周岩失踪的关系——张克主动告知\"周岩失踪前三天门也没锁过\"，但主语缺失（\"没锁过\"而非\"我没锁\"或\"有人锁了\"）。张克是旁观者还是参与者？他为什么让林远进沈渊的屋？外门执事在系统中的真实角色待揭示。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 6,
-    "target_chapter": 15,
-    "related_characters": [
-      "张克",
-      "周岩",
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-004",
-      "hook-014"
-    ],
-    "created_at": "2026-06-06T17:30:28.554049",
-    "updated_at": "2026-06-06T17:59:07.641097"
-  },
-  {
-    "id": "hook-018",
-    "description": "沈渊身体变化——甲七药丸激活左肺上叶内侧支后出现异常：搏动增强、肩胛下浅红痕迹沿灵脉走向、舌尖铁锈味持续三日不散且加深。沈渊推断药是催化剂，外门弟子灵脉本身才是过滤器——处理的是流经灵脉的灵气。激活的灵脉段在\"处理某物\"。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 6,
-    "target_chapter": 12,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-005",
-      "hook-001",
-      "hook-016"
-    ],
-    "created_at": "2026-06-06T17:30:28.562324",
-    "updated_at": "2026-06-06T18:20:10.469524"
-  },
-  {
-    "id": "hook-019",
-    "description": "沈渊推断试药本质：药是催化剂，外门弟子灵脉本身是过滤器，产物为不可代谢结晶。处理对象可能是灵气本身。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T17:32:18.655539",
-    "updated_at": "2026-06-06T17:32:18.655539"
-  },
-  {
-    "id": "hook-020",
-    "description": "张克暗示周岩失踪前三天门也没锁——是张克开的还是另有其人？主语缺失本身是信息。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T17:32:18.665556",
-    "updated_at": "2026-06-06T17:32:18.665556"
-  },
-  {
-    "id": "hook-021",
-    "description": "三个新失踪的外门弟子——第七排左四、第九排右二、第十一排中，沈渊记下位置但不知名字。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 6,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T17:32:18.671997",
-    "updated_at": "2026-06-06T17:32:18.671997"
-  },
-  {
-    "id": "hook-022",
-    "description": "回路=天线：甲七基础剂量打通左肺上叶→锁骨内侧→胸骨旁→心包三段回路。回路封闭循环后，沈渊发现注视不是从外面来的——是从回路里来的。药打通灵脉形成的不只是过滤管道，更是一个信号接收/发射装置。铁锈味=那个注视的味道。外门弟子被变成了天线。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "target_chapter": 15,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-003",
-      "hook-018"
-    ],
-    "created_at": "2026-06-06T17:39:05.194347",
-    "updated_at": "2026-06-06T18:20:10.463555"
+    "created_at": "2026-06-06T18:51:23.417495",
+    "updated_at": "2026-06-06T19:08:07.022816"
   },
   {
     "id": "hook-023",
-    "description": "结晶离体后继续生长：麻袋侧面的枝状凸起——三天前没有，现在出现了。被取出的\"药渣\"离体后仍在生长。结晶不是代谢废物，是活的。这暗示结晶可能有自己的生命属性——或者仍在与某个更大的系统保持连接。",
-    "hook_type": "symbolic",
+    "description": "陈玄身份疑点——六十二岁，炼气一层四十九年，但眼白异常干净。灵气被抽四十九年的人眼睛应该是浑的。他为什么不需要突破？是否也与破障法有关？是否在隐藏真实修为？",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 7,
-    "target_chapter": 20,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-011"
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 30,
+    "related_characters": [
+      "陈玄",
+      "沈渊"
     ],
-    "created_at": "2026-06-06T17:39:05.200690",
-    "updated_at": "2026-06-06T17:39:05.200690"
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:51:23.425907",
+    "updated_at": "2026-06-06T19:14:41.707723"
   },
   {
     "id": "hook-024",
-    "description": "沈渊数据偏离预期：甲七吸收率比感气期均值高两成，半剂量激活位稳定存续三日（正常需基础剂量）。孙不换说\"你的灵脉——或者别的什么东西——分辨得很清楚\"。执事说\"底子不差\"是标记不是夸奖。沈渊的身体/原主的身体有什么特殊之处？",
-    "hook_type": "direct",
+    "description": "原身布书：第四列数据全是零，至今未解",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 7,
-    "target_chapter": 20,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-006",
-      "hook-015"
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊",
+      "陈玄"
     ],
-    "created_at": "2026-06-06T17:39:05.208052",
-    "updated_at": "2026-06-06T17:39:05.208052"
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:51:23.435697",
+    "updated_at": "2026-06-06T19:08:07.042178"
   },
   {
     "id": "hook-025",
-    "description": "观测双向性：数得越快→回路亮得越快→被定位越快。周岩数了半年→回路亮→被带走；沈渊几天数清楚→回路亮得更快。不是巧合是因果。天道回应观测——观测天道的同时被天道观测。",
-    "hook_type": "direct",
+    "description": "陈玄四十九年炼气一层但眼白干净——可能隐藏身份或不需要突破",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 8,
-    "target_chapter": 15,
+    "planted_chapter": 4,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:59:07.628257",
-    "updated_at": "2026-06-06T18:13:51.234004"
+    "created_at": "2026-06-06T18:53:05.346737",
+    "updated_at": "2026-06-06T19:08:07.052237"
   },
   {
     "id": "hook-026",
-    "description": "回路=缰绳：周岩回路运转第六日自主意志丧失——自己走出去，未挣扎。药打通灵脉的同时打通服从。沈渊面临三天后标准剂量复诊，回路将从四段延长到六段。",
-    "hook_type": "direct",
+    "description": "铜符弟子暗示老槐树洞中有东西——是测试还是陷阱？",
+    "hook_type": "dialogue",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 8,
-    "target_chapter": 12,
+    "planted_chapter": 4,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:59:07.634515",
-    "updated_at": "2026-06-06T18:20:10.480730"
+    "created_at": "2026-06-06T18:53:05.355658",
+    "updated_at": "2026-06-06T19:08:07.063172"
   },
   {
     "id": "hook-027",
-    "description": "三天后复诊（更新）：第9章标准剂量乙三后三天（第12章辰时），孙不换将引导沈渊进行强化剂量——丙字号。从六段→八段或更多。缰绳将进一步收紧。张克警告：六段第二天腿还听你的——但第12章加量后进入第几天不确定。沈渊需要在加量前尽量收集数据。",
+    "description": "原身的问题：修路的人是谁？路费收在哪里？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 8,
-    "target_chapter": 12,
+    "status": "mentioned",
+    "planted_chapter": 4,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T17:59:07.654373",
-    "updated_at": "2026-06-06T18:19:58.684616"
+    "created_at": "2026-06-06T18:53:05.364780",
+    "updated_at": "2026-06-06T19:08:07.072861"
+  },
+  {
+    "id": "hook-028",
+    "description": "原身六月廿四记录——\"脚印就是——\"最后一行被水渍糊掉，只剩下一个字的边缘。沈渊怀疑不是普通水渍，而是某种力量不准它留在世界上。脚印是什么？→ Ch50",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:56:42.815025",
+    "updated_at": "2026-06-06T19:08:07.083040"
+  },
+  {
+    "id": "hook-029",
+    "description": "铜符弟子床板留言\"未必是人\"——用刀尖接在沈渊记录\"陈玄眼白干净\"之后。四个字暗示两种可能：修路的不是人，或修道的也有不是人的。铜符弟子立场转变：从施压者变为暗中提示者。→ Ch25",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 25,
+    "related_characters": [
+      "铜符弟子",
+      "沈渊",
+      "陈玄"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:56:42.824985",
+    "updated_at": "2026-06-06T19:14:41.714865"
+  },
+  {
+    "id": "hook-030",
+    "description": "铜符弟子调整窗缝——嵌碎木头把缝隙堵窄而非堵死。沈渊推测：铜符弟子不是在监视他，而是在帮他不被\"上面\"看到。铜符弟子在演给上面看。→ Ch25",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 25,
+    "related_characters": [
+      "铜符弟子",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:56:42.835568",
+    "updated_at": "2026-06-06T19:08:07.103198"
+  },
+  {
+    "id": "hook-031",
+    "description": "破障法激活后是独立的东西——有自己的开关，开关不在修炼者手上。运功后抽取力道每七息一次，节奏整齐。原身眼睛在运功时变灰白，陈玄说\"像是有人在从眼睛里往外看\"。→ Ch40",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊",
+      "陈玄"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:56:42.845956",
+    "updated_at": "2026-06-06T19:08:07.113108"
   },
   {
     "id": "hook-032",
-    "description": "回路自我延伸：标准剂量乙三打通六段，但腹主动脉前丛下方腹腔支开始自主搏动——第七段。回路不需要丹堂加量——它会自己往下扎根。药只是开门，天道的东西自己会往里走。腹腔支→盆支→骶支→下肢→脚底。像寄生藤从一棵松木爬到另一棵松木——不爬完不停。",
+    "description": "竹筒——原身死前三天交给铜符弟子的蜡封竹筒，内容未知。铜符弟子指定在南墙根老井边打开（那里没有聚灵阵波动，也没有人）。原身交代：如果沈渊活着回来就给他，如果没来就烧掉",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 10,
-    "target_chapter": 12,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-026",
-      "hook-022"
-    ],
-    "created_at": "2026-06-06T18:12:54.422168",
-    "updated_at": "2026-06-06T18:19:44.754445"
+    "status": "resolved",
+    "planted_chapter": 5,
+    "target_chapter": 7,
+    "resolved_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:58:37.881902",
+    "updated_at": "2026-06-06T19:14:41.646002"
   },
   {
     "id": "hook-033",
-    "description": "主动接触其他试药者：沈渊感知到网络中有七个亮点。最近的在西北方300步——外门试药者，三段或四段回路，正在恐惧。沈渊决定明天通过张克确认身份，主动接触——搞清楚网络感知规则：信号能否控制？能否反向追溯？能否利用天线反向定位山顶信号源？观测是罪——但罪已经犯了，那就犯到底。",
+    "description": "灵气潮汐事件——铜符弟子警告下月潮汐有事发生：不要站阵眼附近、不要去东侧、不要运功。「不管别人怎么催你，不要运功」",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 10,
-    "target_chapter": 11,
-    "related_characters": [
-      "沈渊",
-      "张克"
-    ],
-    "related_hooks": [
-      "hook-028",
-      "hook-022"
-    ],
-    "created_at": "2026-06-06T18:12:54.429614",
-    "updated_at": "2026-06-06T18:19:51.720681"
+    "status": "mentioned",
+    "planted_chapter": 5,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:58:37.892432",
+    "updated_at": "2026-06-06T19:14:41.721751"
   },
   {
     "id": "hook-034",
-    "description": "天道=这座山：灌顶广场石台底部裂缝渗出浅黄色结晶（与丹堂瓷瓶同质），铁锈是液相前体，结晶是固相成品。山体内部有大规模结晶，振动频率与回路共振。裂缝在回应回路——两个信号源：山顶（大、冷、沉甸甸）和山体内部（碎、分散、热）。整个青云宗建立在一个巨大的寄生体上——天道不在山顶，天道就是这座山。",
+    "description": "执法堂堂主篡改报告——铜符弟子的原身死亡报告被堂主改为「修炼事故」。堂主在系统性地收尾被筛出来的人。堂主之上还有谁？（→Ch25）",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 5,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T18:58:37.903096",
+    "updated_at": "2026-06-06T19:05:18.812994"
+  },
+  {
+    "id": "hook-035",
+    "description": "陈玄感应被注视——铜符弟子看到陈玄拔草不带泥土（常态），但沈渊和铜符弟子一起看时草根有泥土。陈玄能感知被观察并伪装。藏了四十九年的东西知道什么时候被看",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "related_characters": [
+      "陈玄",
+      "沈渊",
+      "铜符弟子"
+    ],
+    "related_hooks": [
+      "hook-023",
+      "hook-029"
+    ],
+    "created_at": "2026-06-06T19:05:23.860406",
+    "updated_at": "2026-06-06T19:05:23.860406"
+  },
+  {
+    "id": "hook-036",
+    "description": "井水抵消聚灵阵——老井边的井水连通山体暗河，暗河不在地面聚灵阵覆盖范围内。陈玄每天用井水浇灵稻。暗示地下水系可能是系统的盲区",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 10,
-    "target_chapter": 20,
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:08:06.765693",
+    "updated_at": "2026-06-06T19:14:41.654695"
+  },
+  {
+    "id": "hook-037",
+    "description": "断根任务——原身遗书指出脱离系统的唯一方法：切断灵根灌顶时种下的聚灵阵接口。陈玄是唯一已知断根者，但他不会说（说出来会被听见）。沈渊只能观察他「做」",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:08:06.776047",
+    "updated_at": "2026-06-06T19:14:41.661054"
+  },
+  {
+    "id": "hook-038",
+    "description": "调往南三区——沈渊被从丹房调往灵田南三区（陈玄所在区域）。执事说是执事堂安排，但沈渊判断是铜符弟子或执法堂在测试他和陈玄接触后会发生什么",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 6,
+    "target_chapter": 8,
+    "resolved_chapter": 8,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:08:06.786151",
+    "updated_at": "2026-06-06T19:22:27.982846"
+  },
+  {
+    "id": "hook-039",
+    "description": "赵老四往南墙走——膳堂劈柴老头在沈渊被调往南三区当天往南墙方向走，行为越来越不像普通杂役。南墙根是老井所在，也是聚灵阵覆盖不到的区域",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:08:06.794344",
+    "updated_at": "2026-06-06T19:22:28.046004"
+  },
+  {
+    "id": "hook-040",
+    "description": "井水特殊灵气——沉的、不刺麻、渗入皮肤，与灵田静电式灵气完全不同。井水穿透黏土直接渗入硬土层，似乎在找地下暗河。暗河可能是聚灵阵盲区（→Ch25）",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:08:06.802860",
+    "updated_at": "2026-06-06T19:22:27.993759"
+  },
+  {
+    "id": "hook-041",
+    "description": "南三区土层异常——两寸松土铺在硬土层上，无过渡层，像人为铺设。暗示南三区是某种改造过的环境（→Ch25）",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 25,
     "related_characters": [
+      "陈玄"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:22:28.003878",
+    "updated_at": "2026-06-06T19:22:28.003878"
+  },
+  {
+    "id": "hook-042",
+    "description": "井边稻谷——普通稻谷（非灵稻）出现在南墙根，壳上有刀刻痕迹。赵老四往南墙方向走过。南三区不种普通稻谷（→Ch15，赵老四身份线索）",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 15,
+    "related_characters": [
+      "赵老四",
       "沈渊"
     ],
-    "related_hooks": [
-      "hook-003",
-      "hook-022",
-      "hook-025"
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:22:28.014682",
+    "updated_at": "2026-06-06T19:22:28.014682"
+  },
+  {
+    "id": "hook-043",
+    "description": "断根第一步——脉门按压。陈玄用无名指和小指触碰沈渊手腕内侧（灵根灌顶位置）。按压后酸意从手腕→前臂→肩膀，被某物阻断。断根不是一次手术，是持续按压对抗系统重建——陈玄按了四十九年（→Ch25）",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 25,
+    "related_characters": [
+      "陈玄",
+      "沈渊"
     ],
-    "created_at": "2026-06-06T18:12:54.435614",
-    "updated_at": "2026-06-06T18:20:03.742720"
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:22:28.025323",
+    "updated_at": "2026-06-06T19:22:28.025323"
+  },
+  {
+    "id": "hook-044",
+    "description": "灰浆墙——南墙上有灰色灰浆抹痕，底下土是深褐色（被井水浸过）。灰浆在增加（第二天多了一块），有人在持续维护（→Ch25）",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 8,
+    "target_chapter": 25,
+    "related_characters": [
+      "陈玄"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T19:22:28.036172",
+    "updated_at": "2026-06-06T19:22:28.036172"
   }
 ]

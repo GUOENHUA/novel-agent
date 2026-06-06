@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 11,
+  "current_chapter": 10,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,61 +8,29 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "冷静而决绝——发现了试药的本质，选择继续深入而非逃跑",
-      "goal": "继续试药，追查裂缝的尽头——丹堂的核心秘密",
+      "emotional_state": "警觉，信息冲击中重新拼图",
+      "goal": "弄清原身死亡真相和陈玄的秘密",
       "alive": true,
       "chapter_updated": 0
     },
-    "张克": {
-      "name": "张克",
+    "陈玄": {
+      "name": "陈玄",
       "current_location": "",
-      "emotional_state": "隐晦的关切——在规则允许范围内传递警告",
-      "goal": "警告沈渊注意安全，同时暗示自己对周岩失踪知情",
+      "emotional_state": "平静中带着深沉——等了六天一个确定已死的人",
+      "goal": "完成承诺，将原身遗物交给值得托付的人",
       "alive": true,
       "chapter_updated": 0
     },
-    "灌顶长老": {
-      "name": "灌顶长老",
+    "铜符弟子": {
+      "name": "铜符弟子",
       "current_location": "",
-      "emotional_state": "未知",
-      "goal": "维持对外门弟子的持续监视和灵气流转",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "周岩": {
-      "name": "周岩",
-      "current_location": "",
-      "emotional_state": "未知",
-      "goal": "未知",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "内门弟子（靛蓝袍）": {
-      "name": "内门弟子（靛蓝袍）",
-      "current_location": "",
-      "emotional_state": "居高临下的兴趣",
-      "goal": "为丹堂招募试药人",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "林远": {
-      "name": "林远",
-      "current_location": "",
-      "emotional_state": "从压抑的愤怒转为绝望——写“跑”字但知道无路可跑",
-      "goal": "试图说服沈渊逃离",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "孙不换": {
-      "name": "孙不换",
-      "current_location": "",
-      "emotional_state": "评估式的平静",
-      "goal": "招募沈渊进入丹堂试药",
+      "emotional_state": "警惕，压抑，有所忌惮",
+      "goal": "传递原身遗物和警告，保护沈渊不被收割",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T18:19:26.016108"
+  "last_updated": "2026-06-06T19:36:15.719438"
 }
