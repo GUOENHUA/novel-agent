@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "chapter_number": 1,
+    "title": "醒来",
+    "word_count": 3698,
+    "summary": "沈渊从死亡中醒来，发现自己穿越到一个修真世界，附身在因走火入魔而死的外门弟子身上。他在观察体内灵气流转时，发现灵气并非全部沉入丹田，而是一部分沿固定路径渗出并向天空输送。这个发现让他意识到这个世界修炼体系的背后可能隐藏着某种设计。",
+    "key_events": [
+      "沈渊穿越苏醒，适应新身体并确认修真世界",
+      "张铁柱送来愈脉汤，沈渊询问灵气运转规律",
+      "沈渊通过观察发现灵气的异常渗出与向上输送"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "张铁柱"
+    ],
+    "hooks_planted": [
+      "hook-01-1"
+    ],
+    "hooks_resolved": [],
+    "mood": "mysterious",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 3,
+    "title": "轮值",
+    "word_count": 4459,
+    "summary": "沈渊在伙房劈柴时进一步隐藏自己的异常，用'走火入魔后遗症'搪塞赵四的试探。午时膳堂内门弟子突然出现，展示了外门与内门之间巨大的等级鸿沟。傍晚何执事查验经脉后说'因祸得福'，但话语中暗藏警告——'一般来說'和'对你自己不好'——加深了沈渊对灵云宗真相的怀疑。",
+    "key_events": [
+      "沈渊测试泄口延迟时间，获得7秒安全边际数据",
+      "劈柴时郑叔注意到沈渊速度变快，沈渊刻意控制力道",
+      "赵四试探沈渊，沈渊用'走火入魔后遗症'标签搪塞",
+      "内门弟子突然出现在膳堂，展示内外门等级鸿沟",
+      "何执事查验经脉称'因祸得福'，暗示压制真相",
+      "沈渊发现灵气几乎不溶于水，推断灵气有路径和规则"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "郑叔",
+      "赵四",
+      "内门弟子（无名）",
+      "何执事",
+      "新来的杂役（无名）"
+    ],
+    "hooks_planted": [
+      "hook-013",
+      "hook-014"
+    ],
+    "hooks_resolved": [],
+    "mood": "dark",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
+  }
+]

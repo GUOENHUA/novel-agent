@@ -1,11 +1,28 @@
 {
   "novel_title": "",
-  "current_chapter": 1,
+  "current_chapter": 5,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {},
+  "characters": {
+    "沈渊": {
+      "name": "沈渊",
+      "current_location": "",
+      "emotional_state": "警觉、分析中",
+      "goal": "在不暴露身份的情况下继续收集灵气系统的信息",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "何执事": {
+      "name": "何执事",
+      "current_location": "",
+      "emotional_state": "压抑的警觉",
+      "goal": "查验沈渊状况，警告其不要追问",
+      "alive": true,
+      "chapter_updated": 0
+    }
+  },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": ""
+  "last_updated": "2026-06-06T22:23:25.069751"
 }

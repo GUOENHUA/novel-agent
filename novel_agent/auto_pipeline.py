@@ -177,16 +177,11 @@ class AutoPipeline:
                     # Fallback: save longest raw text from failed attempts if > 1000 chars
                     fallback = getattr(loop, '_auto_fallback_text', {}).get(ch, '')
                     if fallback and len(fallback) > 1000:
-                        # Delete old versions first
-                        for old in self.agent.chapters_dir.glob(f'ch_{ch:03d}_*.md'):
-                            old.unlink()
-                        title = self._generate_title(fallback, ch)
-                        path = self.agent.chapter_path(ch, title or 'untitled')
-                        path.parent.mkdir(parents=True, exist_ok=True)
-                        path.write_text(f'# 第{ch}章 {title}\n\n{fallback}', encoding='utf-8')
-                        self.agent.truth_files.load_state().current_chapter = ch + 1
-                        self.agent.truth_files.save_state(self.agent.truth_files.load_state())
-                        self._settle_state(ch, fallback)
+                        # Use ConversationLoop's save to get guard + title + format
+                        loop._last_text_output = fallback
+                        result = loop._save_chapter_to_file(ch, fallback)
+                        if result.get('success'):
+                            self._settle_state(ch, fallback)
                         _safe_print(f"  [{progress}] ch{ch} OK via fallback ({len(fallback)} chars, non-standard format)")
                         self.results.append({
                             "chapter": ch, "success": True,

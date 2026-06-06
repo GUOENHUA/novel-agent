@@ -1,1 +1,221 @@
-[]
+[
+  {
+    "id": "hook-001",
+    "description": "灵气单向向上流动——沈渊发现灵气在经脉末端会渗出约7-10%，方向统一向上。暗示天道/仙界在抽取灵气。这是全书核心谜题的种子伏笔。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 60,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:02:14.743707",
+    "updated_at": "2026-06-06T22:02:14.743707"
+  },
+  {
+    "id": "hook-01-1",
+    "description": "灵气从修士体内渗出后沿固定方向上升，疑似被某种力量接收，暗示修炼体系背后存在未知设计。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:03:29.693130",
+    "updated_at": "2026-06-06T22:03:29.693130"
+  },
+  {
+    "id": "hook-002",
+    "description": "原主走火入魔最后时刻的记忆被\"切掉\"——不自然的空白，疑似人为删除",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 80,
+    "related_characters": [
+      "沈渊",
+      "原主沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:08:20.129309",
+    "updated_at": "2026-06-06T22:15:37.801768"
+  },
+  {
+    "id": "hook-003",
+    "description": "天道监控反应时间约3息——沈渊首次堵漏实验测得，后续可进一步精确化",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 40,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:08:20.135113",
+    "updated_at": "2026-06-06T22:15:37.789267"
+  },
+  {
+    "id": "hook-004",
+    "description": "\"蚂蚁\"隐喻——张铁柱和郑叔不约而同使用，暗示此世界底层共识；可能关联天道寄生体系",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 60,
+    "related_characters": [
+      "张铁柱",
+      "郑叔",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:08:20.140321",
+    "updated_at": "2026-06-06T22:08:20.140321"
+  },
+  {
+    "id": "hook-005",
+    "description": "刘师兄知道某些事但不说——警告沈渊\"别再跟别人提\"，暗示宗门内部或上层对灵气真相有察觉",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 35,
+    "related_characters": [
+      "刘师兄",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:08:20.146322",
+    "updated_at": "2026-06-06T22:16:57.571812"
+  },
+  {
+    "id": "hook-006",
+    "description": "食物含灵气——沈渊发现青菜豆腐米饭中含微量原始灵气，构建\"天地灵气→土壤→植物→动物→修士→被天道抽走\"的供应链模型。暗示修炼体系的完整闭环。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:11:18.205010",
+    "updated_at": "2026-06-06T22:16:57.576371"
+  },
+  {
+    "id": "hook-007",
+    "description": "陆辰的暗号——两短一长敲桌节奏，暗示他可能属于某个隐秘组织；提到\"经脉真正的走向\"暗示公开功法可能有误/不完整。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 45,
+    "related_characters": [
+      "陆辰",
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:11:18.210808",
+    "updated_at": "2026-06-06T22:11:18.210808"
+  },
+  {
+    "id": "hook-008",
+    "description": "入不敷出矛盾——沈渊计算日流失259.2缕 vs 杂灵根日吸收30-50缕，每个修士都在亏损。疑问：高境界修士（金丹/元婴/化神）的海量灵气从哪来？暗示修炼体系存在\"再分配\"或\"掠夺\"机制。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 70,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:11:18.215096",
+    "updated_at": "2026-06-06T22:11:18.215096"
+  },
+  {
+    "id": "hook-009",
+    "description": "沈渊发现天道监控非实时：泄口缩小到1/5时反应延迟从3息延长到7息。暗示监控机制是周期扫描或阈值触发——低于某警示线就不会被优先处理。这一发现可能成为未来对抗/规避监控的关键漏洞。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 45,
+    "related_characters": [],
+    "related_hooks": [
+      "hook-003"
+    ],
+    "created_at": "2026-06-06T22:16:07.898790",
+    "updated_at": "2026-06-06T22:16:07.898790"
+  },
+  {
+    "id": "hook-010",
+    "description": "灵气不溶于水，只附着于固体颗粒——沈渊发现井水灵气极低但土壤含灵气。修正了灵气分布模型：灵气非均匀分布，有偏好路径和附着规则。这暗示灵气可能有\"颗粒度\"或\"亲和性\"的物理属性。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 55,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:16:07.905494",
+    "updated_at": "2026-06-06T22:16:07.905494"
+  },
+  {
+    "id": "hook-011",
+    "description": "何执事与刘师兄一致警告沈渊但都只说\"别说\"而非\"你说的不对\"。何执事多了\"一般来说\"的模糊措辞，暗示外门管理层可能对灵气真相有某种程度的知情但选择沉默。双重警告形成的模式强化了刘师兄线索。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 35,
+    "related_characters": [],
+    "related_hooks": [
+      "hook-005"
+    ],
+    "created_at": "2026-06-06T22:16:07.910650",
+    "updated_at": "2026-06-06T22:16:07.910650"
+  },
+  {
+    "id": "hook-012",
+    "description": "舍友归来，最里床的人说\"你真没死啊？\"语气失望。暗示原主沈渊生前与舍友存在未揭示的矛盾/冲突。可能是单纯人际摩擦，也可能与原主走火入魔的原因有关联。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "target_chapter": 25,
+    "related_characters": [
+      "丙字七号房舍友"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:16:07.915931",
+    "updated_at": "2026-06-06T22:16:07.915931"
+  },
+  {
+    "id": "hook-013",
+    "description": "何执事话语中'一般来说'暗示记忆不可恢复并非绝对，'对你自己不好'暗示触碰真相有后果",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:16:57.558577",
+    "updated_at": "2026-06-06T22:16:57.558577"
+  },
+  {
+    "id": "hook-014",
+    "description": "内门弟子突然出现且无人议论，等级鸿沟被自然化为'空气'，暗示宗门系统性的阶层压制",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-06T22:16:57.565582",
+    "updated_at": "2026-06-06T22:16:57.565582"
+  }
+]
