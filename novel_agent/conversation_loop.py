@@ -596,8 +596,14 @@ class ConversationLoop:
         body = '\n'.join(lines[body_start:]).strip()
         if not body or len(body) < 200:
             return {"success": False, "error": f"Body too short ({len(body)} chars)"}
-        # Remove old versions of this chapter (LLM may self-revise and re-save)
-        for old in self.agent.chapters_dir.glob(f"ch_{ch_num:03d}_*.md"):
+        # Guard: if a longer version already exists, don't overwrite with shorter
+        existing = list(self.agent.chapters_dir.glob(f"ch_{ch_num:03d}_*.md"))
+        if existing:
+            existing_content = existing[0].read_text("utf-8")
+            if len(existing_content) > len(final := f"# 第{ch_num}章 {title}\n\n{body}") * 1.5:
+                return {"success": True, "title": title, "path": str(existing[0]),
+                        "word_count": len(existing_content), "kept_existing": True}
+        for old in existing:
             old.unlink()
         path = self.agent.chapter_path(ch_num, title or "untitled")
         path.parent.mkdir(parents=True, exist_ok=True)
