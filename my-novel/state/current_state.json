@@ -1,11 +1,52 @@
 {
   "novel_title": "",
-  "current_chapter": 100,
+  "current_chapter": 5,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
-  "characters": {},
+  "characters": {
+    "沈渊": {
+      "name": "沈渊",
+      "current_location": "",
+      "emotional_state": "冷静、警觉，带有克制的恐惧",
+      "goal": "获取杂役堂死亡记录以绘制完整分布图",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "王德厚": {
+      "name": "王德厚",
+      "current_location": "",
+      "emotional_state": "冷漠例行",
+      "goal": "无显著变化",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "刘大": {
+      "name": "刘大",
+      "current_location": "",
+      "emotional_state": "无显著变化",
+      "goal": "无显著变化",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "赵平": {
+      "name": "赵平",
+      "current_location": "",
+      "emotional_state": "傲慢、随后警觉",
+      "goal": "无显著变化",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "孙管事": {
+      "name": "孙管事",
+      "current_location": "",
+      "emotional_state": "谨慎、克制",
+      "goal": "维持药庐日常运转",
+      "alive": true,
+      "chapter_updated": 0
+    }
+  },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T20:35:11.837806"
+  "last_updated": "2026-06-06T21:00:16.765384"
 }
