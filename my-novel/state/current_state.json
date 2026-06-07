@@ -8,16 +8,16 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "紧张而清醒，逐渐意识到双向锁定的困境",
-      "goal": "理解观测者的系统架构并保持不可替代性",
+      "emotional_state": "清醒而冷静——不是恐惧，是对系统更深层的理解带来的后脑发凉",
+      "goal": "理解系统到最深程度，找到接口的根权限",
       "alive": true,
       "chapter_updated": 0
     },
     "周磊": {
       "name": "周磊",
       "current_location": "",
-      "emotional_state": "安静确认，不恐惧",
-      "goal": "确认自己在梦中被分配的位置",
+      "emotional_state": "平静而接纳——比刘三更确定，像已知流程的人在确认流程正常执行",
+      "goal": "等待刘三装好，然后轮到自己被填入框架",
       "alive": true,
       "chapter_updated": 0
     },
@@ -72,13 +72,13 @@
     "刘三": {
       "name": "刘三",
       "current_location": "",
-      "emotional_state": "认命，清醒接受",
-      "goal": "等待框架装好，接受自己的位置",
+      "emotional_state": "已转化为系统模块，不再是独立意识",
+      "goal": "无——已完成转化",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-07T10:03:06.879600"
+  "last_updated": "2026-06-07T10:05:43.512864"
 }

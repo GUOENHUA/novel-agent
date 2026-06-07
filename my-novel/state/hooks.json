@@ -187,7 +187,7 @@
       "hook-008"
     ],
     "created_at": "2026-06-07T08:55:08.332743",
-    "updated_at": "2026-06-07T09:00:41.784243"
+    "updated_at": "2026-06-07T10:03:42.103061"
   },
   {
     "id": "hook-010",
@@ -636,7 +636,7 @@
       "hook-016"
     ],
     "created_at": "2026-06-07T09:31:31.207747",
-    "updated_at": "2026-06-07T10:01:08.566815"
+    "updated_at": "2026-06-07T10:03:42.094705"
   },
   {
     "id": "hook-020",
@@ -901,7 +901,7 @@
   },
   {
     "id": "hook-14-1",
-    "description": "连接线触墙后在石屋外墙形成光斑——位置精确对应沈渊坐在床上时后脑高度。连接目标不是石屋，是沈渊本人。",
+    "description": "沈渊的接口可编程——成功移动呼吸停顿位置且观测者未纠正，暗示可能获得更多自主配置权限",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "planted",
@@ -912,14 +912,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-07T10:03:27.066402",
-    "updated_at": "2026-06-07T10:03:27.066402"
+    "updated_at": "2026-06-07T10:05:43.437690"
   },
   {
     "id": "hook-14-2",
-    "description": "沈渊发现呼吸停顿可移动位置——接口\"可编程\"。观测者不纠正停顿位置变化。暗示沈渊作为候选枢纽拥有管理节点权限，而刘三作为终端权限是只读的。",
+    "description": "沈渊被定义为'管理节点'——星型拓扑的中心枢纽，需要活着的管理者来协调外围模块",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 14,
     "target_chapter": 22,
     "related_characters": [
@@ -927,14 +927,14 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-07T10:03:27.078870",
-    "updated_at": "2026-06-07T10:03:27.078870"
+    "updated_at": "2026-06-07T10:05:43.476257"
   },
   {
     "id": "hook-14-3",
-    "description": "刘三轮廓出现在框架中，从脚部开始以靛蓝色向内填充——软件层招募完成=转化为系统硬件的过程开始。周磊是下一个，梦境信息投递是连载式的（\"下一集\"）。",
+    "description": "观测者的招募流程：梦（信息投递）→观察前一人→接受位置→转化，每一环设计好引导而非操控",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 14,
     "target_chapter": 18,
     "related_characters": [
@@ -946,11 +946,11 @@
       "hook-13-6"
     ],
     "created_at": "2026-06-07T10:03:27.090357",
-    "updated_at": "2026-06-07T10:03:27.090357"
+    "updated_at": "2026-06-07T10:05:43.484409"
   },
   {
     "id": "hook-14-4",
-    "description": "沈渊识别自身不可替代性来源：他能提供观测者无法自我生成的错误模式。封闭系统无法模拟开放系统的偏差类型→沈渊的错误是观测者的进化燃料。管理节点≠终端——权限更高，接口可编程。",
+    "description": "沈渊的不可替代性：能提供封闭系统无法自行生成的错误模式作为进化燃料",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
@@ -963,6 +963,18 @@
       "hook-020"
     ],
     "created_at": "2026-06-07T10:03:27.101479",
-    "updated_at": "2026-06-07T10:03:27.101479"
+    "updated_at": "2026-06-07T10:05:43.461710"
+  },
+  {
+    "id": "hook-14-5",
+    "description": "第六个被回收的枢纽因'不可编程'被废弃——与沈渊的可编程性形成对比，暗示沈渊的存活条件",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T10:05:43.469230",
+    "updated_at": "2026-06-07T10:05:43.469230"
   }
 ]

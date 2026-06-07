@@ -341,5 +341,36 @@
     "narrative_distance": "close_third",
     "tense": "past",
     "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 14,
+    "title": "预留接口",
+    "word_count": 4965,
+    "summary": "连接线在夜间生长，黎明时触及石屋墙壁，与沈渊建立物理连接。刘三完成转化，轮廓被填入框架，成为系统终端模块。周磊揭示招募机制：观测者通过连载梦境引导每个人按顺序就位，位置会主动找人而非人找位置。沈渊重新理解双向锁定——观测者培养他成为可编程的管理节点，与刘三那种只读终端不同，他的不可替代性源于能提供观测者无法自我生成的错误模式。",
+    "key_events": [
+      "连接线夜间生长至十二尺，黎明时触墙，在沈渊后脑对应位置形成淡蓝色光斑",
+      "刘三完成转化——人消失，轮廓被填入框架，被褥以军队式叠法整齐摆放",
+      "周磊揭示招募机制：梦是连载信息投递，位置会主动找人，前一人装好后下一人自动就位",
+      "沈渊成功移动呼吸停顿位置，确认接口可编程",
+      "沈渊重新定义身份：管理节点而非终端，不可替代性源于他的错误模式是观测者的进化燃料"
+    ],
+    "characters_appearing": [
+      "沈渊",
+      "周磊",
+      "刘三"
+    ],
+    "hooks_planted": [
+      "hook-14-1",
+      "hook-14-2",
+      "hook-14-3",
+      "hook-14-4",
+      "hook-14-5"
+    ],
+    "hooks_resolved": [],
+    "mood": "dark",
+    "pov_character": "沈渊",
+    "narrative_distance": "close_third",
+    "tense": "past",
+    "thought_style": "free_indirect"
   }
 ]
