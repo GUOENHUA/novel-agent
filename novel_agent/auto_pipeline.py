@@ -107,6 +107,17 @@ class AutoPipeline:
         signal.signal(signal.SIGINT, self._interrupt_handler)
 
         try:
+            # Ensure setup exists before writing
+            outline_path = self.agent.project_dir / "outline" / "full.md"
+            if not outline_path.exists():
+                _safe_print("  Creating outline...")
+                loop.process_turn(
+                    "先确定小说类型（如男频-玄幻、悬疑修仙等），然后写一份完整大纲（至少500字），"
+                    "包含核心概念、世界观设定、主角和重要反派。用 outline_plot save 保存。",
+                    interactive=False,
+                )
+            self.agent.conversation_history = []
+
             for ch in range(start_chapter, start_chapter + count):
                 if self.agent.interrupted:
                     _safe_print(f"\n  PAUSED  自动模式已暂停 (已完成 {ch - start_chapter}/{count} 章)")
