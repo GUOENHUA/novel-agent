@@ -1,1589 +1,815 @@
 [
   {
     "id": "hook-001",
-    "description": "灵气抽取系统：修炼不是吸收灵气，而是被抽取。灵气单向流动——从低阶修士流向高阶，从人间流向某个\"上方\"。沈渊在第1章首次观测到体内灵气的微量外流。",
+    "description": "沈渊体内发现遍布经脉壁外侧的微型吸收结构——灵气泄漏后被它们吸收并流向体外。这是天道寄生系统的物理证据。",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 56,
-    "related_characters": [
-      "沈渊"
-    ],
+    "target_chapter": 10,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T10:10:16.695333",
-    "updated_at": "2026-06-07T10:15:46.442019"
+    "created_at": "2026-06-07T12:49:18.845187",
+    "updated_at": "2026-06-07T13:30:47.951713"
   },
   {
     "id": "hook-002",
-    "description": "天道是有意志的存在：沈渊在第1章末尾第一次感到\"被注视\"。天道开始注意到这个异常者。第80章左右正式确认天道的意志性。",
+    "description": "沈渊发现灵气循环是封闭系统——所有箭头指向丹田，没有输出。推论：修炼不是吸收，是被抽取。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:18.852816",
+    "updated_at": "2026-06-07T13:30:47.958224"
+  },
+  {
+    "id": "hook-003",
+    "description": "灵石内部的纹理被沈渊识别为\"应力分布结构\"（骨小梁），暗示灵石承受过持续定向压力——非天然形成。",
     "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
+    "target_chapter": 25,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:18.858240",
+    "updated_at": "2026-06-07T13:30:47.964161"
+  },
+  {
+    "id": "hook-004",
+    "description": "执法堂传讯沈渊——他将获得接触灵石库存和弟子案卷的机会，可能发现更多证据。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 1,
+    "target_chapter": 2,
+    "resolved_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:18.863300",
+    "updated_at": "2026-06-07T13:30:47.969671"
+  },
+  {
+    "id": "hook-005",
+    "description": "修炼体系疑似人造——经脉中心化代谢结构不合理，灵气循环是封闭系统只进不出，体内存在微型灵气吸收网络",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:53.876896",
+    "updated_at": "2026-06-07T13:30:47.976088"
+  },
+  {
+    "id": "hook-006",
+    "description": "灵石内部纹路类似骨骼应力结构，暗示承受过持续定向压力",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 1,
+    "resolved_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:53.884731",
+    "updated_at": "2026-06-07T13:30:47.982886"
+  },
+  {
+    "id": "hook-007",
+    "description": "青云宗底层机制在持续抽取修士身上的某种东西——体内的微型吸收网络 + 聚灵阵干扰事件",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:53.889734",
+    "updated_at": "2026-06-07T13:30:47.989399"
+  },
+  {
+    "id": "hook-008",
+    "description": "丹田炼化法的转化率黑箱——输入灵气与输出真元之间存在不可观测的差额",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:53.895128",
+    "updated_at": "2026-06-07T13:30:47.996662"
+  },
+  {
+    "id": "hook-009",
+    "description": "沈渊前往执法堂——看守灵石库存、管理弟子案卷的地方，暗示将发现更多线索",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:49:53.900127",
+    "updated_at": "2026-06-07T13:30:48.002420"
+  },
+  {
+    "id": "hook-010",
+    "description": "聚灵阵的真实功能不是滋养灵植，而是收集管道——药田只是表层用途。沈渊推断灵脉是输送管道，地底存在未知终端在抽取灵气。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 80,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:54:31.293685",
+    "updated_at": "2026-06-07T13:30:48.008307"
+  },
+  {
+    "id": "hook-011",
+    "description": "三株紫芝呈等边三角形分布在聚灵阵中心——这是阵法设计中锚定能量流向的标准布局。暗示青云宗（乃至整个修仙体系）的阵法底层存在统一的\"设计语言\"。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 50,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:54:31.299707",
+    "updated_at": "2026-06-07T13:30:48.014844"
+  },
+  {
+    "id": "hook-012",
+    "description": "赵老四是唯一不躲避沈渊目光的外门弟子。当所有人都对沈渊进行社交隔离时，赵老四照常喊他吃饭。赵老四和赵师兄同姓（赵家村），他的\"例外\"有隐情。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 2,
+    "target_chapter": 15,
+    "resolved_chapter": 2,
+    "related_characters": [
+      "赵老四"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:54:31.304707",
+    "updated_at": "2026-06-07T13:30:48.021554"
+  },
+  {
+    "id": "hook-013",
+    "description": "沈渊背负九十块下品灵石的债务（=七年半月俸），一个月内缴清否则逐出宗门。这个外部压力将迫使他在赚钱过程中接触宗门底层运作。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 10,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:54:31.310216",
+    "updated_at": "2026-06-07T13:30:48.027552"
+  },
+  {
+    "id": "hook-014",
+    "description": "药田聚灵阵的真实功能是收集地脉灵气并输送至地下，灵植只是表层用途",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:59:56.317968",
+    "updated_at": "2026-06-07T13:30:48.034294"
+  },
+  {
+    "id": "hook-015",
+    "description": "灵石内部的纹理是灵气流向痕迹，所有灵石流向都指向地下深处",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:59:56.325907",
+    "updated_at": "2026-06-07T13:30:48.039500"
+  },
+  {
+    "id": "hook-016",
+    "description": "孙德胜——炼气八层、管事堂、铁扳指。社交隔离群体中的异常值（直接看沈渊两秒而不回避）。在丙区药田案发后曾以\"登记损毁灵植价值\"名义来过药田，阵心位置有翻动痕迹，怀疑他动过阵心。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 15,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:59:56.330980",
+    "updated_at": "2026-06-07T13:30:48.045708"
+  },
+  {
+    "id": "hook-017",
+    "description": "赵老四之兄六年前死于灵脉矿，尸体骨头上有\"干净的洞\"，非塌方非灵气泄漏。伤口形态与灵石纹理收束方向一致。赵老四查了六年，在沈渊身上看到了同样的调查者。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 30,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:59:56.336900",
+    "updated_at": "2026-06-07T13:30:48.052356"
+  },
+  {
+    "id": "hook-018",
+    "description": "三息时钟信号——灵石残存灵气脉冲周期约三息，聚灵阵灵光脉动周期同样三息。地下抽取系统是联网同步的，所有终端使用同一时钟信号。像一个泵。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 2,
+    "target_chapter": 50,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T12:59:56.341921",
+    "updated_at": "2026-06-07T13:30:48.058786"
+  },
+  {
+    "id": "hook-019",
+    "description": "孙德胜行为异常——直接注视沈渊、戴铁扳指、案发后去过药田阵心",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:05:31.285450",
+    "updated_at": "2026-06-07T13:30:48.066046"
+  },
+  {
+    "id": "hook-020",
+    "description": "灵石残存灵气呈三息脉冲周期，聚灵阵同步——地下抽取系统联网运行，疑似有'泵'在工作",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:05:31.292448",
+    "updated_at": "2026-06-07T13:30:48.071560"
+  },
+  {
+    "id": "hook-021",
+    "description": "药田阵心泥土被翻动，有人在案发后动过阵心",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:05:31.299466",
+    "updated_at": "2026-06-07T13:30:48.077350"
+  },
+  {
+    "id": "hook-022",
+    "description": "赵老四之兄死于矿上，伤口是干净的洞而非塌方或灵气灼伤，死因可疑",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:05:31.304976",
+    "updated_at": "2026-06-07T13:30:48.083808"
+  },
+  {
+    "id": "hook-023",
+    "description": "丙区灵田问题牵涉多名弟子被罚灵石，聚灵阵异常范围比预估更大",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 3,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:05:31.309976",
+    "updated_at": "2026-06-07T13:30:48.089672"
+  },
+  {
+    "id": "hook-024",
+    "description": "矿下东壁岩石纹理统一指向西方，西壁灵光亮斑呈四十五度斜切线——非天然矿脉走向，是被某种结构斜切地层形成的截面。沈渊推断地下结构不是管道而是壳体。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 80,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:08:52.809686",
+    "updated_at": "2026-06-07T13:30:48.095887"
+  },
+  {
+    "id": "hook-025",
+    "description": "矿下塌方暴露出嵌在岩层中的黑色光滑断片——非陶瓷非金属，表面有湿漉漉的生物性光泽。暗处自发光。沈渊判断为壳体结构的外壁，且具有生物活性（几丁质、生物性发光）。壳是活的。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 80,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:08:52.817302",
+    "updated_at": "2026-06-07T13:30:48.102398"
+  },
+  {
+    "id": "hook-026",
+    "description": "东壁岩层后方发现空洞，吹出带铁锈味的干燥的风，且有微弱三息脉冲。空洞位置与西壁亮斑群处于同一立面——疑似壳体结构的内部空间或通风管道。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 50,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:08:52.823006",
+    "updated_at": "2026-06-07T13:30:48.108628"
+  },
+  {
+    "id": "hook-027",
+    "description": "赵老四之兄死前一天夜里说听到岩壁里有\"指甲刮石板\"的声音——类似生物刮擦声。矿下第四层被管事堂用封禁阵法锁住，触碰会起水泡。需要破阵才能下去。",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "target_chapter": 30,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:08:52.829902",
+    "updated_at": "2026-06-07T13:30:48.115646"
+  },
+  {
+    "id": "hook-028",
+    "description": "刘管事在塌方暴露黑色壳面后反应异常——面无表情、立即停工封矿。管事堂似乎早已知道壳体的存在，封矿是掩盖而非安全措施。暗示宗门高层有人知情并主动隐瞒。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "resolved",
+    "planted_chapter": 4,
+    "target_chapter": 40,
+    "resolved_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:08:52.835902",
+    "updated_at": "2026-06-07T13:30:48.122453"
+  },
+  {
+    "id": "hook-029",
+    "description": "东侧岩壁背后发现空腔，三息脉冲的风从裂缝吹出，深处有东西在呼吸——壳体内部可能存在活体或机械装置",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:09:58.148095",
+    "updated_at": "2026-06-07T13:30:48.127964"
+  },
+  {
+    "id": "hook-030",
+    "description": "塌方暴露的黑色断面——光滑、漆黑、潮湿反光，类似几丁质或甲壳类外骨骼，嵌在岩层中",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:09:58.156609",
+    "updated_at": "2026-06-07T13:30:48.134974"
+  },
+  {
+    "id": "hook-031",
+    "description": "刘管事对黑色结构异常平静，似乎早就知道地下埋着什么，下令封矿时脸上没有惊讶",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:09:58.162117",
+    "updated_at": "2026-06-07T13:30:48.140283"
+  },
+  {
+    "id": "hook-032",
+    "description": "赵老六六年前出事前夜曾说岩壁内传出'指甲刮石板的声音'，与本章空腔发现形成呼应",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:09:58.168117",
+    "updated_at": "2026-06-07T13:30:48.146325"
+  },
+  {
+    "id": "hook-033",
+    "description": "赵老四请求沈渊帮他破开第四层封禁，沈渊未立即回答——建立沈渊卷入更深层探索的伏笔",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 4,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:09:58.173627",
+    "updated_at": "2026-06-07T13:30:48.153881"
+  },
+  {
+    "id": "hook-034",
+    "description": "古籍《壳虫说》残简——描述壳虫\"生于地脉，无首无足，唯壳而已。壳色玄黑，湿泽如膏，触之温。壳内空，有气出入，三息一至。古修士谓之地龙蜕\"。沈渊怀疑壳不是蜕下来的而是活的，古人可能理解错了本质。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 5,
     "target_chapter": 80,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-07T10:10:16.704204",
-    "updated_at": "2026-06-07T10:43:57.478395"
-  },
-  {
-    "id": "hook-003",
-    "description": "原主在走火入魔前尝试的'新法子'——修改了功法或经脉路线，具体内容不明",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:15:46.425003",
-    "updated_at": "2026-06-07T10:43:57.487537"
-  },
-  {
-    "id": "hook-004",
-    "description": "灵气被从修士体内抽取后的最终流向——青云宗在整个系统中的层级位置",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:15:46.434876",
-    "updated_at": "2026-06-07T10:53:17.824378"
-  },
-  {
-    "id": "hook-005",
-    "description": "药田灵气分布异常——植物体内灵气外流，方向斜上指向山腰下方某处（非垂直向上）。药田边缘灵气浓度高于深处，与直觉相反。暗示抽取源在特定方向。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 3,
-    "target_chapter": 10,
-    "resolved_chapter": 7,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:17:51.169277",
-    "updated_at": "2026-06-07T10:53:17.834783"
-  },
-  {
-    "id": "hook-006",
-    "description": "分叉口右侧小路通向山腰下方——雾气退向该方向，药田灵气也流向该方向。沈渊丹田出现短暂共鸣（半圈），暗示该方向有灵气活动源。待探查。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 3,
-    "target_chapter": 5,
-    "resolved_chapter": 4,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:17:51.179213",
-    "updated_at": "2026-06-07T10:59:09.634474"
-  },
-  {
-    "id": "hook-007",
-    "description": "圆阵铜针导出的灵气通向更深层地下——最终目的地不明。圆阵是\"终端节点\"，暗示整个青云宗可能遍布类似装置。深层地下可能存在更大的阵法或装置汇总所有抽取的灵气。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 4,
-    "target_chapter": 25,
-    "related_characters": [
-      "沈渊",
-      "黑腰带弟子（圆阵巡检者）"
-    ],
-    "related_hooks": [
-      "hook-004",
-      "hook-005"
-    ],
-    "created_at": "2026-06-07T10:25:24.392196",
-    "updated_at": "2026-06-07T10:59:09.646551"
-  },
-  {
-    "id": "hook-008",
-    "description": "藏经阁某\"没人去的角落\"有一本经脉嫁接旧书——原主从中找到了锁住灵气的方法但失败。此书可能包含关于灵气抽取的古老知识或绕过抽取的技术。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 4,
-    "target_chapter": 15,
-    "resolved_chapter": 15,
-    "related_characters": [
-      "沈渊",
-      "赵谦"
-    ],
-    "related_hooks": [
-      "hook-003"
-    ],
-    "created_at": "2026-06-07T10:25:24.402655",
-    "updated_at": "2026-06-07T11:49:15.719467"
-  },
-  {
-    "id": "hook-009",
-    "description": "藏经阁角落有一本关于经脉嫁接的旧书，原主曾用其尝试新法",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:28:20.802490",
-    "updated_at": "2026-06-07T12:06:12.817250"
-  },
-  {
-    "id": "hook-010",
-    "description": "下路山腰下方存在人工圆阵，三块灵石吸入雾气并导出灵气",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:28:20.813331",
-    "updated_at": "2026-06-07T10:53:17.886616"
-  },
-  {
-    "id": "hook-011",
-    "description": "一名黑腰带弟子定期维护圆阵，抽取灵气通向山体深处",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:28:20.822268",
-    "updated_at": "2026-06-07T12:06:12.832096"
-  },
-  {
-    "id": "hook-012",
-    "description": "原主进入藏经阁的未知方法——张师兄拒绝后原主仍成功进入。暗示藏经阁另有入口、或原主掌握了某种绕过执事的手段。此方法可能对沈渊有用。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 5,
-    "target_chapter": 7,
-    "resolved_chapter": 7,
-    "related_characters": [
-      "沈渊",
-      "张师兄",
-      "赵谦"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:31:37.731608",
-    "updated_at": "2026-06-07T12:06:12.845699"
-  },
-  {
-    "id": "hook-013",
-    "description": "铜针材质之谜——圆阵外缘的铜针能导出灵气至地下。沈渊在笔记中标注需要确认材质。铜针材质可能揭示抽取系统的技术原理或弱点。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 5,
-    "target_chapter": 15,
-    "resolved_chapter": 15,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-005",
-      "hook-004"
-    ],
-    "created_at": "2026-06-07T10:31:37.741547",
-    "updated_at": "2026-06-07T12:06:12.861149"
-  },
-  {
-    "id": "hook-05-1",
-    "description": "藏经阁二楼东侧楼梯后暗格有一本黑色无书名旧书，可能记载经脉嫁接法门",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 5,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:32:48.509177",
-    "updated_at": "2026-06-07T11:20:33.365998"
-  },
-  {
-    "id": "hook-05-2",
-    "description": "原主找到那本书后看人的方式变了，似乎在看他本不该知道的东西",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 5,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:32:48.521525",
-    "updated_at": "2026-06-07T11:20:33.378171"
-  },
-  {
-    "id": "hook-06-1",
-    "description": "书中出现现代词汇\"终端\"——暗示写书人可能也是穿越者，或曾接触过穿越者。\"终端\"一词不该出现在修仙体系中。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 6,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:35:10.500511",
-    "updated_at": "2026-06-07T11:20:33.391480"
-  },
-  {
-    "id": "hook-06-2",
-    "description": "\"五脉成鞘，天道不察\"——书中提到在五个关键位置（丹田、心脏、左肩、右肾、大脑）建立\"鞘\"可以躲避天道监测。这是比逆转经脉更高级的避术。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 6,
-    "target_chapter": 50,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:35:10.509551",
-    "updated_at": "2026-06-07T11:20:33.403044"
-  },
-  {
-    "id": "hook-06-3",
-    "description": "黑皮书中出现“终端”这一现代词汇，暗示作者或与穿越者有关，且“五脉成鞘，天道不察”可能指向一条避开监视的路径。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 6,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:37:39.087012",
-    "updated_at": "2026-06-07T11:20:33.414478"
-  },
-  {
-    "id": "hook-014",
-    "description": "老执事之死——第7章结尾，张师兄报信：老执事死在藏经阁，时间是沈渊潜入之后当晚。死因不明。可能与沈渊潜入有关（老执事被问责？）、或与黑皮书被盗有关、或纯属巧合。此事将引发宗门调查，威胁沈渊安全。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 7,
-    "target_chapter": 9,
-    "resolved_chapter": 17,
-    "related_characters": [
-      "沈渊",
-      "张师兄"
-    ],
-    "related_hooks": [
-      "hook-008"
-    ],
-    "created_at": "2026-06-07T10:42:34.201310",
-    "updated_at": "2026-06-07T12:06:13.969360"
-  },
-  {
-    "id": "hook-015",
-    "description": "黑皮书上的历代批注者——至少四个不同笔迹（原作者旧墨、潦草字、细长字、圆字）。潦草字在切心脉时停顿导致心肌永久受损（\"吾已停顿\"）。圆字至少活到读第二部分。细长字标注了藏经阁后墙入口。这些人的身份和结局是谜——有人成功逃脱天道吗？还是全都死了？",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-008"
-    ],
-    "created_at": "2026-06-07T10:42:34.211495",
-    "updated_at": "2026-06-07T12:06:12.892795"
-  },
-  {
-    "id": "hook-016",
-    "description": "\"终端\"一词的疑云——原作者使用了\"终端\"这个非修仙词汇。沈渊初步判断原作者不像穿越者（文字习惯是文言文），但无法完全排除。这个词的来源是谜：是原作者自创、还是暗示原作者有现代背景、还是另有原因。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "target_chapter": 50,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:42:34.220369",
-    "updated_at": "2026-06-07T12:06:12.908038"
-  },
-  {
-    "id": "hook-07-1",
-    "description": "终端分布图被揭示——二十七处终端散布青云宗山体，其中一处被原作者重点标记在西侧山腰以下（疑似圆阵方向），暗示该终端功能特殊",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:43:57.428957",
-    "updated_at": "2026-06-07T12:06:12.923567"
-  },
-  {
-    "id": "hook-07-2",
-    "description": "原作者遗言：'汝非虫。天道为虫。'——暗示天道本身并非至高存在，可能也是某种寄生系统，此观念的颠覆性将影响沈渊未来的行动逻辑",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:43:57.439852",
-    "updated_at": "2026-06-07T12:06:12.937851"
-  },
-  {
-    "id": "hook-07-3",
-    "description": "书中边缘批注显示至少有四名修士尝试过经脉嫁接——潦草字、细长字、圆字、原主。他们的最终命运是否全部死亡？是否有人成功并逃脱？留下悬念",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:43:57.449783",
-    "updated_at": "2026-06-07T12:06:12.953641"
-  },
-  {
-    "id": "hook-07-4",
-    "description": "第二部分'第五脉鞘'只有十张图无操作说明——原理不明，但圆字批注'难'暗示此方向可行。沈渊需要获取更多信息才能推进",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:43:57.458224",
-    "updated_at": "2026-06-07T12:06:12.969290"
-  },
-  {
-    "id": "hook-07-5",
-    "description": "沈渊改变策略——不同于原主直接尝试，他决定先系统性整理信息再验证，这一思维模式的差异可能决定他的生死",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 7,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:43:57.469456",
-    "updated_at": "2026-06-07T12:06:12.985230"
-  },
-  {
-    "id": "hook-017",
-    "description": "暗格遗留物——沈渊只拿了黑皮书，暗格中还有几页散纸和一把黄铜钥匙未被取走。执法堂已发现暗格并打开整面墙。散纸上可能有关键信息（原主？前代批注者？），钥匙可能指向藏经阁或宗门的另一处秘密。执法堂调查可能发现这些物品并追查。 → Ch12",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 8,
-    "target_chapter": 12,
-    "resolved_chapter": 12,
-    "related_characters": [
-      "沈渊",
-      "老执事"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:47:27.940679",
-    "updated_at": "2026-06-07T12:23:08.063868"
-  },
-  {
-    "id": "hook-018",
-    "description": "细长字批注者的深层知识——细长字在第三部分第二页边缘写下：逆转第三十七转阻断识别信号，逆转第五十三转阻断抽取通道。此人对逆转经脉的理解超越了原作者，且知道凿脉可用外物（铜针、玉刀）替代灵力刃。细长字的身份和结局成谜——他活下来了吗？他的研究完成了多少？ → Ch25",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 8,
-    "target_chapter": 25,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-015",
-      "hook-016"
-    ],
-    "created_at": "2026-06-07T10:47:27.952413",
-    "updated_at": "2026-06-07T12:23:08.076125"
-  },
-  {
-    "id": "hook-019",
-    "description": "老执事死因——灵气逆冲而死，与黑皮书描述的\"逆转经脉超十息\"完全一致。但老执事作为看门人理论上不会逆转经脉技术。两种可能：有人用功法/工具引发了他的灵气逆冲（他杀），或老执事自己也知道黑皮书并尝试了逆转（自杀/意外）。刘长老亲自到场暗示老执事身份不简单。 → Ch10",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 8,
-    "target_chapter": 10,
-    "related_characters": [
-      "沈渊",
-      "老执事",
-      "张师兄"
-    ],
-    "related_hooks": [
-      "hook-014"
-    ],
-    "created_at": "2026-06-07T10:47:27.963810",
-    "updated_at": "2026-06-07T12:06:13.034923"
-  },
-  {
-    "id": "hook-08-1",
-    "description": "老执事死状诡异：脸朝下、手往前伸够东西，死因是灵气逆冲而非外伤",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 8,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:48:12.274057",
-    "updated_at": "2026-06-07T12:06:13.051567"
-  },
-  {
-    "id": "hook-08-2",
-    "description": "刘长老亲自到场调查规格不对，暗示老执事身份不简单",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 8,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:48:12.298730",
-    "updated_at": "2026-06-07T12:06:13.067924"
-  },
-  {
-    "id": "hook-08-3",
-    "description": "逆转第五十三转可阻断灵气抽取通道，从'逃避识别'升级为'对抗抽取'",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 8,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:48:12.321416",
-    "updated_at": "2026-06-07T12:06:13.084976"
-  },
-  {
-    "id": "hook-020",
-    "description": "老执事可能是细长字——沈渊推断：如果老执事就是细长字批注者，他在藏经阁二十年不是看守而是研究。细长字是最多批注的人（后墙入口、逆转三十七/五十三转分类、凿脉工具替代），且批注风格像研究者做笔记。老执事每天值夜、天亮前锁门——只能在夜间阅读暗格中的黑皮书。如果他是细长字，他的死不可能是自杀（他早知逆转经脉原理），而是他杀——凶手可能也读过黑皮书或知道灵气逆冲杀人法。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 9,
-    "target_chapter": 18,
-    "resolved_chapter": 9,
-    "related_characters": [
-      "沈渊",
-      "老执事"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:51:56.643817",
-    "updated_at": "2026-06-07T12:06:13.102133"
-  },
-  {
-    "id": "hook-021",
-    "description": "柳鹤亭——同案三人之一，二十年前因\"修习禁忌之术\"被逐出内门，自请守断龙崖废弃铜矿（山西边，翻过西山脊）。废弃铜矿可能关联灵矿之材（铜针材质来源）或废弃终端。柳鹤亭是唯一已知下落明确的同案者——他可能拥有黑皮书的知识或相关研究。另外一人下落不明。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 9,
-    "target_chapter": 25,
-    "resolved_chapter": 9,
-    "related_characters": [
-      "柳鹤亭",
-      "老执事",
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:51:56.653031",
-    "updated_at": "2026-06-07T12:06:13.117742"
-  },
-  {
-    "id": "hook-022",
-    "description": "刘长老嫌疑——刘长老二十年前亲自办理三名内门弟子的\"禁忌之术\"案，二十年后又亲自到场老执事死亡现场。他知道\"禁忌之术\"的具体内容——可能知道黑皮书的存在。如果暗格和黑皮书是二十年前那桩案子的遗留物，刘长老有动机清除知情者。沈渊开始怀疑刘长老。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 9,
-    "target_chapter": 20,
-    "related_characters": [
-      "刘长老",
-      "沈渊",
-      "老执事"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:51:56.660616",
-    "updated_at": "2026-06-07T12:33:58.386769"
-  },
-  {
-    "id": "hook-023",
-    "description": "圆阵铜针被盗——圆阵外缘六十四根铜针少了一根（西南角，靠近碎石坡），北侧地面有两条平行金属划痕（间隔三指宽）。黑腰带弟子已察觉异常。偷铜针的人需要灵矿之材——可能是为了凿脉（如细长字所述用外物替代灵力刃），也可能是为了其他目的。铜针被拔与老执事之死是否有关？",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 9,
-    "target_chapter": 15,
-    "resolved_chapter": 9,
-    "related_characters": [
-      "沈渊",
-      "赵谦",
-      "黑腰带弟子"
-    ],
-    "related_hooks": [
-      "hook-013"
-    ],
-    "created_at": "2026-06-07T10:51:56.669138",
-    "updated_at": "2026-06-07T12:06:13.152764"
-  },
-  {
-    "id": "hook-024",
-    "description": "沈渊即将测试逆转三十七转——阻断天道识别信号。测试目的：验证细长字批注的准确性。如果三十七转有效，五十三转阻断抽取也可能是真的。这将是从\"逃\"到\"对抗\"的关键一步。沈渊已把黑皮书藏到药田废弃灌溉渠的裂缝中。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 9,
-    "target_chapter": 10,
-    "resolved_chapter": 10,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:51:56.677664",
-    "updated_at": "2026-06-07T12:06:13.169495"
-  },
-  {
-    "id": "hook-09-1",
-    "description": "柳鹤亭——老执事同案之一，自请守断龙崖废弃铜矿，下落不明",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 9,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:53:17.772231",
-    "updated_at": "2026-06-07T12:06:13.187560"
-  },
-  {
-    "id": "hook-09-2",
-    "description": "铜针少一根，圆阵北侧地面两条平行金属划痕（三指宽），暗示有人拖拽重物",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 9,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:53:17.782256",
-    "updated_at": "2026-06-07T12:06:13.204422"
-  },
-  {
-    "id": "hook-09-3",
-    "description": "散纸上画着第五脉鞘人体红点图，旁有'五'字，执法堂手中",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 9,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:53:17.792533",
-    "updated_at": "2026-06-07T12:06:13.220586"
-  },
-  {
-    "id": "hook-09-4",
-    "description": "老执事与细长字的关系——守暗格二十年，可能即是黑皮书的批注者",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 9,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:53:17.803481",
-    "updated_at": "2026-06-07T12:06:13.238695"
-  },
-  {
-    "id": "hook-09-5",
-    "description": "黑腰带弟子已察觉铜针失窃和金属划痕，在找拔走铜针的人",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 9,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:53:17.812558",
-    "updated_at": "2026-06-07T12:06:13.255185"
-  },
-  {
-    "id": "hook-025",
-    "description": "沈渊计划天黑后重读黑皮书第二部分（第五脉鞘）——十张图、圆字批注\"难\"、细长字笔记。目标：在逆转五十三转之前理解第五脉鞘的原理。五脉成鞘是比经脉嫁接更高的隐匿级别——让天道\"察觉不到\"而非仅\"无法识别\"。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 10,
-    "target_chapter": 11,
-    "resolved_chapter": 11,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:58:30.205948",
-    "updated_at": "2026-06-07T12:06:13.272241"
-  },
-  {
-    "id": "hook-026",
-    "description": "赵谦将在晚上数南侧铜针数量（从药田边缘斜看），次日早晨汇报。对比南北侧铜针数量和材质，判断圆阵吸收方向。若南北不对称——北侧是主要吸收面，终端在正下方。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 10,
-    "target_chapter": 11,
-    "resolved_chapter": 11,
-    "related_characters": [
-      "赵谦",
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:58:30.217506",
-    "updated_at": "2026-06-07T12:06:13.287582"
-  },
-  {
-    "id": "hook-027",
-    "description": "原主死前最后两天感觉\"有人在看他——不是终端，是真人\"。说明当时已有真实人物（非天道/终端）注意到了原主的异常。这个人可能是：杀老执事的同一人、执法堂的人、或二十年前禁忌之术案的知情者。此人可能仍在观察沈渊。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 10,
-    "target_chapter": 20,
-    "related_characters": [
-      "沈渊",
-      "赵谦"
-    ],
-    "related_hooks": [
-      "hook-019",
-      "hook-022"
-    ],
-    "created_at": "2026-06-07T10:58:30.228450",
-    "updated_at": "2026-06-07T12:06:13.304159"
-  },
-  {
-    "id": "hook-028",
-    "description": "沈渊第一次心壁冲击测试成功——半息恢复。第十三条经脉在心脏停跳时自动收缩提供外部约束，验证了\"有经脉+冲击\"的安全路径。但需要更多测试找到安全上限。细长字二十九次后每次心停延长——沈渊有第十三条经脉能否抵消此效应未知。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 10,
-    "target_chapter": 13,
-    "resolved_chapter": 14,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-022"
-    ],
-    "created_at": "2026-06-07T10:58:30.239213",
-    "updated_at": "2026-06-07T12:06:13.321326"
-  },
-  {
-    "id": "hook-10-1",
-    "description": "圆阵北侧铜针被全部更换为含铜量更高的新针，北侧地面返盐——圆阵吸收有方向性，终端在地下",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 10,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:59:09.494810",
-    "updated_at": "2026-06-07T12:06:13.339309"
-  },
-  {
-    "id": "hook-10-2",
-    "description": "原主死前听见终端的声音在头骨里响——天道锁定个人的具体表现",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 10,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:59:09.506848",
-    "updated_at": "2026-06-07T12:06:13.357917"
-  },
-  {
-    "id": "hook-10-3",
-    "description": "原主遗言'不要碰他碰过的东西'——警告赵谦远离黑皮书",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 10,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:59:09.517892",
-    "updated_at": "2026-06-07T12:06:13.374031"
-  },
-  {
-    "id": "hook-10-4",
-    "description": "原主死前感觉有真人在观察他——不是天道的监视，是具体的人",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 10,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T10:59:09.527759",
-    "updated_at": "2026-06-07T12:06:13.391173"
-  },
-  {
-    "id": "hook-030",
-    "description": "圆阵南北两侧全部铜针更换——抽取量翻倍。沈渊推测：他逆转三十七转的一息盲区被天道检测到，天道在加强监测。终端在找他。时间窗口在缩短。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 11,
-    "target_chapter": 12,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:04:13.226167",
-    "updated_at": "2026-06-07T12:06:13.410864"
-  },
-  {
-    "id": "hook-029",
-    "description": "圆字身份之谜——在黑皮书第八张图旁写了\"难\"字的人。笔画粗而圆，用秃笔。可能是第一个试图做第五脉鞘的人。在细长字之前。三种可能：试了失败死了、没试放弃了、试了成功离开了。圆字未留下更多笔记。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 11,
-    "target_chapter": 30,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:05:01.663607",
-    "updated_at": "2026-06-07T12:06:13.426724"
-  },
-  {
-    "id": "hook-031",
-    "description": "散纸内容——圆字（圆胖笔迹）在散纸上留下关键警告：「鞘成。天道不察。但人察。」说明鞘成之后虽然瞒过天道，但会被另一个人（终端背后的人？刘长老？）察觉。圆字完成了鞘，但结果可能是死亡或更糟。这是第五脉鞘的真正代价——不是心壁裂纹，是被\"人\"发现。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 12,
-    "target_chapter": 30,
-    "related_characters": [
-      "沈渊",
-      "圆字",
-      "刘长老",
-      "张师兄"
-    ],
-    "related_hooks": [
-      "hook-017",
-      "hook-029",
-      "hook-022"
-    ],
-    "created_at": "2026-06-07T11:08:37.733482",
-    "updated_at": "2026-06-07T12:06:13.444429"
-  },
-  {
-    "id": "hook-032",
-    "description": "黄铜钥匙——暗格遗留物之一，两截指节长，匙柄刻字（已锈蚀看不清），铜铸而非宗门惯用的铁铸。目前被刘长老收走。钥匙可能指向藏经阁或宗门另一处秘密——可能与终端、圆字、或二十年前禁忌之术案的第三名弟子有关。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 12,
-    "target_chapter": 35,
-    "related_characters": [
-      "沈渊",
-      "刘长老",
-      "圆字"
-    ],
-    "related_hooks": [
-      "hook-017",
-      "hook-022"
-    ],
-    "created_at": "2026-06-07T11:08:37.742321",
-    "updated_at": "2026-06-07T12:06:13.462757"
-  },
-  {
-    "id": "hook-033",
-    "description": "执法堂全宗搜查——刘长老下令搜查黑皮书，先查外门弟子宿舍（今天），再查内门（明天），后天查杂役房（包括沈渊的石屋）。沈渊必须在后天之前转移黑皮书或完成鞘。时间窗口仅两夜一天。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 12,
-    "target_chapter": 13,
-    "resolved_chapter": 17,
-    "related_characters": [
-      "沈渊",
-      "刘长老"
-    ],
-    "related_hooks": [
-      "hook-030"
-    ],
-    "created_at": "2026-06-07T11:08:37.750919",
-    "updated_at": "2026-06-07T12:06:13.480923"
-  },
-  {
-    "id": "hook-034",
-    "description": "沈渊找到心壁冲击安全上限——第十四次（单次恢复不超过三息），第十五次超过三息半并出现心律不齐。预估第二十次超过四息，第二十五次超过五息。他必须在终端扫描功率达到锁定阈值前完成全部三十七次冲击。明晚测试第十六到第二十次，后天晚上完成剩余。同时还发现第十三条经脉在冲击时发热，裂纹在扩大——经脉和心壁接触面在反复摩擦中受损。恢复时间曲线呈非线性加速。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 13,
-    "target_chapter": 14,
-    "resolved_chapter": 14,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:16:23.911993",
-    "updated_at": "2026-06-07T12:06:13.497144"
+    "created_at": "2026-06-07T13:14:23.679590",
+    "updated_at": "2026-06-07T13:30:48.159666"
   },
   {
     "id": "hook-035",
-    "description": "黑皮书已转移——沈渊将黑皮书藏在藏经阁一楼西侧书架底层旧书堆中。西侧是终端识别盲区。藏经阁二楼东侧有终端识别节点，与圆阵同步扫描。两个节点交叉扫描——沈渊推测有三个以上节点在同时工作。黑皮书已不在石屋——后天执法堂来查不会发现。但藏经阁终端识别节点在扫描时可能覆盖西侧盲区（若功率加大）。",
-    "hook_type": "action",
+    "description": "八十年前丙区旧档——红笔标注丙四层遇黑色硬层停工七日。之后记录中不再提及，采矿恢复如常。沈渊拿走纸卷，将在后续章节分析更多被掩盖的异常数据。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 13,
-    "target_chapter": 14,
+    "planted_chapter": 5,
+    "target_chapter": 10,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:16:23.921665",
-    "updated_at": "2026-06-07T12:06:13.514402"
-  },
-  {
-    "id": "hook-12-1",
-    "description": "散纸上圆胖笔迹的七个字：鞘成，天道不察，但人察——揭示鞘完成的代价是会被终端背后的人察觉",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 12,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:20:33.338967",
-    "updated_at": "2026-06-07T12:06:13.531822"
-  },
-  {
-    "id": "hook-12-2",
-    "description": "终端通过圆阵主动搜索灵气波动——正在搜捕逆转经脉的人",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 12,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:20:33.355511",
-    "updated_at": "2026-06-07T12:06:13.547934"
+    "created_at": "2026-06-07T13:14:23.688100",
+    "updated_at": "2026-06-07T13:30:48.166203"
   },
   {
     "id": "hook-036",
-    "description": "藏经阁二楼东侧天花板发现终端识别节点——手掌大铜片，四角铁钉固定，刻痕与圆阵铜针相同。节点正对暗格方向——天道一直在监视靠近暗格的人。老执事守暗格二十年，终端一直在扫描他——他知道，所以不敢冲击心壁做鞘。沈渊推测：终端扫描的是灵气波动而非人脸，但冲击心壁产生的\"空白\"若被扫描捕捉——终端可以比对匹配。",
-    "hook_type": "direct",
+    "description": "第四层铁链符文非青云宗体系——直线拐角结构图风格，形似倒置\"囚\"字。沈渊判断为摹写自更古老的东西，非管事堂原创。符文来源成谜，暗示存在比青云宗更早的封印者。",
+    "hook_type": "symbolic",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 13,
-    "target_chapter": 20,
+    "planted_chapter": 5,
+    "target_chapter": 30,
     "related_characters": [
       "沈渊",
-      "老执事"
+      "赵老四"
     ],
-    "related_hooks": [
-      "hook-030",
-      "hook-035"
-    ],
-    "created_at": "2026-06-07T11:25:00.995884",
-    "updated_at": "2026-06-07T12:06:13.564117"
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:14:23.694605",
+    "updated_at": "2026-06-07T13:30:48.172755"
   },
   {
     "id": "hook-037",
-    "description": "终端扫描脉冲规律：圆阵方向（强）和藏经阁二楼东侧（弱）两道交叉扫描，间隔27-30息。沈渊推测终端使用交叉定位——两道扫描交点即为目标。若有三节点（三角定位），可精确定位到具体房间。目前终端在大面积扫描——尚未聚焦，但每次冲击心壁制造的\"空白\"都在被记录。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 13,
-    "target_chapter": 14,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-030",
-      "hook-036"
-    ],
-    "created_at": "2026-06-07T11:25:01.007063",
-    "updated_at": "2026-06-07T12:06:13.579057"
-  },
-  {
-    "id": "hook-13-1",
-    "description": "恢复时间曲线加速，第十三条经脉的约束效果随裂纹扩大而衰减——第三十次冲击时两条线交汇",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 13,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:26:43.213635",
-    "updated_at": "2026-06-07T12:06:13.593522"
-  },
-  {
-    "id": "hook-13-2",
-    "description": "天道终端在藏经阁二楼东侧装有铜片节点，正对暗格，老执事因此不敢做鞘",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 13,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:26:43.226094",
-    "updated_at": "2026-06-07T12:06:13.609390"
-  },
-  {
-    "id": "hook-13-3",
-    "description": "终端扫描模式：27-30息间隔，交叉扫描可三角定位——如果终端记录到沈渊的空白，会比对灵气特征锁定他",
+    "description": "三息脉冲不随距离衰减——沈渊离矿越远脉冲应该越弱，但在藏经阁中仍然清晰。暗示不是沈渊在感受脉冲，而是脉冲在\"找他\"。壳/地下结构与沈渊之间存在某种特殊连接。",
     "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 13,
-    "related_characters": [],
+    "planted_chapter": 5,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:26:43.238488",
-    "updated_at": "2026-06-07T12:06:13.626075"
+    "created_at": "2026-06-07T13:14:23.701122",
+    "updated_at": "2026-06-07T13:30:48.178790"
   },
   {
     "id": "hook-038",
-    "description": "安全上限实测确认——第十六次冲击为三息以内最后安全点。第十七次起心停超三息（终端盲区阈值）。剩余十七次冲击（#21-#37）全部将在三息以上——预估四息半到八息以上。沈渊面临双线收敛：心脏损伤加速（心动过速→可能室颤）vs 终端扫描方向可能随时调回杂役院。两个死路在交叉点逼近。",
+    "description": "刘管事在封矿后特意看了沈渊一眼——管事堂已将沈渊标记为需要关注的对象。刘管事步速很稳没有回头，表明这种关注是系统性的而非个人好奇。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 14,
+    "status": "mentioned",
+    "planted_chapter": 5,
     "target_chapter": 15,
-    "resolved_chapter": 14,
     "related_characters": [
-      "沈渊"
+      "沈渊",
+      "刘管事"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:34:01.312277",
-    "updated_at": "2026-06-07T12:06:13.641403"
+    "created_at": "2026-06-07T13:14:23.707633",
+    "updated_at": "2026-06-07T13:30:48.185123"
   },
   {
     "id": "hook-039",
-    "description": "刘长老从藏经阁抬走一口箱子（两尺长一尺宽）——箱内物品不明。可能来自暗格剩余物，也可能来自藏经阁其他位置。刘长老被确认知道终端节点存在——二十年来一直在配合/利用终端。他到底是终端的执行者还是利用者？",
-    "hook_type": "direct",
+    "description": "沈渊在藏经阁读'壳虫说'时，矿下的三息脉冲仍在他脑子里持续——不是记忆是真实感受，脉冲似乎在找他",
+    "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 14,
-    "target_chapter": 20,
-    "related_characters": [
-      "刘长老",
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-022",
-      "hook-036"
-    ],
-    "created_at": "2026-06-07T11:34:01.323067",
-    "updated_at": "2026-06-07T12:06:13.656534"
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:15:46.431092",
+    "updated_at": "2026-06-07T13:30:48.191747"
   },
   {
     "id": "hook-040",
-    "description": "圆阵重启后北侧灵石亮度降至三成——终端将扫描功率聚焦于内门方向，暂时搁置杂役院。但这是推迟而非安全。终端可能在任何时间调回杂役院方向——尤其是当内门搜索无果时。沈渊需要在终端调回之前完成全部三十七次冲击。",
-    "hook_type": "action",
+    "description": "第四层铁链上的封印符文不是青云宗的标准符箓，全是直线拐角，像是照着某种东西描下来的结构图而非书法",
+    "hook_type": "dialogue",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 14,
-    "target_chapter": 15,
-    "related_characters": [
-      "沈渊",
-      "赵谦"
-    ],
-    "related_hooks": [
-      "hook-030",
-      "hook-037"
-    ],
-    "created_at": "2026-06-07T11:34:01.334201",
-    "updated_at": "2026-06-07T12:06:13.673370"
+    "planted_chapter": 5,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:15:46.439082",
+    "updated_at": "2026-06-07T13:30:48.197305"
   },
   {
     "id": "hook-041",
-    "description": "第21-37次冲击的双死路——心脏损伤加速 vs 终端扫描。第21-25次完成（第15章，铜针起搏法奏效），第26-30次完成（第16章，铜针逼近逆转阈值，不再可用）。剩余第31-37次（预估十息以上心停）只能用徒手CPR。三分之一鞘已形成。明天执法堂查杂役房+明晚最后七次。→ 第17章",
+    "description": "'壳虫说'记载：壳虫生于地脉，无首无足，壳内空有气出入三息一至，古修士称地龙蜕——但如果壳是活的、还在生长呢？",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 14,
-    "target_chapter": 17,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:36:36.899465",
-    "updated_at": "2026-06-07T12:06:13.689313"
-  },
-  {
-    "id": "hook-14-1",
-    "description": "沈渊推算细长字的弧线和他自己的弧线都在加速，怀疑终端对三息以上空白有识别能力",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 14,
+    "planted_chapter": 5,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:39:12.809933",
-    "updated_at": "2026-06-07T12:06:13.706594"
-  },
-  {
-    "id": "hook-14-2",
-    "description": "第二十次冲击后出现心动过速，第十三条经脉抽动，暗示心壁承受能力临近极限",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 14,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:39:12.824531",
-    "updated_at": "2026-06-07T12:06:13.722107"
-  },
-  {
-    "id": "hook-14-3",
-    "description": "刘长老从藏经阁抬出箱子，可能涉及暗格剩余物品或终端节点安排",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 14,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:39:12.839531",
-    "updated_at": "2026-06-07T12:06:13.739678"
+    "created_at": "2026-06-07T13:15:46.446081",
+    "updated_at": "2026-06-07T13:30:48.202899"
   },
   {
     "id": "hook-042",
-    "description": "铜针起搏法——第21-30次累计使用。暗纹六分，尖端全黑，不能再推送（第31次将逆转→从起搏变抽取→杀）。圆字铜针全黑最终死于铜针逆转+人察。沈渊在第29次首次用徒手CPR成功，第30次结合分散推送+CPR活过14.5息心停。第31-37次将纯靠徒手CPR。→ 第17章",
+    "description": "赵老四准确记住了沈渊欠管事堂九十块灵石的细节——他在关注沈渊，不只是被动跟随",
     "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 15,
-    "target_chapter": 17,
-    "related_characters": [
-      "沈渊",
-      "圆字"
-    ],
+    "planted_chapter": 5,
+    "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:44:54.023557",
-    "updated_at": "2026-06-07T12:06:13.756123"
+    "created_at": "2026-06-07T13:15:46.452590",
+    "updated_at": "2026-06-07T13:30:48.208407"
   },
   {
     "id": "hook-043",
-    "description": "第三个终端节点——刘长老从藏经阁搬走三口箱子（两口阵器从三楼+一口老执事遗物从一楼值班室）。圆阵灵石升至七成（持续加压），藏经阁二楼东侧节点开始发出\"滴滴滴\"声（三息间隔）——终端从大面积扫描模式切换到窄波束三角定位模式。第三节点可能已激活或正在调试。三息一次定位×三道扫描交叉=精确定位到具体房间。时间窗口进一步缩短。",
+    "description": "壳面古图——封印阵文档记载黑色壳面上有刀刻的古图（直线折角，不似人所为），符文是从古图上摹写下来的。管事堂用铁水灌封裂隙将原版古图永久封死。古图上除了被抄走的符文之外还有信息——那才是管事堂杀人的原因。 → Ch40",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 15,
-    "target_chapter": 18,
-    "resolved_chapter": 18,
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 40,
     "related_characters": [
-      "刘长老",
       "沈渊",
-      "赵谦",
-      "张师兄"
+      "赵老四"
     ],
-    "related_hooks": [
-      "hook-040",
-      "hook-037",
-      "hook-039"
-    ],
-    "created_at": "2026-06-07T11:44:54.035513",
-    "updated_at": "2026-06-07T12:13:28.847735"
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:21:09.417369",
+    "updated_at": "2026-06-07T13:30:48.215463"
   },
   {
     "id": "hook-044",
-    "description": "经脉嫁接旧书——已找到：《经脉旁通》薄册（方正楷书，第四人）和圆胖笔迹纸页。关键信息：旁通需要鞘（灵气外膜，以心壁为基），铜针推送过多会逆转抽取。两处技术段落被圆字撕掉。圆胖笔迹死在第三十次之后（纸页有血迹），圆字死在三十七次之后（铜针全黑）。沈渊已获取核心信息但缺被撕关键段落。→ 第20章",
-    "hook_type": "symbolic",
+    "description": "青铜片复制品——封印阵文档记载赵兄死后青铜片\"未寻获\"，但赵老四手中持有。文档注明\"青铜片为新刻——非原物\"，意味着有人见过壳面古图后刻了复制品藏在矿下。此人身份不明，可能仍在世。 → Ch35",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 15,
-    "target_chapter": 20,
+    "planted_chapter": 6,
+    "target_chapter": 35,
     "related_characters": [
       "沈渊",
-      "赵谦",
-      "张师兄"
+      "赵老四"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:44:54.048423",
-    "updated_at": "2026-06-07T12:33:58.395280"
+    "created_at": "2026-06-07T13:21:09.422794",
+    "updated_at": "2026-06-07T13:30:48.221529"
   },
   {
     "id": "hook-045",
-    "description": "三分之一鞘——第十三条经脉在第30次冲击（14.5息心停）中撑爆后重构，形成包裹心脏三分之一圈的外膜。第31次冲击关键发现：鞘在心脏停跳时收缩压迫心壁（反效果），恢复后变凉。鞘的功能可能不是保护心脏而是替代心脏或别的目的。完整鞘可能整体收缩→心脏被箍成球→死于鞘而非心停。剩余12条经脉可能在后续冲击中重构——沈渊面临双死：心停延长 vs 鞘压迫增强。",
-    "hook_type": "action",
+    "description": "黑色硬层上升——八十年前旧档四次红笔记录显示硬层从丙四层→丙三层→丙四层→丙二层（一年八个月内），自下往上移动。沈渊推算当前已接近矿口。第四次停工十一日（前三次七日），说明硬层在扩大。结合塌方是岩层被从内部撑裂——壳在生长/膨胀并向上顶。 → Ch25",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 16,
-    "target_chapter": 17,
-    "resolved_chapter": 17,
-    "related_characters": [],
+    "status": "mentioned",
+    "planted_chapter": 6,
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊"
+    ],
     "related_hooks": [],
-    "created_at": "2026-06-07T11:55:07.943150",
-    "updated_at": "2026-06-07T12:06:13.804579"
+    "created_at": "2026-06-07T13:21:09.430500",
+    "updated_at": "2026-06-07T13:30:48.227554"
   },
   {
     "id": "hook-046",
-    "description": "新种：铜针逆转机制——铜针在推送灵气超过阈值后方向逆转，从起搏（导入灵气）变为抽取（导出灵气）。暗纹记录了每次推送的灵力量和方向。圆字死于铜针全黑后的逆转抽取。沈渊的铜针已六分暗纹/尖端全黑，不能再推送。圆胖笔迹遗言\"铜针黑尽者不在起搏而在——\"缺失的可能是\"抽取\"但更可能是别的（如\"献祭\"/\"开脉\"）。→ 第17章",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 16,
-    "target_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:55:07.955641",
-    "updated_at": "2026-06-07T12:06:13.819573"
-  },
-  {
-    "id": "hook-047",
-    "description": "新种：徒手CPR——沈渊在第29次冲击首次用现代心肺复苏替代铜针起搏，成功。在第30次冲击中用CPR+分散推送结合恢复14.5息心停。第31-37次将全部依赖徒手CPR（无铜针辅助）。在现代医学中，徒手CPR有极限——超过多少息后心脏不可逆停止？→ 第17章",
+    "description": "孙德胜在账房以\"顺路送旧册子\"为名出现，直接叫出沈渊名字（非问句）。沈渊判断他不是来送册子的——是来看沈渊的。孙德胜走后账房先生态度转变发放了工钱。孙德胜的监视是系统性的，且他在管事堂的权限可能高于刘管事。 → Ch15",
     "hook_type": "action",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 16,
-    "target_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T11:55:07.966182",
-    "updated_at": "2026-06-07T12:06:13.836803"
-  },
-  {
-    "id": "hook-048",
-    "description": "刘长老行为谜团——搜查时认出铜针（标准手法握针，认识暗纹含义），但没有没收铜针/粗纸/薄册，反而归还并说\"收好\"。同时给了沈渊\"心疾\"标签作为掩护。手指敲击节奏不规则——沈渊推测在计数终端扫描脉冲。刘长老到底在等什么？在保什么？他是终端的执行者、利用者、还是……反抗者？",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 17,
-    "target_chapter": 25,
-    "resolved_chapter": 17,
+    "planted_chapter": 6,
+    "target_chapter": 15,
     "related_characters": [
       "沈渊",
-      "刘长老"
+      "孙德胜"
     ],
     "related_hooks": [
-      "hook-022",
-      "hook-039"
+      "hook-016",
+      "hook-038"
     ],
-    "created_at": "2026-06-07T11:59:00.079915",
-    "updated_at": "2026-06-07T12:06:13.852201"
+    "created_at": "2026-06-07T13:21:09.436507",
+    "updated_at": "2026-06-07T13:30:48.234527"
   },
   {
-    "id": "hook-049",
-    "description": "鞘的反效果发现——第31次冲击中，三分之一鞘在心脏停跳时收缩压迫心壁，而不是保护。鞘在停跳时变成负担——像一个箍把心脏箍紧。恢复后鞘变凉（非温热）。鞘的功能可能不是保护心脏，而是替代心脏或别的目的。如果完整鞘整体收缩→心脏被箍成球→不是死于心停而是死于鞘。第32-37次冲击可能触发更多经脉重构为鞘——沈渊面临双死：心停长度 vs 鞘的压迫。",
+    "id": "hook-047",
+    "description": "脉搏同步升级——沈渊发现三息脉冲已内化：不是从外部感知，而是丹田壁上微型吸收结构在主动搏动，与壳的脉冲同步。距离越近响应越强。壳在\"找他\"——壳和天道寄生系统之间存在未知关联。 → Ch20",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 17,
+    "status": "mentioned",
+    "planted_chapter": 6,
     "target_chapter": 20,
-    "resolved_chapter": 18,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [
-      "hook-045",
-      "hook-041",
-      "hook-044"
+      "hook-037"
     ],
-    "created_at": "2026-06-07T11:59:00.088805",
-    "updated_at": "2026-06-07T12:13:36.609097"
+    "created_at": "2026-06-07T13:21:09.442515",
+    "updated_at": "2026-06-07T13:30:48.245203"
+  },
+  {
+    "id": "hook-048",
+    "description": "壳面含铜有机液体——石板背面页岩层理间嵌入黑褐色薄膜，加热后变暗绿色，含铜有机物类似血蓝蛋白。推论：壳是活的有机体，壳壁内含有蓝色液体。刀尖刺入壳壁后沾上液体，刻石板时刻痕被污染。 → Ch50",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 7,
+    "target_chapter": 50,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:28:41.854329",
+    "updated_at": "2026-06-07T13:30:48.250762"
+  },
+  {
+    "id": "hook-049",
+    "description": "壳面古图非人刻——纸记录\"以刀试之不入\"，但古图确为刀刻。推论：古图是在壳还软的时候由某种存在刻上去的，壳硬化后刻痕被封在壳壁中。这个\"存在\"是什么？为什么刻古图？ → Ch60",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 7,
+    "target_chapter": 60,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:28:41.859491",
+    "updated_at": "2026-06-07T13:30:48.257398"
   },
   {
     "id": "hook-050",
-    "description": "铜针是终端节点——暗纹方向从针尖往针尾走，记录的不是推送而是抽取。每次推送伴随抽取——灵气从沈渊体内被抽走一部分去了终端。铜针不是工具，是可携带的终端节点。终端一直在通过铜针抽取沈渊的灵气。刘长老知道这一点——握针手法标准——但仍然归还铜针。",
+    "description": "刻石板者与刻青铜片者非同一人——刻石板者手在抖（碰过壳面），刻青铜片者手极稳（凭记忆未碰壳面）。刻石板者身份成谜：比管事堂更早接触壳面，可能来自八十年前的矿工或更早时期。 → Ch35",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
-    "planted_chapter": 17,
-    "target_chapter": 25,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:05:05.165563",
-    "updated_at": "2026-06-07T12:06:13.884526"
+    "planted_chapter": 7,
+    "target_chapter": 35,
+    "related_characters": [
+      "沈渊",
+      "赵老四"
+    ],
+    "related_hooks": [
+      "hook-044"
+    ],
+    "created_at": "2026-06-07T13:28:41.866488",
+    "updated_at": "2026-06-07T13:30:48.263405"
   },
   {
     "id": "hook-051",
-    "description": "双死局面成型——不冲击→终端定位→抽取→死；冲击→鞘完整→箍死心脏→死。第31次冲击揭示鞘在心停时主动收缩压迫心壁（非保护）。完整鞘（37次后）可能整体收缩→心脏被箍成球→CPR无效→死于鞘而非心停。沈渊需要在双死之间找到第三条路：让鞘不收缩的办法。",
-    "hook_type": "direct",
+    "description": "脉冲来源在体内——沈渊发现看符文拐角时丹田壁微型结构主动搏动，脉冲来源不在山体而在体内。符文与体内寄生结构之间存在直接耦合——壳、天道寄生系统、符文三者通过脉冲信号连接。 → Ch20",
+    "hook_type": "action",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 17,
+    "status": "mentioned",
+    "planted_chapter": 7,
     "target_chapter": 20,
-    "resolved_chapter": 18,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:05:05.177888",
-    "updated_at": "2026-06-07T12:13:36.621678"
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-047",
+      "hook-037",
+      "hook-001"
+    ],
+    "created_at": "2026-06-07T13:28:41.872650",
+    "updated_at": "2026-06-07T13:30:48.269503"
   },
   {
     "id": "hook-052",
-    "description": "第十二条经脉在发热——和第十三条重构前一样的模式。第32-37次冲击可能触发更多经脉重构为鞘。每次重构→鞘长大→下次心停时鞘箍得更紧→CPR更难奏效。沈渊面临双死加速：心停时间延长×鞘压迫增强。",
-    "hook_type": "action",
+    "description": "铁链环应力裂纹中嵌有黑色非铁锈粉末，质地类似石墨但颜色更深",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 17,
-    "target_chapter": 18,
-    "resolved_chapter": 18,
+    "status": "planted",
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:05:05.190985",
-    "updated_at": "2026-06-07T12:13:28.861043"
+    "created_at": "2026-06-07T13:30:47.883745",
+    "updated_at": "2026-06-07T13:30:47.883745"
   },
   {
     "id": "hook-053",
-    "description": "刘长老疑似细长字批注者——认识铜针标准手法、认识暗纹含义、手指敲击门框计数终端扫描脉冲（27-30息间隔）。归还铜针并给\"心疾\"掩护。他站在中间位置：不揭穿、不帮忙、只是\"收好\"。如果刘长老就是细长字——他知道逆转第53转阻断抽取通道——他在等什么？",
-    "hook_type": "dialogue",
+    "description": "铸造铁链环的模具内壁异常光滑——比铁铸件光滑，无木纹无凿痕",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 17,
-    "target_chapter": 25,
+    "status": "planted",
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:05:05.204590",
-    "updated_at": "2026-06-07T12:30:39.049675"
+    "created_at": "2026-06-07T13:30:47.892967",
+    "updated_at": "2026-06-07T13:30:47.892967"
   },
   {
     "id": "hook-054",
-    "description": "圆字死因揭示——不是铜针逆转、不是心停太长，是鞘完成→鞘箍死心脏。圆胖笔迹遗言\"铜针黑尽者不在起搏而在——\"缺失的词已补全：鞘。第37次后完整鞘收缩→心脏被箍→CPR无效→死亡。圆字和圆胖笔迹都死于同一个机制。沈渊正在走同一条路。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 17,
-    "target_chapter": 20,
-    "resolved_chapter": 18,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:05:05.216869",
-    "updated_at": "2026-06-07T12:13:36.635033"
-  },
-  {
-    "id": "hook-17-1",
-    "description": "鞘在第三十一次心停时主动收缩压迫心脏，揭示鞘的功能不是保护而是压迫",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.719600",
-    "updated_at": "2026-06-07T12:06:12.719600"
-  },
-  {
-    "id": "hook-17-2",
-    "description": "完整鞘（三十七次后）将包裹整颗心脏并收缩箍死——圆字死因破解",
+    "description": "石板背面页岩层理中夹有碳化有机物薄膜，加热后从黑褐色变为暗绿色——含铜有机物，类似血蓝蛋白",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 17,
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.734710",
-    "updated_at": "2026-06-07T12:06:12.734710"
-  },
-  {
-    "id": "hook-17-3",
-    "description": "铜针暗纹从针尖往针尾走——记录的是抽取而非推送，铜针是终端的一部分",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.747911",
-    "updated_at": "2026-06-07T12:06:12.747911"
-  },
-  {
-    "id": "hook-17-4",
-    "description": "刘长老敲击门框计数终端扫描脉冲，暗示他对整个系统了如指掌",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.761463",
-    "updated_at": "2026-06-07T12:06:12.761463"
-  },
-  {
-    "id": "hook-17-5",
-    "description": "刘长老可能是细长字批注者——细长字身份线索出现交叉",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.775570",
-    "updated_at": "2026-06-07T12:06:12.775570"
-  },
-  {
-    "id": "hook-17-6",
-    "description": "第十二条经脉温热——在准备重构，第三十二次冲击会多一块鞘",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.789334",
-    "updated_at": "2026-06-07T12:06:12.789334"
-  },
-  {
-    "id": "hook-17-7",
-    "description": "第三十三次到第三十七次每次都会让鞘长大并箍得更紧——双死困局",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 17,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:06:12.803520",
-    "updated_at": "2026-06-07T12:06:12.803520"
+    "created_at": "2026-06-07T13:30:47.900458",
+    "updated_at": "2026-06-07T13:30:47.900458"
   },
   {
     "id": "hook-055",
-    "description": "气泄机制发现——心停时经脉内灵气淤积→压力升高→毛孔被迫打开→灵气单向泄出。不需要铜针、不需要逆转经脉。气泄削弱鞘收缩但不足以完全阻止（第32次验证）。",
-    "hook_type": "action",
+    "description": "壳是活的有机体，含铜的蓝色液体；壳面古图是壳还软时被某种东西刻上去的",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 18,
-    "target_chapter": 20,
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:13:28.871918",
-    "updated_at": "2026-06-07T12:13:28.871918"
+    "created_at": "2026-06-07T13:30:47.905779",
+    "updated_at": "2026-06-07T13:30:47.905779"
   },
   {
     "id": "hook-056",
-    "description": "持续CPR+气泄方案——从心停第一息开始全程CPR按压（维持灵气波动→阻止鞘冷却蓄力）+毛孔气泄（泄走灵气→鞘缺乏驱动能量）。第33次验证成功：二分之一鞘全程温热不收缩。核心发现：凉的鞘=蓄力待收缩，温热的鞘+波动=被动不收缩。不阻止鞘长大，阻止鞘收缩。",
+    "description": "刻石板的人手在抖（可能碰过壳面），刻青铜片的人手很稳（未直接接触壳面）——不是同一个人",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 18,
-    "target_chapter": 20,
+    "status": "planted",
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:13:28.884269",
-    "updated_at": "2026-06-07T12:30:39.009292"
+    "created_at": "2026-06-07T13:30:47.912290",
+    "updated_at": "2026-06-07T13:30:47.912290"
   },
   {
     "id": "hook-057",
-    "description": "第三个终端节点确认——杂役院东侧枯井方向，淡蓝色扫描光，与圆阵（暗红）和藏经阁（白）形成三角定位。三道光每30息依次扫描，交点已精确到石壁外两丈。沈渊在锁定前撤退至炭房，擦除石壁热痕迹。终端逼近速度加快。",
-    "hook_type": "direct",
+    "description": "赵老四哥哥死时另外三个矿工听到'铁管裂开的声音'——壳自行裂开",
+    "hook_type": "dialogue",
     "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 18,
-    "target_chapter": 19,
-    "resolved_chapter": 19,
+    "status": "planted",
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:13:28.897857",
-    "updated_at": "2026-06-07T12:29:59.465190"
+    "created_at": "2026-06-07T13:30:47.918274",
+    "updated_at": "2026-06-07T13:30:47.918274"
   },
   {
     "id": "hook-058",
-    "description": "鞘增至二分之一——第十二条经脉在第32次冲击中重构，新鞘与原有三分之一鞘融合。第33-37次冲击中更多经脉将重构→鞘继续长大→完整包裹心脏。但持续CPR+气泄方案让完整鞘也无法箍死心脏。沈渊从\"四个死法\"中找到了第三条路。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 18,
-    "target_chapter": 20,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:13:28.908812",
-    "updated_at": "2026-06-07T12:30:38.994900"
-  },
-  {
-    "id": "hook-18-1",
-    "description": "沈渊计划在第三十三次冲击中尝试全程持续CPR结合气泄，希望彻底阻止鞘收缩",
+    "description": "三名幸存矿工当天离开，拒绝管事堂的抚恤金——一反常态",
     "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 18,
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:23:08.049731",
-    "updated_at": "2026-06-07T12:23:08.049731"
+    "created_at": "2026-06-07T13:30:47.925791",
+    "updated_at": "2026-06-07T13:30:47.925791"
   },
   {
-    "id": "hook-065",
-    "description": "第四人纸条完整内容——三十七次非终点：鞘完整后会继续沿经脉生长，从心→肺→肝→肾→丹田，包裹所有脏腑。每一步都需要冲击、每一次都会心停。铜针只能到三十次，徒手CPR只能到三十七次。三十七次后\"没有徒手按压——只有——\"（被撕毁）。这意味着沈渊的生死危机远未结束——三十七次只是第一阶段终点，之后还有肺肝肾丹田四个阶段。每个阶段需要新的外力方法替代徒手CPR。",
+    "id": "hook-059",
+    "description": "管事堂反常地将青铜片作为遗物交还赵老四——疑似试探他是否认得青铜片",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 7,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:30:47.932768",
+    "updated_at": "2026-06-07T13:30:47.932768"
+  },
+  {
+    "id": "hook-060",
+    "description": "符文会产生'三息一至'的脉冲，与沈渊丹田搏动同频——脉冲来源在体内而非山体",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 19,
-    "target_chapter": 25,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-041",
-      "hook-044",
-      "hook-056",
-      "hook-058"
-    ],
-    "created_at": "2026-06-07T12:30:26.454456",
-    "updated_at": "2026-06-07T12:30:26.454456"
-  },
-  {
-    "id": "hook-066",
-    "description": "第五人笔记——圆胖笔迹在第四人纸条背面留言：在藏经阁第三层旧书堆最里面找到了第五个人的笔记。此人\"不写名字——只写方法\"，声称三十七次后\"不用徒手——用——\"（被撕）。沈渊派赵谦今天之内去找。第五人的方法可能是用某种外力（灵气驱动？）替代徒手CPR——类似起搏器的概念。但笔记可能已被刘长老拿走、被撕毁、或根本不存在。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 19,
-    "target_chapter": 20,
-    "resolved_chapter": 20,
-    "related_characters": [
-      "赵谦",
-      "刘长老"
-    ],
-    "related_hooks": [
-      "hook-065",
-      "hook-044"
-    ],
-    "created_at": "2026-06-07T12:30:26.469574",
-    "updated_at": "2026-06-07T12:33:58.349202"
-  },
-  {
-    "id": "hook-067",
-    "description": "终端三角定位完成——圆阵北侧十块灵石全部熄灭（功率从扫描切换至追踪）。终端已锁定沈渊位置，时间窗口从\"几天\"缩短至\"几小时\"。终端可能在沈渊下一次心停（灵气波动空白）时发动精确打击。北侧灵石熄灭是前所未有的——连赵谦都没见过。沈渊必须在终端打击之前完成第34-37次冲击。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 19,
-    "target_chapter": 20,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-030",
-      "hook-037",
-      "hook-040",
-      "hook-041"
-    ],
-    "created_at": "2026-06-07T12:30:26.483703",
-    "updated_at": "2026-06-07T12:33:58.360222"
-  },
-  {
-    "id": "hook-068",
-    "description": "铜针暗纹恶化——七分暗纹（Ch18六分→Ch19七分），尖端全黑，黑在往针尾蔓延。铜针在被动自动抽取——放在袖子里不从外部注入也在抽沈渊的灵气。暗纹是倒计时——到达针尾全黑后将逆转，从被动抽取变主动抽取，像圆字那样把宿主抽干。不能丢（终端会发现节点缺失），不能留（迟早逆转）。时间窗口与终端锁定同步收紧。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 19,
-    "target_chapter": 23,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-042",
-      "hook-046",
-      "hook-050"
-    ],
-    "created_at": "2026-06-07T12:30:26.497717",
-    "updated_at": "2026-06-07T12:30:39.022766"
-  },
-  {
-    "id": "hook-069",
-    "description": "伙房储物间——沈渊选定的新冲击位置。东南角，远离三道扫描交叉路径（圆阵西北/枯井东/藏经阁西），灶台和烟囱挡住散射光，烟囱余温覆盖热痕。但终端已锁定整体区域——储物间只是延缓精确打击，不是避免。今晚第34-37次冲击将在此进行。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 19,
-    "target_chapter": 20,
-    "related_characters": [],
-    "related_hooks": [
-      "hook-067"
-    ],
-    "created_at": "2026-06-07T12:30:26.511733",
-    "updated_at": "2026-06-07T12:33:58.368236"
-  },
-  {
-    "id": "hook-070",
-    "description": "灰腰带蹲守石屋——两名执法堂灰腰带进入沈渊石屋搜查（可能蹲守），不像刘长老单人搜查留有余地。石屋已无法返回。灰腰带在石壁前停了一下——看到了蓝色人形标记——说明执法堂已知道终端在标记某人。他们会报告给谁？刘长老？还是更高层？",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 19,
-    "target_chapter": 20,
-    "related_characters": [
-      "刘长老"
-    ],
-    "related_hooks": [
-      "hook-022",
-      "hook-053"
-    ],
-    "created_at": "2026-06-07T12:30:26.525244",
-    "updated_at": "2026-06-07T12:33:58.376751"
-  },
-  {
-    "id": "hook-071",
-    "description": "第五人身份揭示——第五人是一名医师穿越者，来自现代医学背景，知道标准CPR频率（120次/分钟）。他的笔记夹在医案日志中，记录了第31-35次冲击的实验过程。发现：经脉是天道铺设的（非人体自带），经脉外游离灵气不被终端监控。提出灵石膻中法替代徒手CPR，但第35次冲击时发现灵气不从膻中进入而从别处（记录被撕）。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 20,
-    "target_chapter": 25,
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:34:20.277163",
-    "updated_at": "2026-06-07T12:34:20.277163"
+    "created_at": "2026-06-07T13:30:47.939056",
+    "updated_at": "2026-06-07T13:30:47.939056"
   },
   {
-    "id": "hook-072",
-    "description": "灵石至阳法——沈渊推导出第五人方案失败的原因：灵石置于膻中穴（胸前），灵力被胸骨阻挡后沿骨膜扩散，被经脉分支吸走。正确做法：灵石置于后背至阳穴（第五胸椎旁开一寸半），灵力从后方渗透竖脊肌→纵隔→心包背面→从后驱动心跳。第35次冲击后测试。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 20,
-    "target_chapter": 22,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:34:20.286909",
-    "updated_at": "2026-06-07T12:34:20.286909"
-  },
-  {
-    "id": "hook-073",
-    "description": "第六人——沈渊确认自己是黑皮书六个穿越者中的第六个。顺序：原作者→潦草字→细长字→圆字→圆胖笔迹→第五人（医师）→第六人（沈渊）。六人横跨不知多少年，在同一本书上留下笔迹，被同一个天道追杀，走同一条路。第五人之后可能还有人——或沈渊就是目前最后一人。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 20,
-    "target_chapter": 30,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:34:20.294917",
-    "updated_at": "2026-06-07T12:34:20.294917"
-  },
-  {
-    "id": "hook-074",
-    "description": "经脉真相——第五人日记确认：经脉是天道铺设的基础设施，不是人体自带的。每一条经脉都是终端的一部分，每运转一周天，天道就从经脉中抽取一份灵气。这意味着所有修炼者都在为天道供能——修炼=被寄生。鞘沿天道铺设的经脉生长→最终修炼者变成天道的活节点。",
+    "id": "hook-061",
+    "description": "封禁阵用壳面古图符文封印壳——同源共振关系而非压制关系；铁链方向与壳面纹路方向的角度差可能是突破口",
     "hook_type": "direct",
     "scope": "chapter",
     "status": "planted",
-    "planted_chapter": 20,
-    "target_chapter": 25,
+    "planted_chapter": 7,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-07T12:34:20.303169",
-    "updated_at": "2026-06-07T12:34:20.303169"
-  },
-  {
-    "id": "hook-075",
-    "description": "灵石获取——沈渊需要灵石测试至阳法。赵谦借出最后一块下品灵石（拇指大，藏在外门弟子宿舍丙字七号床铺下）。沈渊独自前往取灵石，风险：灰腰带可能扩大搜索范围至外门宿舍区；取灵石过程可能被同宿舍弟子发现。灵石是外门弟子配发物资——私借/私拿都违规。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 20,
-    "target_chapter": 21,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:34:20.312183",
-    "updated_at": "2026-06-07T12:34:20.312183"
-  },
-  {
-    "id": "hook-076",
-    "description": "今晚第34-37次冲击——沈渊计划天黑后在伙房储物间完成最后四次冲击。位置：东南角储物间（灶台+烟囱遮挡散射光，余温覆盖热痕）。赵谦在伙房外望风（敲烟囱三下示警）。风险：终端已锁定整体区域，心停时的灵气空白可能触发精确打击。灰腰带蹲守石屋但可能扩大搜索。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 20,
-    "target_chapter": 21,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-07T12:34:20.320970",
-    "updated_at": "2026-06-07T12:34:20.320970"
+    "created_at": "2026-06-07T13:30:47.946247",
+    "updated_at": "2026-06-07T13:30:47.946247"
   }
 ]
