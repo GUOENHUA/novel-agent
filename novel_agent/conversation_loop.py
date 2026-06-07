@@ -210,6 +210,7 @@ class ConversationLoop:
         ]
         if not interactive:
             messages.append({"role": "user", "content": (
+                "【检查清单】如果还没有大纲/角色/世界观/style记忆，先用对应工具创建。\n"
                 "【章节格式】写在代码块内，写完调 preview_chapter 保存：\n"
                 "```章节\n"
                 "# 第N章 标题（N=阿拉伯数字）\n\n"

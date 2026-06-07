@@ -10,7 +10,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T12:49:18.845187",
-    "updated_at": "2026-06-07T13:35:52.021574"
+    "updated_at": "2026-06-07T13:47:12.916179"
   },
   {
     "id": "hook-002",
@@ -166,7 +166,7 @@
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T12:54:31.310216",
-    "updated_at": "2026-06-07T13:30:48.027552"
+    "updated_at": "2026-06-07T13:47:12.923686"
   },
   {
     "id": "hook-014",
@@ -445,7 +445,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-07T13:14:23.688100",
-    "updated_at": "2026-06-07T13:35:52.029002"
+    "updated_at": "2026-06-07T13:47:12.930709"
   },
   {
     "id": "hook-036",
@@ -492,7 +492,7 @@
     ],
     "related_hooks": [],
     "created_at": "2026-06-07T13:14:23.707633",
-    "updated_at": "2026-06-07T13:30:48.185123"
+    "updated_at": "2026-06-07T13:47:12.938220"
   },
   {
     "id": "hook-039",
@@ -606,7 +606,7 @@
       "hook-038"
     ],
     "created_at": "2026-06-07T13:21:09.436507",
-    "updated_at": "2026-06-07T13:30:48.234527"
+    "updated_at": "2026-06-07T13:47:12.944729"
   },
   {
     "id": "hook-047",
@@ -710,13 +710,13 @@
     "description": "管事的在保养封灵阵——用狗脂定期擦拭阵钉。封灵阵有四枚阵钉（两枚压制+两枚引导），是青云宗标准道门符箓。管事堂维护封灵阵是有章法的系统性行为。谁在给锁了八十年的锁上油？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 7,
     "target_chapter": 15,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T13:30:47.892967",
-    "updated_at": "2026-06-07T13:35:52.055060"
+    "updated_at": "2026-06-07T13:47:12.952750"
   },
   {
     "id": "hook-054",
@@ -813,5 +813,21 @@
     "related_hooks": [],
     "created_at": "2026-06-07T13:30:47.946247",
     "updated_at": "2026-06-07T13:30:47.946247"
+  },
+  {
+    "id": "hook-062",
+    "description": "沈渊住处门上发现匿名纸条——\"别查了\"。纸条用膳堂包干粮的粗纸，墨淡，笔迹匆忙非楷书。推断：一个识字的矿工写的。知道沈渊在查矿脉旧档和赵老四哥哥的死，劝他停手。矿工不写字（记工用画圈），识字矿工极为罕见。此人在丙字号矿区至少干了六年，知道第四层有东西。→ 第10章沈渊要找到这个人。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 9,
+    "target_chapter": 12,
+    "related_characters": [
+      "沈渊",
+      "赵老四"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:47:12.907631",
+    "updated_at": "2026-06-07T13:47:12.907631"
   }
 ]
