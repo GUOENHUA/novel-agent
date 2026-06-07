@@ -107,13 +107,14 @@ class AutoPipeline:
         signal.signal(signal.SIGINT, self._interrupt_handler)
 
         try:
-            # Ensure setup exists before writing
+            # Ensure outline exists before writing
             outline_path = self.agent.project_dir / "outline" / "full.md"
             if not outline_path.exists():
                 _safe_print("  Creating outline...")
                 loop.process_turn(
-                    "先确定小说类型（如男频-玄幻、悬疑修仙等），然后写一份完整大纲（至少500字），"
-                    "包含核心概念、世界观设定、主角和重要反派。用 outline_plot save 保存。",
+                    "确定小说类型，写一份完整大纲（至少500字），包含核心概念、"
+                    "世界观设定、主角和重要反派。用 outline_plot save 保存。"
+                    "如果还没有角色和世界观记忆，也一并创建。",
                     interactive=False,
                 )
             self.agent.conversation_history = []
