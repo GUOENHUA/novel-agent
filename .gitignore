@@ -2,4 +2,10 @@ __pycache__/
 *.egg-info/
 .mypy_cache/
 .env
-.env
+
+# Generated novel projects
+my-novel/
+my-novel-2/
+
+# Debug dumps
+debug_*.txt
