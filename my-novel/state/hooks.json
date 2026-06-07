@@ -643,7 +643,7 @@
     "description": "枢纽连接线从框架中心向沈渊石屋延伸——暗示观测者正在将沈渊培养为新的活体枢纽。第六人轮廓最模糊=枢纽可替换。沈渊的呼吸间隙停顿被保留为\"容错参数/预留接口\"。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 9,
     "target_chapter": 25,
     "related_characters": [
@@ -655,7 +655,7 @@
       "hook-019"
     ],
     "created_at": "2026-06-07T09:31:31.218311",
-    "updated_at": "2026-06-07T09:59:25.685739"
+    "updated_at": "2026-06-07T10:03:27.121348"
   },
   {
     "id": "hook-09-1",
@@ -819,13 +819,13 @@
     "description": "周磊梦中被分配系统位置，无意识同步呼吸。留下的九人通过梦/呼吸被缓慢渗透分配角色——与回收六人的植入指令方式不同（更慢更隐蔽）。周磊指向框架中空白区域=枢纽位置。",
     "hook_type": "action",
     "scope": "chapter",
-    "status": "planted",
+    "status": "mentioned",
     "planted_chapter": 13,
     "target_chapter": 18,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T09:59:25.692053",
-    "updated_at": "2026-06-07T09:59:25.692053"
+    "updated_at": "2026-06-07T10:03:27.111807"
   },
   {
     "id": "hook-13-1",
@@ -898,5 +898,71 @@
     "related_hooks": [],
     "created_at": "2026-06-07T10:01:08.517105",
     "updated_at": "2026-06-07T10:01:08.517105"
+  },
+  {
+    "id": "hook-14-1",
+    "description": "连接线触墙后在石屋外墙形成光斑——位置精确对应沈渊坐在床上时后脑高度。连接目标不是石屋，是沈渊本人。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T10:03:27.066402",
+    "updated_at": "2026-06-07T10:03:27.066402"
+  },
+  {
+    "id": "hook-14-2",
+    "description": "沈渊发现呼吸停顿可移动位置——接口\"可编程\"。观测者不纠正停顿位置变化。暗示沈渊作为候选枢纽拥有管理节点权限，而刘三作为终端权限是只读的。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 22,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T10:03:27.078870",
+    "updated_at": "2026-06-07T10:03:27.078870"
+  },
+  {
+    "id": "hook-14-3",
+    "description": "刘三轮廓出现在框架中，从脚部开始以靛蓝色向内填充——软件层招募完成=转化为系统硬件的过程开始。周磊是下一个，梦境信息投递是连载式的（\"下一集\"）。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 18,
+    "related_characters": [
+      "刘三",
+      "周磊"
+    ],
+    "related_hooks": [
+      "hook-021",
+      "hook-13-6"
+    ],
+    "created_at": "2026-06-07T10:03:27.090357",
+    "updated_at": "2026-06-07T10:03:27.090357"
+  },
+  {
+    "id": "hook-14-4",
+    "description": "沈渊识别自身不可替代性来源：他能提供观测者无法自我生成的错误模式。封闭系统无法模拟开放系统的偏差类型→沈渊的错误是观测者的进化燃料。管理节点≠终端——权限更高，接口可编程。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 14,
+    "target_chapter": 25,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-020"
+    ],
+    "created_at": "2026-06-07T10:03:27.101479",
+    "updated_at": "2026-06-07T10:03:27.101479"
   }
 ]

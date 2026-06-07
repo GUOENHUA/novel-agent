@@ -635,9 +635,12 @@ class ConversationLoop:
                     self._auto_fallback_text = {}
                 import re
                 candidates = [raw] + getattr(self, '_turn_texts', [])
-                # Only keep texts that look like chapter content
                 chapter_like = [t for t in candidates if re.search(r'#\s*第\s*\d+\s*章', t)]
                 best = max(chapter_like, key=len) if chapter_like else max(candidates, key=len)
+                # Take from LAST # 第N章 header (skip meta-analysis before real chapter)
+                headers = list(re.finditer(r'#\s*第\s*\d+\s*章\s*\S', best))
+                if len(headers) > 1:
+                    best = best[headers[-1].start():]
                 prev = self._auto_fallback_text.get(ch_num, "")
                 if len(best) > len(prev):
                     self._auto_fallback_text[ch_num] = best
