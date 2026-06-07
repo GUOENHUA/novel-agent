@@ -4,13 +4,13 @@
     "description": "沈渊体内发现遍布经脉壁外侧的微型吸收结构。第8章揭示这些结构能与壳的脉冲共鸣——三息一至的频率与壳的呼吸同步。沈渊开始分不清壳的脉和自己的脉。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 1,
-    "target_chapter": 10,
+    "target_chapter": 11,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T12:49:18.845187",
-    "updated_at": "2026-06-07T13:47:12.916179"
+    "updated_at": "2026-06-07T13:48:54.694100"
   },
   {
     "id": "hook-002",
@@ -160,13 +160,13 @@
     "description": "沈渊背负九十块下品灵石的债务（=七年半月俸），一个月内缴清否则逐出宗门。这个外部压力将迫使他在赚钱过程中接触宗门底层运作。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 2,
-    "target_chapter": 10,
+    "target_chapter": 11,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T12:54:31.310216",
-    "updated_at": "2026-06-07T13:47:12.923686"
+    "updated_at": "2026-06-07T13:48:54.703439"
   },
   {
     "id": "hook-014",
@@ -437,15 +437,15 @@
     "description": "八十年前丙区旧档——红笔标注丙四层遇黑色硬层停工七日。第8章沈渊追查到八十二年前更早记录，发现\"青灰色硬层——质坚——以铁钎击之声如钟磬——停工三日——复开硬层不复见\"，确认壳在缩（八十年缩八十步）。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 5,
-    "target_chapter": 10,
+    "target_chapter": 11,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
     "created_at": "2026-06-07T13:14:23.688100",
-    "updated_at": "2026-06-07T13:47:12.930709"
+    "updated_at": "2026-06-07T13:48:54.710438"
   },
   {
     "id": "hook-036",
@@ -660,9 +660,9 @@
     "description": "第四层十八节铁链螺旋锁阵——铁链排列方向逐节偏移（正东正西→正北偏西），形成螺旋状锁阵。铁链刻痕中填充暗红色半透明流动物质（含铜有机物，活的/温的），与壳呼吸同步发光。铁链绷紧受力，壳在缩。",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 7,
-    "target_chapter": 15,
+    "target_chapter": 16,
     "related_characters": [
       "沈渊",
       "赵老四"
@@ -671,7 +671,7 @@
       "hook-044"
     ],
     "created_at": "2026-06-07T13:28:41.866488",
-    "updated_at": "2026-06-07T13:35:52.035637"
+    "updated_at": "2026-06-07T13:48:54.716948"
   },
   {
     "id": "hook-051",
@@ -710,13 +710,13 @@
     "description": "管事的在保养封灵阵——用狗脂定期擦拭阵钉。封灵阵有四枚阵钉（两枚压制+两枚引导），是青云宗标准道门符箓。管事堂维护封灵阵是有章法的系统性行为。谁在给锁了八十年的锁上油？",
     "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "deferred",
     "planted_chapter": 7,
-    "target_chapter": 15,
+    "target_chapter": 16,
     "related_characters": [],
     "related_hooks": [],
     "created_at": "2026-06-07T13:30:47.892967",
-    "updated_at": "2026-06-07T13:47:12.952750"
+    "updated_at": "2026-06-07T13:48:54.726971"
   },
   {
     "id": "hook-054",

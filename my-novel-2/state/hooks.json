@@ -1,0 +1,49 @@
+[
+  {
+    "id": "hook-001",
+    "description": "寄生灵气：沈渊灵根残骸内有异物——不是修复，而是\"进食\"。感知为微弱的温度和边缘的\"饥饿\"感。三年前灵根是被某种东西从内部吞噬的。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 5,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:48:10.684974",
+    "updated_at": "2026-06-07T13:48:10.684974"
+  },
+  {
+    "id": "hook-002",
+    "description": "外门执事关注沈渊：通过老周之口提及外门执事查药园账目时问起沈渊\"还在吗\"。暗示有人在留意沈渊的处境——是监视还是别的？",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 8,
+    "related_characters": [
+      "沈渊",
+      "外门执事"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:48:10.692537",
+    "updated_at": "2026-06-07T13:48:10.692537"
+  },
+  {
+    "id": "hook-003",
+    "description": "少年外门弟子：剑峰新弟子来取药，认出沈渊后脱口叫\"沈师兄\"。名字未交代。可能发展为沈渊的盟友或对比角色。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 10,
+    "related_characters": [
+      "沈渊",
+      "剑峰少年弟子"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T13:48:10.699048",
+    "updated_at": "2026-06-07T13:48:10.699048"
+  }
+]
