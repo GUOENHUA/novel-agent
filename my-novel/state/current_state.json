@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 3,
+  "current_chapter": 14,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,13 +8,77 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "冷静观察、系统性质疑",
-      "goal": "获取更多数据来验证灵气流动假说",
+      "emotional_state": "紧张而清醒，逐渐意识到双向锁定的困境",
+      "goal": "理解观测者的系统架构并保持不可替代性",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "周磊": {
+      "name": "周磊",
+      "current_location": "",
+      "emotional_state": "安静确认，不恐惧",
+      "goal": "确认自己在梦中被分配的位置",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "张执事": {
+      "name": "张执事",
+      "current_location": "",
+      "emotional_state": "焦虑——左手残臂在袖子里收缩，食指敲腿",
+      "goal": "告知沈渊问询回执上的异常字迹并透露四十年前的往事",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "孙老黑": {
+      "name": "孙老黑",
+      "current_location": "",
+      "emotional_state": "确信/被操控",
+      "goal": "被植入指令引导走向光柱",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "何九": {
+      "name": "何九",
+      "current_location": "",
+      "emotional_state": "确信/被操控",
+      "goal": "被植入指令引导走向光柱",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "林安": {
+      "name": "林安",
+      "current_location": "",
+      "emotional_state": "确信/被操控",
+      "goal": "被植入指令引导走向光柱",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "王木匠": {
+      "name": "王木匠",
+      "current_location": "",
+      "emotional_state": "确信/被操控——嘴角有确认而非喜悦的笑",
+      "goal": "被植入指令引导走向光柱",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "赵大": {
+      "name": "赵大",
+      "current_location": "",
+      "emotional_state": "未知",
+      "goal": "之前被指令放置粥碗",
+      "alive": true,
+      "chapter_updated": 0
+    },
+    "刘三": {
+      "name": "刘三",
+      "current_location": "",
+      "emotional_state": "认命，清醒接受",
+      "goal": "等待框架装好，接受自己的位置",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-07T07:46:31.076292"
+  "last_updated": "2026-06-07T10:01:08.623011"
 }
