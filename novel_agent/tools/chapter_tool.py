@@ -276,11 +276,22 @@ def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
     if matches:
         path = matches[0]
         content = path.read_text(encoding="utf-8")
+        # CC-style cat -n format with line numbers
+        offset = args.get("offset", 0)
+        limit = args.get("limit", 2000)
+        lines = content.split("\n")
+        if offset > 0:
+            lines = lines[offset:]
+        if limit and len(lines) > limit:
+            lines = lines[:limit]
+        numbered = "\n".join(f"{i+1+offset:>6}\t{line}" for i, line in enumerate(lines))
         return tool_result(
             success=True,
             chapter=chapter_num,
-            content=content,
+            content=numbered,
             word_count=len(content),
+            lines=len(lines),
+            total_lines=len(content.split("\n")),
         )
     else:
         return tool_result(
@@ -362,6 +373,16 @@ CHAPTER_TOOL_SCHEMA = {
             "instruction": {
                 "type": "string",
                 "description": "修改指令（edit 时，不用 old_string 时使用）。"
+            },
+            "offset": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "从第几行开始读（read 时使用，0=从头）。"
+            },
+            "limit": {
+                "type": "integer",
+                "maximum": 2000,
+                "description": "最多读多少行（read 时使用，默认2000）。"
             },
         },
         "required": ["action", "chapter_number"],
