@@ -156,6 +156,12 @@ class AutoPipeline:
                 if chapter_path.exists():
                     content = chapter_path.read_text("utf-8")
                     slop_score, slop_warnings = self._check_slop(content)
+                    # Lightweight session entry
+                    title = chapter_path.name.replace(f'ch_{ch:03d}_', '').replace('.md', '')
+                    self.agent.conversation_history.append({
+                        "role": "assistant",
+                        "content": f"第{ch}章 {title} 已保存。",
+                    })
                     # Settlement: retry until summary exists (max 3)
                     for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
                         try:
