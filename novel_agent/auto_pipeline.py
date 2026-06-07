@@ -193,9 +193,9 @@ class AutoPipeline:
                         "attempts": retry + 1,
                     })
                 else:
-                    # Fallback: save longest raw text from failed attempts if > 1000 chars
+                    # Fallback: save longest raw text from failed attempts
                     fallback = getattr(loop, '_auto_fallback_text', {}).get(ch, '')
-                    if fallback and len(fallback) > 1000:
+                    if fallback and len(fallback) > 200:
                         # Use ConversationLoop's save to get guard + title + format
                         loop._last_text_output = fallback
                         result = loop._save_chapter_to_file(ch, fallback)
