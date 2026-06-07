@@ -116,7 +116,8 @@ class AutoPipeline:
                 _safe_print(f"  [{progress}] Writing ch{ch}...")
                 t0 = time.time()
 
-                # Use the full conversational stack — thinking, tools, history, compression
+                # Clear history each chapter — prevents tool_use orphan errors
+                self.agent.conversation_history = []
                 assistant_text = loop.process_turn(
                     f"写第{ch}章完整正文，目标{words}字左右。"
                     f"写完后调用 preview_chapter 保存。",

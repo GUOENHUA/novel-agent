@@ -1,351 +1,152 @@
 [
   {
     "id": "hook-001",
-    "description": "沈渊在首次灵气运转中发现异常模式——灵气流动路径过于精确，像被设计过的代谢通路。这是全书核心悬念的第一个证据。",
-    "hook_type": "symbolic",
+    "description": "灵气单向流动——沈渊观察到蓝色光点整体向西北方向（内门/天上）移动，灵气并非弥漫静止，而是被某种力量抽走。核心谜题首次呈现。",
+    "hook_type": "direct",
     "scope": "chapter",
     "status": "mentioned",
     "planted_chapter": 1,
-    "target_chapter": 35,
+    "target_chapter": 15,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [],
-    "created_at": "2026-06-06T22:42:10.514343",
-    "updated_at": "2026-06-06T22:54:29.834503"
+    "created_at": "2026-06-07T07:42:25.808691",
+    "updated_at": "2026-06-07T07:46:43.372201"
   },
   {
-    "id": "hook-01-1",
-    "description": "灵泉的灵气流向是反直觉的：从修士丹田向外抽取，而非滋润吸收。",
+    "id": "hook-002",
+    "description": "沈渊手腕上的青色印记——修炼事故遗留，皮下有蓝色光点沿固定路径移动（像经脉路线图）。可能标记了某种特殊体质或被天道注意的痕迹。",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "mentioned",
+    "planted_chapter": 1,
+    "target_chapter": 30,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T07:42:25.808691",
+    "updated_at": "2026-06-07T07:46:43.377029"
+  },
+  {
+    "id": "hook-003",
+    "description": "原主人《青云纳气诀》上的批注——已发现修炼规律\"太精确\"，怀疑\"有人设计了这套系统\"。原主人接近真相后死于修炼事故。他的笔记是沈渊研究的起点。",
+    "hook_type": "action",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 20,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T07:42:25.824659",
+    "updated_at": "2026-06-07T07:42:25.824659"
+  },
+  {
+    "id": "hook-004",
+    "description": "沈渊写下的\"宿主\"二字——他第一时间用寄生关系定性修炼体系。结尾处用菌丝网络类比：灵气像寄生菌丝从根尖（低阶修士）单向运输到子实体（天道/高阶）。全书核心隐喻。",
+    "hook_type": "naming",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "target_chapter": 80,
+    "related_characters": [
+      "沈渊"
+    ],
+    "related_hooks": [],
+    "created_at": "2026-06-07T07:42:25.824659",
+    "updated_at": "2026-06-07T07:42:25.824659"
+  },
+  {
+    "id": "hook-005",
+    "description": "原主人批注指出灵气运行规律'太精确了'，暗示灵气系统是人为设计",
+    "hook_type": "dialogue",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T07:43:00.226327",
+    "updated_at": "2026-06-07T07:43:00.226327"
+  },
+  {
+    "id": "hook-006",
+    "description": "灵气单向流动——从外门到内门、从低阶到高阶、从人间到天上",
+    "hook_type": "symbolic",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 1,
+    "related_characters": [],
+    "related_hooks": [],
+    "created_at": "2026-06-07T07:43:00.231224",
+    "updated_at": "2026-06-07T07:43:00.231224"
+  },
+  {
+    "id": "hook-007",
+    "description": "沈渊手腕上的青色印记与蓝色光点——可能是被灵气系统标记或连接的痕迹",
     "hook_type": "action",
     "scope": "chapter",
     "status": "planted",
     "planted_chapter": 1,
     "related_characters": [],
     "related_hooks": [],
-    "created_at": "2026-06-06T22:45:05.482057",
-    "updated_at": "2026-06-06T22:45:05.482057"
+    "created_at": "2026-06-07T07:43:00.238425",
+    "updated_at": "2026-06-07T07:43:00.238425"
   },
   {
-    "id": "hook-01-2",
-    "description": "筑基修士灵力外放时，低阶修士体内灵气会被微量抽取，可测量。",
-    "hook_type": "action",
+    "id": "hook-008",
+    "description": "韩熙头顶三尺处出现垂直向上的蓝色细线——灵气流向不只有水平的\"西北\"维度，还有一个垂直的\"向上\"通道。沈渊暂时无法追踪其终点。",
+    "hook_type": "symbolic",
     "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 1,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:45:05.489409",
-    "updated_at": "2026-06-06T22:50:10.032306"
-  },
-  {
-    "id": "hook-01-3",
-    "description": "沈渊提出修炼体系整体是单向流寄生，灵气最终流向天道，决定寻找“底层协议”。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
-    "planted_chapter": 1,
-    "resolved_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:45:05.495654",
-    "updated_at": "2026-06-06T23:04:31.080433"
-  },
-  {
-    "id": "hook-002",
-    "description": "经脉图谱过于精确对称，与自然演化产物不符——暗示经脉是人造的、被植入人体的抽取接口",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "resolved",
+    "status": "planted",
     "planted_chapter": 2,
-    "target_chapter": 35,
-    "resolved_chapter": 4,
+    "target_chapter": 15,
+    "related_characters": [
+      "韩熙",
+      "沈渊"
+    ],
+    "related_hooks": [
+      "hook-001",
+      "hook-004"
+    ],
+    "created_at": "2026-06-07T07:46:43.355476",
+    "updated_at": "2026-06-07T07:46:43.355476"
+  },
+  {
+    "id": "hook-009",
+    "description": "灵植转化装置假说：灵植吸收灵水→维管束运输→叶尖释放游离灵气→汇入大气洋流。灵植自身留存率趋近于零，功能更像\"转换装置\"而非\"终端消费者\"。",
+    "hook_type": "direct",
+    "scope": "chapter",
+    "status": "planted",
+    "planted_chapter": 2,
+    "target_chapter": 25,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [
       "hook-001",
-      "hook-01-3"
+      "hook-006"
     ],
-    "created_at": "2026-06-06T22:48:18.520911",
-    "updated_at": "2026-06-06T23:04:31.085655"
+    "created_at": "2026-06-07T07:46:43.362647",
+    "updated_at": "2026-06-07T07:46:43.362647"
   },
   {
-    "id": "hook-003",
-    "description": "原主沈渊在灵气逆行死亡的瞬间\"看到了那些线\"——暗示原主死前瞥见了底层协议，这是穿越前后两个沈渊的连接点",
-    "hook_type": "dialogue",
+    "id": "hook-010",
+    "description": "百草圃西北墙灵气流速比东南角快约30%——暗示灵气洋流存在空间梯度，可能指向某个\"流域\"或\"汇流点\"。",
+    "hook_type": "direct",
     "scope": "chapter",
-    "status": "mentioned",
+    "status": "planted",
     "planted_chapter": 2,
-    "target_chapter": 55,
-    "related_characters": [
-      "沈渊",
-      "陆行舟"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:48:18.527469",
-    "updated_at": "2026-06-06T23:04:31.064301"
-  },
-  {
-    "id": "hook-004",
-    "description": "青云宗灵脉布局呈汇聚状——外门灵泉节点环绕内门，灵脉分支向内汇聚而非向外扩散，宗门建筑可能本身就是一座巨型收集阵法",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 2,
-    "target_chapter": 60,
+    "target_chapter": 10,
     "related_characters": [
       "沈渊"
     ],
     "related_hooks": [
       "hook-001"
     ],
-    "created_at": "2026-06-06T22:48:18.532517",
-    "updated_at": "2026-06-06T22:54:29.847978"
-  },
-  {
-    "id": "hook-005",
-    "description": "管事刘大注意到沈渊\"眼神变了\"——原主和穿越者之间的行为差异开始被身边人察觉，为身份暴露/被怀疑埋线",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 2,
-    "target_chapter": 25,
-    "related_characters": [
-      "沈渊",
-      "刘大"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:48:18.537763",
-    "updated_at": "2026-06-06T23:03:11.481747"
-  },
-  {
-    "id": "hook-02-1",
-    "description": "陆行舟回忆原主沈渊在灵气逆行前说看到“那些线”，暗示原主曾触及某种真相",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:50:10.009838",
-    "updated_at": "2026-06-06T22:50:10.009838"
-  },
-  {
-    "id": "hook-02-2",
-    "description": "沈渊通过观察和推理提出“经脉是接口”，将修炼解释为某种外置系统抽取灵气的过程",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:50:10.015880",
-    "updated_at": "2026-06-06T22:50:10.015880"
-  },
-  {
-    "id": "hook-02-3",
-    "description": "刘大注意到沈渊眼神变化，认为他“最近有点不对劲”，可能引发后续监视或冲突",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:50:10.022323",
-    "updated_at": "2026-06-06T22:50:10.022323"
-  },
-  {
-    "id": "hook-02-4",
-    "description": "灵脉分支向内汇聚如蜘蛛网，内门为网心，暗示灵脉系统的设计目的与内门秘密相关",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 2,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T22:50:10.026323",
-    "updated_at": "2026-06-06T22:50:10.026323"
-  },
-  {
-    "id": "hook-006",
-    "description": "灵泉水中灵气浓度存在台阶式陡降——水面下一尺处有异常抽取点",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 3,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-001",
-      "hook-005"
-    ],
-    "created_at": "2026-06-06T22:54:44.184026",
-    "updated_at": "2026-06-06T22:54:44.184026"
-  },
-  {
-    "id": "hook-007",
-    "description": "灵脉分支经过的石壁微温——灵气流动可能产生摩擦热",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 3,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-005"
-    ],
-    "created_at": "2026-06-06T22:54:44.189399",
-    "updated_at": "2026-06-06T22:54:44.189399"
-  },
-  {
-    "id": "hook-008",
-    "description": "外门青松树冠向内门方向偏斜3-5度，树根向灵脉方向生长——灵脉对植物有可观测的抽取/吸引效应",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 3,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-001",
-      "hook-005"
-    ],
-    "created_at": "2026-06-06T22:54:44.195744",
-    "updated_at": "2026-06-06T22:54:44.195744"
-  },
-  {
-    "id": "hook-009",
-    "description": "原主完整遗言还原：\"看到了。那些线。到处都是线。连在一起。往上走。\"——暗示灵气逆行时感知放大，看到了灵气流动的梯度线",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "related_characters": [
-      "沈渊",
-      "陆行舟"
-    ],
-    "related_hooks": [
-      "hook-003"
-    ],
-    "created_at": "2026-06-06T22:54:44.201097",
-    "updated_at": "2026-06-06T23:03:11.488747"
-  },
-  {
-    "id": "hook-010",
-    "description": "沈渊决定复现灵气逆行状态以亲自验证\"那些线\"——高风险自我实验",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "mentioned",
-    "planted_chapter": 3,
-    "target_chapter": 5,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [
-      "hook-003",
-      "hook-009"
-    ],
-    "created_at": "2026-06-06T22:54:44.206097",
-    "updated_at": "2026-06-06T23:03:11.495772"
-  },
-  {
-    "id": "hook-011",
-    "description": "原主修炼日志揭示：灵气流动速度在43天内呈阶梯状加速——系统在被\"校准\"，非自然现象。原主是主动触发灵气逆行的调查者，非意外受害者。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 35,
-    "related_characters": [
-      "沈渊",
-      "陆行舟"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:03:11.501770",
-    "updated_at": "2026-06-06T23:03:11.501770"
-  },
-  {
-    "id": "hook-012",
-    "description": "刘大的侄子在原主死亡当晚出现在旧木屋附近——刘大可能知情或参与了掩盖。刘大掌握所有杂役修炼数据，对灵气加速现象可能心知肚明。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 25,
-    "related_characters": [
-      "刘大",
-      "沈渊",
-      "陆行舟"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:03:11.507831",
-    "updated_at": "2026-06-06T23:03:11.507831"
-  },
-  {
-    "id": "hook-013",
-    "description": "旧木屋墙上的炭笔弧线——原主死前画的加速度曲线，与沈渊的第四张图形状相同。两个沈渊跨越死亡连接在同一发现上。",
-    "hook_type": "symbolic",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "target_chapter": 55,
-    "related_characters": [
-      "沈渊"
-    ],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:03:11.512957",
-    "updated_at": "2026-06-06T23:03:11.512957"
-  },
-  {
-    "id": "hook-04-1",
-    "description": "原主的修炼日志显示灵气流动速度被'人为校准'——阶梯状上升，像有人在拧旋钮。加速的终点是灵气逆行。",
-    "hook_type": "direct",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:04:31.040942",
-    "updated_at": "2026-06-06T23:04:31.040942"
-  },
-  {
-    "id": "hook-04-2",
-    "description": "刘大手里有所有杂役的修炼数据——如果速度上升是所有人都在经历的现象，他隐瞒了这一异常。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:04:31.047941",
-    "updated_at": "2026-06-06T23:04:31.047941"
-  },
-  {
-    "id": "hook-04-3",
-    "description": "原主出事当晚，刘大的侄子在旧木屋附近——平时从不巡那个方向。",
-    "hook_type": "dialogue",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:04:31.053511",
-    "updated_at": "2026-06-06T23:04:31.053511"
-  },
-  {
-    "id": "hook-04-4",
-    "description": "原主是故意触发灵气逆行来看'线'的——他在画完弧线后才坐下打坐。他成功了，然后死了。",
-    "hook_type": "action",
-    "scope": "chapter",
-    "status": "planted",
-    "planted_chapter": 4,
-    "related_characters": [],
-    "related_hooks": [],
-    "created_at": "2026-06-06T23:04:31.058889",
-    "updated_at": "2026-06-06T23:04:31.058889"
+    "created_at": "2026-06-07T07:46:43.367684",
+    "updated_at": "2026-06-07T07:46:43.367684"
   }
 ]

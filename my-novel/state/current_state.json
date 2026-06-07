@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 5,
+  "current_chapter": 3,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,29 +8,13 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "接近兴奋但被恐惧包裹",
-      "goal": "找个绝对不受打扰的位置，逆向还原触发条件，进入相同状态但不失控",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "陆行舟": {
-      "name": "陆行舟",
-      "current_location": "",
-      "emotional_state": "担忧",
-      "goal": "帮沈渊保管杂物袋",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "刘大": {
-      "name": "刘大",
-      "current_location": "",
-      "emotional_state": "平静中隐含审视",
-      "goal": "要求沈渊补交灵力浓度记录和杂役修炼数据，天亮前交到管事处",
+      "emotional_state": "冷静观察、系统性质疑",
+      "goal": "获取更多数据来验证灵气流动假说",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-06T23:04:31.106991"
+  "last_updated": "2026-06-07T07:46:31.076292"
 }
