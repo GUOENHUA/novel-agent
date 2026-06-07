@@ -670,17 +670,23 @@ class ConversationLoop:
             out_dir = self.agent.project_dir / "outline"
             out_dir.mkdir(parents=True, exist_ok=True)
             path = out_dir / "full.md"
-            path.write_text(content, encoding="utf-8")
-            safe_print("  [green]Auto-saved: outline[/green]")
-            return _json.dumps({"status": "saved", "path": str(path)})
+            # Outline is plain text, not in a code block
+            outline_content = content or raw.strip()
+            if outline_content and len(outline_content) > 200:
+                path.write_text(outline_content, encoding="utf-8")
+                safe_print("  [green]Auto-saved: outline[/green]")
+            else:
+                safe_print("  [red]Outline too short, not saved[/red]")
+            return _json.dumps({"status": "saved" if path.exists() else "skipped", "path": str(path)})
 
         elif tool_name == "preview_setting":
             s_type = args.get("setting_type", "character")
             name = args.get("name", "")
             desc = args.get("description", "")
+            setting_content = content or raw.strip()
             result = registry.dispatch(
                 "memory",
-                {"action": "add", "type": s_type, "name": name, "description": desc, "content": content},
+                {"action": "add", "type": s_type, "name": name, "description": desc, "content": setting_content},
                 chapters_dir=str(self.agent.chapters_dir),
                 project_dir=str(self.agent.project_dir),
             )
