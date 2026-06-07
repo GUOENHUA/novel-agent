@@ -1,6 +1,6 @@
 {
   "novel_title": "",
-  "current_chapter": 15,
+  "current_chapter": 21,
   "current_scene": "",
   "total_words_written": 0,
   "phase": "writing",
@@ -8,77 +8,37 @@
     "沈渊": {
       "name": "沈渊",
       "current_location": "",
-      "emotional_state": "清醒而冷静——不是恐惧，是对系统更深层的理解带来的后脑发凉",
-      "goal": "理解系统到最深程度，找到接口的根权限",
+      "emotional_state": "紧张但找到突破方向",
+      "goal": "找到不用铜针释放灵气以阻止鞘收缩的方法",
       "alive": true,
       "chapter_updated": 0
     },
-    "周磊": {
-      "name": "周磊",
+    "赵谦": {
+      "name": "赵谦",
       "current_location": "",
-      "emotional_state": "平静而接纳——比刘三更确定，像已知流程的人在确认流程正常执行",
-      "goal": "等待刘三装好，然后轮到自己被填入框架",
+      "emotional_state": "担忧但服从安排",
+      "goal": "帮助沈渊望风",
       "alive": true,
       "chapter_updated": 0
     },
-    "张执事": {
-      "name": "张执事",
+    "张师兄": {
+      "name": "张师兄",
       "current_location": "",
-      "emotional_state": "焦虑——左手残臂在袖子里收缩，食指敲腿",
-      "goal": "告知沈渊问询回执上的异常字迹并透露四十年前的往事",
+      "emotional_state": "沉重——扛着太多秘密",
+      "goal": "传递消息后离开",
       "alive": true,
       "chapter_updated": 0
     },
-    "孙老黑": {
-      "name": "孙老黑",
+    "刘长老": {
+      "name": "刘长老",
       "current_location": "",
-      "emotional_state": "确信/被操控",
-      "goal": "被植入指令引导走向光柱",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "何九": {
-      "name": "何九",
-      "current_location": "",
-      "emotional_state": "确信/被操控",
-      "goal": "被植入指令引导走向光柱",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "林安": {
-      "name": "林安",
-      "current_location": "",
-      "emotional_state": "确信/被操控",
-      "goal": "被植入指令引导走向光柱",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "王木匠": {
-      "name": "王木匠",
-      "current_location": "",
-      "emotional_state": "确信/被操控——嘴角有确认而非喜悦的笑",
-      "goal": "被植入指令引导走向光柱",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "赵大": {
-      "name": "赵大",
-      "current_location": "",
-      "emotional_state": "未知",
-      "goal": "之前被指令放置粥碗",
-      "alive": true,
-      "chapter_updated": 0
-    },
-    "刘三": {
-      "name": "刘三",
-      "current_location": "",
-      "emotional_state": "已转化为系统模块，不再是独立意识",
-      "goal": "无——已完成转化",
+      "emotional_state": "表面公事公办，暗中掩护沈渊",
+      "goal": "不明——选择不揭穿沈渊但也不公开站队",
       "alive": true,
       "chapter_updated": 0
     }
   },
   "active_conflicts": [],
   "unresolved_questions": [],
-  "last_updated": "2026-06-07T10:05:43.512864"
+  "last_updated": "2026-06-07T12:33:45.393094"
 }
