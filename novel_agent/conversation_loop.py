@@ -205,7 +205,7 @@ class ConversationLoop:
                 f"如果还没有 style 记忆，请先创建一份（全局一份，写作前设定，不要按章节更新）。"
             )
 
-        messages = self.agent.conversation_history + [
+        messages = (self.agent.conversation_history if interactive else []) + [
             {"role": "user", "content": augmented_message},
         ]
         if not interactive:
@@ -391,22 +391,21 @@ class ConversationLoop:
             if turn_input_tokens:
                 safe_print(f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk | total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n")
 
-            # Update history — only save user + assistant final text (not tool interactions)
-            # Tool_use/tool_result pairs break on resume since tool_use_ids don't persist
-            self.agent.conversation_history.append({"role": "user", "content": user_message})
-            # Build a clean text-only assistant message (serialize SDK blocks to plain dicts)
-            final_text = self.agent.extract_text(response.content) or ""
-            if final_text:
-                self.agent.conversation_history.append({
-                    "role": "assistant",
-                    "content": [{"type": "text", "text": final_text}],
-                })
-            else:
-                serialized = self._serialize_content_blocks(response.content)
-                self.agent.conversation_history.append({
-                    "role": "assistant",
-                    "content": serialized,
-                })
+            # Update history — interactive mode only
+            if interactive:
+                self.agent.conversation_history.append({"role": "user", "content": user_message})
+                final_text = self.agent.extract_text(response.content) or ""
+                if final_text:
+                    self.agent.conversation_history.append({
+                        "role": "assistant",
+                        "content": [{"type": "text", "text": final_text}],
+                    })
+                else:
+                    serialized = self._serialize_content_blocks(response.content)
+                    self.agent.conversation_history.append({
+                        "role": "assistant",
+                        "content": serialized,
+                    })
 
             # Compression check
             self._maybe_compress(turn_input_tokens)
