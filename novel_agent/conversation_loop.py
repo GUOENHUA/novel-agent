@@ -188,7 +188,8 @@ class ConversationLoop:
             augmented_message = (
                 f"{novel_context}\n\n---\n\n"
                 f"基于以上状态处理用户指令。\n"
-                f"大纲/角色/世界观内容请**务必**使用对应工具：outline_plot save, memory add, track_hooks。\n\n"
+                f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。\n"
+                f"写大纲时先确定小说类型（如男频-玄幻、悬疑修仙等），再展开核心设定。\n\n"
                 f"写章节正文时，将内容放在代码块内：\n\n"
                 f"```章节\n"
                 f"# 第N章 标题（N为阿拉伯数字）\n\n"
@@ -210,8 +211,9 @@ class ConversationLoop:
         ]
         if not interactive:
             messages.append({"role": "user", "content": (
-                "【检查清单】如果还没有大纲，先构思核心概念、世界观设定、"
-                "主角和重要反派，至少写500字的大纲用 outline_plot save 保存。"
+                "【检查清单】如果还没有大纲，先确定小说类型（如男频-玄幻、"
+                "悬疑修仙、科幻架空等），然后构思核心概念、世界观设定、"
+                "主角和重要反派，写大纲用 outline_plot save 保存。"
                 "角色/世界观/style记忆也要先建。\n\n"
                 "【章节格式】写在代码块内，写完调 preview_chapter 保存：\n"
                 "```章节\n"
