@@ -585,14 +585,20 @@ class ConversationLoop:
         lines = content.split('\n')
         title = ''
         body_start = 0
-        if lines and lines[0].startswith('#'):
-            import re
-            m = re.match(r'#\s*第\d+章\s+(.+)', lines[0])
-            title = m.group(1).strip() if m else lines[0].lstrip('#').strip()
+        # Find the first real chapter header (skip empty-title format headers)
+        import re
+        for i, line in enumerate(lines):
+            m = re.match(r'#\s*第\d+章\s+(.+)', line)
+            if m:
+                title = m.group(1).strip()
+                body_start = i + 1
+                break
+        if not title and lines and lines[0].startswith('#'):
+            title = lines[0].lstrip('#').strip()
             body_start = 1
-            # Skip blank line after title
-            if body_start < len(lines) and not lines[body_start].strip():
-                body_start += 1
+        # Skip blank line after title
+        if body_start < len(lines) and not lines[body_start].strip():
+            body_start += 1
         body = '\n'.join(lines[body_start:]).strip()
         if not body or len(body) < 200:
             return {"success": False, "error": f"Body too short ({len(body)} chars)"}

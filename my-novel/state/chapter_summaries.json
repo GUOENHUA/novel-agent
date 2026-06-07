@@ -419,5 +419,20 @@
     "narrative_distance": "close_third",
     "tense": "past",
     "thought_style": "free_indirect"
+  },
+  {
+    "chapter_number": 20,
+    "title": "第五人",
+    "word_count": 5072,
+    "summary": "...",
+    "key_events": [],
+    "characters_appearing": [],
+    "hooks_planted": [],
+    "hooks_resolved": [],
+    "mood": "tense",
+    "pov_character": "",
+    "narrative_distance": "",
+    "tense": "",
+    "thought_style": ""
   }
 ]
