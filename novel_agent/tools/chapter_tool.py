@@ -205,20 +205,42 @@ def _handle_write_and_save(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
 
 
 def _handle_edit(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
-    """Edit an existing chapter. Loads it and returns it with edit instructions."""
+    """Edit an existing chapter. Supports exact string replacement (like CC Edit)
+    and instruction-based editing."""
     chapter_num = args.get("chapter_number", 0)
-    instruction = args.get("instruction", "")
+    old_str = args.get("old_string", "")
+    new_str = args.get("new_string", "")
     chapters_dir = kwargs.get("chapters_dir", ".")
     from pathlib import Path as P
     dir_path = P(chapters_dir)
     existing = list(dir_path.glob(f"ch_{chapter_num:03d}_*.md"))
     if not existing:
         return tool_error(f"Chapter {chapter_num} not found.")
-    current = existing[0].read_text(encoding="utf-8")
+    path = existing[0]
+    current = path.read_text(encoding="utf-8")
+
+    # Exact replacement mode (CC-style)
+    if old_str:
+        count = current.count(old_str)
+        if count == 0:
+            return tool_error(f"old_string not found in chapter {chapter_num}.")
+        if count > 1:
+            return tool_error(f"old_string matches {count} times — must be unique. Add more context to make it match exactly once.")
+        edited = current.replace(old_str, new_str)
+        path.write_text(edited, encoding="utf-8")
+        return tool_result(
+            success=True, chapter=chapter_num, action="edit",
+            replaced=True, word_count=len(edited),
+        )
+
+    # Instruction mode (fallback)
+    instruction = args.get("instruction", "")
+    if not instruction:
+        return tool_error("edit requires old_string+new_string or instruction.")
     return tool_result(
         success=True, chapter=chapter_num, action="edit",
         current_content=current, instruction=instruction,
-        hint="The agent should rewrite this chapter based on the instruction and call write_chapter(action=save, ...) with the edited version.",
+        hint="Rewrite based on instruction and call write_chapter(action=save, ...) with the edited version.",
     )
 
 
@@ -273,21 +295,20 @@ def _handle_read(args: dict[str, Any], kwargs: dict[str, Any]) -> str:
 CHAPTER_TOOL_SCHEMA = {
     "name": "write_chapter",
     "description": (
-        "撰写、保存或修改小说章节。支持四个操作：\n"
+        "撰写、保存或修改小说章节。\n"
         "- write: 生成章节写作指令\n"
         "- save: 保存章节到磁盘（chapter_number, content, title）\n"
+        "- edit: 精确修改章节——给定 old_string（必须唯一），替换为 new_string\n"
         "- settle: 提取结构化状态信息\n"
-        "- read: 读取已有章节（chapter_number=0返回目录）\n\n"
-        "每次写新章节时，先调用 write 获取写作指令，用 LLM 生成正文后，"
-        "再调用 settle 提取状态更新。"
+        "- read: 读取已有章节（chapter_number=0返回目录）"
     ),
     "input_schema": {
         "type": "object",
         "properties": {
             "action": {
                 "type": "string",
-                "enum": ["write", "write_and_save", "save", "settle", "read"],
-                "description": "操作类型。write=生成写作指令，save=保存到磁盘，settle=提取状态，read=读取章节（0=目录）。"
+                "enum": ["write", "write_and_save", "save", "edit", "settle", "read"],
+                "description": "操作类型。edit=精确替换（old_string→new_string）。"
             },
             "chapter_number": {
                 "type": "integer",
@@ -329,6 +350,18 @@ CHAPTER_TOOL_SCHEMA = {
             "chapter_content": {
                 "type": "string",
                 "description": "章节正文内容（settle 时需要）。"
+            },
+            "old_string": {
+                "type": "string",
+                "description": "要替换的原文本（edit 时使用，必须唯一匹配）。"
+            },
+            "new_string": {
+                "type": "string",
+                "description": "替换后的新文本（edit 时使用）。"
+            },
+            "instruction": {
+                "type": "string",
+                "description": "修改指令（edit 时，不用 old_string 时使用）。"
             },
         },
         "required": ["action", "chapter_number"],
