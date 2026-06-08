@@ -50,7 +50,7 @@ def _on_sigint(signum, frame):
 def safe_print(text: str) -> None:
     """Print text, falling back to ascii on encoding errors."""
     try:
-        print(text)
+        console.print(text)
     except UnicodeEncodeError:
         safe = text.encode('ascii', errors='replace').decode('ascii')
         print(safe)
@@ -394,7 +394,7 @@ class ConversationLoop:
             self.total_input_tokens += turn_input_tokens
             self.total_output_tokens += turn_output_tokens
             if turn_input_tokens:
-                safe_print(f"  [dim]turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk | total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk[/dim]\n")
+                safe_print(f"  turn: {turn_input_tokens:,}+{turn_output_tokens:,} tk | total: {self.total_input_tokens:,}+{self.total_output_tokens:,} tk\n")
 
             # Update history — interactive mode only
             if interactive:
