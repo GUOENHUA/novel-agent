@@ -28,6 +28,7 @@ import novel_agent.tools.plot_tool         # noqa: F401  # outline & plot planni
 import novel_agent.tools.character_tool     # noqa: F401  # character development
 import novel_agent.tools.chapter_tool      # noqa: F401  # chapter writing
 import novel_agent.tools.lore_tool         # noqa: F401  # lore search
+import novel_agent.tools.search_chapters   # noqa: F401  # chapter content search
 import novel_agent.tools.consistency_tool  # noqa: F401  # consistency checking
 import novel_agent.tools.slop_checker      # noqa: F401  # AI-slop detection
 import novel_agent.tools.export_tool       # noqa: F401  # chapter export
@@ -205,6 +206,11 @@ class ConversationLoop:
                 f"大纲/角色/世界观内容请使用对应工具：outline_plot save, memory add, track_hooks。\n"
                 f"如果还没有 style 记忆，请先创建一份（全局一份，写作前设定，不要按章节更新）。"
             )
+            # Add hook search suggestions for near-window or overdue hooks
+            curr_ch = self.agent.truth_files.load_state().current_chapter or 1
+            hook_hint = self._build_hook_search_suggestions(curr_ch)
+            if hook_hint:
+                augmented_message += "\n\n" + hook_hint
 
         messages = (self.agent.conversation_history if interactive else []) + [
             {"role": "user", "content": augmented_message},
@@ -1035,3 +1041,32 @@ class ConversationLoop:
             config = json.loads(config_path.read_text(encoding="utf-8"))
             config["title"] = title
             config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    def _build_hook_search_suggestions(self, current_ch: int) -> str:
+        """Build search suggestions for hooks near payoff or overdue."""
+        try:
+            active_hooks = self.agent.hook_ledger.get_active()
+            overdue = self.agent.hook_ledger.get_overdue(current_ch)
+        except Exception:
+            return ""
+
+        window_end = current_ch + 10
+        upcoming = [h for h in active_hooks
+                    if h.target_chapter and current_ch <= h.target_chapter <= window_end]
+
+        if not upcoming and not overdue:
+            return ""
+
+        lines = ["【伏笔搜索建议】以下伏笔在回收窗口内，建议先搜索原文再动笔："]
+        for h in overdue[:3]:
+            lines.append(f"- [{h.id}] {h.description[:60]}（第{h.planted_chapter}章种植，已逾期）")
+        upcoming.sort(key=lambda h: h.target_chapter or 999)
+        for h in upcoming[:5]:
+            gap = h.target_chapter - current_ch if h.target_chapter else 999
+            lines.append(f"- [{h.id}] {h.description[:60]}（第{h.planted_chapter}章，{gap}章后回收）")
+        # Suggest specific search
+        top = overdue[:1] or upcoming[:1]
+        if top:
+            h = top[0]
+            lines.append(f"\n建议: search_chapters(query=\"{h.description[:30]}\") 查找原文。")
+        return "\n".join(lines)

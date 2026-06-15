@@ -709,6 +709,7 @@ class AIAgent:
         lines.append("## 🔍 按需查询（需要时使用工具获取）")
         lines.append("- 全章节目录+摘要 → `write_chapter(action=read, chapter_number=0)`")
         lines.append("- 任意章节全文 → `write_chapter(action=read, chapter_number=N)`")
+        lines.append("- 搜索章节正文关键词 → `search_chapters(query=..., max_results=10)`（查找角色对话、场景细节等）")
         lines.append("- 角色详细信息 → `memory(action=search, type=character, query=...)`")
         lines.append("- 世界观设定 → `search_lore(action=search, query=...)` 或 `memory(action=search, type=world, query=...)`")
         lines.append("- 完整伏笔报告 → `track_hooks(action=report, current_chapter=N)`")
