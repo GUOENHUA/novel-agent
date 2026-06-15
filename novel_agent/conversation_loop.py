@@ -212,21 +212,25 @@ class ConversationLoop:
             if hook_hint:
                 augmented_message += "\n\n" + hook_hint
 
-        messages = (self.agent.conversation_history if interactive else []) + [
-            {"role": "user", "content": augmented_message},
-        ]
         if not interactive:
-            messages.append({"role": "user", "content": (
-                "【检查清单】如果还没有大纲，先确定小说类型（如男频-玄幻、"
-                "悬疑修仙、科幻架空等），然后构思核心概念、世界观设定、"
-                "主角和重要反派，写大纲用 outline_plot save 保存。"
-                "角色/世界观/style记忆也要先建。\n\n"
-                "【章节格式】写在代码块内，写完调 preview_chapter 保存：\n"
-                "```章节\n"
-                "# 第N章 标题（N=阿拉伯数字）\n\n"
-                "正文...\n"
-                "```\n"
-                "代码块外写思考。系统只提取代码块内容。")})
+            messages = (self.agent.conversation_history if interactive else []) + [
+                {"role": "user", "content": (
+                    "【检查清单】如果还没有大纲，先确定小说类型（如男频-玄幻、"
+                    "悬疑修仙、科幻架空等），然后构思核心概念、世界观设定、"
+                    "主角和重要反派，写大纲用 outline_plot save 保存。"
+                    "角色/世界观/style记忆也要先建。\n\n"
+                    "【章节格式】写在代码块内，写完调 preview_chapter 保存：\n"
+                    "```章节\n"
+                    "# 第N章 标题（N=阿拉伯数字）\n\n"
+                    "正文...\n"
+                    "```\n"
+                    "代码块外写思考。系统只提取代码块内容。")},
+                {"role": "user", "content": augmented_message},
+            ]
+        else:
+            messages = self.agent.conversation_history + [
+                {"role": "user", "content": augmented_message},
+            ]
         # Sanitize: ensure all assistant messages use ContentBlock array format
         for msg in messages:
             if msg.get("role") == "assistant" and isinstance(msg.get("content"), str):
